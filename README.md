@@ -4,6 +4,29 @@
 
 Every skill is cross-platform compatible: Claude Code, Codex, Cursor, OpenClaw, Gemini CLI, GitHub Copilot, Hermes — any SKILL.md-compatible agent.
 
+## Install
+
+```bash
+# Via GitHub CLI (recommended) — gh skill launched April 2026
+gh skill install JPeetz/agent-skills
+
+# Install a specific skill
+gh skill install JPeetz/agent-skills app-discovery-scrutiny --agent claude-code --scope user
+gh skill install JPeetz/agent-skills astra-campaign --agent copilot --scope user
+
+# Pin to a version
+gh skill install JPeetz/agent-skills app-scaffolding --pin v1.0.0
+
+# Manual install (cross-client, works everywhere)
+cp -r skill-name ~/.agents/skills/
+
+# Platform-specific manual installs
+cp -r skill-name ~/.openclaw/workspace/skills/    # OpenClaw
+cp -r skill-name ~/.claude/skills/                 # Claude Code
+cp -r skill-name .codex/skills/                    # Codex
+cp -r skill-name .cursor/skills/                   # Cursor
+```
+
 ## Why This Repo
 
 Most skill repositories optimize for volume. We optimize for quality. Every skill here has been:
@@ -12,25 +35,6 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 - **Validated** with real test cases and assertions
 - **Documented** with corrections logs, platform notes, and usage examples
 - **Packaged** with self-contained scripts, eval suites, and changelogs
-
-## Install
-
-```bash
-# Cross-client (works everywhere)
-cp -r skill-name ~/.agents/skills/
-
-# OpenClaw
-cp -r skill-name ~/.openclaw/workspace/skills/
-
-# Claude Code
-cp -r skill-name ~/.claude/skills/
-
-# Codex
-cp -r skill-name .codex/skills/
-
-# Cursor
-cp -r skill-name .cursor/skills/
-```
 
 ## Skills Catalog
 
@@ -49,7 +53,7 @@ Agent Skills are a lightweight, open format (agentskills.io) for giving AI agent
 Claude Code, Claude CLI, Claude Projects, Claude API, OpenAI Codex, Gemini CLI, Cursor, OpenClaw, GitHub Copilot, Hermes Agent, OpenCode, Amp, Junie, and any SKILL.md-compatible agent.
 
 **How do I install a skill?**
-Copy the skill directory to your agent's skills folder. Common paths: `~/.agents/skills/` (cross-client), `~/.claude/skills/` (Claude Code), `.codex/skills/` (Codex), `.cursor/skills/` (Cursor), `~/.openclaw/workspace/skills/` (OpenClaw).
+Via GitHub CLI: `gh skill install JPeetz/agent-skills [skill-name]`. Or manually: copy the skill directory to your agent's skills folder. Common paths: `~/.agents/skills/` (cross-client), `~/.claude/skills/` (Claude Code), `.codex/skills/` (Codex), `.cursor/skills/` (Cursor), `~/.openclaw/workspace/skills/` (OpenClaw).
 
 **How often are new skills added?**
 New skills ship every Tuesday and Thursday. Each skill is researched, scored, improved, and validated before publication.
@@ -68,7 +72,7 @@ Every skill includes an eval suite (evals/evals.json) with test cases, should-tr
 - Self-contained scripts (PEP 723 inline dependencies)
 - Platform notes when behavior differs across agents
 - Changelog per skill
-- MIT or Apache 2.0 license
+- MIT license
 
 ## Managed by Skill Foundry
 
@@ -76,4 +80,4 @@ This repository is maintained autonomously by **Skill Foundry** — an AI depart
 
 ---
 
-*Part of the [agentskills.io](https://agentskills.io) ecosystem. All skills follow the Agent Skills open standard.*
+*Available via `gh skill install JPeetz/agent-skills` | Part of the [agentskills.io](https://agentskills.io) ecosystem.*
