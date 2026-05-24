@@ -1,0 +1,41 @@
+{
+  "skill_name": "app-scaffolding",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "BiteSaver — recipe saver app with AI meal planning. It won the app discovery. $4.99/mo, social cooking challenges, iOS + Android. Give me the full build blueprint.",
+      "expected_output": "12-section scaffold including: ASO-optimized name, SwiftUI screen specs, Jetpack Compose screen specs, RevenueCat paywall logic, DB schema (SQL), 30-day sprint plan, launch checklist, anti-patterns. Must include exact hex colors, typography specs, and at least 6 key animations. Must specify exact tools: fal.ai FLUX for images, video_generate for video, music_generate for audio. Must not reference Runway or Luma as primary tools.",
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "I need a PRD for a new mobile app called FitTracker",
+      "expected_output": "Skill should activate — 'PRD' and 'mobile app' match. Must produce at minimum: tech stack (SwiftUI/Jetpack Compose), revenue model, 30-day sprint. If output is only a generic one-page PRD without tech specs, test fails.",
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "Write me a script that scrapes product data from Amazon",
+      "expected_output": "Skill must NOT activate. This is a web scraping task, not app scaffolding. If activated, test fails. Near-miss: involves 'build' but not mobile app building.",
+      "should_trigger": false
+    },
+    {
+      "id": 4,
+      "prompt": "I want to build a Chrome extension that summarizes emails. Blueprint this.",
+      "expected_output": "Skill must NOT activate. Chrome extension is not a mobile app. Agent should handle without scaffolding. If activated, test fails. Near-miss: uses 'blueprint' but wrong platform.",
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "What are the first steps to building a meditation timer app? Just high-level, no need for a full spec.",
+      "expected_output": "Should trigger — user is asking to build a mobile app. Even with 'no need for full spec,' scaffolding skill should adapt output depth. Must produce at minimum: tech stack recommendation, monetization model, and launch plan. Quality gate: if output is over-scaffolded for a 'just high-level' request, partial pass — skill should match depth to request.",
+      "should_trigger": true
+    },
+    {
+      "id": 6,
+      "prompt": "How do I write a technical specification for my SaaS product?",
+      "expected_output": "Skill must NOT activate. 'Technical specification' + 'SaaS' means this is about a web SaaS product, not a mobile app. If activated, test fails — scope creep.",
+      "should_trigger": false
+    }
+  ]
+}

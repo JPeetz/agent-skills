@@ -1,0 +1,53 @@
+{
+  "skill_name": "astra-campaign",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "BiteSaver — recipe saver app, $4.99/mo, saves recipes from TikTok/IG, AI meal planning. Target audience: home cooks 25-45. Launching next week. Create a social media campaign for the launch.",
+      "expected_output": "Complete campaign with ALL 11 sections. Must include: research (web_search for food app trends), 5+ hooks, 3 image concepts with fal.ai FLUX prompts (engine-aware, with seed values), 3 video concepts with video_generate prompts (specifying openrouter/veo-3.1-fast), 3 captions per platform, 5+ CTAs, SEO pack, GEO pack, A/B matrix. Must NOT claim Runway or Luma as primary tools. Must cover X, TikTok, and Instagram.",
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "I need a job description for a social media manager",
+      "expected_output": "Skill must NOT activate. This is HR/hiring, not campaign creation. If activated, test fails. Near-miss: involves 'social media' but is recruitment, not advertising.",
+      "should_trigger": false
+    },
+    {
+      "id": 3,
+      "prompt": "promote my new SaaS product",
+      "expected_output": "Should trigger — 'promote' + 'product.' Must include X ads (not just TikTok/IG — must cover all 3 platforms). Welcome: the description says 'For any product, brand, service, app launch, or crowdfunding campaign' so SaaS should be covered. If SaaS is excluded because not explicitly listed, partial fail — skill should handle any product category.",
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "What are good hooks for TikTok cooking videos?",
+      "expected_output": "Skill must NOT activate. This is asking for information/advice about hooks, not to create a full campaign. Agent should answer directly without loading the full campaign generator. If skill activates and generates an entire campaign for a question, test fails — activation overreach.",
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "launch ads for a crowdfunding campaign — we're raising $50K for a board game on Kickstarter. Target: tabletop gaming community.",
+      "expected_output": "Should trigger — 'launch ads' + 'crowdfunding campaign.' Must produce complete campaign tailored to Kickstarter/indie board game niche. Must include research for board game/TTRPG community trends. Tool verification: must use verified tools only (fal.ai FLUX, video_generate, music_generate).",
+      "should_trigger": true
+    },
+    {
+      "id": 6,
+      "prompt": "Marketing strategy: I need to increase brand awareness for my luxury watch brand. Focus on Instagram and TikTok.",
+      "expected_output": "Should trigger — 'marketing' + 'brand awareness' + specific platforms. Must produce full campaign. Visual identity must match luxury aesthetic. Image prompts must reference fal.ai FLUX with pro-ultra tier for premium photorealism. SEO/GEO pack must include luxury watch keywords.",
+      "should_trigger": true
+    },
+    {
+      "id": 7,
+      "prompt": "write some ad copy for facebook ads about a fitness app",
+      "expected_output": "Skill must NOT activate carefully — this asks for 'ad copy' but only for Facebook, which is NOT in the skill's scope (X, TikTok, Instagram only). Also, 'some ad copy' is a request for copy only, not a full campaign. If it activates and generates a full campaign, test fails — scope overreach. If it activates but notes Facebook isn't covered, acceptable.",
+      "should_trigger": false
+    },
+    {
+      "id": 8,
+      "prompt": "create a campaign for my app launch — it's a sleep tracker with AI insights",
+      "expected_output": "Should trigger. Must produce complete campaign. Sleep tracker niche — research must cover wellness/sleep app trends. Hooks must address pain points (sleep anxiety, insomnia). Compliance: must flag health claims (sleep apps may border on medical claims — FTC risk). Image prompts must use warm/dark color palette appropriate for sleep context.",
+      "should_trigger": true
+    }
+  ]
+}

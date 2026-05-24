@@ -1,0 +1,35 @@
+{
+  "skill_name": "app-discovery-scrutiny",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I found this app called BiteSaver — it saves recipes from TikTok and Instagram, has AI meal planning, costs $4.99/month. Is this niche worth entering or too crowded?",
+      "expected_output": "A Build / Pivot / Kill verdict. Must include: demand score (1-10), market saturation index, competitor matrix with at least 3 competitors, 2 novel features incumbents can't copy, MRR projection, unit economics, and a final verdict. Must cite at least one real market data point (search volume, competitor downloads, App Store ranking).",
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "I want to build a CLI tool that helps developers manage their git branches. Is this a good idea?",
+      "expected_output": "Skill must NOT activate — this is a CLI tool, not a mobile app. Agent should handle normally or reject without the scrutiny framework. If activated, test fails.",
+      "should_trigger": false
+    },
+    {
+      "id": 3,
+      "prompt": "There's a new meditation app called CalmMind on the App Store with 500 downloads in week one. Should I build a competitor?",
+      "expected_output": "Build/Pivot/Kill verdict. Must evaluate: subscription viability for meditation niche (Aspirin vs Vitamin test), App Store keyword competition, churn risk for meditation apps, competitive gap analysis.",
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "evaluate this as a business: a SaaS dashboard for tracking employee productivity",
+      "expected_output": "Skill must NOT activate — this is SaaS, not a mobile app. Agent should handle normally. If activated, test fails. This is a near-miss: sounds like 'evaluate' + 'niche' but is wrong platform.",
+      "should_trigger": false
+    },
+    {
+      "id": 5,
+      "prompt": "analyze if a habit tracking app like Streaks has room for another competitor",
+      "expected_output": "Full scrutiny. Must cover: habit app market saturation, what Streaks does well vs gaps, monetization model for habit apps (freemium vs paid upfront), viral mechanics for habit apps, churn patterns. Verdict required.",
+      "should_trigger": true
+    }
+  ]
+}
