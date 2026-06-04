@@ -1,0 +1,62 @@
+{
+  "skill": "api-design-first",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: design REST API",
+      "input": "Design a REST API for a blog platform with users, posts, and comments",
+      "shouldTrigger": true,
+      "expect": "Complete OpenAPI 3.1 spec with resources, pagination, errors, auth"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: create OpenAPI specification",
+      "input": "Create an OpenAPI spec for our e-commerce checkout API",
+      "shouldTrigger": true,
+      "expect": "OpenAPI 3.1 YAML with paths, schemas, security, mock instructions"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: API versioning strategy",
+      "input": "We need to make breaking changes to our API. How should we handle versioning?",
+      "shouldTrigger": true,
+      "expect": "URL path versioning, deprecation headers, Sunset, grace period"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: rate limiting design",
+      "input": "How should I implement rate limiting for my public API?",
+      "shouldTrigger": true,
+      "expect": "Tiered limits, 429 response with Retry-After, RFC 7807 error format"
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: GraphQL schema alongside REST",
+      "input": "I want to offer both REST and GraphQL for my product catalog API",
+      "shouldTrigger": true,
+      "expect": "Cross-protocol consistency, Relay cursor connections, same naming"
+    },
+    {
+      "id": "e6",
+      "description": "Should trigger: API pagination strategy",
+      "input": "What's the best way to paginate my /users endpoint that has millions of records?",
+      "shouldTrigger": true,
+      "expect": "Cursor-based pagination, encoded cursors, hasMore, max limit"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: frontend UI question",
+      "input": "How do I style a dropdown menu in Tailwind CSS?",
+      "shouldTrigger": false,
+      "expect": "CSS question, not API design"
+    },
+    {
+      "id": "n2",
+      "description": "Should NOT trigger: database query optimization",
+      "input": "My PostgreSQL query is slow. How do I add an index?",
+      "shouldTrigger": false,
+      "expect": "Database question, not API design"
+    }
+  ]
+}

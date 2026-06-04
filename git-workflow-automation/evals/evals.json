@@ -1,0 +1,62 @@
+{
+  "skill": "git-workflow-automation",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: write commit message from staged changes",
+      "input": "I've staged changes that add user authentication with JWT. Write a commit message for me.",
+      "shouldTrigger": true,
+      "expect": "Conventional commit: feat(auth): add JWT-based user authentication"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: generate changelog",
+      "input": "Generate a changelog from all commits since the last release v1.0.0",
+      "shouldTrigger": true,
+      "expect": "Keep a Changelog format, grouped by Added/Changed/Fixed/Security"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: create PR description",
+      "input": "I'm about to create a PR for my feature branch. Write a PR description for these changes: added payment processing, fixed checkout bug, updated docs",
+      "shouldTrigger": true,
+      "expect": "Structured PR template with Summary, Motivation, Changes, Testing, Checklist"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: branch naming help",
+      "input": "What should I name my branch for adding a search feature? Ticket is PROJ-77",
+      "shouldTrigger": true,
+      "expect": "feat/PROJ-77-add-search"
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: cut a release",
+      "input": "Let's cut a new release. Since last version we've added two features and fixed three bugs.",
+      "shouldTrigger": true,
+      "expect": "MINOR bump, release branch creation, changelog update, tagging"
+    },
+    {
+      "id": "e6",
+      "description": "Should trigger: resolve merge conflict",
+      "input": "I have a merge conflict in src/auth.ts between my branch and main. Help me resolve it.",
+      "shouldTrigger": true,
+      "expect": "Conflict resolution strategy, preserve both intents"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: just asking about git status",
+      "input": "What's the status of my git repository right now?",
+      "shouldTrigger": false,
+      "expect": "Simple git status, not workflow automation"
+    },
+    {
+      "id": "n2",
+      "description": "Should NOT trigger: asking about code structure",
+      "input": "How should I structure my React components directory?",
+      "shouldTrigger": false,
+      "expect": "Code structure question, not git workflow"
+    }
+  ]
+}

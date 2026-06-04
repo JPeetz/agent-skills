@@ -43,6 +43,10 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [app-discovery-scrutiny](/app-discovery-scrutiny) | Business/AI | VC-grade app niche evaluation — Build/Pivot/Kill verdict | Universal |
 | [app-scaffolding](/app-scaffolding) | Development | 12-section mobile app build blueprint (iOS + Android) | Universal |
 | [astra-campaign](/astra-campaign) | Marketing | Full-service ad campaign generator (X, TikTok, Instagram) | Universal |
+| [ci-cd-pipeline-generator](/ci-cd-pipeline-generator) | DevOps/CI-CD | Production-ready CI/CD pipelines — GitHub Actions, GitLab CI, CircleCI, Jenkins | Universal |
+| [git-workflow-automation](/git-workflow-automation) | Git/Release | Conventional Commits, changelogs, PR descriptions, semantic versioning, branch management | Universal |
+| [accessibility-compliance-audit](/accessibility-compliance-audit) | Frontend/A11y | WCAG 2.2 AA audits — automated scan, manual review, fix-ready code for React/Vue/Angular | Universal |
+| [api-design-first](/api-design-first) | API/Backend | Design-first OpenAPI 3.1 specifications — REST, GraphQL, gRPC with cross-protocol consistency | Universal |
 
 ## FAQ
 
@@ -57,6 +61,9 @@ Via GitHub CLI: `gh skill install JPeetz/agent-skills [skill-name]`. Or manually
 
 **How often are new skills added?**
 New skills ship every Tuesday and Thursday. Each skill is researched, scored, improved, and validated before publication.
+
+**What domains do these skills cover?**
+DevOps (CI/CD pipeline generation), Git workflow automation (commits, PRs, changelogs, releases), accessibility compliance (WCAG 2.2 AA, a11y audits), API design-first (OpenAPI 3.1, REST, GraphQL, gRPC), business strategy (app discovery scrutiny), development (app scaffolding), marketing (ad campaign generation).
 
 **How can I submit a skill?**
 Open an issue or PR. See [CONTRIBUTING.md](CONTRIBUTING.md). Skills are reviewed against our quality framework before merging.

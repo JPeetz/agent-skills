@@ -1,0 +1,62 @@
+{
+  "skill": "accessibility-compliance-audit",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: audit page for accessibility",
+      "input": "Audit my React dashboard component for accessibility issues",
+      "shouldTrigger": true,
+      "expect": "WCAG 2.2 AA audit with violations, severity, fix code for each"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: WCAG compliance check",
+      "input": "Is my signup form WCAG AA compliant?",
+      "shouldTrigger": true,
+      "expect": "Checks labels, error handling, focus order, contrast, ARIA"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: keyboard navigation audit",
+      "input": "Make sure my modal dialog works with keyboard navigation",
+      "shouldTrigger": true,
+      "expect": "Focus trap, Esc to close, Tab order within modal, aria-modal"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: color contrast check",
+      "input": "Check if my color scheme meets accessibility contrast requirements",
+      "shouldTrigger": true,
+      "expect": "Compute contrast ratios, reference WCAG SC 1.4.3, suggest color adjustments"
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: screen reader compatibility",
+      "input": "Will my e-commerce checkout flow work with screen readers?",
+      "shouldTrigger": true,
+      "expect": "Landmarks, headings, aria-live regions, form labels, error announcements"
+    },
+    {
+      "id": "e6",
+      "description": "Should trigger: ADA compliance for Vue app",
+      "input": "I need to make my Vue.js admin panel ADA compliant before launch",
+      "shouldTrigger": true,
+      "expect": "Vue-specific patterns, semantic HTML, ARIA, keyboard support"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: general UI design question",
+      "input": "What's a good color palette for a fintech dashboard?",
+      "shouldTrigger": false,
+      "expect": "Design question, not accessibility compliance"
+    },
+    {
+      "id": "n2",
+      "description": "Should NOT trigger: performance optimization",
+      "input": "My React app is rendering slowly. How can I optimize it?",
+      "shouldTrigger": false,
+      "expect": "Performance question, not accessibility"
+    }
+  ]
+}

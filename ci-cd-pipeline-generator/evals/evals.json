@@ -1,0 +1,62 @@
+{
+  "skill": "ci-cd-pipeline-generator",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: setup CI/CD for Node.js app",
+      "input": "I need to set up CI/CD for my Node.js app. It uses Docker and deploys to Kubernetes.",
+      "shouldTrigger": true,
+      "expect": "Generates GitHub Actions config with lint, test, build, security scan, deploy stages"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: create GitHub Actions workflow",
+      "input": "Create a GitHub Actions workflow that runs tests and deploys to staging",
+      "shouldTrigger": true,
+      "expect": "Complete .github/workflows/ci.yml with test + deploy staging + production gating"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: GitLab CI pipeline for Python",
+      "input": "I need a GitLab CI pipeline for my Python Django app that builds Docker images and deploys to ECS",
+      "shouldTrigger": true,
+      "expect": ".gitlab-ci.yml with ruff, pytest, Docker build, AWS ECS deploy"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: automate deployment pipeline",
+      "input": "Help me automate my deployment pipeline so every push to main goes to production",
+      "shouldTrigger": true,
+      "expect": "Triggers with environment protection rules and approval gates"
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: build pipeline with quality gates",
+      "input": "I want a build pipeline that runs linting, tests, coverage checks, and only deploys if everything passes",
+      "shouldTrigger": true,
+      "expect": "Pipeline with quality gates, coverage threshold, conditional deployment"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: code review request",
+      "input": "Can you review my pull request? It adds a new authentication module.",
+      "shouldTrigger": false,
+      "expect": "code-review skill should handle this, not CI/CD pipeline"
+    },
+    {
+      "id": "n2",
+      "description": "Should NOT trigger: database schema design",
+      "input": "I need to design a database schema for a blog platform",
+      "shouldTrigger": false,
+      "expect": "Not a CI/CD pipeline request"
+    },
+    {
+      "id": "n3",
+      "description": "Should NOT trigger: general Docker question",
+      "input": "How do I optimize my Dockerfile for smaller images?",
+      "shouldTrigger": false,
+      "expect": "Docker question, not CI/CD pipeline generation"
+    }
+  ]
+}
