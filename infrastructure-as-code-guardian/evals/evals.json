@@ -1,0 +1,115 @@
+{
+  "$schema": "https://agents.skillfoundry.io/evals/v1",
+  "skill": "infrastructure-as-code-guardian",
+  "version": "1.0.0",
+  "description": "Evaluation suite for the Infrastructure as Code Guardian skill — 5 positive trigger cases and 2 near-miss negatives to validate activation accuracy.",
+  "cases": [
+    {
+      "id": "trigger-001-terraform-module",
+      "type": "positive_trigger",
+      "input": "Write a Terraform module for provisioning an RDS PostgreSQL instance with encryption and multi-AZ failover.",
+      "expected": {
+        "should_activate": true,
+        "activation_reason": "Direct request to author Terraform IaC with security parameters embedded.",
+        "expected_tool": "terraform",
+        "expected_sections": ["security hardening", "authoring guidelines", "encryption"]
+      },
+      "tags": ["terraform", "rds", "module-authoring", "security"],
+      "severity": "critical"
+    },
+    {
+      "id": "trigger-002-security-audit",
+      "type": "positive_trigger",
+      "input": "Review my Pulumi stack for security issues — I'm deploying to production today and want a second pair of eyes.",
+      "expected": {
+        "should_activate": true,
+        "activation_reason": "Explicit request for Pulumi security audit with production deployment context.",
+        "expected_tool": "pulumi",
+        "expected_sections": ["security hardening", "secret management", "least privilege IAM", "encryption"]
+      },
+      "tags": ["pulumi", "security-audit", "production"],
+      "severity": "critical"
+    },
+    {
+      "id": "trigger-003-drift-detection",
+      "type": "positive_trigger",
+      "input": "My Terraform plan output shows unexpected changes — I think someone made manual changes in the AWS console. Help me reconcile this drift.",
+      "expected": {
+        "should_activate": true,
+        "activation_reason": "Explicit drift detection and reconciliation request for Terraform-managed AWS infrastructure.",
+        "expected_tool": "terraform",
+        "expected_sections": ["drift detection workflow", "drift remediation patterns"]
+      },
+      "tags": ["terraform", "drift", "aws", "reconciliation"],
+      "severity": "high"
+    },
+    {
+      "id": "trigger-004-migration",
+      "type": "positive_trigger",
+      "input": "We have 200+ CloudFormation stacks and our DevOps team wants to standardize on Terraform. How should we approach this migration without downtime?",
+      "expected": {
+        "should_activate": true,
+        "activation_reason": "Cross-tool migration planning (CloudFormation → Terraform) at scale with zero-downtime requirements.",
+        "expected_tool": "cloudformation-to-terraform migration",
+        "expected_sections": ["migration patterns", "tool selection"]
+      },
+      "tags": ["migration", "cloudformation", "terraform", "zero-downtime"],
+      "severity": "high"
+    },
+    {
+      "id": "trigger-005-tool-selection",
+      "type": "positive_trigger",
+      "input": "We're a startup building a multi-cloud platform targeting AWS and Azure. Our team of 5 developers knows TypeScript well. Should we use Terraform or Pulumi for our infra?",
+      "expected": {
+        "should_activate": true,
+        "activation_reason": "Explicit tool selection decision with multi-cloud and team skill context.",
+        "expected_tool": "pulumi (recommended via decision tree)",
+        "expected_sections": ["tool selection decision tree", "comparison matrix"]
+      },
+      "tags": ["tool-selection", "multi-cloud", "pulumi", "terraform-compare"],
+      "severity": "medium"
+    },
+    {
+      "id": "nearmiss-001-docker-deploy",
+      "type": "near_miss_negative",
+      "input": "Deploy this Docker container to production. Here's the docker-compose.yml — just push it up to ECS.",
+      "expected": {
+        "should_activate": false,
+        "reason": "Operational deployment request, not IaC authoring or management. This is a container deployment task, not infrastructure definition."
+      },
+      "tags": ["docker", "deployment", "operational"],
+      "severity": "must_not_trigger"
+    },
+    {
+      "id": "nearmiss-002-ssh-troubleshoot",
+      "type": "near_miss_negative",
+      "input": "I can't SSH into my EC2 instance. The security group looks fine. What should I check?",
+      "expected": {
+        "should_activate": false,
+        "reason": "Operational troubleshooting of a running EC2 instance. Not an IaC authoring, security review, or management task."
+      },
+      "tags": ["ssh", "ec2", "troubleshooting", "operational"],
+      "severity": "must_not_trigger"
+    }
+  ],
+  "metadata": {
+    "total_cases": 7,
+    "positive_triggers": 5,
+    "near_miss_negatives": 2,
+    "ambiguous_cases": 0,
+    "coverage": {
+      "tools_covered": ["terraform", "pulumi", "cloudformation"],
+      "clouds_covered": ["aws", "azure"],
+      "skill_sections_tested": [
+        "tool-selection-decision-tree",
+        "authoring-guidelines",
+        "security-hardening",
+        "drift-detection",
+        "migration-patterns",
+        "secret-management"
+      ]
+    },
+    "expected_min_activation_rate": 1.0,
+    "expected_max_false_positive_rate": 0.0
+  }
+}

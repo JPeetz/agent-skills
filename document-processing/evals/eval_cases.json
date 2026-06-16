@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Document Processing Skill — Evaluation Cases",
+  "description": "Positive (should-activate) and near-miss negative (should-NOT-activate) test cases for the document-processing agent skill trigger detection.",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "eval-01-pdf-text-extraction",
+      "type": "positive",
+      "category": "pdf",
+      "input": "Extract all text from this annual report PDF and save it to a text file. I need it for analysis.",
+      "expected_action": "activate",
+      "reason": "User wants to extract text from a PDF for downstream use — a core PDF manipulation task.",
+      "workflow_path": "PDF Manipulation → Text extraction (pdfplumber)",
+      "assertions": [
+        "Skill activation detected",
+        "pdfplumber selected over pypdf for layout-aware extraction",
+        "Output written to a new file, not overwriting source",
+        "Output file validated (non-empty, reasonable text content)"
+      ]
+    },
+    {
+      "id": "eval-02-docx-report-generation",
+      "type": "positive",
+      "category": "docx",
+      "input": "Create a monthly sales report as a Word document. Include a summary paragraph, a table with Q1 revenue by region, and the company logo at the top.",
+      "expected_action": "activate",
+      "reason": "User requests DOCX creation with specific structural elements — paragraph, table, image.",
+      "workflow_path": "DOCX Creation → Build from scratch with python-docx",
+      "assertions": [
+        "Skill activation detected",
+        "python-docx used to construct document",
+        "Document contains heading, paragraph, table, and image",
+        "Output saved as .docx with validation",
+        "No source file overwritten (new creation)"
+      ]
+    },
+    {
+      "id": "eval-03-xlsx-data-report",
+      "type": "positive",
+      "category": "xlsx",
+      "input": "Take this CSV of sales data, create an Excel workbook with formatted tables, a bar chart comparing regions, and a pivot table by product category.",
+      "expected_action": "activate",
+      "reason": "User wants XLSX creation with formatting, charts, and pivot tables — full spreadsheet workflow.",
+      "workflow_path": "XLSX Handling → Create with openpyxl (charts, pivot, formatting)",
+      "assertions": [
+        "Skill activation detected",
+        "CSV data ingested and written to XLSX",
+        "Bar chart embedded in worksheet",
+        "Pivot table created on separate sheet",
+        "Cell formatting applied (fonts, borders, number formats)",
+        "Output validated (rows, columns, chart presence)"
+      ]
+    },
+    {
+      "id": "eval-04-pptx-from-markdown",
+      "type": "positive",
+      "category": "pptx",
+      "input": "I have meeting notes in markdown. Turn them into a 10-slide PowerPoint presentation with a title slide, bullet points from each section, and speaker notes.",
+      "expected_action": "activate",
+      "reason": "User wants PPTX generation from structured content with speaker notes — full presentation workflow.",
+      "workflow_path": "PPTX Generation → Build from scratch or template-driven",
+      "assertions": [
+        "Skill activation detected",
+        "Markdown parsed into slide structure",
+        "10 slides generated with correct layout types",
+        "Speaker notes populated on each slide",
+        "Output .pptx validated (slide count, content)"
+      ]
+    },
+    {
+      "id": "eval-05-pdf-form-filling",
+      "type": "positive",
+      "category": "pdf",
+      "input": "Fill out this tax form PDF. Name: Alice Brown, Tax ID: IE1234567X, Year: 2025, Amount: €45,200. Save the filled copy.",
+      "expected_action": "activate",
+      "reason": "User wants programmatic PDF form filling with specific field values.",
+      "workflow_path": "PDF Manipulation → Form filling with pypdf",
+      "assertions": [
+        "Skill activation detected",
+        "PDF form fields detected via pypdf.get_fields()",
+        "Field values mapped to provided data",
+        "Filled form saved to new file (not overwriting template)",
+        "Output validated (fields populated, pages intact)"
+      ]
+    },
+    {
+      "id": "eval-06-near-miss-read-pdf",
+      "type": "negative",
+      "category": "near-miss",
+      "input": "Can you read this PDF and tell me what it says? I just want to know the main points.",
+      "expected_action": "do_not_activate",
+      "reason": "User only wants content summarisation/reading, not document manipulation. This is a read/extract task, not a document-processing workflow.",
+      "misleading_aspect": "Mentions 'PDF' but the intent is information retrieval, not document creation, editing, or conversion."
+    },
+    {
+      "id": "eval-07-near-miss-text-editing",
+      "type": "negative",
+      "category": "near-miss",
+      "input": "Edit this paragraph to make it more concise and fix the grammar errors.",
+      "expected_action": "do_not_activate",
+      "reason": "General text editing — no document format manipulation, no file format operations. Pure natural language task.",
+      "misleading_aspect": "The word 'edit' could trigger document-editing workflows, but the context is prose editing, not document-format editing."
+    },
+    {
+      "id": "eval-08-near-miss-image-editing",
+      "type": "negative",
+      "category": "near-miss",
+      "input": "Can you edit this photo to crop it, adjust the brightness, and remove the background?",
+      "expected_action": "do_not_activate",
+      "reason": "Image editing request — the document-processing skill handles office documents, not raster image manipulation.",
+      "misleading_aspect": "Uses 'edit' and could appear document-adjacent (images in documents), but the core intent is image editing, not document processing."
+    }
+  ],
+  "coverage": {
+    "positive_cases": 5,
+    "negative_cases": 3,
+    "covered_categories": ["pdf", "docx", "xlsx", "pptx", "form-filling"],
+    "covered_operations": [
+      "text-extraction",
+      "document-creation",
+      "spreadsheet-charting",
+      "presentation-generation",
+      "form-filling"
+    ],
+    "near_miss_patterns": [
+      "content-reading-vs-manipulation",
+      "text-editing-vs-document-editing",
+      "image-editing-vs-document-processing"
+    ]
+  }
+}

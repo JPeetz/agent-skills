@@ -4,6 +4,42 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.2.0 — 2026-06-16
+
+### 🚀 Skills Added
+
+- **playwright-e2e-testing** — Production-grade Playwright E2E testing skill. Complete test architecture with Page Object Model patterns, locator strategy priority hierarchy, authentication and session management, visual regression testing, component testing (React/Vue/Svelte), mobile/device emulation, CI/CD configuration (GitHub Actions, GitLab CI, CircleCI with sharding), debugging and flaky test detection, accessibility testing (axe-core), performance testing (Lighthouse/Web Vitals), i18n testing, security testing (XSS/CSRF/CSP), WebSocket/real-time testing, Electron and browser extension testing. 8 eval cases + 3 near-miss negatives. Materially improved from currents-dev source.
+
+### 📦 Existing Skills Published (Previously Local-Only)
+
+- **browser-automation** (v1.1.0) — Playwright browser automation for testing, scraping, monitoring, form submission, screenshots, multi-page flows. Page Object Model, CI/CD integration. 8 eval cases.
+- **document-processing** (v1.1.0) — PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge. 8 eval cases.
+- **supply-chain-security-scanner** (v1.0.0) — SBOM generation (SPDX/CycloneDX), multi-ecosystem dependency scanning, provenance verification (cosign/slsa-verifier), license compliance. OWASP AST10 aligned. 10 eval cases.
+- **infrastructure-as-code-guardian** (v1.0.0) — Universal IaC security across Terraform, Pulumi, CloudFormation, Ansible, Bicep. 40+ item security checklist, drift detection, state management, migration patterns. 7 eval cases.
+
+### 📚 Documentation
+
+- README catalog: 12 skills (+5) — full table with descriptions and domain classification
+- FAQ domain coverage expanded: QA/testing, security/DevSecOps, infrastructure, content/documents
+- DEVLOG entry for 2026-06-16 (Run 003)
+- GitHub Topics at 20-topic limit — topic rotation roadmap noted
+
+### 🔧 Improvements
+
+- playwright-e2e-testing materially improved over source (+7 testing domains, eval suite, executable scripts)
+- All 5 skills fully packaged: SKILL.md, CHANGELOG.md, LICENSE, evals/, scripts/, references/
+- Cross-platform: Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, Copilot, Windsurf, OpenCode
+
+### 🔮 Next Targets
+
+- Database management (PostgreSQL, MySQL, migrations) — planetscale/database-skills
+- Kubernetes operations — KubeShark (#1 K8s skill by GitHub stars)
+- Incident response & SRE runbooks
+- Data engineering (ETL, dbt) — vaquarkhan/data-engineering-agent-skills
+- Package remaining local skills (code-review, data-analysis)
+
+---
+
 ## v1.1.0 — 2026-06-04
 
 ### 🚀 Skills Added

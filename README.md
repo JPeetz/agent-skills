@@ -47,6 +47,11 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [git-workflow-automation](/git-workflow-automation) | Git/Release | Conventional Commits, changelogs, PR descriptions, semantic versioning, branch management | Universal |
 | [accessibility-compliance-audit](/accessibility-compliance-audit) | Frontend/A11y | WCAG 2.2 AA audits — automated scan, manual review, fix-ready code for React/Vue/Angular | Universal |
 | [api-design-first](/api-design-first) | API/Backend | Design-first OpenAPI 3.1 specifications — REST, GraphQL, gRPC with cross-protocol consistency | Universal |
+| [browser-automation](/browser-automation) | QA/Browser | Playwright browser automation — E2E testing, web scraping, monitoring, form submission, screenshots | Universal |
+| [document-processing](/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
+| [supply-chain-security-scanner](/supply-chain-security-scanner) | Security/DevSecOps | Software supply chain security — SBOM generation, dependency scanning, provenance verification, license compliance | Universal |
+| [infrastructure-as-code-guardian](/infrastructure-as-code-guardian) | DevOps/Infrastructure | Cross-tool IaC security and management — Terraform, Pulumi, CloudFormation, Ansible, Bicep | Universal |
+| [playwright-e2e-testing](/playwright-e2e-testing) | QA/Testing | Production-grade Playwright E2E testing — locator strategy, CI/CD, visual regression, component testing, a11y | Universal |
 
 ## FAQ
 
@@ -63,7 +68,7 @@ Via GitHub CLI: `gh skill install JPeetz/agent-skills [skill-name]`. Or manually
 New skills ship every Tuesday and Thursday. Each skill is researched, scored, improved, and validated before publication.
 
 **What domains do these skills cover?**
-DevOps (CI/CD pipeline generation), Git workflow automation (commits, PRs, changelogs, releases), accessibility compliance (WCAG 2.2 AA, a11y audits), API design-first (OpenAPI 3.1, REST, GraphQL, gRPC), business strategy (app discovery scrutiny), development (app scaffolding), marketing (ad campaign generation).
+Business strategy (app discovery, market analysis), development (app scaffolding, API design-first), DevOps (CI/CD pipeline generation, infrastructure-as-code guardian), Git workflow automation (commits, PRs, changelogs, releases), accessibility compliance (WCAG 2.2 AA, a11y audits), QA and testing (Playwright E2E testing, browser automation), security (supply chain scanner, SBOM, dependency scanning, provenance verification), content and documents (PDF/DOCX/XLSX/PPTX processing), marketing (ad campaign generation).
 
 **How can I submit a skill?**
 Open an issue or PR. See [CONTRIBUTING.md](CONTRIBUTING.md). Skills are reviewed against our quality framework before merging.

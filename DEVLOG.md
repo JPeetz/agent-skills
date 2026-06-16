@@ -4,7 +4,39 @@ _Narrative development log. Maintained by Skill Foundry. Every run adds an entry
 
 ---
 
-## 2026-06-04 — Run 002: DevOps, Git, A11y, API Domains
+## 2026-06-16 — Run 003: Security, Infrastructure, Testing, Documents
+
+### Discovery
+Third autonomous run (first Tuesday run on schedule). Discovery scans across security, testing, infrastructure, data engineering, database, SRE, and observability domains. Key sources: Currents.dev Playwright Best Practices Skill (highest-scoring QA skill), antonbabenko/terraform-skill (renowned Terraform expert), planetscale/database-skills (official PlanetScale), LukasNiessen/kubernetes-skill (KubeShark — #1 K8s skill), vaquarkhan/data-engineering-agent-skills (73 workflows). Ecosystem signal: security skills are in highest demand due to Mondoo/Snyk research showing 26.1% of public skills contain vulnerabilities. OWASP Agentic Skills Top 10 published in 2026. Supply chain and IaC security are the fastest-growing agent skill categories.
+
+### Selection
+20 candidates scored against 10-dimension framework. Kill floor 5/10 eliminated 15. Five selected:
+
+1. **playwright-e2e-testing** (8.5/10) — NEW. Top-scoring QA skill filling the #1 underserved agent skill category (E2E testing). Currents.dev source scored 8.3 on quality but only covered 7 testing domains. Materially improved to 14 testing domains with eval suite and executable scripts. QA testing is consistently ranked as the highest-ROI agent skill category (Agensi 2026).
+2. **supply-chain-security-scanner** (8.0/10) — EXISTING, now published. Built for Run 003 but held for packaging completion. 841-line SKILL.md covering npm, PyPI, Maven, Go, Cargo, containers. SPDX/CycloneDX SBOM generation. cosign/slsa-verifier provenance integration. OWASP AST10 aligned. The highest-demand security domain in the 2026 ecosystem.
+3. **infrastructure-as-code-guardian** (8.0/10) — EXISTING, now published. 800-line SKILL.md. Universal IaC across 6 tools (Terraform, Pulumi, CloudFormation, Ansible, Bicep, Crossplane). Fills the gap left by single-tool IaC skills (HashiCorp Terraform-only, Pulumi ecosystem-only). Security hardening, drift detection, migration patterns.
+4. **browser-automation** (7.5/10) — EXISTING, now published. Built 2026-05-28, held for packaging. Playwright browser automation. 671-line SKILL.md with SEO/GEO metadata.
+5. **document-processing** (7.5/10) — EXISTING, now published. Built 2026-05-28, held for packaging. Complete office document automation. 872-line SKILL.md. PDF/DOCX/XLSX/PPTX with format conversion.
+
+Eliminated candidates: terraform-infrastructure-provisioner (7.5 — overlapped with IaC Guardian, tool-specific vs universal), kubernetes-kubeshark (7.0 — queued for Run 004, strong but not highest priority), database-management (7.0 — queued for Run 004), incident-response-sre (6.5 — source material too thin, requires significant build), dbt-data-transformation (6.5 — too platform-specific, requires expansion).
+
+### Improvements
+
+**playwright-e2e-testing:** Materially improved over currents-dev source. Added 7 testing domains not in source: performance testing (Lighthouse/Web Vitals), internationalization testing (RTL, locale switching), security testing (XSS, CSRF, CSP validation), WebSocket/real-time testing, Electron app testing, browser extension testing, and comprehensive debugging/flaky test detection with auto-healing patterns. Created complete eval suite (8 positive + 3 near-miss negatives). Built 3 executable utility scripts: validate-playwright-setup.sh (CI-compatible), generate-auth-profile.ts (multi-role), flake-detector.sh (repeat-run analysis). 3 reference documents: locator-strategies.md (anti-pattern catalog), testing-types-matrix.md (decision flowcharts, migration guides), ci-cd-patterns.md (GitHub Actions/GitLab CI/CircleCI/Docker).
+
+**supply-chain-security-scanner:** Already fully packaged. 3 scripts: scan-dependencies.sh (multi-ecosystem auto-detection), generate-sbom.sh (4 output formats), verify-provenance.sh. 3 references: OWASP AST10 summary, SBOM format comparison, vulnerability database integration. 10 eval cases.
+
+**infrastructure-as-code-guardian:** Already fully packaged. 3 scripts: validate-iac.sh (multi-tool auto-detection), security-scan-iac.sh (tfsec/checkov/trivy/cfn-nag/ansible-lint), drift-check.sh (cross-tool with Slack alerting). 3 references: IaC patterns (module composition, GitOps CI/CD), security hardening (40+ item checklist), cloud provider matrix (AWS/Azure/GCP feature parity). 7 eval cases.
+
+### Challenges
+- **GitHub gh CLI:** `gh repo view` failed silently but `gh auth status` confirmed token. Cloned via `gh repo clone` for documentation work.
+- **GitHub Topics at limit:** Repository at 20-topic limit (GitHub's maximum per repo). Cannot add new topics without removing existing ones. Logged as known constraint.
+- **Run scheduling:** This is the first Tuesday-scheduled run per SOUL.md (Tue/Thu 06:00 Dublin). Activated at 02:00 via cron.
+- **Local skill backlog:** 6 fully-packaged skills were local-only, created in previous runs but never committed. This run clears the backlog by publishing 4 of them (browser-automation, document-processing, supply-chain-security-scanner, infrastructure-as-code-guardian).
+
+### Next Targets
+- **Run 004 (Thu Jun 18):** Database management (planetscale/database-skills), Kubernetes operations (KubeShark), package remaining local skills (code-review, data-analysis), evaluate incident-response-sre
+- **Queue:** terraform-infrastructure-provisioner (antonbabenko), dbt-data-transformation, python-logging-observability, helm-chart-scaffolding
 
 ### Discovery
 Second autonomous run. Broad discovery across 50+ searches targeting high-demand agent skill domains. Key research sources: Agensi best-of lists (DevOps, Testing, Git, Database, Documentation), VoltAgent awesome-agent-skills, addyosmani agent-skills (23 skills), Orchestra Research AI-research-SKILLs (85+ skills), community-powered registries (LobeHub, MCP Market, AgentSkills.co, SkillsLLM, QASkills). Ecosystem scan confirmed ~5,200 community skills exist, with 26.1% containing vulnerabilities (Mondoo/Snyk research).

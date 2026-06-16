@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "skill": "supply-chain-security-scanner",
+  "description": "Evaluation test cases for supply chain security scanner activation and behavior",
+  "test_cases": [
+    {
+      "id": "eval-001-scan-vulnerable-deps",
+      "trigger": "scan my project for vulnerable dependencies",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Direct request to scan a project for known vulnerabilities in its dependency tree.",
+      "expected_behavior": "Skill activates; auto-detects project ecosystem; runs appropriate scanner(s); produces vulnerability report."
+    },
+    {
+      "id": "eval-002-generate-sbom",
+      "trigger": "generate an SBOM for this repository",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Clear request for Software Bill of Materials generation. Core scanner capability.",
+      "expected_behavior": "Skill activates; runs generate-sbom.sh; outputs CycloneDX or SPDX SBOM file."
+    },
+    {
+      "id": "eval-003-check-npm-cves",
+      "trigger": "check if our npm packages have known CVEs",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Ecosystem-specific vulnerability audit request. Should trigger npm audit + Grype scanning.",
+      "expected_behavior": "Skill activates; runs npm audit and/or Grype; reports CVEs with CVSS scores and fix versions."
+    },
+    {
+      "id": "eval-004-audit-supply-chain",
+      "trigger": "audit our software supply chain",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "General supply chain audit request encompassing all scanner capabilities.",
+      "expected_behavior": "Skill activates; runs full multi-scanner audit including dependency scanning, license check, and (if possible) provenance verification."
+    },
+    {
+      "id": "eval-005-verify-container-provenance",
+      "trigger": "verify the provenance of this container image",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Provenance verification request targeting a container image.",
+      "expected_behavior": "Skill activates; runs verify-provenance.sh; checks cosign signatures and SLSA attestations."
+    },
+    {
+      "id": "eval-006-near-miss-sbom-meaning",
+      "trigger": "explain what SBOM means",
+      "expected_activation": false,
+      "category": "near-miss-negative",
+      "rationale": "Informational/educational request — user wants a definition, not a scan.",
+      "expected_behavior": "Skill does NOT activate. Agent answers the question directly without running any scanner tools."
+    },
+    {
+      "id": "eval-007-near-miss-secure-npm",
+      "trigger": "how do I secure my npm packages?",
+      "expected_activation": false,
+      "category": "near-miss-negative",
+      "rationale": "General security advice request — user wants guidance, not an automated scan.",
+      "expected_behavior": "Skill does NOT activate. Agent provides best practices advice (pin versions, use lockfiles, npm audit regularly, etc.) without executing a scan."
+    },
+    {
+      "id": "eval-008-dependency-confusion-check",
+      "trigger": "check for dependency confusion attacks",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Specific supply chain attack vector detection request.",
+      "expected_behavior": "Skill activates; checks for packages with names matching internal registries; flags packages from unexpected sources."
+    },
+    {
+      "id": "eval-009-generate-cyclonedx",
+      "trigger": "generate a CycloneDX SBOM",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Format-specific SBOM generation request.",
+      "expected_behavior": "Skill activates; runs generate-sbom.sh with --format cyclonedx; validates NTIA minimum elements."
+    },
+    {
+      "id": "eval-010-scan-docker-image",
+      "trigger": "scan this Docker image for vulnerabilities",
+      "expected_activation": true,
+      "category": "primary-trigger",
+      "rationale": "Container image vulnerability scanning request.",
+      "expected_behavior": "Skill activates; runs trivy image scan; reports CVEs found in image layers and packages."
+    }
+  ],
+  "activation_patterns": {
+    "positive_keywords": [
+      "scan", "audit", "sbom", "vulnerabilities", "supply chain",
+      "provenance", "license compliance", "dependency check", "CVE",
+      "software composition analysis", "cyclonedx", "spdx",
+      "dependency confusion", "npm audit", "pip audit"
+    ],
+    "negative_keywords": [
+      "explain", "what is", "how do I", "what does",
+      "tell me about", "meaning", "definition"
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "skill": "browser-automation",
+  "version": "1.0.0",
+  "description": "Evaluation cases for the Browser Automation agent skill — positive cases that should trigger the skill, and near-miss negatives that should not.",
+  "cases": [
+    {
+      "id": "pos-01-form-submission",
+      "type": "positive",
+      "category": "form-automation",
+      "input": "Write a test that fills out the registration form at https://example.com/signup with name, email, and password, clicks submit, and verifies it redirects to the welcome page.",
+      "expected_trigger": "skill: browser-automation",
+      "expected_actions": [
+        "navigate to /signup",
+        "fill name, email, password fields",
+        "click submit button",
+        "assert redirect to /welcome"
+      ],
+      "rationale": "Explicit request for automated browser interaction — form filling, clicking, and assertion."
+    },
+    {
+      "id": "pos-02-screenshot-capture",
+      "type": "positive",
+      "category": "screenshot",
+      "input": "Take a full-page screenshot of the pricing page at https://example.com/pricing and save it as pricing.png.",
+      "expected_trigger": "skill: browser-automation",
+      "expected_actions": [
+        "navigate to /pricing",
+        "capture full_page screenshot",
+        "save to pricing.png"
+      ],
+      "rationale": "Direct request for automated screenshot capture via browser automation."
+    },
+    {
+      "id": "pos-03-element-visibility",
+      "type": "positive",
+      "category": "testing",
+      "input": "Write an e2e test that checks the search bar is visible on the homepage, types 'laptop' into it, and asserts that at least 5 results appear.",
+      "expected_trigger": "skill: browser-automation",
+      "expected_actions": [
+        "navigate to homepage",
+        "assert search bar visible",
+        "type 'laptop' into search",
+        "trigger search",
+        "assert at least 5 results displayed"
+      ],
+      "rationale": "E2E testing request with specific element visibility checks and content assertions."
+    },
+    {
+      "id": "pos-04-data-extraction",
+      "type": "positive",
+      "category": "scraping",
+      "input": "Scrape all product names and prices from https://books.toscrape.com and output them as JSON.",
+      "expected_trigger": "skill: browser-automation",
+      "expected_actions": [
+        "navigate to the page",
+        "locate product elements",
+        "extract name and price for each",
+        "output as JSON"
+      ],
+      "rationale": "Classic web scraping request with structured data extraction."
+    },
+    {
+      "id": "pos-05-multi-page-flow",
+      "type": "positive",
+      "category": "monitoring",
+      "input": "Create a monitoring script that goes through our checkout flow: add item to cart → view cart → enter shipping → enter payment → confirm order. Alert if any step fails.",
+      "expected_trigger": "skill: browser-automation",
+      "expected_actions": [
+        "multi-step navigation through checkout pages",
+        "form filling at each step",
+        "error detection per step",
+        "alert on failure"
+      ],
+      "rationale": "Synthetic monitoring of a multi-page user flow with error handling."
+    },
+    {
+      "id": "neg-01-browser-feature-question",
+      "type": "near-miss-negative",
+      "category": "off-topic",
+      "input": "What browsers support the WebGPU API, and what's the current adoption rate?",
+      "expected_trigger": null,
+      "expected_actions": [],
+      "rationale": "Asking about browser features/capabilities — no automation intent. This is a factual question, not a request to automate browser interaction."
+    },
+    {
+      "id": "neg-02-playwright-api-question",
+      "type": "near-miss-negative",
+      "category": "off-topic",
+      "input": "How does page.waitForSelector work in Playwright? Can you explain the different wait states?",
+      "expected_trigger": null,
+      "expected_actions": [],
+      "rationale": "Asking for Playwright API documentation/explanation — no concrete automation task. This is an educational question about the tool, not a request to use it."
+    },
+    {
+      "id": "neg-03-manual-testing-request",
+      "type": "near-miss-negative",
+      "category": "off-topic",
+      "input": "Can you open Chrome and check if the new landing page looks good? I want feedback on the hero section design.",
+      "expected_trigger": null,
+      "expected_actions": [],
+      "rationale": "Requesting manual visual review/design feedback — not automated testing. The user wants a human opinion on aesthetics, not programmatic verification."
+    }
+  ]
+}

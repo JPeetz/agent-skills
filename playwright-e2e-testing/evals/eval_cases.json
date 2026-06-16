@@ -1,0 +1,128 @@
+{
+  "skill": "playwright-e2e-testing",
+  "version": "1.0.0",
+  "eval_cases": [
+    {
+      "id": "e2e-001",
+      "trigger": "Write a Playwright test for a login form with email and password fields",
+      "expected_behavior": "Agent uses getByLabel() for form fields and getByRole() for submit button",
+      "anti_pattern_check": "Does NOT use CSS selectors, XPath, or page.locator('.class')",
+      "assertions": [
+        "Uses getByLabel for email field",
+        "Uses getByLabel or getByRole for password",
+        "Uses getByRole('button') for submit",
+        "Includes assertions on success state (URL change or element visibility)"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "e2e-002",
+      "trigger": "Debug this flaky test that fails intermittently on CI",
+      "expected_behavior": "Agent identifies race conditions, missing awaits, bad locators",
+      "anti_pattern_check": "Does NOT suggest page.waitForTimeout(5000) as a fix",
+      "assertions": [
+        "Identifies missing auto-wait usage",
+        "Checks for waitForTimeout anti-pattern",
+        "Suggests proper waitFor conditions",
+        "Recommends disabling retries to detect flakes"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "e2e-003",
+      "trigger": "Set up Playwright in CI with GitHub Actions",
+      "expected_behavior": "Agent creates complete workflow with sharding, browser install, artifact upload",
+      "assertions": [
+        "Includes npx playwright install --with-deps",
+        "Uses matrix strategy for sharding",
+        "Uploads test artifacts on failure",
+        "Sets timeout-minutes",
+        "Uses fail-fast: false"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "e2e-004",
+      "trigger": "Write a test for a mobile responsive hamburger menu",
+      "expected_behavior": "Agent sets viewport to mobile size and uses getByRole",
+      "assertions": [
+        "Sets mobile viewport dimensions",
+        "Uses getByRole for menu button",
+        "Checks navigation visibility toggle",
+        "Considers device emulation"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "e2e-005",
+      "trigger": "Write a visual regression test for the pricing page",
+      "expected_behavior": "Agent uses element-level toHaveScreenshot with appropriate masking",
+      "assertions": [
+        "Uses expect(page/element).toHaveScreenshot()",
+        "Considers masking dynamic content",
+        "Uses element-level screenshots over full-page",
+        "Sets appropriate maxDiffPixelRatio"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "e2e-006",
+      "trigger": "Implement Page Object Model for a dashboard page",
+      "expected_behavior": "Agent creates structured page objects with semantic locators",
+      "assertions": [
+        "Creates BasePage class",
+        "Uses getByRole/getByTestId in page objects",
+        "Methods return Locator objects or Promises",
+        "Follows single responsibility per page object"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "e2e-007",
+      "trigger": "Write a test that handles OAuth/2FA authentication",
+      "expected_behavior": "Agent guides toward storageState/global-setup pattern",
+      "assertions": [
+        "Mentions global-setup.ts approach",
+        "Recommends storageState reuse",
+        "Advises against committing auth files",
+        "Suggests profile rotation schedule"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "e2e-008",
+      "trigger": "Test that an XSS payload is properly sanitized",
+      "expected_behavior": "Agent writes security test with XSS payload and content verification",
+      "assertions": [
+        "Uses known XSS payload",
+        "Verifies payload is rendered as text, not HTML",
+        "Does not use page.evaluate to test XSS",
+        "Checks outputs, not inputs"
+      ],
+      "severity": "medium"
+    }
+  ],
+  "near_miss_negatives": [
+    {
+      "id": "nmiss-001",
+      "trigger": "Write a Selenium test for a login form",
+      "expected_behavior": "Skill should NOT activate — this is a Selenium request, not Playwright",
+      "activation_check": "Skill description mentions Playwright only; Selenium request should not trigger this skill",
+      "severity": "guardrail"
+    },
+    {
+      "id": "nmiss-002",
+      "trigger": "Write a Cypress component test",
+      "expected_behavior": "Skill should NOT activate — Cypress is a competing framework",
+      "activation_check": "Request specifies Cypress; skill should not trigger on Cypress-specific requests",
+      "severity": "guardrail"
+    },
+    {
+      "id": "nmiss-003",
+      "trigger": "Write a unit test for a pure JavaScript function",
+      "expected_behavior": "Skill should NOT activate — unit testing is not in scope",
+      "activation_check": "Pure logic testing without browser interaction should not trigger the skill",
+      "severity": "guardrail"
+    }
+  ]
+}
