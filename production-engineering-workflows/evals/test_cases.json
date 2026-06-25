@@ -1,0 +1,77 @@
+{
+  "skill": "production-engineering-workflows",
+  "version": "1.0.0",
+  "description": "Evaluation test cases for production-engineering-workflows skill activation. Tests both positive activation cases and near-miss negatives.",
+  "test_cases": [
+    {
+      "id": "pos-001",
+      "type": "positive",
+      "input": "I want to build a new user authentication system from scratch. Where do I start?",
+      "expected_command": "/spec",
+      "rationale": "A new feature from scratch triggers the full SDLC workflow, starting with specification."
+    },
+    {
+      "id": "pos-002",
+      "type": "positive",
+      "input": "Can you plan out the tasks for implementing this email verification feature? Here's the spec...",
+      "expected_command": "/plan",
+      "rationale": "User has a spec and explicitly asks for task decomposition — canonical /plan activation."
+    },
+    {
+      "id": "pos-003",
+      "type": "positive",
+      "input": "I'm ready to deploy this to production. Run through the deployment checklist first.",
+      "expected_command": "/ship",
+      "rationale": "Explicit production deployment request with pre-deployment checklist requested."
+    },
+    {
+      "id": "pos-004",
+      "type": "positive",
+      "input": "Run a performance audit on the new dashboard page. I want to know if it passes Core Web Vitals.",
+      "expected_command": "/webperf",
+      "rationale": "Explicit request for web performance audit with Core Web Vitals mention."
+    },
+    {
+      "id": "pos-005",
+      "type": "positive",
+      "input": "This payment processing module has gotten really hard to understand. Can you simplify it without changing how it works?",
+      "expected_command": "/code-simplify",
+      "rationale": "Requests simplification/code cleanup while preserving behavior — canonical /code-simplify activation."
+    },
+    {
+      "id": "neg-001",
+      "type": "near-miss-negative",
+      "input": "Change the default page size from 20 to 50 in config.ts.",
+      "expected_non_activation": true,
+      "rationale": "Trivial one-line config change. No workflow needed — direct edit. Near-miss because 'change' sounds like a build task but the scope is trivial."
+    },
+    {
+      "id": "neg-002",
+      "type": "near-miss-negative",
+      "input": "What's the best way to handle state management in a large React app?",
+      "expected_non_activation": true,
+      "rationale": "Conversational tech discussion/opinion — not a build task. Near-miss because it sounds like it could need /spec but there's no concrete feature to build."
+    },
+    {
+      "id": "neg-003",
+      "type": "near-miss-negative",
+      "input": "Can you explain what this regex does: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/?",
+      "expected_non_activation": true,
+      "rationale": "Code explanation request — teaching, not engineering. Near-miss because 'regex' and code review tools could be conflated."
+    },
+    {
+      "id": "neg-004",
+      "type": "near-miss-negative",
+      "input": "Let me try a few ideas for the notification system — just experimenting right now.",
+      "expected_non_activation": true,
+      "rationale": "Experimental spike/prototyping. The user explicitly says 'experimenting.' Activate only after the spike when the user commits to building. Near-miss because 'notification system' sounds like a feature."
+    },
+    {
+      "id": "neg-005",
+      "type": "near-miss-negative",
+      "input": "Write the API docs for this endpoint in OpenAPI format.",
+      "expected_non_activation": true,
+      "rationale": "Documentation-only work. No production change to ship, test, or deploy. Near-miss because 'API' and 'endpoint' overlap with engineering vocabulary but the task is purely documentation."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Eval cases for the technical-documentation agent skill. Positive cases should trigger and produce valid documentation. Near-miss negatives should NOT trigger the skill.",
+  "cases": [
+    {
+      "id": "pos-01",
+      "type": "positive",
+      "name": "README generation for new project",
+      "input": "I just created a new Python microservice for user authentication using FastAPI and PostgreSQL. Can you write a README for it?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "output_must_include": [
+          "Quick Start",
+          "Installation",
+          "Usage",
+          "License"
+        ],
+        "quality_checks": [
+          "First paragraph explains what the project does",
+          "Code blocks have language specifiers",
+          "No hardcoded credentials"
+        ]
+      },
+      "context": "Standard README generation request. The agent should infer the stack (FastAPI, PostgreSQL) from the user's description and produce a structured README following the template in the skill body."
+    },
+    {
+      "id": "pos-02",
+      "type": "positive",
+      "name": "ADR generation for architectural decision",
+      "input": "We decided to use Redis for our session store instead of storing sessions in PostgreSQL. Can you write an ADR for this decision?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "output_must_include": [
+          "Status",
+          "Context and Problem Statement",
+          "Decision Drivers",
+          "Considered Options",
+          "Decision Outcome",
+          "Positive Consequences",
+          "Negative Consequences"
+        ],
+        "quality_checks": [
+          "At least two options are compared",
+          "The decision is clearly stated",
+          "Both pros and cons are listed for the chosen option"
+        ]
+      },
+      "context": "ADR generation request. The agent should use the ADR template from references/adr-template.md, compare Redis vs PostgreSQL for session storage, and produce a complete ADR with all sections."
+    },
+    {
+      "id": "pos-03",
+      "type": "positive",
+      "name": "API documentation generation",
+      "input": "Document our REST API for the orders service. We have endpoints for creating orders, listing orders, getting order details, and cancelling orders. Authentication uses Bearer JWT tokens.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "output_must_include": [
+          "endpoint",
+          "authentication",
+          "error",
+          "request",
+          "response"
+        ],
+        "quality_checks": [
+          "Each endpoint documents HTTP method and path",
+          "Authentication requirements are specified",
+          "Error responses are documented",
+          "Request/response examples are included"
+        ]
+      },
+      "context": "API documentation request. The agent should produce structured API documentation covering all mentioned endpoints with authentication details, error codes, and examples."
+    },
+    {
+      "id": "pos-04",
+      "type": "positive",
+      "name": "Documentation audit request",
+      "input": "Audit our documentation. We have a README, some ADRs in docs/adr/, and API docs generated from our OpenAPI spec. I'm worried things might be stale.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "output_must_include": [
+          "completeness",
+          "accuracy",
+          "freshness",
+          "finding",
+          "recommendation"
+        ],
+        "quality_checks": [
+          "Audit covers all three dimensions (completeness, accuracy, freshness)",
+          "Findings are prioritized by severity",
+          "Actionable recommendations are provided"
+        ]
+      },
+      "context": "Documentation audit request. The agent should assess existing docs against the three audit dimensions, identify gaps and staleness, and produce a structured audit report."
+    },
+    {
+      "id": "pos-05",
+      "type": "positive",
+      "name": "AI agent context file generation",
+      "input": "We're adopting AI coding agents on our team. Can you write an AGENTS.md for our project? It's a Go microservices platform with gRPC for service-to-service communication, PostgreSQL for persistence, and Kubernetes for deployment. We use conventional commits and require test coverage above 80%.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "output_must_include": [
+          "Project Identity",
+          "Architecture",
+          "Conventions",
+          "Constraints"
+        ],
+        "quality_checks": [
+          "Stack details are included (Go, gRPC, PostgreSQL, Kubernetes)",
+          "Conventions include commit style and testing requirements",
+          "Constraints section exists with actionable rules",
+          "File is concise (under 500 lines)"
+        ]
+      },
+      "context": "AGENTS.md generation request. The agent should produce a structured agent context file following the template in the skill body, including project identity, architecture description, coding conventions, and constraints."
+    },
+
+    {
+      "id": "neg-01",
+      "type": "negative",
+      "name": "Code comments / docstrings request (not documentation)",
+      "input": "Add docstrings and type hints to every function in my auth.py module.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for code-level docstrings and type annotations, not standalone documentation. The 'doc' in 'docstrings' is incidental — this is a code generation/completion task.",
+        "correct_response_type": "Code editing with docstring and type hint additions"
+      },
+      "context": "The user says 'docstrings' which contains 'doc', but they want inline code comments and type annotations. This is a coding-agent task, not a technical-documentation task."
+    },
+    {
+      "id": "neg-02",
+      "type": "negative",
+      "name": "Blog post writing request (not technical docs)",
+      "input": "Write a blog post about how we migrated from a monolith to microservices — it should be engaging and highlight the business benefits.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for a marketing/thought-leadership blog post, not technical reference documentation. Blog posts are narrative-driven and persuasive; technical docs are factual and instructional.",
+        "correct_response_type": "Blog post or article writing"
+      },
+      "context": "The user mentions 'migration' and 'microservices' which could be architectural documentation topics, but the request for 'engaging' content with 'business benefits' is clearly a blog post, not reference documentation."
+    },
+    {
+      "id": "neg-03",
+      "type": "negative",
+      "name": "Code review request (not documentation)",
+      "input": "Review my PR — I added a new payment processing module. Can you check the code for security issues and suggest improvements?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for a code review (security, quality assessment of code), not documentation. The word 'review' triggers code-review, not technical-documentation.",
+        "correct_response_type": "Structured code review with security analysis"
+      },
+      "context": "The user says 'review' in the context of code and security. This is a code-review skill activation, not technical-documentation. The agent might need documentation but the primary request is code review."
+    }
+  ],
+  "statistics": {
+    "total_cases": 8,
+    "positive_cases": 5,
+    "negative_cases": 3,
+    "coverage": {
+      "documentation_types": ["README", "ADR", "API documentation", "documentation audit", "AI agent context"],
+      "output_formats": ["structured README", "ADR with all sections", "API endpoint docs", "audit report", "AGENTS.md"],
+      "negative_patterns": ["code docstrings", "blog post", "code review"],
+      "quality_dimensions": ["completeness", "accuracy", "freshness", "structure", "safety"]
+    }
+  }
+}

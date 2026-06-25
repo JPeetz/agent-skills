@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Eval cases for the design-to-code agent skill. Positive cases should trigger and produce a valid implementation. Near-miss negatives should NOT trigger the skill.",
+  "cases": [
+    {
+      "id": "pos-01",
+      "type": "positive",
+      "name": "Figma design to React component",
+      "input": "Turn this Figma design into React components: https://www.figma.com/file/abc123/Dashboard-Design. It's a SaaS dashboard with a sidebar, header, and data cards. Use Tailwind CSS.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["design_ingestion", "token_extraction", "component_hierarchy", "responsive_strategy", "accessibility", "implementation"],
+        "output_must_include": ["Design Analysis", "Design Tokens", "Component Hierarchy", "Responsive", "Accessibility"],
+        "quality_tier": "Production"
+      },
+      "context": "Full design-to-code pipeline. Agent should extract colors, typography, spacing from Figma, map the component tree (Sidebar, Header, DataCard), implement responsive breakpoints (sidebar collapses at tablet), ensure WCAG AA, and produce Tailwind-styled React components."
+    },
+    {
+      "id": "pos-02",
+      "type": "positive",
+      "name": "Screenshot-based landing page implementation",
+      "input": "I have a screenshot of a landing page design. Can you implement this in plain HTML and CSS? It needs to be responsive and accessible.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["design_ingestion", "token_extraction", "responsive_strategy", "accessibility", "implementation"],
+        "output_must_include": ["design token", "responsive", "semantic HTML", "accessibility"],
+        "fidelity_note_expected": true
+      },
+      "context": "Screenshot-only input. Agent should acknowledge fidelity limitations ('I'm working from a screenshot, colors may be approximate'), extract visual design, implement with semantic HTML (header, main, section, footer), CSS custom properties for tokens, media queries for responsiveness, and WCAG AA compliance (skip link, focus indicators, alt text)."
+    },
+    {
+      "id": "pos-03",
+      "type": "positive",
+      "name": "Design tokens extraction from design spec",
+      "input": "Extract design tokens from this design specification and create a CSS custom properties file and a Tailwind config. Spec: Primary colors are blue-500 (#3B82F6), blue-600 (#2563EB), blue-700 (#1D4ED8). Font is Inter at 16px base, headings at 24px/30px/36px. Spacing uses an 8px grid.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["token_extraction", "implementation"],
+        "output_must_include": ["--color-primary-", "--font-family", "--font-size-", "--space-", "var(--", "tailwind.config"],
+        "output_formats": ["CSS custom properties", "Tailwind config"]
+      },
+      "context": "Token extraction from a text design spec. Agent should produce a CSS :root block with color, typography, and spacing tokens in a consistent naming scheme, then derive a Tailwind config that references the same token values. Should use rem for font sizes and spacing."
+    },
+    {
+      "id": "pos-04",
+      "type": "positive",
+      "name": "Accessibility-first component with complex widget",
+      "input": "Build an accessible tabbed interface component in React with TypeScript. The design has 4 tabs (Overview, Analytics, Reports, Settings) with content panels. Must be fully keyboard-navigable and screen-reader friendly. Use CSS Modules.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["component_architecture", "accessibility", "implementation"],
+        "output_must_include": [
+          "role=\"tablist\"", "role=\"tab\"", "role=\"tabpanel\"",
+          "aria-selected", "aria-controls", "tabindex",
+          "keyboard", "ArrowRight", "ArrowLeft", "Home", "End",
+          "focus-visible"
+        ],
+        "a11y_patterns": ["tabs pattern", "roving tabindex", "keyboard navigation"]
+      },
+      "context": "Complex accessible widget implementation. Agent must implement the WAI-ARIA tabs pattern correctly: tablist/tab/tabpanel roles, aria-selected/aria-controls, roving tabindex for keyboard navigation, arrow key handling (Right/Left to switch tabs, Home/End for first/last), and visible focus indicators."
+    },
+    {
+      "id": "pos-05",
+      "type": "positive",
+      "name": "Design system integration with token mapping",
+      "input": "I have a new feature design that uses a teal accent color (#14B8A6). Our design system uses primary-blue, secondary-purple, and neutral-gray scales. There's no teal in the system. Should I add teal tokens to the system or map to an existing color? The rest of the design aligns with our existing Card and Button components.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["design_system_audit", "token_mapping", "component_extension", "implementation"],
+        "output_must_include": ["design system", "token", "teal", "map", "extend"],
+        "decision_expected": true
+      },
+      "context": "Design system integration scenario. Agent should audit the existing system, flag the teal color discrepancy, propose options (add teal scale to system vs. map to closest existing token), and implement by extending existing Card/Button components with new variants rather than creating duplicates."
+    },
+    {
+      "id": "pos-06",
+      "type": "positive",
+      "name": "Responsive layout with explicit breakpoint requirements",
+      "input": "Implement this product grid design. Requirements: 1 column on mobile (<640px), 2 columns on tablet (640-1024px), 3 columns on desktop (>1024px). Each product card has an image, title, price, and 'Add to cart' button. Use Vue 3.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "phases_expected": ["responsive_strategy", "component_hierarchy", "implementation"],
+        "output_must_include": [
+          "min-width: 640px", "min-width: 1024px",
+          "grid-template-columns", "repeat(",
+          "ProductCard", "props", "v-for"
+        ],
+        "breakpoints_verified": ["640px", "1024px"]
+      },
+      "context": "Explicit responsive implementation. Agent should implement mobile-first CSS Grid with the three breakpoints, create a reusable ProductCard Vue component with image/title/price/button props, ensure images have alt text, buttons are actual <button> elements, and the grid has appropriate gaps using spacing tokens."
+    },
+
+    {
+      "id": "neg-01",
+      "type": "negative",
+      "name": "Pure code generation request without a design",
+      "input": "Write a React form component with email and password fields, validation, and a submit button.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "No design input — no Figma link, screenshot, or design spec. This is a pure coding task, not a design-to-code translation.",
+        "correct_response_type": "Code generation with standard form patterns"
+      },
+      "context": "User is asking for a form component but provides no visual design. The agent should generate a functional form but does not need to invoke the full design-to-code workflow (token extraction, component mapping, visual regression, etc.)."
+    },
+    {
+      "id": "neg-02",
+      "type": "negative",
+      "name": "Design critique request (not implementation)",
+      "input": "What do you think of this design? Is the spacing too tight? Should I use a different color for the CTA? Here's a screenshot of my app.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for design feedback/critique, not code implementation. The screenshot is for visual reference, not translation into code.",
+        "correct_response_type": "Design critique with specific feedback on spacing and color"
+      },
+      "context": "User shares a design but explicitly asks for opinion and feedback, not code. The agent should analyze the design and provide constructive critique, not generate component code."
+    },
+    {
+      "id": "neg-03",
+      "type": "negative",
+      "name": "CSS framework comparison question",
+      "input": "Should I use Tailwind CSS or styled-components for my new React project? What are the pros and cons of each for a design-heavy SaaS app?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "No design to translate — this is a technology evaluation question. The user wants advice on CSS tooling, not code from a design.",
+        "correct_response_type": "Technology comparison with pros/cons tailored to SaaS context"
+      },
+      "context": "User asks about CSS architecture options but provides no design artifact to implement. While the skill includes CSS architecture guidance, the trigger condition (design → code) is not met. The agent should give informed advice without running the full workflow."
+    },
+    {
+      "id": "neg-04",
+      "type": "negative",
+      "name": "Backend API development (no visual design)",
+      "input": "Build a REST API endpoint that returns a paginated list of products with filtering and sorting.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "No visual design or UI component involved. This is purely backend API development with no frontend design-to-code translation.",
+        "correct_response_type": "Backend API implementation with pagination, filtering, and sorting logic"
+      },
+      "context": "Pure backend task with zero visual design. Words like 'products' and 'list' could appear in a design-to-code context, but the actual request is an API endpoint. Agent should not invoke design-to-code workflow."
+    }
+  ],
+  "statistics": {
+    "total_cases": 9,
+    "positive_cases": 6,
+    "negative_cases": 4,
+    "coverage": {
+      "design_sources": ["figma", "screenshot", "design_spec"],
+      "frameworks": ["react", "vue", "plain_html_css"],
+      "css_approaches": ["tailwind", "css_modules", "css_custom_properties"],
+      "quality_dimensions": ["accessibility", "responsive", "design_tokens", "design_system", "component_architecture"],
+      "negative_patterns": ["pure_code_generation", "design_critique", "framework_comparison", "backend_development"]
+    }
+  }
+}

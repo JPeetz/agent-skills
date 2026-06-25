@@ -4,6 +4,53 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.3.0 — 2026-06-25
+
+### 🚀 Skills Added (Published from Local)
+
+- **design-to-code** (v1.0.0) — AI-powered design-to-code conversion covering Figma, Sketch, Adobe XD, and screenshot ingestion. Design token extraction, component hierarchy mapping, responsive breakpoint strategy, accessibility-first implementation (WCAG 2.1 AA), framework-agnostic patterns (React, Vue, Svelte, HTML/CSS), CSS architecture selection (Tailwind, CSS Modules, styled-components), visual regression testing. 857-line SKILL.md, 10 eval cases (6 positive + 4 near-miss negatives).
+
+- **graphql-api-development** (v1.0.0) — Complete GraphQL API design, implementation, and optimization. Schema-first design, resolver architecture with DataLoader N+1 prevention, mutation patterns with idempotency, real-time subscriptions, Apollo Federation for distributed graphs, security hardening (depth/rate limiting, authorization), production performance (persisted queries, CDN caching). 1,201-line SKILL.md, 9 eval cases (6 positive + 3 near-miss negatives).
+
+- **privacy-compliance** (v1.0.0) — Comprehensive global privacy compliance covering GDPR, CCPA/CPRA, HIPAA Privacy Rule, EU AI Act, LGPD (Brazil), cross-border data transfer mechanisms (SCCs, BCRs, EU-US DPF), PII identification and classification, data minimization, consent management, privacy-by-design patterns, DPIA workflows, DSAR handling, breach notification procedures. Procedural knowledge — NOT legal advice. 1,240-line SKILL.md, 7 eval cases.
+
+- **production-engineering-workflows** (v1.0.0) — End-to-end production engineering encoding the complete SDLC into repeatable agent commands. Slash-command entry points: /spec, /plan, /build, /test, /review, /webperf, /code-simplify, /ship. Covers spec-driven ideation, test-driven implementation, automated testing, code review, performance auditing, simplification, deployment automation, feature flags, trunk-based development, incremental rollouts. 897-line SKILL.md, 10 eval cases.
+
+- **technical-documentation** (v1.0.0) — AI-powered technical documentation creation, maintenance, and auditing. README quality templates, ADR (Architecture Decision Records), API docs (OpenAPI generation), runbooks, onboarding guides, changelogs (Keep a Changelog format), knowledge bases, AI agent context files (AGENTS.md/CLAUDE.md), documentation-driven development patterns. 830-line SKILL.md, 8 eval cases (5 positive + 3 near-miss negatives).
+
+### 📚 Documentation
+
+- README catalog: 17 skills (+5) — full table with descriptions, domains, platform compatibility
+- FAQ domains expanded: Frontend/design-to-code, API/GraphQL, Compliance/Privacy, SRE/Production Engineering, Documentation
+- DEVLOG entry for 2026-06-25 (Run 004)
+- Per-skill CHANGELOG entries for publication date
+
+### 🔧 Improvements
+
+- All 5 skills fully packaged: SKILL.md, CHANGELOG.md, LICENSE (MIT), evals/, scripts/validate_skill.py, references/
+- Cross-platform verified: Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, OpenCode
+- All validation scripts pass: design-to-code ✅, graphql-api-development ✅, privacy-compliance ✅, production-engineering-workflows ✅, technical-documentation ✅ (1 minor: body length advisory)
+
+### 📋 Remaining Local Skills (Queued)
+
+- code-review (v1.0.0, 532 lines, 8 eval cases) — target Run 005
+- data-analysis (v1.0.0, 332 lines, 8 eval cases) — target Run 005
+- agent-skill-creator — review and decide on publication
+- ai-legal-content (skeleton: 30 lines) — requires full build
+- apple-app-store-compliance (skeleton: 30 lines) — requires full build
+- gdpr-compliance-expert (skeleton: 27 lines) — requires full build (partially subsumed by privacy-compliance)
+
+### 🔮 Next Targets
+
+- code-review + data-analysis publication (Run 005)
+- Database schema design / migrations skill
+- Kubernetes operations (KubeShark)
+- Incident response & SRE runbooks
+- Terraform infrastructure provisioning
+- dbt data transformation
+
+---
+
 ## v1.2.0 — 2026-06-16
 
 ### 🚀 Skills Added

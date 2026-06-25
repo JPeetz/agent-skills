@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Eval cases for the graphql-api-development agent skill. Positive cases should trigger the skill and produce valid GraphQL API design/implementation output. Near-miss negatives should NOT trigger.",
+  "cases": [
+    {
+      "id": "pos-01",
+      "type": "positive",
+      "name": "Schema design for a social media API",
+      "input": "Design a GraphQL schema for a social media app with users, posts, comments, and likes. Include mutations for creating posts, adding comments, and liking posts. Use Relay-style pagination.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["schema_design", "pagination", "mutation_design"],
+        "min_output_requirements": [
+          "PascalCase type names (User, Post, Comment)",
+          "verb-first mutation names (createPost, addComment, likePost)",
+          "Relay Connection types for list fields",
+          "Input types for mutations",
+          "Payload types for mutation responses",
+          "description strings on types and fields"
+        ],
+        "anti_patterns_to_avoid": [
+          "unpaginated list fields ([Post!]!)",
+          "noun-first mutations (postCreate)",
+          "direct entity returns from mutations",
+          "no Input suffix on input types"
+        ]
+      },
+      "context": "Full schema design from scratch. Agent should produce a complete SDL with types, queries, mutations, connections, and documentation. Should demonstrate Relay cursor pagination, single input arguments, payload types, and typed error handling."
+    },
+    {
+      "id": "pos-02",
+      "type": "positive",
+      "name": "N+1 query fix with DataLoader",
+      "input": "My GraphQL API is slow — fetching 50 posts with their authors fires 51 database queries. Here's my resolver code. Install DataLoader and fix the N+1 problem.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["resolver_implementation", "query_optimization"],
+        "min_output_requirements": [
+          "DataLoader import/require statement",
+          "per-request DataLoader instance creation",
+          "batch function that uses WHERE IN / findByIds",
+          "context.loaders pattern for access",
+          "same-order return guarantee explanation",
+          "null handling for missing records"
+        ],
+        "anti_patterns_to_avoid": [
+          "global/singleton DataLoader instance",
+          "single-item batch function",
+          "missing null handling in batch function",
+          "inline DB calls without DataLoader in child resolvers"
+        ]
+      },
+      "context": "Performance optimization task. Agent should explain the N+1 problem, show DataLoader setup with per-request instances, demonstrate batched queries, and explain why the caching and batching solve the problem."
+    },
+    {
+      "id": "pos-03",
+      "type": "positive",
+      "name": "Apollo Federation setup from monolith",
+      "input": "Split our monolith GraphQL API into federated subgraphs. We have Users, Posts, and Payments domains. Set up federation with proper entity boundaries, @key directives, and reference resolvers.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["federation_setup", "schema_design", "resolver_implementation"],
+        "min_output_requirements": [
+          "@key(fields: \"id\") on entity types",
+          "__resolveReference functions for each entity",
+          "_service and _entities query extensions",
+          "@shareable on cross-subgraph fields",
+          "subgraph ownership boundaries documented",
+          "reference resolver returning { __typename, id } for cross-references"
+        ],
+        "anti_patterns_to_avoid": [
+          "data duplication across subgraphs",
+          "@shareable without cross-team coordination",
+          "missing __resolveReference",
+          "circular @key chains (A→B→A)",
+          "deeply nested @key fields"
+        ]
+      },
+      "context": "Federation architecture task. Agent should define subgraph boundaries, create entity types with proper @key directives, show reference resolver implementations, explain the gateway resolution flow, and cover @shareable/@requires usage."
+    },
+    {
+      "id": "pos-04",
+      "type": "positive",
+      "name": "GraphQL security hardening",
+      "input": "Harden our production GraphQL API. Add depth limiting, rate limiting, query cost analysis, and proper authentication. Disable introspection for public access.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["security_hardening", "performance_tuning"],
+        "min_output_requirements": [
+          "depth limit configuration (graphql-depth-limit, recommended 7)",
+          "query cost analysis setup with maximumCost",
+          "rate limiting configuration per operation",
+          "authentication in context function, not resolvers",
+          "introspection gating for production",
+          "explanation of why each measure is needed"
+        ],
+        "anti_patterns_to_avoid": [
+          "relying only on depth limit without cost analysis",
+          "global rate limit instead of per-operation",
+          "auth checks inline in every resolver",
+          "disabling introspection without authenticated alternative"
+        ]
+      },
+      "context": "Security hardening task. Agent should configure all four security layers, explain the threat each addresses, show integration with Apollo Server validation rules, and demonstrate auth via schema directives and context."
+    },
+    {
+      "id": "pos-05",
+      "type": "positive",
+      "name": "Subscription implementation for real-time chat",
+      "input": "Add real-time subscriptions to our chat application. Users should receive new messages in real-time, filtered by conversation. Handle WebSocket authentication and proper cleanup.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["subscription_architecture", "resolver_implementation"],
+        "min_output_requirements": [
+          "PubSub or Redis-backed pub/sub event bus",
+          "asyncIterator pattern for subscription source",
+          "withFilter for conversation-based filtering",
+          "WebSocket authentication via connectionParams",
+          "proper teardown/unsubscribe/cleanup logic",
+          "subscription type definition with event fields"
+        ],
+        "anti_patterns_to_avoid": [
+          "no cleanup in async iterator",
+          "global pubsub without per-connection filtering",
+          "missing WebSocket auth",
+          "publishing sensitive data to all subscribers",
+          "polling instead of event-driven"
+        ]
+      },
+      "context": "Real-time feature addition. Agent should design the subscription schema, implement event-driven PubSub subscriptions, add filtering per conversation, handle WebSocket auth in context, and ensure proper resource cleanup on disconnect."
+    },
+    {
+      "id": "pos-06",
+      "type": "positive",
+      "name": "Performance optimization with persisted queries",
+      "input": "Our mobile app's GraphQL requests are too large. Set up Automatic Persisted Queries (APQ) to reduce bandwidth and enable CDN caching. Also add field-level cache control.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "knowledge_areas": ["performance_tuning", "resolver_implementation"],
+        "min_output_requirements": [
+          "APQ server-side configuration with cache and TTL",
+          "client-side createPersistedQueryLink setup",
+          "useGETForHashedQueries for CDN caching",
+          "@cacheControl directives on types and fields",
+          "scope distinction (PUBLIC vs PRIVATE)",
+          "response cache plugin configuration"
+        ],
+        "anti_patterns_to_avoid": [
+          "caching private data with PUBLIC scope",
+          "APQ without cache eviction strategy",
+          "ignoring user-specific data in cache keys",
+          "missing sessionIdFromContext for authenticated data"
+        ]
+      },
+      "context": "Production performance optimization. Agent should configure APQ end-to-end (client + server), explain how GET-based persisted queries enable CDN caching, set up field-level @cacheControl with appropriate maxAge and scope values."
+    },
+
+    {
+      "id": "neg-01",
+      "type": "negative",
+      "name": "GraphQL vs REST technology comparison",
+      "input": "Should I use GraphQL or REST for my new API? I've heard GraphQL is better for mobile apps but REST is simpler. What are the tradeoffs?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for technology evaluation and comparison, not GraphQL API design or implementation. There is no schema, resolver, or API development work requested.",
+        "correct_response_type": "Technology comparison and architectural guidance"
+      },
+      "context": "The user wants to decide between GraphQL and REST. The agent should provide a balanced comparison of tradeoffs (overfetching/underfetching, caching complexity, tooling maturity, learning curve) but NOT activate the graphql-api-development skill — there is no API to design or implement."
+    },
+    {
+      "id": "neg-02",
+      "type": "negative",
+      "name": "Apollo Client query debugging",
+      "input": "My Apollo Client useQuery hook returns loading: true forever. Here's my React component. Why isn't the data loading?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is debugging a client-side Apollo Client issue, not designing or implementing a GraphQL API. The problem is in React component code and client configuration.",
+        "correct_response_type": "Client-side debugging of Apollo Client hooks and configuration"
+      },
+      "context": "The user is asking about Apollo Client consumption, not API development. The agent should debug the React component (check query string, error handling, network config, cache policies) but NOT treat it as a graphql-api-development task."
+    },
+    {
+      "id": "neg-03",
+      "type": "negative",
+      "name": "GraphQL tooling recommendation request",
+      "input": "What's the best GraphQL IDE for development? I need something better than GraphiQL. Rocket or Altair? Also, what's a good schema registry?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for tool recommendations, not API design or implementation work. No schema, resolver, or API architecture design is requested.",
+        "correct_response_type": "Tool comparison and recommendation"
+      },
+      "context": "The user wants IDE and tooling recommendations. The agent should compare GraphQL IDEs and schema registries but NOT activate graphql-api-development — this is tool selection guidance, not API development."
+    }
+  ],
+  "statistics": {
+    "total_cases": 9,
+    "positive_cases": 6,
+    "negative_cases": 3,
+    "coverage": {
+      "knowledge_areas": [
+        "schema_design",
+        "resolver_implementation",
+        "query_optimization",
+        "mutation_design",
+        "federation_setup",
+        "security_hardening",
+        "performance_tuning",
+        "subscription_architecture"
+      ],
+      "input_patterns": [
+        "schema design from scratch",
+        "N+1 performance fix",
+        "federation migration",
+        "security hardening",
+        "subscription addition",
+        "performance optimization"
+      ],
+      "negative_patterns": [
+        "technology comparison",
+        "client-side debugging",
+        "tool recommendation"
+      ]
+    }
+  }
+}

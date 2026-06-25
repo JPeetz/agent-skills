@@ -52,6 +52,11 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [supply-chain-security-scanner](/supply-chain-security-scanner) | Security/DevSecOps | Software supply chain security — SBOM generation, dependency scanning, provenance verification, license compliance | Universal |
 | [infrastructure-as-code-guardian](/infrastructure-as-code-guardian) | DevOps/Infrastructure | Cross-tool IaC security and management — Terraform, Pulumi, CloudFormation, Ansible, Bicep | Universal |
 | [playwright-e2e-testing](/playwright-e2e-testing) | QA/Testing | Production-grade Playwright E2E testing — locator strategy, CI/CD, visual regression, component testing, a11y | Universal |
+| [design-to-code](/design-to-code) | Frontend/Design | AI-powered design-to-code: Figma, Sketch, screenshots → production React/Vue/Svelte/HTML | Universal |
+| [graphql-api-development](/graphql-api-development) | API/Backend | GraphQL API design and optimization — Apollo Federation, DataLoader, security, subscriptions | Universal |
+| [privacy-compliance](/privacy-compliance) | Compliance/Legal | Global privacy compliance: GDPR, CCPA/CPRA, HIPAA, EU AI Act, LGPD, cross-border transfers | Universal |
+| [production-engineering-workflows](/production-engineering-workflows) | DevOps/SRE | Full SDLC automation: /spec → /plan → /build → /test → /review → /ship | Universal |
+| [technical-documentation](/technical-documentation) | Documentation | AI-powered technical docs: READMEs, ADRs, API docs, runbooks, knowledge bases | Universal |
 
 ## FAQ
 
@@ -68,7 +73,7 @@ Via GitHub CLI: `gh skill install JPeetz/agent-skills [skill-name]`. Or manually
 New skills ship every Tuesday and Thursday. Each skill is researched, scored, improved, and validated before publication.
 
 **What domains do these skills cover?**
-Business strategy (app discovery, market analysis), development (app scaffolding, API design-first), DevOps (CI/CD pipeline generation, infrastructure-as-code guardian), Git workflow automation (commits, PRs, changelogs, releases), accessibility compliance (WCAG 2.2 AA, a11y audits), QA and testing (Playwright E2E testing, browser automation), security (supply chain scanner, SBOM, dependency scanning, provenance verification), content and documents (PDF/DOCX/XLSX/PPTX processing), marketing (ad campaign generation).
+Business strategy (app discovery, market analysis), development (app scaffolding, API design-first, GraphQL API development), Frontend/Design (design-to-code, accessibility compliance), DevOps/SRE (CI/CD pipeline generation, infrastructure-as-code guardian, production engineering workflows), Git workflow automation (commits, PRs, changelogs, releases), compliance and privacy (GDPR, CCPA, HIPAA, EU AI Act, cross-border transfers), QA and testing (Playwright E2E testing, browser automation), security (supply chain scanner, SBOM, dependency scanning, provenance verification), content and documents (PDF/DOCX/XLSX/PPTX processing, technical documentation), marketing (ad campaign generation).
 
 **How can I submit a skill?**
 Open an issue or PR. See [CONTRIBUTING.md](CONTRIBUTING.md). Skills are reviewed against our quality framework before merging.

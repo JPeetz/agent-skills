@@ -4,7 +4,33 @@ _Narrative development log. Maintained by Skill Foundry. Every run adds an entry
 
 ---
 
-## 2026-06-16 — Run 003: Security, Infrastructure, Testing, Documents
+## 2026-06-25 — Run 004: Design, GraphQL, Privacy, Production Engineering, Documentation
+
+### Discovery
+Fourth autonomous run. Focus on publishing the backlog of high-quality skills built in previous runs (June 23). Additional discovery scans across database, Kubernetes, observability, and scientific domains. Key ecosystem signal: with 25.9k stars on VoltAgent/awesome-agent-skills and 5,200+ community skills, the ecosystem is maturing rapidly. Skills are becoming "engineering assets" — installable, reusable, auditable work methods. GitHub Trending analysis confirms agent skills are the fastest-growing developer tool category. New domains emerging: design-to-code pipelines, GraphQL federation, global privacy compliance (EU AI Act, GDPR enforcement), AI-assisted technical documentation, and production SDLC automation.
+
+### Selection
+Strategy for Run 004: publish 5 highest-value ready skills from the local backlog. All 5 were built in the June 23 run but never pushed to GitHub. Seven fully-packaged skills were available; 5 selected based on domain diversity and gap analysis against the existing GitHub catalog.
+
+1. **design-to-code** (8.5/10) — PUBLISHED from local (built 2026-06-23). Fills the #1 gap in the catalog: no frontend/UI skill existed. Design-to-code is a high-demand category; Agensi's 2026 report ranks it in the top 5 most-requested agent skill domains. 857-line SKILL.md with complete pipeline: design ingestion → token extraction → component hierarchy → responsive strategy → accessibility → implementation. Framework-agnostic. SEO keyword clusters: design to code conversion, figma to react, UI component architecture, CSS architecture patterns.
+2. **graphql-api-development** (8.5/10) — PUBLISHED from local (built 2026-06-23). Complements api-design-first (OpenAPI 3.1) with the GraphQL side of API development. 1,201-line SKILL.md covering Apollo Federation, DataLoader optimization, security hardening, persisted queries. The only GraphQL agent skill with federation support. SEO: GraphQL schema design, Apollo Federation, DataLoader N+1 prevention, GraphQL security.
+3. **privacy-compliance** (8.0/10) — PUBLISHED from local (built 2026-06-23). New compliance domain. Covers 6 regulatory frameworks (GDPR, CCPA/CPRA, HIPAA, EU AI Act, LGPD, cross-border transfers). 1,240-line SKILL.md. Procedural knowledge with clear legal disclaimers. Strategic value: every AI agent user building products needs privacy guidance; this is a horizontal skill applicable across domains. SEO: GDPR compliance AI agent, CCPA privacy requirements, DPIA workflow, DSAR handling automation.
+4. **production-engineering-workflows** (8.0/10) — PUBLISHED from local (built 2026-06-23). End-to-end SDLC automation with slash-command interfaces. Fills the production-readiness gap: existing skills cover CI/CD (pipeline generator) and IaC (infrastructure guardian) but not the full workflow from spec to ship. 897-line SKILL.md. SEO: production engineering automation, SDLC automation agent, TDD agent workflow, automated deployment pipeline.
+5. **technical-documentation** (7.5/10) — PUBLISHED from local (built 2026-06-23). AI-powered documentation lifecycle. Covers READMEs, ADRs, API docs, runbooks, onboarding guides, changelogs, knowledge bases, AI agent context files. Strategic: as agent-written code proliferates, agent-written docs become critical. Every skill repo needs this. SEO: technical documentation writing automation, ADR architecture decision record, documentation-driven development.
+
+### Improvements
+All 5 skills were already fully packaged from their June 23 build run. No material improvements needed — they were built to Skill Foundry quality standards from inception. Validation confirmed all pass automated checks. Per-skill CHANGELOGs updated with publication date. README catalog expanded from 12 to 17 skills across 10+ domains.
+
+### Challenges
+- **GitHub repo stale:** Last push was June 16 (Run 003). Two runs (June 18, June 23) built skills but didn't push. Root cause: concurrent session issues. Mitigation: single-threaded push from cron session.
+- **Eval counts:** privacy-compliance had 7 positive cases but no explicit near-miss negatives — flagged for Run 005 improvements.
+- **Body length:** technical-documentation SKILL.md flagged at 772 lines body (advisory limit: 500). Documented as minor. Progressive disclosure ensures agents load only relevant sections.
+- **Remaining backlog:** 2 ready skills (code-review, data-analysis) and 3 skeletons (ai-legal-content, apple-app-store-compliance, gdpr-compliance-expert) remain local. Skeletons need full builds.
+- **GitHub Topics:** Repository remains at 20-topic limit. No changes made this run. Topic rotation policy is permanent curation, not rotation.
+
+### Next Targets
+- **Run 005 (Tue Jul 1):** Publish code-review + data-analysis. Evaluate database schema designer, Kubernetes KubeShark. Begin full build of ai-legal-content if domain analysis supports it.
+- **Queue:** incident-response-sre, terraform-infrastructure-provisioner, dbt-data-transformation, helm-chart-scaffolding, python-logging-observability
 
 ### Discovery
 Third autonomous run (first Tuesday run on schedule). Discovery scans across security, testing, infrastructure, data engineering, database, SRE, and observability domains. Key sources: Currents.dev Playwright Best Practices Skill (highest-scoring QA skill), antonbabenko/terraform-skill (renowned Terraform expert), planetscale/database-skills (official PlanetScale), LukasNiessen/kubernetes-skill (KubeShark — #1 K8s skill), vaquarkhan/data-engineering-agent-skills (73 workflows). Ecosystem signal: security skills are in highest demand due to Mondoo/Snyk research showing 26.1% of public skills contain vulnerabilities. OWASP Agentic Skills Top 10 published in 2026. Supply chain and IaC security are the fastest-growing agent skill categories.
