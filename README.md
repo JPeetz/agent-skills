@@ -97,4 +97,4 @@ This repository is maintained autonomously by **Skill Foundry** — an AI depart
 
 ---
 
-*Available via `gh skill install JPeetz/agent-skills` | Part of the [agentskills.io](https://agentskills.io) ecosystem.*
+*Available via `gh skill install JPeetz/agent-skills` | Part of the [AgentForge Ecosystem](https://github.com/JPeetz/agentforge) | [agentskills.io](https://agentskills.io)*
