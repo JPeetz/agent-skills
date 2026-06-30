@@ -44,6 +44,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [app-scaffolding](/app-scaffolding) | Development | 12-section mobile app build blueprint (iOS + Android) | Universal |
 | [astra-campaign](/astra-campaign) | Marketing | Full-service ad campaign generator (X, TikTok, Instagram) | Universal |
 | [ci-cd-pipeline-generator](/ci-cd-pipeline-generator) | DevOps/CI-CD | Production-ready CI/CD pipelines — GitHub Actions, GitLab CI, CircleCI, Jenkins | Universal |
+| [dbt-data-transformation](/dbt-data-transformation) | Data/DBT | Production-grade dbt analytics engineering — model development, testing, dbt Mesh governance, semantic layer | Universal |
 | [git-workflow-automation](/git-workflow-automation) | Git/Release | Conventional Commits, changelogs, PR descriptions, semantic versioning, branch management | Universal |
 | [accessibility-compliance-audit](/accessibility-compliance-audit) | Frontend/A11y | WCAG 2.2 AA audits — automated scan, manual review, fix-ready code for React/Vue/Angular | Universal |
 | [api-design-first](/api-design-first) | API/Backend | Design-first OpenAPI 3.1 specifications — REST, GraphQL, gRPC with cross-protocol consistency | Universal |
@@ -51,6 +52,8 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [document-processing](/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
 | [supply-chain-security-scanner](/supply-chain-security-scanner) | Security/DevSecOps | Software supply chain security — SBOM generation, dependency scanning, provenance verification, license compliance | Universal |
 | [infrastructure-as-code-guardian](/infrastructure-as-code-guardian) | DevOps/Infrastructure | Cross-tool IaC security and management — Terraform, Pulumi, CloudFormation, Ansible, Bicep | Universal |
+| [kubernetes-operations](/kubernetes-operations) | DevOps/K8s | Production-grade Kubernetes ops — manifest generation, Helm charts, GitOps, security hardening, failure-mode diagnosis | Universal |
+| [observability-engineering](/observability-engineering) | DevOps/SRE | OpenTelemetry instrumentation, monitoring, distributed tracing, SLI/SLO management, incident response | Universal |
 | [playwright-e2e-testing](/playwright-e2e-testing) | QA/Testing | Production-grade Playwright E2E testing — locator strategy, CI/CD, visual regression, component testing, a11y | Universal |
 | [design-to-code](/design-to-code) | Frontend/Design | AI-powered design-to-code: Figma, Sketch, screenshots → production React/Vue/Svelte/HTML | Universal |
 | [graphql-api-development](/graphql-api-development) | API/Backend | GraphQL API design and optimization — Apollo Federation, DataLoader, security, subscriptions | Universal |
