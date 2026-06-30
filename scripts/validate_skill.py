@@ -3,7 +3,8 @@
 # dependencies = []
 # ///
 """Validate a skill's SKILL.md format against the Agent Skills spec."""
-import yaml, sys, os, re
+import json, sys, os, re
+import yaml
 
 def validate_skill(skill_dir: str) -> dict:
     """Validate a skill directory against the spec."""

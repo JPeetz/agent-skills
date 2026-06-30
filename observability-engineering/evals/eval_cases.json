@@ -1,0 +1,91 @@
+{
+  "skill": "observability-engineering",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "trigger-001",
+      "label": "instrument-nodejs-otel",
+      "input": "Help me instrument my Node.js Express API with OpenTelemetry. I need traces, metrics, and logs all going to an OTLP collector.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "mentions @opentelemetry/sdk-node and auto-instrumentation",
+        "includes OTLP exporter configuration for traces, metrics, and logs",
+        "covers W3C trace context propagation",
+        "recommends structured JSON logging with trace_id correlation"
+      ]
+    },
+    {
+      "id": "trigger-002",
+      "label": "define-slo-error-budget",
+      "input": "We have a payment API that needs a 99.95% SLO. Help me define the SLIs, error budget, and Prometheus burn rate alerts.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "defines availability and latency SLIs",
+        "calculates error budget (0.05% over 30 days)",
+        "configures multi-window burn rate alerts (fast + slow)",
+        "provides Prometheus alerting rule YAML",
+        "references error budget burn rate table"
+      ]
+    },
+    {
+      "id": "trigger-003",
+      "label": "incident-response-playbook",
+      "input": "We just had a major outage affecting our checkout flow. I need to set up an incident response process with severity levels, communication templates, and a postmortem structure.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "provides severity classification (SEV0-SEV4)",
+        "defines IC (Incident Commander) role responsibilities",
+        "includes slack communication templates for declaration, update, resolution",
+        "provides postmortem template with action items table",
+        "includes timeline reconstruction format"
+      ]
+    },
+    {
+      "id": "trigger-004",
+      "label": "grafana-dashboard-slo",
+      "input": "Create a Grafana dashboard that shows our SLO compliance across multiple services with error budgets, burn rates, and golden signals.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "defines golden signals dashboard layout (Rate, Errors, Duration)",
+        "includes RED methodology pattern",
+        "shows error budget gauge panel",
+        "references SLO dashboard JSON structure",
+        "suggests recording rules for pre-aggregation"
+      ]
+    },
+    {
+      "id": "trigger-005",
+      "label": "distributed-tracing-sampling",
+      "input": "Our microservices are generating too much tracing data. Help me configure a sampling strategy that keeps all errors and slow requests but samples healthy traffic.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "explains head-based vs tail-based sampling trade-offs",
+        "configures tail sampling processor for OTel Collector",
+        "keeps 100% error traces + all traces > 1s latency",
+        "applies probabilistic sampling for remaining healthy traffic",
+        "discusses cost implications of different strategies"
+      ]
+    },
+    {
+      "id": "near-miss-001",
+      "label": "fix-bug-not-observability",
+      "input": "There's a bug in my checkout flow where users get a 500 error when their cart has more than 50 items. Can you fix it?",
+      "expected_behavior": "near-miss-negative",
+      "assertions": [
+        "does NOT provide instrumentation or observability guidance",
+        "redirects to code-review or general debugging"
+      ]
+    },
+    {
+      "id": "near-miss-002",
+      "label": "deploy-k8s-not-observability",
+      "input": "I need to deploy my monitoring stack to Kubernetes. Can you help me write the deployment manifests for Prometheus and Grafana?",
+      "expected_behavior": "near-miss-negative",
+      "assertions": [
+        "does NOT provide Kubernetes deployment manifests as primary response",
+        "redirects to a Kubernetes-specific skill for deployment details",
+        "may offer observability configuration AFTER deployment is handled"
+      ]
+    }
+  ]
+}

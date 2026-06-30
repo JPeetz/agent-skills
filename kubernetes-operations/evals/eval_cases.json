@@ -1,0 +1,111 @@
+[
+  {
+    "id": "eval-001",
+    "severity": "critical",
+    "description": "Production deployment generation with full security, autoscaling, probes, and resource management",
+    "input": "Create a production-ready Kubernetes Deployment for a Node.js API with autoscaling, health probes, resource limits, and proper security context",
+    "expected_trigger": true,
+    "assertions": [
+      "securityContext with runAsNonRoot: true",
+      "readinessProbe AND livenessProbe",
+      "resources with requests AND limits",
+      "HPA with cpu/memory targets",
+      "no deprecated API versions"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "severity": "critical",
+    "description": "Helm chart generation with multi-environment values and dependencies",
+    "input": "Generate a Helm chart for a microservice that needs Redis and PostgreSQL, with separate values for staging and production",
+    "expected_trigger": true,
+    "assertions": [
+      "Chart.yaml with name, version, appVersion",
+      "Chart.yaml with Redis and PostgreSQL dependencies",
+      "values.yaml with documented defaults",
+      "Separate values/staging.yaml and values/prod.yaml",
+      "_helpers.tpl with reusable template functions",
+      "NOTES.txt with post-install instructions"
+    ]
+  },
+  {
+    "id": "eval-003",
+    "severity": "high",
+    "description": "Security review catches privileged container and missing NetworkPolicy",
+    "input": "Review my deployment for security issues: it runs as root, has no resource limits, and I'm not sure about the network setup",
+    "expected_trigger": true,
+    "assertions": [
+      "Identifies privileged/root container as FM-1",
+      "Identifies missing resource limits as FM-2",
+      "Identifies missing NetworkPolicy as FM-3",
+      "Recommends securityContext hardening",
+      "Recommends default-deny NetworkPolicy"
+    ]
+  },
+  {
+    "id": "eval-004",
+    "severity": "high",
+    "description": "GitOps workflow with Flux CD for a multi-environment setup",
+    "input": "Set up GitOps for my Kubernetes cluster using Flux CD. I have staging and production environments with different configs",
+    "expected_trigger": true,
+    "assertions": [
+      "GitRepository source definition",
+      "Kustomization with path reference",
+      "Multi-environment overlay pattern",
+      "Prune enabled for garbage collection",
+      "Health check configuration",
+      "Post-build variable substitution"
+    ]
+  },
+  {
+    "id": "eval-005",
+    "severity": "medium",
+    "description": "Diagnose and fix a crashing pod with OOMKilled",
+    "input": "fix pod: my-api-pod keeps restarting with OOMKilled in production. It's a Java service with default settings",
+    "expected_trigger": true,
+    "assertions": [
+      "Diagnoses FM-2 Resource Starvation",
+      "Recommends memory limits increase or JVM heap tuning",
+      "Suggests VPA in recommendation mode",
+      "Advises Guaranteed QoS for stability",
+      "Recommends HPA based on actual metrics"
+    ]
+  },
+  {
+    "id": "eval-006",
+    "severity": "critical",
+    "description": "Multi-cloud deployment with EKS-specific IRSA and spot instances",
+    "input": "deploy to EKS with spot instances for cost savings, need IRSA for S3 access, and TLS termination via cert-manager",
+    "expected_trigger": true,
+    "assertions": [
+      "EKS spot nodeSelector and toleration",
+      "IRSA service account annotation",
+      "cert-manager Ingress annotation",
+      "PodDisruptionBudget for spot evictions",
+      "Cluster autoscaler safe-to-evict annotation",
+      "TopologySpreadConstraints for zone HA"
+    ]
+  },
+  {
+    "id": "eval-007",
+    "severity": "medium",
+    "description": "NEAR-MISS NEGATIVE: Docker-only question without Kubernetes context",
+    "input": "How do I optimize my Dockerfile to use multi-stage builds and reduce image size?",
+    "expected_trigger": false,
+    "assertions": [
+      "Should NOT trigger kubernetes-operations skill",
+      "This is a Docker/pure container question without K8s deployment context"
+    ]
+  },
+  {
+    "id": "eval-008",
+    "severity": "medium",
+    "description": "NEAR-MISS NEGATIVE: Terraform infrastructure provisioning without K8s context",
+    "input": "Write Terraform to provision an RDS instance, VPC, and subnets for my application",
+    "expected_trigger": false,
+    "assertions": [
+      "Should NOT trigger kubernetes-operations skill",
+      "This is infrastructure-as-code (Terraform) without Kubernetes deployment context — use infrastructure-as-code skill"
+    ]
+  }
+]

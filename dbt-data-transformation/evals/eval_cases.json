@@ -1,0 +1,96 @@
+[
+  {
+    "id": "eval-001",
+    "severity": "critical",
+    "description": "Model generation triggers skill with dbt best practices",
+    "input": "Create a dbt model that transforms raw orders data into a customer_orders mart with revenue metrics",
+    "expected_trigger": true,
+    "assertions": [
+      "uses dbt best practices",
+      "includes ref() for upstream models",
+      "suggests proper materialization for marts (table or incremental)",
+      "includes YAML config with descriptions",
+      "follows naming convention fct_ or similar mart prefix"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "severity": "critical",
+    "description": "Testing request triggers test domain disclosure",
+    "input": "Write data tests for my staging models to ensure referential integrity and uniqueness",
+    "expected_trigger": true,
+    "assertions": [
+      "discloses Level 2 (Testing) domain",
+      "includes unique and not_null test patterns",
+      "uses data_tests key (not deprecated tests key)",
+      "demonstrates relationships test for referential integrity",
+      "suggests severity configuration"
+    ]
+  },
+  {
+    "id": "eval-003",
+    "severity": "critical",
+    "description": "Semantic layer request triggers MetricFlow disclosure",
+    "input": "Define MetricFlow semantic models and metrics for our revenue reporting and customer lifetime value tracking",
+    "expected_trigger": true,
+    "assertions": [
+      "discloses Level 3 (Semantic Layer) domain",
+      "includes semantic_models YAML with entities, dimensions, measures",
+      "includes metrics YAML with type_params",
+      "demonstrates time dimensions for aggregation",
+      "includes saved queries for business reporting"
+    ]
+  },
+  {
+    "id": "eval-004",
+    "severity": "high",
+    "description": "dbt Mesh governance request triggers Mesh disclosure",
+    "input": "Set up cross-project refs between our finance and marketing dbt projects with model contracts and access controls",
+    "expected_trigger": true,
+    "assertions": [
+      "discloses Level 4 (dbt Mesh) domain",
+      "demonstrates cross-project ref() syntax with project name",
+      "includes model contract enforcement patterns",
+      "covers access levels (private/protected/public)",
+      "mentions dependencies.yml for project linking"
+    ]
+  },
+  {
+    "id": "eval-005",
+    "severity": "high",
+    "description": "Incremental model optimization triggers analytics engineering + platform domains",
+    "input": "Our incremental model is running slow and costing too much in warehouse credits. Optimize it for performance and cost.",
+    "expected_trigger": true,
+    "assertions": [
+      "discloses Level 1 (Analytics Engineering) domain",
+      "optionally discloses Level 5 (Platform & Operations) domain",
+      "recommends incremental_strategy: merge or delete+insert",
+      "addresses partition/cluster configuration",
+      "suggests warehouse cost optimization strategies",
+      "recommends on_schema_change: sync_all_columns"
+    ]
+  },
+  {
+    "id": "eval-neg-001",
+    "severity": "high",
+    "description": "General SQL question does NOT trigger skill",
+    "input": "How do I write a SELECT statement that joins two tables and filters by date?",
+    "expected_trigger": false,
+    "assertions": [
+      "does NOT trigger dbt-data-transformation skill",
+      "should be routed to a general SQL skill or answered without dbt specifics"
+    ]
+  },
+  {
+    "id": "eval-neg-002",
+    "severity": "high",
+    "description": "Airflow orchestration question does NOT trigger skill",
+    "input": "I need to schedule my dbt job in Airflow. How do I create a DAG that runs dbt build every morning at 6am?",
+    "expected_trigger": false,
+    "assertions": [
+      "does NOT trigger dbt-data-transformation skill for orchestration",
+      "may reference dbt CLI commands within orchestration context but primary skill should be pipeline/orchestration",
+      "if triggered, should only disclose Level 5 CLI command for dbt build, not full dbt skill"
+    ]
+  }
+]
