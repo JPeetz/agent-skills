@@ -1,0 +1,85 @@
+{
+  "skill": "data-analysis",
+  "version": "1.0.0",
+  "description": "Eval cases for the data-analysis agent skill. Positive cases should trigger the skill; near-miss negatives should not.",
+  "eval_cases": [
+    {
+      "id": "pos-001",
+      "type": "positive",
+      "label": "CSV analysis with charts",
+      "input": "I have a file called sales_2025.csv with columns date, product, region, revenue, units_sold. Can you analyze it and show me which products are performing best by region? Please include some charts.",
+      "expected_behavior": "Skill triggers. Agent loads the CSV, inspects structure, performs grouped analysis by product and region, creates bar charts showing revenue/units by region-product, and produces a structured report.",
+      "key_indicators": ["analyze", "CSV", "charts", "revenue", "by region"],
+      "required_phases": ["load", "inspect", "analyze", "visualize", "report"]
+    },
+    {
+      "id": "pos-002",
+      "type": "positive",
+      "label": "JSON data cleaning",
+      "input": "I scraped some product data and saved it as products.json. A lot of fields are missing or have weird values. Can you clean it up and tell me what's wrong with the data?",
+      "expected_behavior": "Skill triggers. Agent loads JSON, runs data quality checks (missing values, type inconsistencies, outliers), reports all issues, cleans the data with user confirmation for major decisions, and saves cleaned version.",
+      "key_indicators": ["clean", "JSON", "missing", "data quality", "weird values"],
+      "required_phases": ["load", "inspect", "clean", "report"]
+    },
+    {
+      "id": "pos-003",
+      "type": "positive",
+      "label": "Time series analysis",
+      "input": "Here's my website traffic data for the last 2 years in traffic.csv. I want to understand the trend, seasonality, and if there's been significant growth. Can you do a time series analysis?",
+      "expected_behavior": "Skill triggers. Agent loads CSV, parses date column, sets datetime index, performs time series decomposition (trend/seasonal/residual), calculates growth rates, creates line chart with trend overlay, and reports findings.",
+      "key_indicators": ["time series", "trend", "seasonality", "growth", "traffic"],
+      "required_phases": ["load", "inspect", "clean", "analyze", "visualize", "report"]
+    },
+    {
+      "id": "pos-004",
+      "type": "positive",
+      "label": "Correlation matrix and heatmap",
+      "input": "I have a dataset survey_results.csv with 20 numeric columns from a customer satisfaction survey. I want to see which factors correlate most strongly with overall satisfaction. Show me a correlation matrix.",
+      "expected_behavior": "Skill triggers. Agent loads CSV, computes correlation matrix, identifies strongest correlations with satisfaction score, creates a heatmap visualization, and reports top correlated factors with their correlation coefficients.",
+      "key_indicators": ["correlation", "heatmap", "numeric columns", "satisfaction", "factors"],
+      "required_phases": ["load", "inspect", "analyze", "visualize", "report"]
+    },
+    {
+      "id": "pos-005",
+      "type": "positive",
+      "label": "SQL query results analysis",
+      "input": "I ran a SQL query and exported the results to quarterly_revenue.csv. It has customer segments, quarters, and revenue numbers. Can you run a statistical test to see if there's a significant difference in revenue between enterprise and SMB customers?",
+      "expected_behavior": "Skill triggers. Agent loads CSV, splits data by customer segment (enterprise vs SMB), checks normality assumptions, runs appropriate statistical test (t-test or Mann-Whitney U), reports test statistic, p-value, effect size, and creates a box plot comparing the two groups.",
+      "key_indicators": ["SQL", "statistical test", "significant difference", "revenue", "CSV"],
+      "required_phases": ["load", "inspect", "analyze", "visualize", "report"]
+    },
+    {
+      "id": "neg-001",
+      "type": "near-miss-negative",
+      "label": "Database schema design (no data)",
+      "input": "I'm building a new e-commerce app. What columns should I include in my orders table? How should I structure the database schema for tracking inventory?",
+      "expected_behavior": "Skill does NOT trigger. This is a database schema design question without any actual data to analyze. Redirect to SQL/database design guidance instead.",
+      "key_indicators": ["schema design", "columns", "table", "no data file"],
+      "why_negative": "No dataset provided, no analysis to perform. This is schema architecture, not data analysis."
+    },
+    {
+      "id": "neg-002",
+      "type": "near-miss-negative",
+      "label": "General math theory question",
+      "input": "Can you explain how linear regression works? What's the difference between R-squared and adjusted R-squared? I'm studying for a statistics exam.",
+      "expected_behavior": "Skill does NOT trigger. This is a theoretical statistics question with no dataset context. Provide the explanation as general knowledge, not as a data analysis workflow.",
+      "key_indicators": ["explain how", "difference between", "studying", "exam", "no dataset"],
+      "why_negative": "Pure theory question. No data file, no analysis request, no visualization needed."
+    },
+    {
+      "id": "neg-003",
+      "type": "near-miss-negative",
+      "label": "Spreadsheet UI feature question",
+      "input": "How do I create a pivot table in Google Sheets? Also, I need to freeze the header row and apply conditional formatting to highlight cells above 100.",
+      "expected_behavior": "Skill does NOT trigger. This is a spreadsheet software UI/how-to question. Provide guidance on Google Sheets features without engaging the data analysis workflow.",
+      "key_indicators": ["Google Sheets", "pivot table", "freeze", "conditional formatting", "UI"],
+      "why_negative": "Spreadsheet UI operations, not programmatic data analysis. No dataset file provided for analysis."
+    }
+  ],
+  "metrics": {
+    "total_cases": 8,
+    "positive_cases": 5,
+    "negative_cases": 3,
+    "evaluation_guidance": "For positive cases: verify that the skill triggers and follows at least the required phases. For negative cases: verify that the skill does NOT trigger and the response avoids launching the full analysis workflow."
+  }
+}

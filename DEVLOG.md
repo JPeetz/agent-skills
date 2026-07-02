@@ -4,6 +4,49 @@ _Narrative development log. Maintained by Skill Foundry. Every run adds an entry
 
 ---
 
+## 2026-07-02 — Run 005: Code Quality, Data Science, Database, Agent Security, SRE
+
+**Run type:** Manual catch-up (cron abort recovery). Weekly cron (Tue/Thu 06:00) aborted at 02:51 due to DeepSeek V4 Pro provider abort. This run recovered 5 skills from the local backlog and published them.
+
+### Discovery
+Started with a well-populated local backlog — 7 fully packaged skills ready to ship plus 3 skeletons. The aborted cron run had completed discovery (found orchestra-research/AI-research-SKILLs, vaquarkhan/data-engineering-agent-skills, VoltAgent/awesome-agent-skills) but crashed during scoring. This run skipped re-discovery and focused on clearing the ready backlog.
+
+### Selection
+From 7 ready local skills, selected 5 that add new domain coverage:
+1. **code-review** (Code Quality) — Every developer needs this. Mature at v1.1.0, already improved from v1.0.0.
+2. **data-analysis** (Data Science) — Broad applicability across roles.
+3. **database-schema-designer** (Database) — Fills a clear gap; no database design skill in the catalog.
+4. **agentic-security-scanner** (Agent Security) — Unique niche: OWASP AST10 framework. First skill that validates other skills.
+5. **sre-runbooks** (SRE/DevOps) — Operational excellence rounds out the DevOps cluster.
+
+Left queued: llm-security-redteaming, api-contract-testing (both fully packaged, ready for Run 006).
+
+### Validation
+All 5 passed `validate_skill.py` with zero issues. Advisory warnings only (description_style — use "Use this skill when" prefix). Eval case counts: code-review 8 (5+3 neg), data-analysis 5, database-schema-designer 5 (with near-miss per case), agentic-security-scanner 7, sre-runbooks 5 (with near-miss per case).
+
+### New Domains Added
+- **Code Quality** — AI-powered code review covering security, architecture, style, performance
+- **Data Science** — End-to-end data analysis from CSV/JSON/Excel/SQL to visualizations and reports
+- **Database** — Schema design with normalization, indexing, migrations, multi-tenant patterns
+- **Agent Security** — OWASP AST10 framework for scanning skills before installation
+- **SRE** — Runbook automation with safety gates and human approval
+
+### Repo Impact
+- 5 new skill directories: code-review/, data-analysis/, database-schema-designer/, agentic-security-scanner/, sre-runbooks/
+- 25 skills total in catalog (+5 from 20)
+- README alphabetized, FAQ domains expanded
+- CHANGELOG v1.4.0 entry
+- 5 per-skill CHANGELOGs updated with publication date
+
+### Note on Repo State
+3 skills (dbt-data-transformation, kubernetes-operations, observability-engineering) were committed to the repo between Run 004 and Run 005. These were not produced by Skill Foundry's standard pipeline — likely a parallel build process. They are properly packaged and validated. The catalog now has 25 skills.
+
+### Next Targets
+- **Run 006:** Publish llm-security-redteaming + api-contract-testing (both ready). Full-build one skeleton (ai-legal-content or apple-app-store-compliance). Privacy-compliance near-miss negatives improvement.
+- External candidates for evaluation: vaquarkhan/data-engineering-agent-skills, simota/agent-skills (124-agent team), xfstudio/skills (90+ skills).
+
+---
+
 ## 2026-06-25 — Run 004: Design, GraphQL, Privacy, Production Engineering, Documentation
 
 ### Discovery

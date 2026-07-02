@@ -4,6 +4,53 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.4.0 — 2026-07-02
+
+### 🚀 Skills Added (Run 005)
+
+- **code-review** (v1.1.0) — AI-powered code review and PR analysis. Systematic reviews covering security vulnerabilities (OWASP patterns), code quality, style compliance, architectural integrity, test coverage, and performance considerations. Works with PR diffs, commit ranges, file changes, or raw code snippets. 475-line SKILL.md, 8 eval cases (5 positive + 3 near-miss negatives).
+
+- **data-analysis** (v1.0.0) — Comprehensive data analysis for loading, cleaning, exploring, visualizing, and reporting on structured datasets. Supports CSV, JSON, Excel, and SQL data sources. Statistical summaries, correlation matrices, time series analysis, regression models, hypothesis tests, and publication-quality visualizations via matplotlib, seaborn, and plotly. 301-line SKILL.md, 5 eval cases.
+
+- **database-schema-designer** (v1.0.0) — Production-grade database schema design covering normalization (1NF to BCNF), indexing strategy with anti-pattern detection, safe migration design with rollback patterns (8 safe-migration rules), query optimization via EXPLAIN ANALYZE, and multi-tenant architecture patterns across PostgreSQL, MySQL, SQLite, MongoDB, and Vitess. 250-line SKILL.md, 5 eval cases with near-miss negatives.
+
+- **agentic-security-scanner** (v1.0.0) — OWASP Agentic Skills Top 10 (AST10) security framework implementation. Static analysis scanner detecting malicious skills, prompt injection sinks, data exfiltration paths, supply chain risks, and cross-platform metadata loss. CI/CD-ready with SARIF output for GitHub Code Scanning integration. 186-line SKILL.md, 7 eval cases.
+
+- **sre-runbooks** (v1.0.0) — Safe-by-default DevOps/SRE runbook automation. Incident response workflow (Triage → Investigation → Mitigation → Resolution), Google SRE Four Golden Signals diagnostics, Five Whys RCA, blameless postmortem templates, on-call handover generation, and Never-Automate safety lists. Dry-run modes and human approval gates built in. 239-line SKILL.md, 5 eval cases with near-miss negatives.
+
+### 📚 Documentation
+
+- README catalog: 25 skills (+5) — fully alphabetized, 5 new domains added
+- FAQ updated: code quality, data science, database, agent security, SRE domains
+- DEVLOG entry for 2026-07-02 (Run 005)
+- Per-skill CHANGELOG entries for publication date
+
+### 🔧 Improvements
+
+- All 5 skills fully packaged: SKILL.md, CHANGELOG.md, LICENSE (MIT), evals/, scripts/, references/
+- Cross-platform verified: Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, OpenCode
+- All validation scripts pass: code-review ✅, data-analysis ✅, database-schema-designer ✅, agentic-security-scanner ✅, sre-runbooks ✅
+
+### 📋 Remaining Local Skills (Queued)
+
+- llm-security-redteaming (v1.0.0, 224 lines, 7 eval cases) — target Run 006
+- api-contract-testing (v1.0.0, 182 lines, 5 eval cases) — target Run 006
+- agent-skill-creator (v1.0.0, 636 lines, has own .git) — review and decide
+- ai-legal-content (skeleton: 30 lines) — requires full build
+- apple-app-store-compliance (skeleton: 30 lines) — requires full build
+- gdpr-compliance-expert (skeleton: 27 lines) — requires full build (partially subsumed by privacy-compliance)
+
+### 🔮 Next Targets
+
+- llm-security-redteaming + api-contract-testing publication (Run 006)
+- Privacy-compliance near-miss negative eval improvement
+- Full build of ai-legal-content or apple-app-store-compliance
+- Incident response & SRE (partially covered by sre-runbooks, observability-engineering)
+- Helm chart scaffolding
+- Python logging & observability
+
+---
+
 ## v1.3.0 — 2026-06-25
 
 ### 🚀 Skills Added (Published from Local)

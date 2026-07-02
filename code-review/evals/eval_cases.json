@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Eval cases for the code-review agent skill. Positive cases should trigger and produce a valid review. Near-miss negatives should NOT trigger the skill.",
+  "cases": [
+    {
+      "id": "pos-01",
+      "type": "positive",
+      "name": "PR review request with GitHub URL",
+      "input": "Please review this PR: https://github.com/acme-corp/api-service/pull/342 — it adds rate limiting to the login endpoint.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "review_dimensions": ["security", "correctness", "performance", "architecture"],
+        "min_findings_expected": 1,
+        "output_must_include": ["Summary", "Findings", "Recommendation", "🔴|🟠|🟡|⚪"],
+        "recommendation_possible": ["Approve with suggestions", "Request changes"]
+      },
+      "context": "Standard PR review. The agent should fetch the PR diff, analyze the rate limiting logic for bypass risks, check performance of the rate limiter implementation, and verify test coverage."
+    },
+    {
+      "id": "pos-02",
+      "type": "positive",
+      "name": "Security-focused code review request",
+      "input": "I just wrote a new authentication module. Can you code review it for security issues? Here's the diff: [diff showing new auth.py with bcrypt password hashing and JWT token generation]",
+      "expected_behavior": {
+        "should_trigger": true,
+        "review_dimensions": ["security", "correctness", "test_coverage"],
+        "min_findings_expected": 2,
+        "output_must_include": ["Security Assessment", "BLOCKER|MAJOR|MINOR"],
+        "recommendation_possible": ["Approve with suggestions", "Request changes"]
+      },
+      "context": "Security review of auth module. Agent should check password hashing algorithm, JWT secret management, token expiry, constant-time comparison, and session management patterns."
+    },
+    {
+      "id": "pos-03",
+      "type": "positive",
+      "name": "Bug fix verification review",
+      "input": "I fixed a race condition in the payment processing queue. Can you review commit abc123def to make sure the fix is correct and doesn't introduce new issues?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "review_dimensions": ["correctness", "security", "performance"],
+        "min_findings_expected": 1,
+        "output_must_include": ["Summary", "Findings", "Recommendation"],
+        "recommendation_possible": ["Approve", "Approve with suggestions", "Request changes"]
+      },
+      "context": "Review of a fix for a race condition. Agent should verify the synchronization mechanism, check for new race conditions, ensure idempotency, and verify test coverage for the fix."
+    },
+    {
+      "id": "pos-04",
+      "type": "positive",
+      "name": "Multi-file refactor review",
+      "input": "Can you review these changes? I refactored the user service to use the repository pattern. Diff includes 8 files across services/, repositories/, and models/.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "review_dimensions": ["architecture", "quality", "style", "test_coverage"],
+        "min_findings_expected": 2,
+        "output_must_include": ["Summary", "Findings", "Architecture", "Recommendation"],
+        "recommendation_possible": ["Approve with suggestions", "Request changes"]
+      },
+      "context": "Architectural review. Agent should check that the repository pattern is applied consistently, interfaces are properly defined, dependency injection is used correctly, old code is fully removed, and there are no circular dependencies."
+    },
+    {
+      "id": "pos-05",
+      "type": "positive",
+      "name": "Code review with explicit focus areas",
+      "input": "Review my code for performance problems and memory leaks. Here's a diff that processes large CSV files: [diff showing data_processor.py with pandas operations on DataFrames]",
+      "expected_behavior": {
+        "should_trigger": true,
+        "review_dimensions": ["performance", "correctness", "quality"],
+        "min_findings_expected": 1,
+        "output_must_include": ["Summary", "Findings", "Recommendation"],
+        "recommendation_possible": ["Approve", "Approve with suggestions", "Request changes"]
+      },
+      "context": "Performance-focused review. Agent should check for chunked processing vs loading entire file, memory usage patterns, pandas inplace operations, vectorized operations vs apply(), and streaming approaches."
+    },
+
+    {
+      "id": "neg-01",
+      "type": "negative",
+      "name": "Code explanation request (not a review)",
+      "input": "Can you review what this function does? I'm trying to understand the authentication flow.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for explanation/education, not a quality/security review. 'Review' here means 'explain' in context.",
+        "correct_response_type": "Code explanation or walkthrough"
+      },
+      "context": "The user uses the word 'review' but the context makes it clear they want an explanation, not a quality assessment. The agent should explain the code, not produce a structured review."
+    },
+    {
+      "id": "neg-02",
+      "type": "negative",
+      "name": "Architecture design brainstorm (not a review)",
+      "input": "Let's review my microservice architecture. I'm thinking of using Kafka for event streaming. What do you think? Should I use gRPC or REST for service-to-service communication?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User is asking for architectural advice and technology evaluation for a design that doesn't exist yet. There is no code to review.",
+        "correct_response_type": "Architectural guidance and technology comparison"
+      },
+      "context": "The user says 'review my architecture' but there's no code or diff — it's a design discussion. The agent should provide architectural advice, not a structured code review."
+    },
+    {
+      "id": "neg-03",
+      "type": "negative",
+      "name": "Debugging help request (not a review)",
+      "input": "Review my code — it's throwing a TypeError on line 42 but I can't figure out why. Here's the traceback and code.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "User wants debugging help for a specific runtime error. The word 'review' is incidental — the primary need is a root cause analysis of the error.",
+        "correct_response_type": "Debugging analysis with root cause and fix"
+      },
+      "context": "While the user says 'review my code', the context is clearly a debugging request with a specific error. The agent should debug the TypeError, not perform a full structured review. The structured review format would be inappropriate here."
+    }
+  ],
+  "statistics": {
+    "total_cases": 8,
+    "positive_cases": 5,
+    "negative_cases": 3,
+    "coverage": {
+      "review_dimensions": ["security", "correctness", "quality", "style", "architecture", "test_coverage", "performance"],
+      "severity_levels": ["BLOCKER", "MAJOR", "MINOR", "NIT"],
+      "recommendations": ["Approve", "Approve with suggestions", "Request changes"],
+      "input_formats": ["PR URL", "raw diff", "commit hash", "multi-file refactor", "focused review"],
+      "negative_patterns": ["explanation request", "design brainstorm", "debugging request"]
+    }
+  }
+}
