@@ -4,6 +4,17 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.4.1 — 2026-07-02
+
+### 📚 Documentation
+
+- **Category-collapsible bundling:** Skills Catalog reorganized into emoji-categorized sections
+- DevOps & Infrastructure (6 skills) wrapped in `<details>`/`<summary>` — only category with >2 skills
+- All other categories (≤2 skills) remain flat with `###` headers
+- Permanent rule: re-evaluate category counts on every run; >2 → collapsible
+
+---
+
 ## v1.4.0 — 2026-07-02
 
 ### 🚀 Skills Added (Run 005)
