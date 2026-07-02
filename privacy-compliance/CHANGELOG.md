@@ -91,8 +91,6 @@ The `privacy-compliance` skill (v1.0.0) supersedes the original
 | **Safety rules** | Implicit | 8 explicit absolute rules |
 | **Disclaimer** | None | Prominent NOT LEGAL ADVICE disclaimer |
 | **Platform notes** | None | 8 platforms |
-## [1.0.1] — 2026-06-25
-
-### Changed
-- Published to GitHub repository (JPeetz/agent-skills)
-- Part of Skill Foundry Run 004
+## v1.0.1 — 2026-07-02
+- Added 3 near-miss negative eval cases (contract law, ransomware recovery, generic template)
+- Eval suite now 7 positive + 3 near-miss negatives = 10 cases
