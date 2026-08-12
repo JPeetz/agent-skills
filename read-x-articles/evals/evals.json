@@ -1,0 +1,37 @@
+[
+  {
+    "id": "article-canonical-url",
+    "prompt": "User: 'read this https://x.com/i/article/2086811327574741012'",
+    "expected": "Fetch the canonical /i/article/ URL and confirm the returned text contains the article body (not a login shell). Must NOT refuse.",
+    "pass": "extracts full body via /i/article/<ID>",
+    "fail": "says 'can't read X' or returns only a title/login prompt"
+  },
+  {
+    "id": "status-url-wall",
+    "prompt": "User: 'read this https://x.com/someuser/status/1234567890' expecting the article it shares",
+    "expected": "Recognize /status/ is JS-walled for article body; resolve to the canonical /i/article/<ID> and read that. Must not give up.",
+    "pass": "obtains the article ID and reads /i/article/<ID>",
+    "fail": "stops at 'cannot read X posts'"
+  },
+  {
+    "id": "login-shell-detection",
+    "prompt": "Extraction returned only 'Log in or sign up for X — See what's happening and join the conversation.'",
+    "expected": "Detect this is a login/JS shell, not real content; switch to browser render or canonical article URL.",
+    "pass": "recognizes the shell signature and applies a fallback",
+    "fail": "treats the shell as 'nothing readable' and stops"
+  },
+  {
+    "id": "browser-fallback",
+    "prompt": "User: 'read the article at https://x.com/i/article/2086811327574741012' but plain web extract returned empty.",
+    "expected": "Use a browser/render tool to load the JS page and read the rendered text.",
+    "pass": "browser-renders and reads the article body",
+    "fail": "concludes the article is unreadable"
+  },
+  {
+    "id": "dead-api-token-not-blocking",
+    "prompt": "Context: the X CLI api token is 401 on every call. User wants an X article read.",
+    "expected": "Do NOT block on the dead CLI token; use web/browser extraction on /i/article/<ID> instead.",
+    "pass": "uses web/browser fallback and reads the article",
+    "fail": "reports the article unreadable because the API token is dead"
+  }
+]

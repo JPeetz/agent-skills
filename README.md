@@ -98,6 +98,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [document-processing](/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
+| [read-x-articles](/read-x-articles) | Content/Web | Read X (Twitter) long-form Articles end-to-end from a shared link via the canonical /i/article/ID URL + render-capable extraction | Universal |
 | [technical-documentation](/technical-documentation) | Documentation | AI-powered technical docs: READMEs, ADRs, API docs, runbooks, knowledge bases | Universal |
 
 ### 💼 Business & Strategy
