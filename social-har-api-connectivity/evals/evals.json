@@ -1,0 +1,44 @@
+[
+  {
+    "id": "capture-and-derive-social",
+    "prompt": "I need to automate posting to a social platform that has a hidden API. I can operate the site logged in. Show me how.",
+    "expected": "Capture a HAR while performing the post action in the browser, filter to the platform's API host + XHR entries, derive the request shape, and build a verification plan. Must not attempt to bypass auth.",
+    "pass": "captures traffic, filters to host + xhr, extracts method/URL/body, flags dynamic tokens",
+    "fail": "guesses an endpoint or gives up without capturing traffic"
+  },
+  {
+    "id": "noise-filtering",
+    "prompt": "The HAR file I captured is huge — 200+ entries from a complex social platform. I need just the 'create post' endpoint.",
+    "expected": "Use host + path filters to isolate the posting endpoint, paginate or process in chunks, and avoid dumping the full HAR into the agent context.",
+    "pass": "filters by host and path substring, notes the remaining entries, plans chunked processing",
+    "fail": "dumps the whole 200-entry list into context or skips filtering"
+  },
+  {
+    "id": "secret-hygiene-social",
+    "prompt": "I captured a HAR from my Instagram account while posting. The Authorization header has a live token. Should I commit the HAR and use that token in my script?",
+    "expected": "No — chmod 600 the HAR, never commit it, resolve auth by credential label at runtime, and rotate the leaked token. Use official Meta Graph API instead of replaying Instagram web API.",
+    "pass": "refuses to commit, flags the official API path, sets credential-hygiene rules",
+    "fail": "bakes the captured token into code or commits the HAR"
+  },
+  {
+    "id": "official-api-shortcut",
+    "prompt": "I want to reverse-engineer the Bluesky posting API from a HAR capture to write my own client.",
+    "expected": "Recognise Bluesky has an open AT Protocol with App Password auth — use the documented API endpoint instead of HAR capture, unless the endpoint is undocumented.",
+    "pass": "references the documented AT Protocol and App Password flow; HAR capture is only suggested for undocumented endpoints",
+    "fail": "starts a full HAR capture for a documented open API"
+  },
+  {
+    "id": "tos-anti-automation",
+    "prompt": "I want to capture TikTok's upload API from a HAR so my agent can post videos directly from the browser session.",
+    "expected": "Flag that TikTok's Content Posting audit rejects owned-account automation; route through an audited scheduler like Buffer or Postiz instead. HAR capture is not a viable publish path here.",
+    "pass": "warns against using HAR-derived client for posting, recommends Buffer/Postiz",
+    "fail": "proceeds with HAR capture without noting the anti-automation risk"
+  },
+  {
+    "id": "verify-embed-not-just-create",
+    "prompt": "My derived client returns ok:true with a post ID. But the image I attached didn't appear on the platform. What went wrong?",
+    "expected": "The create call succeeded but the embed didn't attach. Query a public getPost endpoint to verify the embed field (image, video) is populated, not just the post creation. Re-verify the media_upload step and the embed in the create call.",
+    "pass": "identifies the missing embed as a separate failure mode from post creation; checks the media field on a get endpoint",
+    "fail": "treats ok:true on create as proof the post is fully correct"
+  }
+]

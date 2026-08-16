@@ -66,6 +66,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [api-design-first](/api-design-first) | API/Backend | Design-first OpenAPI 3.1 specifications — REST, GraphQL, gRPC with cross-protocol consistency | Universal |
 | [graphql-api-development](/graphql-api-development) | API/Backend | GraphQL API design and optimization — Apollo Federation, DataLoader, security, subscriptions | Universal |
 | [har-api-reverse-engineering](/har-api-reverse-engineering) | API/Backend | Reverse-engineer a site's hidden/undocumented API from a captured HAR — derive, replay, verify, reuse (authorized use only) | Universal |
+| [social-har-api-connectivity](/social-har-api-connectivity) | API/Social | Connect a social platform's API from a captured HAR — filter, derive, verify, reuse (authorized only) | Universal |
 
 ### 🧪 QA & Testing
 
