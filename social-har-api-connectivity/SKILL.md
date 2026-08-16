@@ -2,13 +2,11 @@
 name: social-har-api-connectivity
 description: >
   Use this skill when an agent needs to connect to a social platform's API by
-  driving Chrome (CLI + CDP) to capture the HAR including the login/authentication
-  flow, extract session tokens, and reuse the verified session for programmatic
-  posting — without relying on a paid aggregator. The agent drives Chrome headlessly,
-  captures every network call during auth + posting, extracts the session, and builds
-  a reusable client with authorized-use guardrails, per-platform ToS checks, embed
-  verification, and noise filtering baked in. Authorized use only.
-version: 2.0.0
+  prompting the user to pick a platform, driving Chrome to the login page,
+  capturing all network traffic as the user logs in (handling MFA/CAPTCHA),
+  extracting session tokens, and building a reusable posting client.
+  The agent orchestrates; the user handles credentials. Authorized use only.
+version: 3.0.0
 author: Hermes Agent
 license: MIT
 compatibility: >
@@ -18,11 +16,12 @@ tags:
   - social
   - har
   - api
-  - reverse-engineering
   - connectivity
+  - reverse-engineering
   - chrome
   - cdp
   - posting
+  - login
 platforms:
   - claude-code
   - codex
@@ -34,42 +33,57 @@ platforms:
 
 # Social Platform API Connectivity via Chrome CLI HAR Capture
 
-Connect an AI agent to any social platform's posting/data API by **driving Chrome
-(CLI + CDP) to capture the HAR including the login/authentication flow, extract
-session tokens, and reuse the verified session for programmatic posting** —
-without relying on a paid aggregator.
+Connect an AI agent to any social platform's posting/data API. **The agent asks
+the user which platform, drives Chrome to the login page, the user logs in
+(credentials + MFA/CAPTCHA in a visible browser), the agent captures every
+network request and saves the session tokens for reuse.**
 
-## When to use
-- You need an AI agent to post/read a social platform that has no clean API wrapper
-  and you can authenticate as a user.
-- You want to automate social media accounts but the platform has no documented API
-  or its API tier is too restrictive.
-- You need to capture the authentication flow (login, OAuth, session token) and
-  reuse it programmatically — not just inspect static API calls.
-- You're building a multi-platform posting pipeline and need a scriptable client
-  without paying per-platform aggregator fees.
+This is an interactive workflow: the agent orchestrates, the user authenticates.
 
-## Guardrails
-- **Authorized accounts only.** Only automate accounts YOU own. Check platform ToS
-  before scripting. This does NOT bypass CAPTCHAs, MFA, or bot detection.
-- **Chrome CLI runs locally.** No credentials leave your machine. HAR files are
-  saved with chmod 600 and deleted after extraction. Session tokens are ephemeral.
-- **MFA/CAPTCHA:** Most social platforms have additional verification. The tool
-  handles this by keeping the Chrome window visible for manual interaction.
+## The interactive workflow (the agent drives this)
+1. **Prompt the user:** "Which social platform do you want to connect?"
+   Present the supported list. Wait for their choice.
+2. **Validate the choice.** If the platform has an official API that's
+   preferable, recommend that first. If the platform blocks automation
+   (TikTok), say so.
+3. **Start Chrome** with CDP in **visible mode**:
+   ```
+   /Applications/Google Chrome.app/Contents/MacOS/Google Chrome \
+     --remote-debugging-port=9223 --user-data-dir=/tmp/capture-profile \
+     --no-first-run --no-default-browser-check --disable-gpu --window-size=1280,800
+   ```
+4. **Navigate** to the platform's login URL (from the table below).
+5. **Tell the user:** "Chrome is open at the [Platform] login page. Log in with
+   your credentials in the browser window. I'm monitoring the network — I'll
+   detect when you're logged in. Take your time."
+6. **Wait** while the user logs in. Keep waiting until the URL changes to a
+   post-login page (feed/dashboard/home).
+7. **Stop capture.** Extract session cookies, auth tokens, and API endpoints
+   from the captured traffic. Save to a temp directory (chmod 600).
+8. **Confirm to the user:** "Connected to [Platform]. Session captured. I can
+   now post/read on your behalf."
+9. **Build a reusable client** using the extracted session. Store the credential
+   reference by label. Verify with a test call.
 
-## How it works
-1. Start Chrome with remote debugging port (--remote-debugging-port=9223)
-2. Connect via CDP (Chrome DevTools Protocol) over WebSocket
-3. Enable Network capture — all HTTP traffic is logged
-4. Navigate to the platform's login URL
-5. User completes login (in visible window for MFA/CAPTCHA)
-6. Tool detects login success via URL pattern
-7. Extracts auth tokens, cookies, and API endpoints from captured traffic
-8. Saves HAR + auth map to /tmp/ (chmod 600)
-9. Prints a reusable client template
+## Supported platforms
+| Platform | Login URL | Recommended? |
+|---|---|---|
+| Bluesky | https://bsky.app/login | Prefer AT Protocol + App Password |
+| Mastodon | [instance]/auth/sign_in | Prefer bearer token API |
+| X/Twitter | https://x.com/login | Capture for endpoints not in API tier |
+| LinkedIn | https://www.linkedin.com/login | Prefer official OAuth |
+| Instagram | https://www.instagram.com/accounts/login/ | Prefer Meta Graph API |
+| Facebook | https://www.facebook.com/login | Prefer Meta Graph API |
+| TikTok | https://www.tiktok.com/login | ❌ Not viable — use Buffer/Postiz |
+| Reddit | https://www.reddit.com/login | Prefer OAuth script app |
+| Pinterest | https://www.pinterest.com/login | Prefer official API if approved |
+| Threads | https://www.threads.net/login | Capture may help for undocumented |
+| YouTube | https://accounts.google.com/ | For YouTube Data API, prefer OAuth |
 
 ## The tool: chrome_capture_client.py
-```bash
+The agent runs this script to automate Chrome + CDP + capture:
+
+```
 env -u PYTHONPATH /usr/local/bin/python3 chrome_capture_client.py \
   --login-url "https://platform.com/login" \
   --success-url-pattern "feed|dashboard|home" \
@@ -78,29 +92,23 @@ env -u PYTHONPATH /usr/local/bin/python3 chrome_capture_client.py \
   --output /tmp/capture
 ```
 
-### Output
-- `capture.har` — all network traffic in HAR format
-- `auth.json` — extracted cookies, auth headers, and body tokens (prefix only)
-- Console summary with detected API host and reusable curl template
+The agent tells the user the browser is open, waits for login completion,
+then processes the results.
 
-## Per-platform guidance
-- **Bluesky/Mastodon:** Open APIs with App Password/bearer token — prefer them.
-- **TikTok:** Anti-bot detection blocks automation. Use Buffer/Postiz instead.
-- **Meta/Instagram:** Official Graph API via app review — prefer it.
-- **X/Twitter:** Official API for posting; Chrome capture only for endpoints
-  not in the API tier.
-- **LinkedIn:** Official API + OAuth — prefer documented path.
+## Credential hygiene
+- Extracted tokens and cookies are written to `/tmp/<name>/auth.json` (chmod 600).
+- The agent reads them by path at runtime — never hardcode captured tokens.
+- Sessions expire (hours to days). Note the capture time and re-capture when stale.
+- Never commit the capture directory or auth.json to any repository.
 
 ## Pitfalls
-- MFA/CAPTCHA is the #1 blocker — design your capture to expect manual completion.
-- Raw HAR dumps overwhelm agent context — filter by host + XHR/fetch type.
-- Expiring tokens: most platforms issue short-lived session cookies; re-capture
-  or use a refresh pattern.
-- CDP page targets close mid-capture on login redirects — the tool handles
-  reframed navigation events.
-- Never hardcode captured tokens — resolve auth from the vault by label.
+- MFA is expected — the visible window is for the user to complete 2FA.
+- User must not close the Chrome window until the agent confirms capture is done.
+- TikTok has anti-bot detection that will block most capture attempts — warn first.
+- The user must check they're logging into the correct account.
+- Tokens are ephemeral — re-capture when they expire.
 
 ## Verification
-- Standalone request returns expected response shape (no browser).
-- Post a test item and verify via a public getPost endpoint that the embed
-  actually landed, not just that the create call returned ok.
+- After capture, the agent makes a test call to confirm the session is valid.
+- A test post item is created and verified via a public endpoint.
+- The agent reports the platform, detected API host, and session status.
