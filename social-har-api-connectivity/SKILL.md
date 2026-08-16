@@ -74,7 +74,7 @@ This is an interactive workflow: the agent orchestrates, the user authenticates.
 | LinkedIn | https://www.linkedin.com/login | Prefer official OAuth |
 | Instagram | https://www.instagram.com/accounts/login/ | Prefer Meta Graph API |
 | Facebook | https://www.facebook.com/login | Prefer Meta Graph API |
-| TikTok | https://www.tiktok.com/login | ❌ Not viable — use Buffer/Postiz |
+| TikTok | https://www.tiktok.com/login | ⚠️ Capturable but fragile (anti-bot) | Try if needed, but Buffer is more reliable |
 | Reddit | https://www.reddit.com/login | Prefer OAuth script app |
 | Pinterest | https://www.pinterest.com/login | Prefer official API if approved |
 | Threads | https://www.threads.net/login | Capture may help for undocumented |
