@@ -47,38 +47,17 @@ Compose Prompt (scene + attire + mood + angle)
 
 ## Credentials
 - **KIE_API_KEY** — for the kie.ai API
-- **BETTERLIFE_GDRIVE_API_KEY** — Google Drive API key for reference images
 - Read from credential source by label — never hardcode.
 
-## Reference images (20 Mira photos on Google Drive)
-All 20 refs have file IDs on Google Drive. URL format:
-`https://www.googleapis.com/drive/v3/files/{FILE_ID}?alt=media&key={GDRIVE_API_KEY}`
+## Reference images (Supabase S3 storage)
 
-| ID | Name | Tags |
-|----|------|------|
-| 1mhvlkciwkTMjI5uImDUl2lCKSWJ74NZ_ | front | front, direct, face |
-| 1bnlCeQFSBjicFALUV_1-15Ig3KEeaN_k | 3-4 | 3-4, angle, portrait |
-| 1ZZRSS6slwHNBBYpd54VHYdFsTwgFR1Y0 | profile | profile, side |
-| 1tX-IHi7tQvNQUvGgyY9x1Aw3rcAumkGI | medium | medium, upper-body, waist-up |
-| 1I84U8XAsRCOxTuv8myF0Oqj9sjpVsm9W | full-body | full-body, standing |
-| 1WHK2Um-I5Phz1qd6KQAUFsvmuufcf8g4 | sitting | sitting, seated, rest |
-| 1jwzZUlPp_qiuNh3-Ab4QhtKJ3vlkk_e3 | standing-phone | standing, casual, hand-near-face |
-| 1490krB_MKxKk4CU1SlXce9oJNLkdiTLf | cross-legged | sitting, cross-legged, meditation |
-| 1xda8rmTfO__ZmM81wwYjB4sXwuwP9f97 | kneeling | kneeling, lower, ground |
-| 1VHhnEYImykdLUcSDJrswRmcPnzLSRUid | walking | walking, movement, active |
-| 1xidQ2uOO3X20AOXEt6MQcJVuFoPaID45 | leaning | leaning, arms-crossed, relaxed |
-| 1fiHrUfIw4Gxaa7rIdJK4TRkckTKIDVeK | hand-near-face | hand-near-face, thinking |
-| 16vVPso4fb59penpJDVRdOBrBdv9GyFEx | laughing | laughing, candid, happy |
-| 1ZCjwWNf4yTlubo9N-8Mxc1f-FGmNwyPg | looking-down | looking-down, contemplative |
-| 1mlK7XyyNkQo-t0VxIUlFtMubrTC0kC4X | looking-up | looking-up, away, aspiring |
-| 13QvANWBrsAq1_4rXlkzxFjexibluCCcy | surprised | surprised, eyes-wide |
-| 1YAwUV8rYuN3bixMCysE8WURkRb3qikNJ | concerned | concerned, worried |
-| 1d0MqjAZaoYo2IRu9RZEyAmMDT_dSii-o | content | content, peaceful, calm |
-| 1Dy9AZnUivy4wQ7npCN6J1CfGKAwIW75I | focused | focused, serious |
-| 1beX1U0rSnDELB17qYySsv05hslFqEQ3_ | warm-smile | smile, warm, friendly |
+Reference images are stored in Supabase storage at:
+`https://dbbppsbtpsahdkmevxgm.supabase.co/storage/v1/object/public/instagram_images/`
+
+File naming: `{character}_reference_{nn}_{pose}.jpg`
 
 ### Reference selection
-- **Face anchors (MANDATORY):** ref_01 (front) + ref_02 (3/4). Always in the first 2 slots.
+- **Face anchors (MANDATORY):** front + 3/4 angle references. Always in the first 2 slots.
 - **Pose refs (3-6 remaining):** scored by tag overlap with scene keywords, randomly sampled
   from top 14. Grok caps at 5 total refs, flux at 8.
 
