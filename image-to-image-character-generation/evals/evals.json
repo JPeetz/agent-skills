@@ -1,0 +1,44 @@
+[
+  {
+    "id": "supabase-ref-storage",
+    "prompt": "My character reference images are stored in Supabase storage. How do I reference them?",
+    "expected": "Use the Supabase storage base URL and append the filename: {bucket_url}/{character}_reference_{nn}_{pose}.jpg. Provide the full URL as the reference in the kie.ai API call.",
+    "pass": "constructs the correct Supabase storage URL for the character reference",
+    "fail": "doesn't support Supabase storage or constructs a wrong URL"
+  },
+  {
+    "id": "google-drive-ref-storage",
+    "prompt": "My character reference images are on Google Drive with file IDs. How do I reference them?",
+    "expected": "Use the Google Drive API URL format: https://www.googleapis.com/drive/v3/files/{FILE_ID}?alt=media&key={API_KEY}. Provide the full URL as the reference in the kie.ai API call.",
+    "pass": "constructs the correct Google Drive URL for the file ID",
+    "fail": "doesn't support Google Drive storage"
+  },
+  {
+    "id": "face-anchor-mandatory",
+    "prompt": "I need to generate an image of my brand's mascot in a new scene. I have 8 reference images including front and 3/4 face shots.",
+    "expected": "Always include the front and 3/4 face anchor refs in the first 2 slots; fill remaining slots with pose refs scored by keyword match against the new scene description.",
+    "pass": "keeps face anchors in the first 2 slots and rotates pose refs from the rest",
+    "fail": "randomizes or drops the face anchors"
+  },
+  {
+    "id": "model-ref-key-switch",
+    "prompt": "grok-imagine/image-to-image returned a 500 error saying 'field is required'. What's wrong?",
+    "expected": "Check that the ref key is image_urls for grok models and input_urls for flux models. Also check the ref count is at most 5 for grok.",
+    "pass": "identifies the wrong key name or count limit and fixes it",
+    "fail": "assumes the model is down and switches to fallback unnecessarily"
+  },
+  {
+    "id": "strength-calibration",
+    "prompt": "My images look the same across different days despite different scene prompts. The character is recognisable but the scene barely changes. What do I adjust?",
+    "expected": "Lower the strength parameter from 0.85 to 0.6-0.7 to let the prompt influence the composition more. Or add explicit shot-size/framing contrast per variant.",
+    "pass": "recommends lowering strength or adding framing contrast as the fix",
+    "fail": "suggests changing the reference images or adding more scenes to the prompt pool"
+  },
+  {
+    "id": "anti-repetition-deque",
+    "prompt": "Yesterday the scene was a lakeside walk at sunrise. How do I avoid generating the same scene tomorrow?",
+    "expected": "Use an anti-repeat deque (track last 14 scenes used) that refuses to reuse a scene until it falls out of the window. The prompt composer should check this and pick a different scene.",
+    "pass": "explains the deque pattern with a 14-entry window",
+    "fail": "suggests manually tracking scenes or reusing the same scene"
+  }
+]

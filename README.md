@@ -67,6 +67,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [graphql-api-development](/graphql-api-development) | API/Backend | GraphQL API design and optimization — Apollo Federation, DataLoader, security, subscriptions | Universal |
 | [har-api-reverse-engineering](/har-api-reverse-engineering) | API/Backend | Reverse-engineer a site's hidden/undocumented API from a captured HAR — derive, replay, verify, reuse (authorized use only) | Universal |
 | [social-har-api-connectivity](/social-har-api-connectivity) | API/Social | Connect a social platform's API from a captured HAR — filter, derive, verify, reuse (authorized only) | Universal |
+| [image-to-image-character-generation](/image-to-image-character-generation) | API/Image | Generate consistent character images from Supabase/GDrive refs via kie.ai image-to-image — face anchors, dynamic prompt, anti-repeat | Universal |
 
 ### 🧪 QA & Testing
 
