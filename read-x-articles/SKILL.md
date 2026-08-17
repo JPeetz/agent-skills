@@ -55,6 +55,9 @@ can't read X" — X long-form Articles DO extract cleanly via the right URL.
   login wall → they come back empty even to a browser. That is the apparent
   "can't read X." The fix is resolving the article URL AND using the right
   fetch tool, not giving up.
+- **Images matter.** The article's cover, diagrams, charts, and screenshots
+  can be essential to understanding it. Extract the media URLs and analyze
+  them (vision) as part of the read — do not stop at the text.
 
 ## Steps
 
@@ -82,6 +85,12 @@ can't read X" — X long-form Articles DO extract cleanly via the right URL.
 6. **Use the content.** It's legitimate primary source. Quote it and cite the
    author. If it's a community take (e.g. a power-user writing about a product),
    it's still real material for summaries, scripts, and analysis.
+7. **Read the images too.** After extracting the body, collect the article's
+   media image URLs (cover art, diagrams, screenshots — ignore user avatars and
+   profile thumbnails) from the extract or the article HTML, and analyze the
+   meaningful ones with a vision tool. Report any visual info that adds to the
+   text: diagrams that explain a workflow, charts with data, or a cover that
+   sets the tone. Do not skip this — images are part of the article.
 
 ## Pitfalls
 - Do not assume "articles are paywalled/login-walled." The canonical
