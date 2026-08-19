@@ -669,9 +669,13 @@ class DsButton extends HTMLElement {
     this.setAttribute('aria-busy', String(loading));
     this.className = `ds-button ds-button--${variant} ds-button--${size} ${loading ? 'ds-button--loading' : ''}`;
 
-    this.innerHTML = loading
-      ? '<ds-spinner size="' + size + '"></ds-spinner>'
-      : '<slot></slot>';
+    if (loading) {
+      const spinner = document.createElement('ds-spinner');
+      spinner.setAttribute('size', size);
+      this.replaceChildren(spinner);
+    } else {
+      this.replaceChildren(document.createElement('slot'));
+    }
   }
 }
 
