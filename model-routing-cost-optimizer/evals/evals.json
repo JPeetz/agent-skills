@@ -1,0 +1,89 @@
+{
+  "skill": "model-routing-cost-optimizer",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: routine task routes to Tier 1",
+      "input": "Read the config file, format the timestamp, and log it.",
+      "shouldTrigger": true,
+      "expect": "Classify as ROUTINE and recommend Tier 1",
+      "assertions": [
+        "classify_task.py returns bucket ROUTINE for the phrase",
+        "Recommended tier is Tier 1 (cheap)",
+        "No premium model is selected"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: moderate task routes to Tier 2",
+      "input": "Summarize this meeting notes document into a manager-ready brief.",
+      "shouldTrigger": true,
+      "expect": "Classify as MODERATE and recommend Tier 2",
+      "assertions": [
+        "classify_task.py returns bucket MODERATE",
+        "Recommended tier is Tier 2 (mid)",
+        "The summarize signal maps to the mid tier"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: complex task routes to Tier 3",
+      "input": "Debug this crash, reason about the cause, and architect the fix.",
+      "shouldTrigger": true,
+      "expect": "Classify as COMPLEX and recommend Tier 3",
+      "assertions": [
+        "classify_task.py returns bucket COMPLEX",
+        "Recommended tier is Tier 3 (premium)",
+        "Debug/architect signals force the premium tier"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: vision task never routes to text-only",
+      "input": "Analyze this screenshot and describe the UI layout.",
+      "shouldTrigger": true,
+      "expect": "Route to a vision-capable model, never a text-only tier",
+      "assertions": [
+        "Vision flag is detected from screenshot/image words",
+        "A text-only model is explicitly excluded",
+        "Selected model accepts image input"
+      ]
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: heartbeat/cron stays on Tier 1",
+      "input": "Run the heartbeat status check every minute and alert on failure.",
+      "shouldTrigger": true,
+      "expect": "Classify as ROUTINE and keep on Tier 1",
+      "assertions": [
+        "Heartbeat/cron phrase is recognized as routine",
+        "Recommended tier is Tier 1",
+        "Anti-pattern sweep forbids a premium tier for this"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: model evaluation/benchmark request",
+      "input": "Run MMLU and GSM8K benchmarks on this checkpoint with lm-eval-harness.",
+      "shouldTrigger": false,
+      "expect": "Recognize this is benchmarking, not routing",
+      "assertions": [
+        "Does not enter the routing/classification procedure",
+        "Points to model evaluation tooling instead of a tier pick"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: local fine-tuning request",
+      "input": "Fine-tune this model with LoRA on our domain data.",
+      "shouldTrigger": false,
+      "expect": "Recognize this is training, not routing",
+      "assertions": [
+        "Does not classify as a routing decision",
+        "Routes to a training workflow, not a model tier",
+        "Explicitly excluded by the Don't use for clause"
+      ]
+    }
+  ]
+}

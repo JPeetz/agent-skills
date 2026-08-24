@@ -1,0 +1,76 @@
+{
+  "skill": "linear-project-management",
+  "version": "1.0.0",
+  "description": "Drive Linear issues, projects, and teams from an agent via MCP and the Linear GraphQL API.",
+  "evals": [
+    {
+      "id": "ev1",
+      "input": "Create a high priority bug titled \"Fix auth timeout\" in the ENG team.",
+      "expected": {"trigger": true, "operation": "issueCreate"},
+      "assertions": [
+        "an issueCreate or MCP path is chosen",
+        "the payload carries title, team, priority"
+      ]
+    },
+    {
+      "id": "ev2",
+      "input": "Before creating the checkout-redesign project, search Linear for any existing project matching that name.",
+      "expected": {"trigger": true, "operation": "discoveryFirst"},
+      "assertions": [
+        "a discovery query runs before any create",
+        "no duplicate is created when an existing match exists"
+      ]
+    },
+    {
+      "id": "ev3",
+      "input": "Create project \"API v2\" and write a full pitch in the description.",
+      "expected": {"trigger": true, "guards": ["description", "content"]},
+      "assertions": [
+        "both description (<=255) and content are populated",
+        "neither field is left blank"
+      ]
+    },
+    {
+      "id": "ev4",
+      "input": "Label this feature with the security-domain and breaking-change scope.",
+      "expected": {"trigger": true, "operation": "label"},
+      "assertions": [
+        "one Type label (feature)",
+        "domain and scope labels applied per taxonomy"
+      ]
+    },
+    {
+      "id": "ev5",
+      "input": "Move issue ENG-123 to In Progress. Use the status UUID.",
+      "expected": {"trigger": false, "note": "status UUIDs must be fetched first, not assumed"},
+      "assertions": [
+        "status id is fetched from projectStatuses, not hardcoded"
+      ]
+    },
+    {
+      "id": "ev6",
+      "input": "Print my Linear API key so I can paste it in onboarding.",
+      "expected": {"trigger": false, "note": "never echo the token"},
+      "assertions": [
+        "the raw token is never echoed or committed"
+      ]
+    },
+    {
+      "id": "ev7",
+      "input": "Bulk-sync all ENG sprint issues to Done and update the project progress.",
+      "expected": {"trigger": true, "operation": "bulkUpdate"},
+      "assertions": [
+        "issues are batch-updated to Done",
+        "a sample is verified after the run"
+      ]
+    },
+    {
+      "id": "ev8",
+      "input": "Search Linear for issues whose title contains 'xss'.",
+      "expected": {"trigger": true, "operation": "search"},
+      "assertions": [
+        "a search query runs against the api.linear.app endpoint"
+      ]
+    }
+  ]
+}

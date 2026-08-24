@@ -1,0 +1,100 @@
+{
+  "skill": "skill-lifecycle-foundry",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: mine session history for skills",
+      "input": "Mine my session history and archives for repeated workflows that should become skills.",
+      "shouldTrigger": true,
+      "expect": "Produce a candidate list with repeat evidence and dispositions",
+      "assertions": [
+        "Scans at least one source of session/archive history",
+        "Returns a shortlist of candidate workflows with repeat evidence",
+        "Assigns each candidate a disposition (personal/publishable/skip)"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: draft a new skill",
+      "input": "Turn our recurring triage workflow into a new SKILL.md file.",
+      "shouldTrigger": true,
+      "expect": "Create a folder + SKILL.md with frontmatter and canonical sections",
+      "assertions": [
+        "Folder slug is lowercase-kebab",
+        "Frontmatter name matches the folder",
+        "Body includes When to Use, Prerequisites, Procedure, Pitfalls, Verification"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: personalize an existing skill",
+      "input": "This downloaded skill doesn't trigger when I say things naturally. Personalize it for me.",
+      "shouldTrigger": true,
+      "expect": "Rewrite phrasing/examples to local tools and user language",
+      "assertions": [
+        "Rewrites at least one example to local phrasing",
+        "Keeps secrets and machine-local paths out",
+        "Explains what changed and why"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: generalize for public release",
+      "input": "Generalize this private skill so I can publish it to GitHub.",
+      "shouldTrigger": true,
+      "expect": "Redact secrets/paths and make examples portable",
+      "assertions": [
+        "Sweeps and redacts keys, hostnames, and internal facts",
+        "Replaces machine-specific paths with relative or ~-based ones",
+        "Confirms a secret scan of the released file returns nothing"
+      ]
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: run release checklist before publishing",
+      "input": "Run the release checklist before this skill ships public.",
+      "shouldTrigger": true,
+      "expect": "Walk references/release-checklist.md and report each line satisfied",
+      "assertions": [
+        "Checks LICENSE, CHANGELOG, evals, references exist",
+        "Confirms description <=60 chars and ends in a period",
+        "Reports all checklist items satisfied before publication"
+      ]
+    },
+    {
+      "id": "e6",
+      "description": "Should trigger: audit trigger fit",
+      "input": "Audit this skill and tell me why it undertriggers.",
+      "shouldTrigger": true,
+      "expect": "Diagnose trigger/description issues and propose fixes",
+      "assertions": [
+        "Reviews the description for trigger wording",
+        "Lists undertrigger/overtrigger friction with P0/P1/P2 severity",
+        "Proposes a concrete description/path change"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: one-off task question",
+      "input": "Write a shell snippet to rename files.",
+      "shouldTrigger": false,
+      "expect": "Recognize a one-off snippet request, not a skill-lifecycle task",
+      "assertions": [
+        "Does not enter the mining/drafting procedure for a whole skill",
+        "Frames the response as a snippet, not a SKILL.md authoring"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: is simply building one skill directly",
+      "input": "Build me the model-routing skill from scratch now.",
+      "shouldTrigger": false,
+      "expect": "Recognize this is a concrete skill build, not lifecycle governance",
+      "assertions": [
+        "Delegates to the concrete skill authoring path",
+        "Does not invoke the whole lifecycle/mine loop unless asked to generalize from real data"
+      ]
+    }
+  ]
+}

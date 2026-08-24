@@ -103,18 +103,21 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [document-processing](/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
 | [read-x-articles](/read-x-articles) | Content/Web | Read X (Twitter) long-form Articles end-to-end from a shared link via the canonical /i/article/ID URL + render-capable extraction | Universal |
 | [technical-documentation](/technical-documentation) | Documentation | AI-powered technical docs: READMEs, ADRs, API docs, runbooks, knowledge bases | Universal |
+| [skill-lifecycle-foundry](/skill-lifecycle-foundry) | Skill Development | Mine, author, personalize, and generalize agent skills across their full lifecycle — session mining to release checklist | Universal |
 
 ### 💼 Business & Strategy
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [app-discovery-scrutiny](/app-discovery-scrutiny) | Business/AI | VC-grade app niche evaluation — Build/Pivot/Kill verdict | Universal |
+| [linear-project-management](/linear-project-management) | Business/PM | Drive Linear issues, projects, and teams from an agent via MCP + GraphQL — discovery-before-create, label taxonomy | Universal |
 
 ### ⚙️ Development
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [app-scaffolding](/app-scaffolding) | Development | 12-section mobile app build blueprint (iOS + Android) | Universal |
+| [model-routing-cost-optimizer](/model-routing-cost-optimizer) | Development/Cost | Route agent tasks to the cheapest adequate model tier — ROUTINE/MODERATE/COMPLEX classifier + vision guard | Universal |
 
 ### 📣 Marketing
 

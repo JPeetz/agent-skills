@@ -4,6 +4,24 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.4.2 — 2026-08-24
+
+### 🚀 Skills Added (SKILLS pipeline run)
+
+- **skill-lifecycle-foundry** (v1.0.0) — The meta-skill for the full agent-skill lifecycle: mine session/archive history for repeated workflows, author new `SKILL.md` files, personalize existing skills to local tools and phrasing, and generalize private skills for public release (secret/path redaction). Ships `scripts/scan_sessions.py` (stdlib-only), a release checklist, and a progressive-disclosure reference structure. 144-line SKILL.md, 8 eval cases.
+
+- **model-routing-cost-optimizer** (v1.0.0) — Cost-aware model tiering: ROUTINE/MODERATE/COMPLEX classifier, vision guard against routing image work to text-only models, and anti-pattern coverage. Ships `scripts/classify_task.py` (stdlib-only) for deterministic tier recommendations and a `references/model-pricing.md` snapshot. 126-line SKILL.md, 8 eval cases.
+
+- **linear-project-management** (v1.0.0) — Drive Linear issues, projects, and teams from an agent via the official MCP server and Linear GraphQL API: discovery-before-create, type/domain/scope label taxonomy, workspace-specific status handling, and the `description` vs `content` rule. `references/linear-graphql.md` with copy-paste operations. 111-line SKILL.md, 8 eval cases.
+
+### 📚 Documentation
+
+- README catalog: +3 skills under Documentation & Content, Business & Strategy, and Development
+- Added `.gitignore` (Python + Node build artifacts)
+- Per-skill LICENSE (MIT), CHANGELOG, evals, and references for each new package
+
+---
+
 ## v1.4.1 — 2026-07-02
 
 ### 📚 Documentation
