@@ -1,0 +1,20 @@
+{
+  "skill": "finding-unknowns-change-quiz",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: pre-merge review",
+      "input": "Give me a quiz before I merge this.",
+      "shouldTrigger": true,
+      "assertions": ["Produces a report with context, changes, interactions, intuition", "Quiz has 5-8 targeted questions", "Grades honestly"]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: simple diff review",
+      "input": "Show me the diff of today's changes.",
+      "shouldTrigger": false,
+      "assertions": ["Shows the diff", "Does not produce a quiz"]
+    }
+  ]
+}

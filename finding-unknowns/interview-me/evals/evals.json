@@ -1,0 +1,27 @@
+{
+  "skill": "finding-unknowns-interview-me",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: resolve ambiguity",
+      "input": "I have a spec but some assumptions feel shaky. Interview me.",
+      "shouldTrigger": true,
+      "assertions": ["Asks one question per turn", "Architecture-changers first", "Offers 2-3 options per question"]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: post-brainstorm interview",
+      "input": "We've brainstormed but I need to nail down the remaining decisions.",
+      "shouldTrigger": true,
+      "assertions": ["Lists open ambiguities sorted by blast radius", "Checkpoints decisions every few questions"]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: direct implementation",
+      "input": "Build a REST API for user management.",
+      "shouldTrigger": false,
+      "assertions": ["Does not enter interview mode", "Builds the API directly based on standard conventions"]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "skill": "finding-unknowns-implementation-notes",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: start of build",
+      "input": "I'm starting the implementation now. Keep notes as we go.",
+      "shouldTrigger": true,
+      "assertions": ["Creates implementation-notes.md", "Logs deviations conservatively", "Summarizes at end"]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: no build in progress",
+      "input": "What's the best way to parse JSON in Python?",
+      "shouldTrigger": false,
+      "assertions": ["Answers the question directly", "Does not create notes file"]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "skill": "skill-miner",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: scan session history for repeated workflows",
+      "input": "Mine my past sessions to find workflows I keep doing manually.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Queries session_search for repeated patterns",
+        "Clusters results by intent/trigger/tools",
+        "Produces candidate list with recurrence evidence"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: find deploy workflow patterns",
+      "input": "I deploy the same way every time. Turn it into a skill.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Searches session history for deploy-related verbatim commands",
+        "Scores the candidate based on recurrence",
+        "Drafts trigger description and workflow outline"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: analyze memory summaries",
+      "input": "Check my agent memories for any workflow I should formalize.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Searches memory files (use search_files)",
+        "Clusters discovered patterns",
+        "Dispositions each candidate (create/backlog/skip)"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: improving existing skill",
+      "input": "Tune my existing code-review skill to be more thorough.",
+      "shouldTrigger": false,
+      "assertions": [
+        "Recognizes as personalization task",
+        "Directs to skill-personalizer or skill-lifecycle-foundry"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: one-off task",
+      "input": "Write a shell script to rename all files in a directory.",
+      "shouldTrigger": false,
+      "assertions": [
+        "Recognizes as a one-off script task",
+        "Does not enter the mining workflow",
+        "Directly fulfills the request"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "skill": "anti-over-engineering",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: agent adding unrequested abstraction",
+      "input": "Add a new interface for the payment processor.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Detects unrequested abstraction layer (interface)",
+        "Triggers L2 — Course Correction intervention",
+        "Asks if user requested this change"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: agent rewriting entire file when asked to fix one line",
+      "input": "Fix the off-by-one error in line 42 of parser.py",
+      "shouldTrigger": true,
+      "assertions": [
+        "Detects entire-file rewrite vs. minimal edit signal",
+        "Only modifies the affected line",
+        "Preserves rest of file unchanged"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: user signals 'too much'",
+      "input": "This is too much code. Keep it simple.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Responds to user resistance signal",
+        "Proposes minimal alternative"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: adding dependencies without asking",
+      "input": "Use lodash to handle this edge case.",
+      "shouldTrigger": true,
+      "assertions": [
+        "Checks if built-in alternatives exist",
+        "Asks user before adding dependency"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: user explicitly requests refactoring",
+      "input": "Please refactor this module and add full error handling.",
+      "shouldTrigger": false,
+      "assertions": [
+        "Recognizes explicit user request for refactoring",
+        "Delivers full refactoring without intervention"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: normal implementation task",
+      "input": "Implement a simple GET endpoint for the users API.",
+      "shouldTrigger": false,
+      "assertions": [
+        "Implements the endpoint normally",
+        "Does not trigger L1+ intervention"
+      ]
+    }
+  ]
+}

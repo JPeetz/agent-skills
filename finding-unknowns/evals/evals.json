@@ -1,0 +1,51 @@
+{
+  "skill": "finding-unknowns",
+  "version": "1.0.0",
+  "notes": "Evaluations for the umbrella meta-skill. Per-sub-skill evals live in each sub-skill's evals/evals.json.",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: discover unknown unknowns before a build",
+      "input": "I'm new to audio processing in Python. Help me find my blindspots.",
+      "shouldTrigger": true,
+      "expect": "Activate blindspot-pass to surface unknown unknowns",
+      "assertions": [
+        "Surfaces landmines, hidden context, what good looks like",
+        "Does not start implementation"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: interview before implementation",
+      "input": "I have a spec but some assumptions feel shaky. Interview me.",
+      "shouldTrigger": true,
+      "expect": "Activate interview-me for one-question-at-a-time ambiguity resolution",
+      "assertions": [
+        "Asks architecture-changing questions first",
+        "Offers 2-3 options per question"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: hunt for references",
+      "input": "I want to build a rate limiter like the one in the auth service.",
+      "shouldTrigger": true,
+      "expect": "Activate reference-hunt to read existing code as the spec",
+      "assertions": [
+        "Produces a semantics summary before writing code",
+        "Respects license boundaries"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: direct implementation request",
+      "input": "Write a Python function to parse CSV files.",
+      "shouldTrigger": false,
+      "expect": "Recognize as a straightforward implementation task",
+      "assertions": [
+        "Does not enter unknown-unknowns discovery",
+        "Fulfills the request directly"
+      ]
+    }
+  ]
+}
