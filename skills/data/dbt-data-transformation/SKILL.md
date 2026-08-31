@@ -1,6 +1,6 @@
 ---
 name: dbt-data-transformation
-description: Production-grade dbt (data build tool) analytics engineering for AI agents: model development, testing, documentation, semantic layer, dbt Mesh governance, and migration workflows. Follows dbt Labs best practices for data transformation, incremental strategies, and multi-project collaboration.
+description: "Production-grade dbt (data build tool) analytics engineering for AI agents: model development, testing, documentation, semantic layer, dbt Mesh governance, and migration workflows. Follows dbt Labs best practices for data transformation, incremental strategies, and multi-project collaboration."
 platforms:
   - claude-code
   - codex

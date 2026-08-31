@@ -4,6 +4,19 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.5.0 — 2026-08-31
+
+### 🏗️ Repository Structure
+
+- **Category-organized layout:** All 37 skills moved from repo root into `skills/<category>/<skill>/`.
+- Categories: devops-infrastructure (6), security (2), api-backend (5), qa-testing (2), frontend (2), data (3), documentation-content (3), skill-development (2), business-strategy (2), development (5), marketing (2), compliance-legal (1), git-release (1), code-quality (1).
+- README catalog links, install instructions, and CONTRIBUTING submission process updated for the new paths.
+- Structure matches the agentskills.io / `gh skill` discovery conventions (`skills/*/SKILL.md`, `skills/{scope}/*/SKILL.md`) — install/publish resolution unchanged.
+- Catalog now includes 5 previously uncatalogued skills: anti-over-engineering, finding-unknowns, hermes-bot-team-design, betterlife-image-generation, skill-miner.
+- `gh skill publish --dry-run` verifies all nested skills resolve (0 errors after fixing 3 colon-in-YAML frontmatter descriptions on dbt-data-transformation, kubernetes-operations, observability-engineering).
+
+---
+
 ## v1.4.2 — 2026-08-24
 
 ### 🚀 Skills Added (SKILLS pipeline run)

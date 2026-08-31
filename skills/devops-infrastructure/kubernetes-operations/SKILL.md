@@ -1,6 +1,6 @@
 ---
 name: kubernetes-operations
-description: Production-grade Kubernetes operations for AI agents: manifest generation, security hardening, Helm charts, GitOps workflows, and multi-cloud deployment patterns. Prevents K8s hallucinations with failure-mode diagnosis, compliance validation, and structured output contracts.
+description: "Production-grade Kubernetes operations for AI agents: manifest generation, security hardening, Helm charts, GitOps workflows, and multi-cloud deployment patterns. Prevents K8s hallucinations with failure-mode diagnosis, compliance validation, and structured output contracts."
 platforms:
   - claude-code
   - codex
