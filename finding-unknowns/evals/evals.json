@@ -1,50 +1,65 @@
 {
   "skill": "finding-unknowns",
   "version": "1.0.0",
-  "notes": "Evaluations for the umbrella meta-skill. Per-sub-skill evals live in each sub-skill's evals/evals.json.",
   "cases": [
     {
       "id": "e1",
-      "description": "Should trigger: discover unknown unknowns before a build",
-      "input": "I'm new to audio processing in Python. Help me find my blindspots.",
+      "description": "Should trigger: blindspot-pass before unfamiliar work",
+      "input": "I need to add authentication to our Express API. What am I missing?",
       "shouldTrigger": true,
-      "expect": "Activate blindspot-pass to surface unknown unknowns",
+      "expect": "Produces a blindspot report with landmines, hidden context, and quality calibration",
       "assertions": [
-        "Surfaces landmines, hidden context, what good looks like",
-        "Does not start implementation"
+        "Does not start implementing",
+        "Reports landmines and hidden context",
+        "Ends with a rewritten request incorporating the findings"
       ]
     },
     {
       "id": "e2",
-      "description": "Should trigger: interview before implementation",
-      "input": "I have a spec but some assumptions feel shaky. Interview me.",
+      "description": "Should trigger: context-audit for bloated config",
+      "input": "My CLAUDE.md has grown to 200 lines. Audit it.",
       "shouldTrigger": true,
-      "expect": "Activate interview-me for one-question-at-a-time ambiguity resolution",
+      "expect": "Inventories all context layers, finds contradictions, proposes cuts",
       "assertions": [
-        "Asks architecture-changing questions first",
-        "Offers 2-3 options per question"
+        "Scans all context layers reaching the model",
+        "Classifies instructions as conflict/duplicate/obvious/gotcha",
+        "Proposes specific deletions with before/after line counts"
       ]
     },
     {
       "id": "e3",
-      "description": "Should trigger: hunt for references",
-      "input": "I want to build a rate limiter like the one in the auth service.",
+      "description": "Should trigger: implementation-notes during a build",
+      "input": "Start building the user profile module per the plan. Keep notes.",
       "shouldTrigger": true,
-      "expect": "Activate reference-hunt to read existing code as the spec",
+      "expect": "Creates implementation-notes.md and logs deviations",
       "assertions": [
-        "Produces a semantics summary before writing code",
-        "Respects license boundaries"
+        "Creates a running notes file with Deviations, Edge Cases, Questions headings",
+        "Logs every deviation from plan with rationale",
+        "Ends with a 5-line summary"
       ]
     },
     {
-      "id": "n1",
-      "description": "Not trigger: direct implementation request",
-      "input": "Write a Python function to parse CSV files.",
-      "shouldTrigger": false,
-      "expect": "Recognize as a straightforward implementation task",
+      "id": "e4",
+      "description": "Should trigger: change-quiz after a session",
+      "input": "What did we actually change in this session? Give me a quiz.",
+      "shouldTrigger": true,
+      "expect": "Produces a change report and 5-8 question quiz",
       "assertions": [
-        "Does not enter unknown-unknowns discovery",
-        "Fulfills the request directly"
+        "Groups changes by intent, not by file",
+        "Quiz targets interaction effects and edge cases, not trivia",
+        "Misses get explained with the correct answer"
+      ]
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: reference-hunt from existing code",
+      "input": "Implement pagination like the admin panel does it.",
+      "shouldTrigger": true,
+      "expect": "Reads the reference code, produces semantics summary, reimplements",
+      "assertions": [
+        "Produces a semantics summary before writing code",
+        "User confirms the summary before implementation",
+        "Maps behaviors from reference to new implementation"
       ]
     }
   ]

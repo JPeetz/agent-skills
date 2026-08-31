@@ -4,56 +4,36 @@
   "cases": [
     {
       "id": "e1",
-      "description": "Should trigger: scan session history for repeated workflows",
-      "input": "Mine my past sessions to find workflows I keep doing manually.",
+      "description": "Should trigger: mining session history for workflows",
+      "input": "Scan my last month of agent sessions and find patterns that should become skills.",
       "shouldTrigger": true,
+      "expect": "Locates session archives, clusters repeated workflows, produces candidate list",
       "assertions": [
-        "Queries session_search for repeated patterns",
-        "Clusters results by intent/trigger/tools",
-        "Produces candidate list with recurrence evidence"
+        "Searches for session/archive history",
+        "Clusters repeated work by intent and tools used",
+        "Produces a shortlist with recurrence counts"
       ]
     },
     {
       "id": "e2",
-      "description": "Should trigger: find deploy workflow patterns",
-      "input": "I deploy the same way every time. Turn it into a skill.",
+      "description": "Should trigger: identifying a repeated manual workflow",
+      "input": "I keep asking you to format dates the same way every time. Make it a skill.",
       "shouldTrigger": true,
+      "expect": "Recognizes this as a mining opportunity, drafts skill outline",
       "assertions": [
-        "Searches session history for deploy-related verbatim commands",
-        "Scores the candidate based on recurrence",
-        "Drafts trigger description and workflow outline"
-      ]
-    },
-    {
-      "id": "e3",
-      "description": "Should trigger: analyze memory summaries",
-      "input": "Check my agent memories for any workflow I should formalize.",
-      "shouldTrigger": true,
-      "assertions": [
-        "Searches memory files (use search_files)",
-        "Clusters discovered patterns",
-        "Dispositions each candidate (create/backlog/skip)"
+        "Checks for recurrence evidence",
+        "Produces a named skill candidate with trigger description"
       ]
     },
     {
       "id": "n1",
-      "description": "Not trigger: improving existing skill",
-      "input": "Tune my existing code-review skill to be more thorough.",
+      "description": "Not trigger: single one-off task",
+      "input": "Help me write a shell script to rename CSV headers.",
       "shouldTrigger": false,
+      "expect": "Does not enter the mining workflow",
       "assertions": [
-        "Recognizes as personalization task",
-        "Directs to skill-personalizer or skill-lifecycle-foundry"
-      ]
-    },
-    {
-      "id": "n2",
-      "description": "Not trigger: one-off task",
-      "input": "Write a shell script to rename all files in a directory.",
-      "shouldTrigger": false,
-      "assertions": [
-        "Recognizes as a one-off script task",
-        "Does not enter the mining workflow",
-        "Directly fulfills the request"
+        "Does not invoke the full mining procedure",
+        "Treats as a one-off coding task"
       ]
     }
   ]

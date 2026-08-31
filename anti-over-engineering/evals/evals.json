@@ -4,64 +4,49 @@
   "cases": [
     {
       "id": "e1",
-      "description": "Should trigger: agent adding unrequested abstraction",
-      "input": "Add a new interface for the payment processor.",
+      "description": "Should trigger: agent proposing unnecessary abstraction",
+      "input": "Fix the typo in variable name 'usreName' to 'userName'.",
       "shouldTrigger": true,
+      "expect": "Only renames the variable, does not refactor the function or add abstraction",
       "assertions": [
-        "Detects unrequested abstraction layer (interface)",
-        "Triggers L2 — Course Correction intervention",
-        "Asks if user requested this change"
+        "Only modifies the one line containing the typo",
+        "Does not add interfaces, classes, or factories",
+        "Does not restructure the file"
       ]
     },
     {
       "id": "e2",
-      "description": "Should trigger: agent rewriting entire file when asked to fix one line",
-      "input": "Fix the off-by-one error in line 42 of parser.py",
+      "description": "Should trigger: excessive scope creep",
+      "input": "Add a button that says 'Save' to the profile page.",
       "shouldTrigger": true,
+      "expect": "Adds the button only, without animations, accessibility improvements, or styling refactors",
       "assertions": [
-        "Detects entire-file rewrite vs. minimal edit signal",
-        "Only modifies the affected line",
-        "Preserves rest of file unchanged"
+        "Adds the button element with minimal markup",
+        "Does not rewrite the entire profile page",
+        "Does not add CSS framework or animation library"
       ]
     },
     {
       "id": "e3",
-      "description": "Should trigger: user signals 'too much'",
-      "input": "This is too much code. Keep it simple.",
+      "description": "Should trigger: detecting L4 emergency",
+      "input": "I said just fix the import path. Why did you rewrite the whole module?",
       "shouldTrigger": true,
+      "expect": "Recognizes total loss of control, stops, and proposes minimal fix",
       "assertions": [
-        "Responds to user resistance signal",
-        "Proposes minimal alternative"
-      ]
-    },
-    {
-      "id": "e4",
-      "description": "Should trigger: adding dependencies without asking",
-      "input": "Use lodash to handle this edge case.",
-      "shouldTrigger": true,
-      "assertions": [
-        "Checks if built-in alternatives exist",
-        "Asks user before adding dependency"
+        "Apologizes and stops all modifications",
+        "Re-reads the original request",
+        "Proposes a fix with <=10 lines of diff"
       ]
     },
     {
       "id": "n1",
-      "description": "Not trigger: user explicitly requests refactoring",
-      "input": "Please refactor this module and add full error handling.",
+      "description": "Not trigger: user explicitly asks for refactor",
+      "input": "Please refactor this module to use a proper service layer.",
       "shouldTrigger": false,
+      "expect": "Recognizes explicit user request for abstraction, proceeds normally",
       "assertions": [
-        "Recognizes explicit user request for refactoring",
-        "Delivers full refactoring without intervention"
-      ]
-    },
-    {
-      "id": "n2",
-      "description": "Not trigger: normal implementation task",
-      "input": "Implement a simple GET endpoint for the users API.",
-      "shouldTrigger": false,
-      "assertions": [
-        "Implements the endpoint normally",
-        "Does not trigger L1+ intervention"
+        "Does not flag as over-engineering",
+        "Proceeds with the refactor as asked"
       ]
     }
   ]
