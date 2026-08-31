@@ -5,9 +5,10 @@ We accept skill submissions, improvements, and bug reports. Every contribution i
 ## Submission Process
 
 1. **Fork** this repository
-2. **Create** your skill as a directory with `SKILL.md` + optional `scripts/`, `references/`, `evals/`
-3. **Validate** with `python3 scripts/validate_skill.py your-skill/`
-4. **Open a Pull Request**
+2. **Pick a category** — skills live under `skills/<category>/<skill-name>/`. Choose the closest existing category from the [README](README.md) (or propose a new one in the PR). Add a `skills/<category>/` entry to the catalog table if it's new.
+3. **Create** your skill as a directory with `SKILL.md` + optional `scripts/`, `references/`, `evals/`
+4. **Validate** with `python3 scripts/validate_skill.py skills/<category>/<skill-name>/`
+5. **Open a Pull Request**
 
 ## Skill Requirements
 
