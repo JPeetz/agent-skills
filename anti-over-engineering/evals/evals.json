@@ -1,0 +1,53 @@
+{
+  "skill": "anti-over-engineering",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: agent proposing unnecessary abstraction",
+      "input": "Fix the typo in variable name 'usreName' to 'userName'.",
+      "shouldTrigger": true,
+      "expect": "Only renames the variable, does not refactor the function or add abstraction",
+      "assertions": [
+        "Only modifies the one line containing the typo",
+        "Does not add interfaces, classes, or factories",
+        "Does not restructure the file"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: excessive scope creep",
+      "input": "Add a button that says 'Save' to the profile page.",
+      "shouldTrigger": true,
+      "expect": "Adds the button only, without animations, accessibility improvements, or styling refactors",
+      "assertions": [
+        "Adds the button element with minimal markup",
+        "Does not rewrite the entire profile page",
+        "Does not add CSS framework or animation library"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: detecting L4 emergency",
+      "input": "I said just fix the import path. Why did you rewrite the whole module?",
+      "shouldTrigger": true,
+      "expect": "Recognizes total loss of control, stops, and proposes minimal fix",
+      "assertions": [
+        "Apologizes and stops all modifications",
+        "Re-reads the original request",
+        "Proposes a fix with <=10 lines of diff"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: user explicitly asks for refactor",
+      "input": "Please refactor this module to use a proper service layer.",
+      "shouldTrigger": false,
+      "expect": "Recognizes explicit user request for abstraction, proceeds normally",
+      "assertions": [
+        "Does not flag as over-engineering",
+        "Proceeds with the refactor as asked"
+      ]
+    }
+  ]
+}

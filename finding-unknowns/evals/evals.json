@@ -1,0 +1,66 @@
+{
+  "skill": "finding-unknowns",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: blindspot-pass before unfamiliar work",
+      "input": "I need to add authentication to our Express API. What am I missing?",
+      "shouldTrigger": true,
+      "expect": "Produces a blindspot report with landmines, hidden context, and quality calibration",
+      "assertions": [
+        "Does not start implementing",
+        "Reports landmines and hidden context",
+        "Ends with a rewritten request incorporating the findings"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: context-audit for bloated config",
+      "input": "My CLAUDE.md has grown to 200 lines. Audit it.",
+      "shouldTrigger": true,
+      "expect": "Inventories all context layers, finds contradictions, proposes cuts",
+      "assertions": [
+        "Scans all context layers reaching the model",
+        "Classifies instructions as conflict/duplicate/obvious/gotcha",
+        "Proposes specific deletions with before/after line counts"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: implementation-notes during a build",
+      "input": "Start building the user profile module per the plan. Keep notes.",
+      "shouldTrigger": true,
+      "expect": "Creates implementation-notes.md and logs deviations",
+      "assertions": [
+        "Creates a running notes file with Deviations, Edge Cases, Questions headings",
+        "Logs every deviation from plan with rationale",
+        "Ends with a 5-line summary"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: change-quiz after a session",
+      "input": "What did we actually change in this session? Give me a quiz.",
+      "shouldTrigger": true,
+      "expect": "Produces a change report and 5-8 question quiz",
+      "assertions": [
+        "Groups changes by intent, not by file",
+        "Quiz targets interaction effects and edge cases, not trivia",
+        "Misses get explained with the correct answer"
+      ]
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: reference-hunt from existing code",
+      "input": "Implement pagination like the admin panel does it.",
+      "shouldTrigger": true,
+      "expect": "Reads the reference code, produces semantics summary, reimplements",
+      "assertions": [
+        "Produces a semantics summary before writing code",
+        "User confirms the summary before implementation",
+        "Maps behaviors from reference to new implementation"
+      ]
+    }
+  ]
+}

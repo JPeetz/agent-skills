@@ -1,0 +1,40 @@
+{
+  "skill": "skill-miner",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: mining session history for workflows",
+      "input": "Scan my last month of agent sessions and find patterns that should become skills.",
+      "shouldTrigger": true,
+      "expect": "Locates session archives, clusters repeated workflows, produces candidate list",
+      "assertions": [
+        "Searches for session/archive history",
+        "Clusters repeated work by intent and tools used",
+        "Produces a shortlist with recurrence counts"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: identifying a repeated manual workflow",
+      "input": "I keep asking you to format dates the same way every time. Make it a skill.",
+      "shouldTrigger": true,
+      "expect": "Recognizes this as a mining opportunity, drafts skill outline",
+      "assertions": [
+        "Checks for recurrence evidence",
+        "Produces a named skill candidate with trigger description"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: single one-off task",
+      "input": "Help me write a shell script to rename CSV headers.",
+      "shouldTrigger": false,
+      "expect": "Does not enter the mining workflow",
+      "assertions": [
+        "Does not invoke the full mining procedure",
+        "Treats as a one-off coding task"
+      ]
+    }
+  ]
+}
