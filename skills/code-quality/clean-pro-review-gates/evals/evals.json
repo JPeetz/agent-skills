@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "description": "Eval test cases for the clean-pro-review-gates combined meta-skill",
+  "evals": [
+    {
+      "name": "gate-1-code-quality-swallowed-errors",
+      "description": "Gate 1 should flag broad catch-all error handling that swallows exceptions",
+      "test_input": "def get_email(user_id):\n    try:\n        user = user_store.get(user_id)\n        return user.email\n    except Exception:\n        return None",
+      "expected_output": "Rule 15 violation: broad catch-all that swallows all exceptions. Catch only the specific error type you can recover from.",
+      "assertions": [
+        "Detects broad except clause (except Exception, except Throwable, catch all)",
+        "Flags silent return of None/null as error swallowing",
+        "Suggests catching only the specific error type",
+        "Mentions Karpathy or 'swallowed errors' in reasoning"
+      ]
+    },
+    {
+      "name": "gate-1-code-quality-hallucinated-import",
+      "description": "Gate 1 should flag imports that may not exist in the installed version",
+      "test_input": "from langchain_community.vectorstores import Qdrant\nfrom huggingface_cli import upload",
+      "expected_output": "Rule 17 / Rule 6 violation: verify every import against the installed version. AI-suggested package names may not exist or may be slopsquatting vectors.",
+      "assertions": [
+        "Flags unknown or AI-suggested package imports",
+        "Suggests verifying against lockfile or installed packages",
+        "Mentions package hallucination research (USENIX Security '25)"
+      ]
+    },
+    {
+      "name": "gate-1-code-quality-mock-fallback",
+      "description": "Gate 1 should flag hardcoded success returns in production code",
+      "test_input": "def get_user_balance(user_id):\n    return 1000  # TODO: actual provider call",
+      "expected_output": "Rule 18 violation: hardcoded 'success' return or fixture data in production code. Never return mock data from a function whose spec says it should perform real work.",
+      "assertions": [
+        "Flags hardcoded return value as mock fallback",
+        "Flags TODO as cover for incomplete implementation",
+        "Suggests raising NotImplementedError or explicit unimplemented mechanism"
+      ]
+    },
+    {
+      "name": "gate-1-code-quality-paint-by-numbers-comments",
+      "description": "Gate 1 should flag comments that restate the code instead of explaining why",
+      "test_input": "# Increment counter by one\ncounter += 1\n\n# Step 3: return the result\nreturn result",
+      "expected_output": "Rule 5 violation: comments explain *why*, never *what*. Delete comments paraphrasing the line below them. Remove step-number scaffolding comments.",
+      "assertions": [
+        "Flags 'what-comments' that restate obvious code",
+        "Flags step-number scaffolding comments",
+        "Suggests deleting or converting to 'why' commentary"
+      ]
+    },
+    {
+      "name": "gate-1-code-quality-naming-violation",
+      "description": "Gate 1 should flag generic, intent-less names",
+      "test_input": "def process_data(data):\n    result = []\n    for item in data:\n        temp = item.value * 2\n        result.append(temp)\n    return result",
+      "expected_output": "Rule 1 violation: names must reveal intent. 'data', 'process_data', 'result', 'item', 'temp' are generic. Use domain-revealing names like 'double_prices(orders)'.",
+      "assertions": [
+        "Flags 'data', 'result', 'item', 'temp' as generic names",
+        "Flags 'process_data' as verb without revealed intent",
+        "Suggests domain-specific replacement names"
+      ]
+    },
+    {
+      "name": "gate-2-test-mock-of-internal-helper",
+      "description": "Gate 2 should flag mocks of internal helpers instead of system boundaries",
+      "test_input": "def test_calculate_total():\n    with patch('app.services.calculator._apply_tax') as mock_tax:\n        mock_tax.return_value = 10.0\n        result = calculator.calculate_total(100)\n        mock_tax.assert_called_once_with(100)",
+      "expected_output": "Rule 1/Rule 2 violation: testing implementation details by mocking an internal helper. Assert the return value or observable side effect from the caller's perspective instead.",
+      "assertions": [
+        "Flags mock of internal/private function as implementation test",
+        "Suggests asserting return value instead of mock call count",
+        "Notes that internal helper _apply_tax is not a system boundary"
+      ]
+    },
+    {
+      "name": "gate-2-test-data-driven-opportunity",
+      "description": "Gate 2 should flag near-duplicate tests that should be merged into data-driven",
+      "test_input": "def test_discount_10():\n    result = apply_discount(100, 10)\n    assert result == 90\n\ndef test_discount_20():\n    result = apply_discount(100, 20)\n    assert result == 80\n\ndef test_discount_50():\n    result = apply_discount(100, 50)\n    assert result == 50",
+      "expected_output": "Rule 3 violation: three tests share identical setup and differ only in input/output values. Merge into a single data-driven test using parametrize/data provider.",
+      "assertions": [
+        "Detects near-identical test bodies",
+        "Suggests data-driven/parameterized test pattern",
+        "Notes shared setup and assertion pattern as merge signal"
+      ]
+    },
+    {
+      "name": "gate-2-test-unjustified-constructor-test",
+      "description": "Gate 2 should flag tests that verify trivially obvious behavior",
+      "test_input": "def test_user_constructor():\n    user = User(name=\"Alice\", email=\"alice@example.com\")\n    assert user.name == \"Alice\"\n    assert user.email == \"alice@example.com\"",
+      "expected_output": "Rule 4 violation: this test catches no bug that wouldn't be caught by the type system or a single integration test. Test behavior, not attribute assignment.",
+      "assertions": [
+        "Flags constructor/attribute tests as unjustified",
+        "Notes that the type system or a single integration test covers this",
+        "Suggests deleting the test or replacing with a behavior test"
+      ]
+    },
+    {
+      "name": "gate-3-docs-symbol-verification",
+      "description": "Gate 3 should flag docs that reference symbols not in the source code",
+      "test_input": "The `POST /api/v2/invoices` endpoint returns a list of invoices. Use the `generate_report_v2()` helper to create PDFs.",
+      "expected_output": "Rule 1 violation: verify every referenced symbol against the actual source. If `POST /api/v2/invoices` or `generate_report_v2()` do not exist in the code, the docs contain false claims.",
+      "assertions": [
+        "Flags unverifiable endpoint references",
+        "Flags unverifiable function references",
+        "Requires verification against actual source, not memory"
+      ]
+    },
+    {
+      "name": "gate-3-docs-code-sample-runnable",
+      "description": "Gate 3 should flag code samples with imports that don't exist or hardcoded paths",
+      "test_input": "```python\nfrom nonexistent_library import process\nresult = process('/Users/alice/local/data.csv')\nprint(result)\n```",
+      "expected_output": "Rule 2 violation: code sample must work on a clean machine. Import 'nonexistent_library' must be checked. Hardcoded local paths ('/Users/alice/...') must not ship.",
+      "assertions": [
+        "Flags unverifiable imports in code samples",
+        "Flags hardcoded local paths",
+        "Requires sample to be runnable outside author's machine"
+      ]
+    },
+    {
+      "name": "gate-4-security-sql-injection",
+      "description": "Gate 4 should flag SQL injection via string concatenation",
+      "test_input": "query = \"SELECT * FROM users WHERE email = '\" + email + \"'\"\ndb.execute(query)",
+      "expected_output": "Rule 2 violation: string-built query with input is SQL injection. Use parameterized queries/prepared statements.",
+      "assertions": [
+        "Flags string concatenation in SQL query",
+        "Suggests parameterized query",
+        "Maps to CWE-89"
+      ]
+    },
+    {
+      "name": "gate-4-security-hardcoded-secret",
+      "description": "Gate 4 should flag hardcoded secrets in source code",
+      "test_input": "API_KEY = \"sk_live_51Hreal_key_here\"\nclient = Client(api_key=\"AKIArealsecret\")",
+      "expected_output": "Rule 11 violation: secret as literal in source code. Read from environment or secrets manager. Any secret that touched a commit is compromised — flag for rotation.",
+      "assertions": [
+        "Flags hardcoded API keys and tokens",
+        "Suggests environment variable or secrets manager",
+        "Maps to CWE-798"
+      ]
+    },
+    {
+      "name": "gate-4-security-missing-authorization",
+      "description": "Gate 4 should flag endpoints without server-side authorization checks",
+      "test_input": "@app.get('/api/invoices/{id}')\nasync def get_invoice(id: int):\n    invoice = await db.get(id)\n    return invoice",
+      "expected_output": "Rule 7 violation: missing authorization check. Any logged-in user can access any invoice (IDOR). Verify the current principal owns or may act on the resource.",
+      "assertions": [
+        "Flags missing ownership/permission check",
+        "Identifies IDOR vulnerability potential",
+        "Maps to CWE-862, CWE-639"
+      ]
+    },
+    {
+      "name": "gate-5-infra-script-injection",
+      "description": "Gate 5 should flag untrusted context in shell inline",
+      "test_input": "jobs:\n  comment:\n    runs-on: ubuntu-latest\n    steps:\n      - run: \"echo \\\"Issue: ${{ github.event.issue.title }}\\\"\"",
+      "expected_output": "Rule 1 violation: attacker-controlled workflow context interpolated directly into shell. Issue title is attacker-controllable; pass through env var and quote.",
+      "assertions": [
+        "Flags ${{ }} interpolation in run: step",
+        "Identifies attacker-controlled context",
+        "Suggests env var passthrough as mitigation",
+        "Maps to CICD-SEC-4"
+      ]
+    },
+    {
+      "name": "gate-5-infra-unpinned-action",
+      "description": "Gate 5 should flag third-party actions pinned to a moving tag",
+      "test_input": "steps:\n  - uses: actions/checkout@v4\n  - uses: docker/login-action@v2\n  - uses: actions/setup-node@main",
+      "expected_output": "Rule 4 violation: third-party actions pinned to a moving tag or branch (@v4, @v2, @main). Pin to a full commit SHA to prevent supply-chain hijack.",
+      "assertions": [
+        "Flags moving tag pinning",
+        "Flags branch pinning ('@main')",
+        "Suggests SHA pinning with version comment",
+        "Maps to CICD-SEC-3"
+      ]
+    }
+  ]
+}

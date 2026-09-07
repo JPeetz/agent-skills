@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "evals": [
+    {
+      "name": "to-spec-synthesis-no-interview",
+      "description": "Verify to-spec synthesizes conversation without interviewing the user",
+      "test_input": "User has just spent 20 minutes discussing a new payment feature. They say: 'Write this up as a spec.' The conversation contains: an actor (mobile bank customer), a feature (view transaction history with filters), and a benefit (better spending decisions).",
+      "expected_output": "A spec containing: Problem Statement, Solution, User Stories (including 'As a mobile bank customer, I want to view my transaction history with filters, so that I can make better informed spending decisions'), Implementation Decisions (seams, modules), Testing Decisions, Out of Scope. No interview questions.",
+      "assertions": [
+        "Does NOT contain any question asking the user for clarification (e.g. 'What actor?' 'What benefit?')",
+        "Contains 'User Stories' section with at least 3 user stories",
+        "Contains 'Implementation Decisions' section",
+        "Contains 'Testing Decisions' section",
+        "Contains 'Out of Scope' section",
+        "Understands context from the existing conversation without re-asking"
+      ]
+    },
+    {
+      "name": "codebase-design-deep-module-identification",
+      "description": "Verify codebase-design correctly identifies deep vs shallow modules",
+      "test_input": "Given a module: function processOrder(order, gateway, logger, notifier) { ... } with 50 lines of implementation that just delegates to 4 sub-functions, and a module: function validateOrder(order) { if (!order.id) throw Error('missing id'); if (!order.email) throw Error('missing email'); return true; } with 10 lines of implementation and 1 parameter.",
+      "expected_output": "processOrder should be identified as shallow (large interface relative to implementation, delegates). validateOrder should be identified as deep (small interface, focused implementation).",
+      "assertions": [
+        "Identifies processOrder as shallow using depth principles",
+        "Identifies validateOrder as deep using depth principles",
+        "Uses correct glossary terms (module, interface, depth)",
+        "Does not use terms 'boundary', 'component', or 'service' to describe depth"
+      ]
+    },
+    {
+      "name": "domain-modeling-context-update",
+      "description": "Verify domain-modeling correctly updates CONTEXT.md with resolved terms",
+      "test_input": "During a conversation about an e-commerce system, the user says 'We should handle cancellation requests' but CONTEXT.md defines 'cancellation' as 'A request to void an order before shipment.' The user then clarifies 'I mean refunds — cancellation after delivery.'",
+      "expected_output": "The agent should: 1) Call out the conflict immediately. 2) Propose a new term 'refund' for post-delivery returns. 3) Update CONTEXT.md with the new term. 4) Not create an ADR for this (easy to reverse decision).",
+      "assertions": [
+        "Calls out the conflict between user's usage and glossary definition",
+        "Proposes 'refund' or similar precise canonical term for post-delivery returns",
+        "Updates CONTEXT.md inline (not batched)",
+        "Does NOT offer to create an ADR for this change"
+      ]
+    },
+    {
+      "name": "code-review-two-axis-separation",
+      "description": "Verify code-review keeps Standards and Spec axes separate",
+      "test_input": "A PR adds a new API endpoint using a caching library the repo has never used before. The code compiles and passes tests, and implements the spec accurately. However, it uses a cache library not documented in any CODING_STANDARDS file. The spec says 'Implement caching for the product endpoint.'",
+      "expected_output": "Two-axis output: Standards axis flags the undocumented library choice; Spec axis confirms the feature matches requirements. Findings are NOT merged or reranked.",
+      "assertions": [
+        "Identifies the undocumented caching choice under Standards (not Spec)",
+        "Confirms the spec requirements are met under Spec (not Standards)",
+        "Presents findings under separate '## Standards' and '## Spec' headings",
+        "Does NOT merge or rerank findings across axes",
+        "Includes one-line summary with worst issue per axis (not a single winner)"
+      ]
+    },
+    {
+      "name": "diagnosing-bugs-feedback-loop-first",
+      "description": "Verify diagnosing-bugs builds feedback loop before hypothesizing",
+      "test_input": "User reports: 'The checkout page throws a 500 error when applying a coupon code. I don't have a test for this. Here's the error in production logs.'",
+      "expected_output": "Phase 1 delivers a tight, red-capable loop BEFORE any hypothesis or code-reading theory. The loop goes red on the coupon 500 error specifically (not just 'page broke').",
+      "assertions": [
+        "Does NOT jump to hypothesis before building a feedback loop",
+        "Constructs a feedback loop that is red-capable (asserts the coupon 500 error)",
+        "Attempts to tighten the loop (faster, sharper signal, deterministic)",
+        "Redacts any secrets in captured output",
+        "Shows the loop being run and confirmed red before proceeding to Phase 2"
+      ]
+    }
+  ]
+}

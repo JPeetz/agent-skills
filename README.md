@@ -132,14 +132,15 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [skill-lifecycle-foundry](/skills/skill-development/skill-lifecycle-foundry) | Skill Development | Mine, author, personalize, and generalize agent skills across their full lifecycle — session mining to release checklist | Universal |
 | [skill-miner](/skills/skill-development/skill-miner) | Skill Development | Mine agent session/archive history for repeated skill-worthy workflows | Universal |
 
-### 💼 Business & Strategy
+|### 💼 Business & Strategy (3 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [app-discovery-scrutiny](/skills/business-strategy/app-discovery-scrutiny) | Business/AI | VC-grade app niche evaluation — Build/Pivot/Kill verdict | Universal |
 | [linear-project-management](/skills/business-strategy/linear-project-management) | Business/PM | Drive Linear issues, projects, and teams from an agent via MCP + GraphQL — discovery-before-create, label taxonomy | Universal |
+| [enterprise-consulting-methods](/skills/business-strategy/enterprise-consulting-methods) | Business/Strategy | 15 McKinsey/BCG-grade methodology patterns — SCPR, issue/hypothesis trees, storyline building, decision memos, stakeholder maps, meeting prep, workshop design, native PowerPoint chart production via python-pptx | Universal |
 
-### ⚙️ Development
+|### ⚙️ Development (7 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
@@ -148,6 +149,8 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [anti-over-engineering](/skills/development/anti-over-engineering) | Development | Keep AI agents from over-engineering code beyond the user's request | Universal |
 | [finding-unknowns](/skills/development/finding-unknowns) | Development | Systematic discovery of unknowns when entering unfamiliar code or domain territory | Universal |
 | [hermes-bot-team-design](/skills/development/hermes-bot-team-design) | Development | Design a team of specialist Hermes bots from a project spec — roles, SOUL.md, MCP wiring, group chat | Universal |
+| [mattpocock-dev-workflows](/skills/development/mattpocock-dev-workflows) | Development | Matt Pocock's engineering workflow patterns — spec synthesis, deep-module design, domain modeling, two-axis code review, disciplined bug diagnosis | Universal |
+| [nodejs-development](/skills/development/nodejs-development) | Development/Node | Full-stack Node.js development — Fastify patterns, TypeScript type stripping, V8/libuv internals, OAuth 2.0/2.1, graceful shutdown, error handling, streams, testing | Universal |
 
 ### 📣 Marketing
 
@@ -168,11 +171,12 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 |-------|--------|-------------|-----------|
 | [git-workflow-automation](/skills/git-release/git-workflow-automation) | Git/Release | Conventional Commits, changelogs, PR descriptions, semantic versioning, branch management | Universal |
 
-### ✅ Code Quality
+|### ✅ Code Quality (2 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [code-review](/skills/code-quality/code-review) | Code Quality | AI-powered code review — security, quality, style, architecture, test coverage, performance | Universal |
+| [clean-pro-review-gates](/skills/code-quality/clean-pro-review-gates) | Code Quality | 5-gate pre-merge review framework — code quality (15 LLM failure modes), tests, docs, security (OWASP/CWE/LLM Top 10), CI/CD/container/IaC hardening | Universal |
 
 ## FAQ
 

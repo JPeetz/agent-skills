@@ -1,0 +1,121 @@
+[
+  {
+    "name": "issue-tree-breakdown",
+    "description": "Test that the issue tree methodology produces MECE decomposition for a revenue growth problem",
+    "test_input": "Break down the question 'How can we increase SaaS revenue by 40% in 12 months?' using the issue tree methodology. The tree should decompose into 3 MECE branches with testable hypotheses at the terminal level.",
+    "expected_output": "An issue tree with 3 MECE branches (Price × Quantity × Conversion or similar fundamental decomposition), each with 2-3 testable sub-hypotheses backed by data benchmarks.",
+    "assertions": [
+      "Top-level decomposition splits into 3 MECE branches (not actions, but fundamentals like Price, Quantity, Conversion)",
+      "Each branch has 2-3 sub-branches with specific, testable hypotheses",
+      "Branches collectively cover the problem space (MECE)",
+      "Includes prioritization criteria (Impact × Effort) for which branch to tackle first",
+      "Terminal branches are provable/disprovable with data"
+    ]
+  },
+  {
+    "name": "scpr-framework-memo",
+    "description": "Test that SCPR produces a proper Situation-Complication-Problem-Recommendation structure",
+    "test_input": "Structure a recommendation for a Series B SaaS startup facing AI disruption. Foundational facts: $15M ARR, project management software, 200 agency customers, 25% YoY growth historically but now declining 15% usage over 6 months as AI tools enter the market.",
+    "expected_output": "SCPR-structured analysis with: clear Situation (baseline facts), distinct Complication (AI disruption), specific Problem question, and MECE Recommendations with timelines.",
+    "assertions": [
+      "Situation section contains only essential baseline context (not exhaustive)",
+      "Complication is distinct from Problem — Complication = 'what changed', Problem = 'what question to solve'",
+      "Problem is a specific, answerable question",
+      "Recommendations are MECE (mutually exclusive, collectively exhaustive)",
+      "Each recommendation includes a 'by when' timeline"
+    ]
+  },
+  {
+    "name": "hypothesis-tree-commitment",
+    "description": "Test that hypothesis tree methodology forces a Day-1 answer with killable tests",
+    "test_input": "Build a hypothesis tree for: 'Should we enter the European SMB market in FY26?' I have a strong prior that yes, via PLG in UK+DE only, but I'm not sure PLG works in those markets.",
+    "expected_output": "A hypothesis tree with a clear Day-1 answer, 3 sub-hypotheses with conviction levels and specific kill tests, prioritized by conviction (lowest first).",
+    "assertions": [
+      "Top line is a specific Day-1 answer (not 'I don't know')",
+      "Has exactly 3 sub-hypotheses with conviction ratings (High/Med/Low)",
+      "Each leaf is a specific test that could kill the branch (not 'do more research')",
+      "Low-conviction sub-hypothesis is sequenced first for testing",
+      "Has an overall kill-criterion: what result makes us abandon the top hypothesis"
+    ]
+  },
+  {
+    "name": "decision-memo-yes-no",
+    "description": "Test that decision memo builder produces a decision-forcing artifact with yes/no ask",
+    "test_input": "Draft a decision memo about switching from Jira to Linear. ~60 engineers on Jira at $48K/yr, Jira admin role open 4 months, two teams ran Linear pilots with positive results, renewal due 5/30 at +12%.",
+    "expected_output": "A 1-page decision memo (≤400 words) with Context → Complication → Options → Recommendation → Risks → Ask, ending with a specific yes/no ask with owner and date.",
+    "assertions": [
+      "Title names the decision, not the topic (≤10 words)",
+      "Maximum ~400 words (fits on 1 page)",
+      "Options section is neutral (doesn't leak recommendation)",
+      "Recommendation section clearly states the chosen option with evidence",
+      "Risks section has ≤3 items, each with a mitigation",
+      "Last line is a specific yes/no ask with owner and date"
+    ]
+  },
+  {
+    "name": "synthesis-insight-extraction",
+    "description": "Test that synthesis produces 3 insights with evidence and so-what, not a summary",
+    "test_input": "Synthesize 12 customer interviews about why churn is up 8% QoQ. Raw data includes: most churned customers never completed onboarding step 3 (team invite), customers won't invite teammates until they personally see value, retained customers were single buyers at mid-market companies. Decision downstream: what to fix in next 90 days.",
+    "expected_output": "3 insights with the structure: Insight headline (claim) → Evidence (2-3 specific data points) → So-what (one-line implication).",
+    "assertions": [
+      "Exactly 3 insights (not 5-7 themes)",
+      "Each insight headline is a specific claim, not a topic label",
+      "Evidence includes specific data points (direct quotes, exact numbers, named sources)",
+      "Each insight ends with a 'so-what' that tells the reader what to do differently",
+      "Output includes an overall recommendation that ladders to all 3 insights"
+    ]
+  },
+  {
+    "name": "mckinsey-charts-native-pptx",
+    "description": "Test that McKinsey charts produce native python-pptx chart objects (not images)",
+    "test_input": "Generate a bar+callout chart for RTD coffee TAM data: 2023-2028 values [$28.1, $30.8, $33.6, $36.5, $39.4, $42.5], highlight 2028 with callout '$42.5B 2028 TAM', source 'Euromonitor 2025'.",
+    "expected_output": "A native python-pptx chart on a slide with highlighted bar, callout textbox, claim-based title, and source line. Chart is editable in PowerPoint (right-click → Edit Data).",
+    "assertions": [
+      "Uses python-pptx CategoryChartData (not an image)",
+      "Title is a claim, not a label (e.g., 'RTD coffee TAM will hit $42.5B by 2028')",
+      "One highlight color on the indexed bar, all other bars grey",
+      "No gridlines, no chart border",
+      "Source line at bottom in grey italic (9pt)",
+      "Single font at consistent sizes (title 20pt, axis 10pt, source 9pt)"
+    ]
+  },
+  {
+    "name": "mckinsey-critic-review",
+    "description": "Test that McKinsey Critic produces EM-level review with Green/Yellow/Red grade and top 3 fixes",
+    "test_input": "Review a deck outline for a premium coffee company's RTD market entry strategy. Slides include: market size overview, competitive landscape, 3 options for entry (a bullet list), recommendation, and roadmap.",
+    "expected_output": "A critic review with: overall grade (Green/Yellow/Red), section-by-section table, top 3 fixes ranked by impact, and one thing that works.",
+    "assertions": [
+      "Overall grade is one of Green/Yellow/Red with one-line verdict",
+      "Section-by-section table has consistent status columns",
+      "Top 3 fixes are ranked by impact, with clear fix instructions",
+      "Calls out at least one thing that works",
+      "Identifies common issues: topic titles vs claim titles, lists vs frameworks, missing financial frame, unsourced statistics"
+    ]
+  },
+  {
+    "name": "stakeholder-map-political",
+    "description": "Test that stakeholder map produces honest Power/Interest grid with stances and coalition sequence",
+    "test_input": "Map stakeholders for Jira-to-Linear migration decision. Key people: VP Eng (deciding, neutral-skeptical on retention risk), PM Lead (ran pilot, champion), Eng Director (skeptical about custom workflows), CFO (unknown, cares about cost), Head of People (unknown, cares about morale), Eng team (60 people, mixed).",
+    "expected_output": "Stakeholder map with 2×2 grid placement, named stakeholders with stances, one move per person, coalition sequence.",
+    "assertions": [
+      "Each stakeholder mapped by name (not role) to Power/Interest quadrant",
+      "Each has an honest stance (Champion/Supporter/Neutral/Skeptic/Blocker/Unknown)",
+      "Each Manage Closely person has 'My move this week' — one specific action",
+      "Includes a coalition sequence: who to align first, in what order",
+      "Unknown stances are marked (not assumed)"
+    ]
+  },
+  {
+    "name": "top-down-memo-lead-first",
+    "description": "Test that top-down memo leads with the answer and follows Minto Pyramid",
+    "test_input": "Write a top-down memo about a potential acquisition: Vega Labs, asking $380M, TTM ARR $22M at 45% growth, senior engineering team is at vest cliff, integration risk in billing platform. I recommend we should NOT acquire.",
+    "expected_output": "A top-down memo with LEAD as first sentence, 2-4 MECE arguments with evidence, optional risks section.",
+    "assertions": [
+      "First sentence is the answer (the lead/conclusion)",
+      "Has 2-4 supporting arguments that are MECE at the argument level",
+      "Each argument is a claim (not a topic label) with specific evidence below it",
+      "No 'as you know' or 'by way of context' preambles",
+      "Reader can stop after the first paragraph and know what the writer thinks"
+    ]
+  }
+]

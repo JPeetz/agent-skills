@@ -1,0 +1,196 @@
+{
+  "metadata": {
+    "skill": "nodejs-development",
+    "version": "1.0.0",
+    "description": "Eval suite for Node.js Development meta-skill",
+    "source": "mcollina/skills"
+  },
+  "cases": [
+    {
+      "name": "should-trigger-on-fastify",
+      "description": "A prompt mentioning Fastify should trigger the skill",
+      "test_input": "Build a Fastify server with TypeScript that exposes a /health endpoint",
+      "expected_output": "Should reference Section B (Fastify Application Architecture) and produce code using Fastify's plugin system, TypeBox schemas, and logger",
+      "assertions": [
+        "output_contains('Fastify')",
+        "output_contains('app.get')",
+        "output_contains('app.listen')",
+        "output_contains('logger: true')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-node-streams",
+      "description": "A prompt mentioning CSV processing should trigger the Node.js streams patterns",
+      "test_input": "I need to process a large CSV file line by line in Node.js, transform each row, and write to an output file",
+      "expected_output": "Should reference Section A3 (Streams) and use pipeline() with async generator transforms",
+      "assertions": [
+        "output_contains('pipeline')",
+        "output_contains('createReadStream')",
+        "output_contains('createWriteStream')",
+        "output_contains('node:stream/promises')",
+        "output_contains('async function*')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-type-stripping",
+      "description": "A prompt about Node.js TypeScript should use type stripping patterns",
+      "test_input": "How do I run TypeScript in Node 22 without a build tool?",
+      "expected_output": "Should reference Section A1 (Type Stripping) and recommend --experimental-strip-types with import type",
+      "assertions": [
+        "output_contains('strip')",
+        "output_contains('import type')",
+        "output_contains('node greet.ts')",
+        "output_contains('noEmit')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-oauth-fastify",
+      "description": "A prompt about OAuth with Fastify should use Section D patterns",
+      "test_input": "Add OAuth 2.0 login with Google to my Fastify app using authorization code flow",
+      "expected_output": "Should reference Section D (OAuth 2.0/2.1 with Fastify) and show PKCE setup with @fastify/oauth2",
+      "assertions": [
+        "output_contains('@fastify/oauth2')",
+        "output_contains('pkce')",
+        "output_contains('S256')",
+        "output_contains('authorizeHost')",
+        "output_contains('state')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-v8-deopt",
+      "description": "A prompt about V8 deoptimization should reference core internals",
+      "test_input": "My Node.js app has a performance regression. I think V8 is deoptimizing a hot function.",
+      "expected_output": "Should reference Section C1 (V8 Engine) and recommend --trace-opt --trace-deopt",
+      "assertions": [
+        "output_contains('trace-opt')",
+        "output_contains('trace-deopt')",
+        "output_contains('deoptimization')",
+        "output_contains('TurboFan')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-typescript-any",
+      "description": "A prompt about removing any types should use Section E patterns",
+      "test_input": "How do I remove all the 'any' types from this TypeScript function? function get(obj: any, key: string): any",
+      "expected_output": "Should reference Section E1 (Eliminating any) and show generic constraints with K extends keyof T",
+      "assertions": [
+        "output_contains('extends keyof')",
+        "output_contains('T[K]')",
+        "output_contains('generics')",
+        "output_contains('not_contains(\"any\")')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-graceful-shutdown",
+      "description": "A prompt about graceful shutdown should reference close-with-grace",
+      "test_input": "How do I properly handle SIGTERM in my Node.js HTTP server so it drains connections before exiting?",
+      "expected_output": "Should reference Section A5 (Graceful Shutdown) and use close-with-grace pattern",
+      "assertions": [
+        "output_contains('close-with-grace')",
+        "output_contains('SIGTERM')",
+        "output_contains('server.close')",
+        "output_contains('signal')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-node-core-contribution",
+      "description": "A prompt about contributing to Node.js core should reference contribution rules",
+      "test_input": "I'm making a change to Node.js core lib/ directory. What's the workflow?",
+      "expected_output": "Should reference Section C4 (Node.js Core Contribution Rules) and mention rebuild before testing",
+      "assertions": [
+        "output_contains('make -j')",
+        "output_contains('make lint')",
+        "output_contains('js2c')",
+        "output_contains('Signed-off-by')",
+        "output_contains('PR-URL')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-oauth-security",
+      "description": "A prompt about OAuth security should reference the security checklist",
+      "test_input": "What are the security requirements for an OAuth 2.0 implementation?",
+      "expected_output": "Should reference Section D4 (Security Checklist) and cover PKCE, state validation, JWK validation",
+      "assertions": [
+        "output_contains('PKCE')",
+        "output_contains('state')",
+        "output_contains('CSRF')",
+        "output_contains('redirect URI')",
+        "output_contains('iss')",
+        "output_contains('aud')"
+      ]
+    },
+    {
+      "name": "should-not-trigger-on-general-web",
+      "description": "A prompt about general web development should NOT trigger this Node.js-specific skill",
+      "test_input": "Build a responsive landing page with HTML, CSS, and JavaScript",
+      "expected_output": "Not relevant to Node.js development — should not trigger this skill",
+      "assertions": [
+        "output_not_contains('Fastify')",
+        "output_not_contains('type stripping')",
+        "output_not_contains('V8')",
+        "output_not_contains('libuv')",
+        "output_not_contains('node:test')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-napi",
+      "description": "A prompt about N-API native addons should reference C++ addon patterns",
+      "test_input": "I need to write a C++ native addon for Node.js using N-API to speed up a computation.",
+      "expected_output": "Should reference Section C3 (N-API and C++ Addons) and show NAPI_MODULE pattern",
+      "assertions": [
+        "output_contains('NAPI_MODULE')",
+        "output_contains('napi_value')",
+        "output_contains('N-API')",
+        "output_contains('binding.gyp')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-testing",
+      "description": "A prompt about Node.js testing should reference node:test patterns",
+      "test_input": "Write tests for my Node.js service using the built-in test runner",
+      "expected_output": "Should reference Section A6 (Testing) and use node:test with describe/it patterns",
+      "assertions": [
+        "output_contains('node:test')",
+        "output_contains('describe')",
+        "output_contains('it')",
+        "output_contains('assert')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-advanced-typescript",
+      "description": "A prompt about advanced TypeScript types should use Section E patterns",
+      "test_input": "How do I create a branded type in TypeScript to prevent mixing up IDs?",
+      "expected_output": "Should reference Section E5 (Branded/Opaque Types) and show Brand type pattern",
+      "assertions": [
+        "output_contains('__brand')",
+        "output_contains('Brand<')",
+        "output_contains('opaque')",
+        "output_contains('UserId')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-fastify-hooks",
+      "description": "A prompt about Fastify request lifecycle should reference hooks",
+      "test_input": "I need to add authentication middleware to all routes in my Fastify plugin",
+      "expected_output": "Should reference Section B4 (Request Lifecycle) and show addHook with onRequest",
+      "assertions": [
+        "output_contains('addHook')",
+        "output_contains('onRequest')",
+        "output_contains('jwtVerify')",
+        "output_contains('fastify-plugin')"
+      ]
+    },
+    {
+      "name": "should-trigger-on-flaky-tests",
+      "description": "A prompt about diagnosing flaky Node.js tests",
+      "test_input": "My Node.js test suite has flaky tests that pass and fail randomly",
+      "expected_output": "Should reference A6 test diagnosis patterns",
+      "assertions": [
+        "output_contains('flaky')",
+        "output_contains('test-timeout')",
+        "output_contains('isolate')",
+        "output_contains('--test-only')"
+      ]
+    }
+  ]
+}
