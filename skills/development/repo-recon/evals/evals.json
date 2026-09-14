@@ -1,0 +1,41 @@
+{
+  "skill": "repo-recon",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: first time in a repo, general orientation",
+      "input": "I just cloned this repository. Where do I even start? Help me understand the codebase before I change anything.",
+      "shouldTrigger": true,
+      "expect": "Five-step recon pass: read the map, learn commands, trace one flow, note conventions, write it down"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: onboarding into a codebase before first ticket",
+      "input": "I'm onboarding into the payments repo. Walk me through what the code does and how to build and test it before I pick up my first ticket.",
+      "shouldTrigger": true,
+      "expect": "Repo map plus verified build/test/run commands, no code changes"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: learn conventions before writing code",
+      "input": "What are the naming and testing conventions in this codebase so my PR doesn't get rejected for style?",
+      "shouldTrigger": true,
+      "expect": "Convention list from actual sources (not assumptions): naming, structure, error handling, test style"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: trace a single flow end-to-end",
+      "input": "Trace how an order flows through this system from the API to the database — first time I've looked at this project.",
+      "shouldTrigger": true,
+      "expect": "One flow traced end-to-end with file:line anchors from entry point to output"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: unrelated framework comparison question",
+      "input": "We're choosing between React and Svelte for our next app — what are the tradeoffs?",
+      "shouldTrigger": false,
+      "expect": "Framework comparison, not codebase reconnaissance"
+    }
+  ]
+}

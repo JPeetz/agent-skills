@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "skill": "spec-writer",
+  "evals": [
+    {
+      "id": "spec-writer-001",
+      "name": "Happy path: basic feature spec generation",
+      "description": "Given a simple feature request ('Add password reset via email'), the skill must produce a complete spec, plan, and task breakdown in a single output, with all three sections clearly delimited.",
+      "input": "/spec-writer Add password reset via email",
+      "criteria": [
+        "Output contains a 'Spec' section with purpose, functional requirements, and acceptance criteria",
+        "Output contains a 'Plan' section with architecture decisions, data model changes, or API contracts",
+        "Output contains a 'Task breakdown' section with ordered, self-contained tasks",
+        "Output contains at least one [ASSUMPTION: ...] marker",
+        "Output contains an assumptions summary section"
+      ],
+      "pass": "All 5 criteria met",
+      "fail": "Any of the 5 criteria is missing"
+    },
+    {
+      "id": "spec-writer-002",
+      "name": "Non-functional requirements inclusion",
+      "description": "Given a feature request with implicit performance needs ('Build an admin dashboard showing daily active users'), the generated spec must include non-functional requirements covering performance, security, or storage.",
+      "input": "/spec-writer Build an admin dashboard showing daily active users",
+      "criteria": [
+        "Spec section includes at least one non-functional requirement (performance, security, storage, latency, concurrency, or accessibility)",
+        "The non-functional requirement is stated explicitly (not embedded in a functional requirement)",
+        "Plan section addresses the non-functional constraint with a concrete decision"
+      ],
+      "pass": "All 3 criteria met",
+      "fail": "Any of the 3 criteria is missing"
+    },
+    {
+      "id": "spec-writer-003",
+      "name": "Assumption marker correctness",
+      "description": "Every [ASSUMPTION] marker must include an impact rating (HIGH, MEDIUM, or LOW) and correction guidance explaining when the assumption should be revisited.",
+      "input": "/spec-writer Let users invite teammates to their workspace",
+      "criteria": [
+        "Every [ASSUMPTION: ...] marker contains an explicit impact rating (HIGH, MEDIUM, or LOW)",
+        "Every [ASSUMPTION: ...] marker includes correction guidance ('Correct this if: ...')",
+        "The assumptions summary at the end is sorted or grouped by impact level",
+        "Held assumptions are at least 2 in number"
+      ],
+      "pass": "All 4 criteria met",
+      "fail": "Any of the 4 criteria is missing — particularly if any assumption lacks an impact rating or correction guidance"
+    },
+    {
+      "id": "spec-writer-004",
+      "name": "Edge-case coverage",
+      "description": "Given a feature request involving boundaries ('Add rate limiting to the public API'), the generated spec must cover edge cases including empty states, error states, boundary conditions, and concurrent access.",
+      "input": "/spec-writer Add rate limiting to the public API",
+      "criteria": [
+        "Spec includes at least 3 distinct edge cases (empty state, error state, or boundary condition)",
+        "At least one edge case addresses concurrent access or race conditions",
+        "Acceptance criteria include at least one Given/When/Then that tests a boundary (e.g. 'Given the rate limit is N requests/minute, When the N+1th request arrives, Then the API returns 429')"
+      ],
+      "pass": "All 3 criteria met",
+      "fail": "Any of the 3 criteria is missing"
+    },
+    {
+      "id": "spec-writer-005",
+      "name": "Spec/plan separation",
+      "description": "The Spec section must remain technology-agnostic. No framework, library, database, or infrastructure choice should appear in the Spec. Technology decisions belong only in the Plan section.",
+      "input": "/spec-writer Add password reset via email",
+      "criteria": [
+        "Spec section contains no mention of specific frameworks, libraries, databases, or infrastructure tools",
+        "Plan section contains at least one concrete technology decision (framework, library, database, or service)",
+        "Acceptance criteria in the Spec section do not reference implementation details"
+      ],
+      "pass": "All 3 criteria met",
+      "fail": "Any of the 3 criteria is missing (e.g. a framework name appears in an acceptance criterion, or the Plan contains no concrete decisions)"
+    }
+  ]
+}

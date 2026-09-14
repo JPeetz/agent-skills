@@ -1,0 +1,85 @@
+[
+  {
+    "id": "eval-001",
+    "name": "Rename a local variable — preserves test pass/fail",
+    "description": "Given a Python function `def area(w, h): return w * h`, rename `w` to `width` and `h` to `height`. Assert the test suite still passes and the output is identical.",
+    "input": {
+      "source": "def area(w, h): return w * h",
+      "test": "def test_area(): assert area(3, 4) == 12"
+    },
+    "expected_behavior": "Tests pass after rename",
+    "verification": [
+      "All existing tests pass with exit code 0",
+      "Function signature changed to (width, height) — verify by inspection",
+      "No logic changes — diff shows only identifier renames"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "name": "Extract function — behaviour unchanged",
+    "description": "Given a monolithic function containing a loop that sums squares, extract the loop body into a helper function `square(x)` and call it. Assert the output and tests are unchanged.",
+    "input": {
+      "source": "def sum_of_squares(n):\n    total = 0\n    for i in range(n):\n        total += i * i\n    return total",
+      "test": "def test_sum_of_squares(): assert sum_of_squares(5) == 30"
+    },
+    "expected_behavior": "Tests pass after extraction",
+    "verification": [
+      "New helper function `square(x)` exists and is called from the original",
+      "All existing tests pass with exit code 0",
+      "The original function's output for the same input is identical"
+    ]
+  },
+  {
+    "id": "eval-003",
+    "name": "Move a file — imports updated, tests pass",
+    "description": "Given a module `src/utils/helpers.py` imported by `src/app.py`, move the helpers to `src/lib/helpers.py` and update all import paths. Assert the application still runs and all tests pass.",
+    "input": {
+      "file_structure": {
+        "src/utils/helpers.py": "def greet(name): return f'Hello, {name}'",
+        "src/app.py": "from src.utils.helpers import greet\nprint(greet('World'))",
+        "tests/test_app.py": "import sys; sys.path.insert(0, 'src')\nfrom src.app import greet  # indirect test"
+      }
+    },
+    "expected_behavior": "Move completed, all imports updated, all tests pass",
+    "verification": [
+      "File moved to src/lib/helpers.py",
+      "Original src/utils/helpers.py removed",
+      "All import statements updated to src.lib.helpers",
+      "All existing tests pass with exit code 0",
+      "Application runs without ImportError"
+    ]
+  },
+  {
+    "id": "eval-004",
+    "name": "Rename a public API — deprecation shim keeps callers working",
+    "description": "Given a class `Calculator` with method `compute()`, rename it to `evaluate()` while keeping `compute()` as a deprecated alias that delegates to `evaluate()`. Assert the old name still works with a deprecation warning, and new code uses the new name.",
+    "input": {
+      "source": "class Calculator:\n    def compute(self, a, b):\n        return a + b",
+      "client_old": "c = Calculator(); result = c.compute(1, 2)",
+      "client_new": "c = Calculator(); result = c.evaluate(1, 2)"
+    },
+    "expected_behavior": "Old callers work with deprecation warning, new callers use the new name",
+    "verification": [
+      "Old API `compute()` raises a DeprecationWarning when called",
+      "Old API still returns the correct result",
+      "New API `evaluate()` works without any warning",
+      "All existing tests pass with exit code 0"
+    ]
+  },
+  {
+    "id": "eval-005",
+    "name": "Reject refactor that changes behaviour",
+    "description": "Given a function with a known bug where the refactorer attempts to fix the bug during the same change. Assert that the refactor process catches the behaviour change (tests that captured the buggy behaviour now fail, or verification detects the logic diff).",
+    "input": {
+      "source_buggy": "def divide(a, b):\n    # Intentional bug: returns a instead of a/b when b is 0\n    if b == 0:\n        return a\n    return a / b",
+      "test_buggy": "def test_divide_by_zero():\n    # This test asserts the buggy behaviour (returns a on b==0)\n    assert divide(10, 0) == 10",
+      "refactor_attempt": "def divide(a, b):\n    # 'Refactorer' changes behaviour: returns 0 instead of a on b==0\n    if b == 0:\n        return 0\n    return a / b"
+    },
+    "expected_behavior": "Refactor is rejected — test fails OR diff shows logic change",
+    "verification": [
+      "Executing the 'refactored' code causes at least one test to fail",
+      "OR diff-checking reveals a logic branch change (not just structural)",
+      "The refactorer is directed to either revert or separate the bugfix into its own commit"
+    ]
+  }
+]

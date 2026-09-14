@@ -117,12 +117,13 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [dbt-data-transformation](/skills/data/dbt-data-transformation) | Data/DBT | Production-grade dbt analytics engineering — model development, testing, dbt Mesh governance, semantic layer | Universal |
 | [database-schema-designer](/skills/data/database-schema-designer) | Database | Production-ready schema design — normalization, indexing, safe migrations, multi-tenant | Universal |
 
-### 📝 Documentation & Content
+### 📝 Documentation & Content (4 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [document-processing](/skills/documentation-content/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
 | [read-x-articles](/skills/documentation-content/read-x-articles) | Content/Web | Read X (Twitter) long-form Articles end-to-end from a shared link via the canonical /i/article/ID URL + render-capable extraction | Universal |
+| [spec-writer](/skills/documentation-content/spec-writer) | Documentation/Specs | Turn vague feature requests into structured specs, technical plans, and task breakdowns — inline [ASSUMPTION] markers for every unspecified decision | Universal |
 | [technical-documentation](/skills/documentation-content/technical-documentation) | Documentation | AI-powered technical docs: READMEs, ADRs, API docs, runbooks, knowledge bases | Universal |
 
 ### 🛠️ Skill Development
@@ -140,7 +141,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [linear-project-management](/skills/business-strategy/linear-project-management) | Business/PM | Drive Linear issues, projects, and teams from an agent via MCP + GraphQL — discovery-before-create, label taxonomy | Universal |
 | [enterprise-consulting-methods](/skills/business-strategy/enterprise-consulting-methods) | Business/Strategy | 15 McKinsey/BCG-grade methodology patterns — SCPR, issue/hypothesis trees, storyline building, decision memos, stakeholder maps, meeting prep, workshop design, native PowerPoint chart production via python-pptx | Universal |
 
-|### ⚙️ Development (7 skills)
+|### ⚙️ Development (9 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
@@ -151,6 +152,8 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [hermes-bot-team-design](/skills/development/hermes-bot-team-design) | Development | Design a team of specialist Hermes bots from a project spec — roles, SOUL.md, MCP wiring, group chat | Universal |
 | [mattpocock-dev-workflows](/skills/development/mattpocock-dev-workflows) | Development | Matt Pocock's engineering workflow patterns — spec synthesis, deep-module design, domain modeling, two-axis code review, disciplined bug diagnosis | Universal |
 | [nodejs-development](/skills/development/nodejs-development) | Development/Node | Full-stack Node.js development — Fastify patterns, TypeScript type stripping, V8/libuv internals, OAuth 2.0/2.1, graceful shutdown, error handling, streams, testing | Universal |
+| [repo-recon](/skills/development/repo-recon) | Development | Systematic codebase recon before touching unfamiliar code — map, learn commands, trace a flow, match conventions, write it down | Universal |
+| [safe-refactor](/skills/development/safe-refactor) | Development | Change code structure without changing behavior in small verified steps — green baseline, characterization tests, blast-radius tracking | Universal |
 
 ### 📣 Marketing
 

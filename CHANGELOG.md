@@ -4,6 +4,22 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.6.0 — 2026-09-14
+
+### 🚀 Skills Added (SKILLS pipeline run)
+
+- **spec-writer** (v1.0.0, documentation-content) — Turns vague feature requests into structured specs, technical plans, and task breakdowns. Every unspecified decision gets an inline `[ASSUMPTION: ...]` marker with impact level so the user can correct before code starts. Compatible with GitHub Spec Kit and OpenSpec output conventions. 148-line SKILL.md, 5 eval cases. Source: dannwaneri/spec-writer.
+
+- **repo-recon** (v1.0.0, development) — Systematic mapping of an unfamiliar codebase before changing anything: read the map, learn the commands, trace one flow end-to-end, match conventions, write it down. Includes standing rules (search-before-assuming) and a Definition of Done checklist. 178-line SKILL.md, 5 eval cases (4 positive, 1 negative). Source: adityaarakeri/senior-agent-skills.
+
+- **safe-refactor** (v1.0.0, development) — Refactor code without changing behavior: green baseline first, characterization tests for thin coverage, zero-behavior-change commits, small mechanical steps with tests between each, language-aware renames, blast-radius tracking. 98-line SKILL.md, 5 eval cases (including negative case). Source: adityaarakeri/senior-agent-skills.
+
+### 📚 Documentation
+
+- README catalog updated: Development (7→9), Documentation & Content (3→4).
+
+---
+
 ## v1.5.0 — 2026-08-31
 
 ### 🏗️ Repository Structure
