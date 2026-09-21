@@ -4,6 +4,28 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.7.0 — 2026-09-21
+
+### 🚀 Skills Added (SKILLS pipeline run)
+
+- **debugging-and-error-recovery** (v1.0.0, code-quality) — Systematic root-cause debugging with structured triage. Stop-the-Line rule, 6-step triage (Reproduce → Localize → Reduce → Fix → Guard → Verify), error-specific decision trees (test failures, build failures, runtime errors, production incidents), safe fallback patterns, and treating error output as untrusted data. 294-line SKILL.md, 5 eval cases, 2 reference files. Source: addyosmani/agent-skills (MIT, adapted and improved).
+
+- **code-simplification** (v1.0.0, code-quality) — Simplifies code for clarity without changing behavior. Five Principles (Preserve Behavior, Follow Conventions, Clarity > Cleverness, Maintain Balance, Scope to Changed), 4-step simplification process starting with Chesterton's Fence, language-specific patterns (TypeScript, Python, React, Go). Anti-rationalization table, Rule of 500 for large-scale refactors. 187-line SKILL.md, 8 eval cases, 1 reference file. Source: addyosmani/agent-skills (MIT, adapted and improved).
+
+- **performance-optimization** (v1.0.0, devops-infrastructure) — Measure-first performance optimization across frontend, backend, queries, and databases. Core Web Vitals targets (LCP ≤ 2.5s, INP ≤ 200ms, CLS ≤ 0.1), 5-step workflow (MEASURE → IDENTIFY → FIX → VERIFY → GUARD), anti-pattern coverage (N+1 queries, missing indexes, connection pool exhaustion, image optimization, unnecessary re-renders, large bundles). 168-line SKILL.md, 6 eval cases, 3 reference files. Source: addyosmani/agent-skills (MIT, adapted and improved).
+
+- **documentation-and-adrs** (v1.0.0, documentation-content) — Documents decisions, not just code. Architecture Decision Records (ADR) lifecycle with templates, inline documentation rules (comment the *why*, not the *what*), API documentation standards, README structure guidance, and documentation-for-agents considerations. 229-line SKILL.md, 7 eval cases, 3 reference files. Source: addyosmani/agent-skills (MIT, adapted and improved).
+
+### 🔒 Security Verdict
+
+All 4 skills scanned — zero executable code, no eval/exec patterns, no hardcoded secrets. **Verdict: ✅ SAFE** each.
+
+### 📚 Documentation
+
+- README catalog updated: Code Quality (2→4), DevOps & Infrastructure (6→7), Documentation & Content (4→5).
+
+---
+
 ## v1.6.0 — 2026-09-14
 
 ### 🚀 Skills Added (SKILLS pipeline run)

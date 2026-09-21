@@ -1,0 +1,107 @@
+{
+  "skill": "code-simplification",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: simplify a working but messy function",
+      "input": "This function works but has 7 levels of nesting and unclear variable names. Simplify it without changing behavior.",
+      "shouldTrigger": true,
+      "expect": "Enter the simplification process: understand the code, apply structured simplifications, verify tests still pass",
+      "assertions": [
+        "Begins by understanding what the code does before making changes",
+        "Identifies specific structural complexity (nesting, naming)",
+        "Preserves all inputs, outputs, and edge cases",
+        "Verifies existing tests pass after changes"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: reduce cognitive load in reviewed code",
+      "input": "In this PR the conditional logic is deeply nested with multiple ternaries. Clean it up for readability.",
+      "shouldTrigger": true,
+      "expect": "Apply the simplification process to the specific code, prioritizing clarity over cleverness",
+      "assertions": [
+        "Converts nested ternaries to clear conditional branches",
+        "Preserves all code paths and return values",
+        "Makes incremental, reviewable changes",
+        "Would a new team member understand this faster than the original?"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: refactor after feature is done and tests pass",
+      "input": "The feature is shipped and all 142 tests pass but the implementation feels heavy. Make it simpler.",
+      "shouldTrigger": true,
+      "expect": "Apply after feature-complete refinement: identify over-engineering, remove dead code, consolidate duplication",
+      "assertions": [
+        "Confirms tests pass before starting",
+        "Separates refactoring from feature work",
+        "Removes abstractions that are 'maybe useful later' but unused now",
+        "Runs tests again after each incremental change"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: consolidate duplicated logic across files",
+      "input": "We have the same pagination logic copied across 4 different service files. Unify it.",
+      "shouldTrigger": true,
+      "expect": "Extract shared logic while keeping each call site's interface unchanged",
+      "assertions": [
+        "Extracts duplicated logic into a single shared location",
+        "Preserves each call site's existing contract",
+        "Runs existing tests without modification",
+        "Documents what changed and why"
+      ]
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: simplify code written under time pressure",
+      "input": "This was written during a hackathon. It works but the variable names don't make sense and there's dead code everywhere.",
+      "shouldTrigger": true,
+      "expect": "Apply systematic simplification: rename unclear names, remove dead code, flatten nesting",
+      "assertions": [
+        "Renames variables to reflect their purpose",
+        "Removes dead code (commented-out blocks, unreachable branches)",
+        "Flattens unnecessarily nested logic",
+        "Preserves every existing code path"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: code is already clean and readable",
+      "input": "This code looks fine to me. Should I run a linter on it?",
+      "shouldTrigger": false,
+      "expect": "Recognize that no simplification is needed and recommend appropriate tooling instead",
+      "assertions": [
+        "Does not enter the simplification procedure",
+        "Suggests an automated formatter/linter if style is the concern",
+        "Does not create unnecessary diffs"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: performance-critical code that should not be simplified",
+      "input": "This hot loop is already using SIMD intrinsics. Can you make it more readable?",
+      "shouldTrigger": false,
+      "expect": "Recognize that performance-critical code may justify complexity and advise against simplification",
+      "assertions": [
+        "Warns that performance-critical code may need its existing complexity",
+        "Offers to comment/document instead of restructure",
+        "Defers to benchmarking results before changing"
+      ]
+    },
+    {
+      "id": "n3",
+      "description": "Not trigger: user doesn't understand the code yet",
+      "input": "I don't really understand what this code does but it seems long. Shorten it.",
+      "shouldTrigger": false,
+      "expect": "Recognize that comprehension must precede simplification and advise understanding first",
+      "assertions": [
+        "Refuses to simplify code not yet understood",
+        "Offers to explain the code first",
+        "References Chesterton's Fence principle"
+      ]
+    }
+  ]
+}

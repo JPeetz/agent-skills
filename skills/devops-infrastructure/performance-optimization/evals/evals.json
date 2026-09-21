@@ -1,0 +1,41 @@
+{
+  "skill_name": "performance-optimization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our landing page has an LCP of 4.2s on mobile. Users are complaining it's slow. Optimize it.",
+      "expected_output": "Skill must activate — performance improvement request with specific CWV issue. Must produce a measurement-first approach: establish baseline with Lighthouse/PSI, identify bottleneck (likely images, render-blocking resources, or slow server response), propose targeted fix (responsive images with srcset, critical CSS inline, server-side caching), and include verification step to re-measure. Must NOT suggest blind optimization without baseline numbers. Must include LCP target of ≤ 2.5s.",
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "I think this API endpoint is slow. Can you add an index to the users table?",
+      "expected_output": "Skill must activate — optimization request with a database bottleneck assumption. Must push back with 'measure first' discipline: ask for the query, run EXPLAIN ANALYZE before adding any index, review the query plan, confirm the bottleneck is actually the missing index. Must NOT add an index without seeing a plan first. Must include anti-rationalization: 'The query is slow, add an index' → Read the plan first.",
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "Help me set up a CI/CD pipeline for my Python project with GitHub Actions",
+      "expected_output": "Skill must NOT activate. This is a CI/CD pipeline setup request, not a performance optimization task. No mention of slow behavior, CWV, profiling, bottlenecks, or query optimization. If activated, test fails.",
+      "should_trigger": false
+    },
+    {
+      "id": 4,
+      "prompt": "Our database queries are timing out on the orders page. Something is wrong with performance.",
+      "expected_output": "Skill must activate — database performance issue. Must follow the optimization workflow: establish baseline (EXPLAIN ANALYZE on the slow query), identify bottleneck (likely missing index, N+1, or table scan), propose fix (index or query rewrite), verify (re-run EXPLAIN ANALYZE). Must reference the N+1 anti-pattern and the 'measure before optimizing' principle.",
+      "should_trigger": true
+    },
+    {
+      "id": 5,
+      "prompt": "I need to refactor the CSS to use CSS variables instead of SASS variables",
+      "expected_output": "Skill must NOT activate. This is a CSS refactoring task, not a performance optimization request. No concrete performance symptom or metric is mentioned. Near-miss: involves frontend, but user didn't report slowness, mention CWV, or ask for optimization. If activated, test fails.",
+      "should_trigger": false
+    },
+    {
+      "id": 6,
+      "prompt": "Our React app bundle is 4MB. Page load feels really slow on slow connections. Help me slim it down.",
+      "expected_output": "Skill must activate — bundle size optimization request with a specific metric (4MB) and complaint about slow loading. Must produce: bundle analysis recommendation (vite-bundle-analyzer, webpack-bundle-analyzer), code splitting via dynamic import(), tree-shaking, identifying large dependencies. Must verify by re-measuring bundle size post-optimization. Must include guard: bundle size check in CI.",
+      "should_trigger": true
+    }
+  ]
+}

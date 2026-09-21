@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "skill": "documentation-and-adrs",
+  "evals": [
+    {
+      "id": "documentation-and-adrs-001",
+      "name": "ADR generation for a significant architectural decision",
+      "description": "Given a request to document an architectural decision ('Choose PostgreSQL as the primary database'), the skill must produce a complete ADR with context, alternatives considered, rationale, and consequences.",
+      "input": "Create an ADR for choosing PostgreSQL as our primary database over MySQL and SQLite.",
+      "criteria": [
+        "Output includes a titled ADR with ADR number",
+        "Output includes 'Context' section explaining the problem and constraints",
+        "Output includes 'Decision' stating what was chosen and why",
+        "Output lists at least 2 alternatives considered with pros/cons",
+        "Output includes 'Consequences' section with at least 2 items"
+      ],
+      "pass": "All 5 criteria met",
+      "fail": "Any of the 5 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-002",
+      "name": "Inline documentation quality — 'why' not 'what'",
+      "description": "Given a request to document code, the skill must produce comments that explain the rationale/intent, not restate the code mechanics. It must reject or refactor 'what' comments into 'why' comments.",
+      "input": "Add inline docs to this function: `// Increment counter by 1\\ncounter += 1`",
+      "criteria": [
+        "Output identifies that the comment is redundant (restates the code)",
+        "Output provides a replacement comment that explains why the increment happens",
+        "Output does not restate code mechanics in the replacement"
+      ],
+      "pass": "All 3 criteria met",
+      "fail": "Any of the 3 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-003",
+      "name": "READ ME structure compliance",
+      "description": "Given a request to write a README for a new project, the skill must produce a README covering all required sections: quick start, installation, usage, configuration, architecture, contributing, and license.",
+      "input": "Write a README for a task management API built with Express and PostgreSQL.",
+      "criteria": [
+        "Output includes a 'Quick Start' section with copy-paste-able commands",
+        "Output includes an 'Installation' section with prerequisites",
+        "Output includes a 'Usage' section with code examples",
+        "Output includes an 'Architecture' section or diagram description",
+        "Output includes a 'License' section"
+      ],
+      "pass": "All 5 criteria met",
+      "fail": "Any of the 5 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-004",
+      "name": "API documentation completeness",
+      "description": "Given a REST API endpoint description, the skill must produce API documentation covering method, path, parameters, auth, error codes, and examples.",
+      "input": "Document the POST /api/users endpoint for creating a new user.",
+      "criteria": [
+        "Output documents the HTTP method and path",
+        "Output lists request body parameters with types and descriptions",
+        "Output describes authentication requirements",
+        "Output includes at least one request example",
+        "Output includes error codes or error response format",
+        "Output documents success response shape"
+      ],
+      "pass": "All 6 criteria met",
+      "fail": "Any of the 6 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-005",
+      "name": "Anti-rationalization detection and correction",
+      "description": "Given a common rationalization ('The code is self-documenting'), the skill must identify it as a rationalization and explain why it's wrong, referencing the skill's anti-rationalization knowledge.",
+      "input": "A teammate says: 'The code is self-documenting, we don't need ADRs or README docs.' How do you respond?",
+      "criteria": [
+        "Output identifies this as a rationalization (not a valid argument)",
+        "Output explains why code alone cannot capture rationale, rejected alternatives, or constraints",
+        "Output provides a concrete counter-example showing why 'what' differs from 'why'"
+      ],
+      "pass": "All 3 criteria met",
+      "fail": "Any of the 3 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-006",
+      "name": "Documentation audit completeness",
+      "description": "Given a project with multiple services and no documentation, the skill must identify the documentation gaps and produce a prioritized audit report.",
+      "input": "Audit documentation for a project with: a payment service, a user service, and a notification service. No READMEs or ADRs exist.",
+      "criteria": [
+        "Output lists each service and its documentation status",
+        "Output identifies missing ADRs as a gap",
+        "Output prioritizes gaps (critical first, then major, then minor)",
+        "Output recommends concrete next steps for the most critical gap",
+        "Output suggests documentation ownership distribution"
+      ],
+      "pass": "All 5 criteria met",
+      "fail": "Any of the 5 criteria is missing"
+    },
+    {
+      "id": "documentation-and-adrs-007",
+      "name": "Changelog format compliance",
+      "description": "Given a set of release changes, the skill must produce a changelog entry following Keep a Changelog format with proper sections and diff links.",
+      "input": "Write a changelog entry for v1.2.0 with: new export feature, deprecated old API method, fixed race condition, upgraded dependency.",
+      "criteria": [
+        "Output uses Added, Changed, Deprecated, Removed, Fixed, Security sections (relevant ones populated)",
+        "Output does not use a catch-all 'Misc' or 'Other' category",
+        "Output includes a diff link at the bottom",
+        "Output uses semantic versioning format [1.2.0]"
+      ],
+      "pass": "All 4 criteria met",
+      "fail": "Any of the 4 criteria is missing"
+    }
+  ]
+}
