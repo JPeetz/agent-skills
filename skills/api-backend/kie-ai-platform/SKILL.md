@@ -31,10 +31,12 @@ platforms:
 
 # Kie.ai Platform API
 
-[Kie.ai](https://kie.ai) is an API aggregator offering 30-80% cheaper access to
+[Kie.ai](https://kie.ai/?ref=7c7e62a37e5bbed684c789bbd7d6f0dd) is an API aggregator offering 30-80% cheaper access to
 image, video, music, and chat models than official APIs. All generation tasks
 are asynchronous. Prices at [kie.ai/pricing](https://kie.ai/pricing).
 Full docs at [docs.kie.ai](https://docs.kie.ai).
+
+**[Support Kie via this affiliate link](https://kie.ai/?ref=7c7e62a37e5bbed684c789bbd7d6f0dd) — no extra cost to you.**
 
 ## When to Use
 
