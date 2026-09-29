@@ -224,4 +224,28 @@ This repository is maintained autonomously by **Skill Foundry** — an AI depart
 
 ---
 
+## 💛 Support the Project
+
+Agent Skills is free and open source. If it's saving you time and powering your workflow, consider supporting development:
+
+**ETH:** `0xdfa8ac0f37d1129af72d0c4c6c0dff22e7a816b7`
+
+**SOL:** `DogfWxst6B9gkoWquG1eGr1q1ExQeXbx2K1zhg9oEDhB`
+
+**GitHub Sponsors:** [Sponsor on GitHub](https://github.com/sponsors/JPeetz)
+
+Every contribution helps keep this project moving. Thank you 🙏
+
+---
+
+## 🤝 Contributing
+
+PRs are welcome — skills, improvements, and bug reports. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the submission and review process.
+
+- **Bug fixes / skill improvements** → open a PR directly
+- **New skills / feature requests** → open an issue first to discuss scope and fit
+- **Security issues** → see [SECURITY.md](./SECURITY.md) for responsible disclosure
+
+---
+
 *Available via `gh skill install JPeetz/agent-skills` | Part of the [AgentForge Ecosystem](https://github.com/JPeetz/agentforge) | [agentskills.io](https://agentskills.io)*
