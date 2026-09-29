@@ -94,6 +94,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [har-api-reverse-engineering](/skills/api-backend/har-api-reverse-engineering) | API/Backend | Reverse-engineer a site's hidden/undocumented API from a captured HAR — derive, replay, verify, reuse (authorized use only) | Universal |
 | [social-har-api-connectivity](/skills/api-backend/social-har-api-connectivity) | API/Social | Connect a social platform's API from a captured HAR — filter, derive, verify, reuse (authorized only) | Universal |
 | [image-to-image-character-generation](/skills/api-backend/image-to-image-character-generation) | API/Image | Generate consistent character images from Supabase/GDrive refs via kie.ai image-to-image — face anchors, dynamic prompt, anti-repeat | Universal |
+| [kie-ai-platform](/skills/api-backend/kie-ai-platform) | API/Platform | Full kie.ai platform API: image/video/audio/chat gen, async tasks, callbacks, file upload, credits, webhook HMAC verifcation | Universal |
 
 ### 🧪 QA & Testing
 
