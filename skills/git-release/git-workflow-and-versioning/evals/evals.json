@@ -1,0 +1,55 @@
+{
+  "skill_name": "git-workflow-and-versioning",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished implementing the login feature. It touches auth.ts, login-form.tsx, styles.css, and I also fixed a typo in the README. Commit it all.",
+      "expected_output": "The skill should NOT commit everything together. It should split: (a) feat: login form component, (b) feat: auth API endpoint, (c) chore: fix typo in README — three separate atomic commits with descriptive messages.",
+      "expectations": [
+        "Splits the work into logical atomic commits, not one bulk commit",
+        "Each commit message follows the type: description format",
+        "README typo fix is separated as chore/docs, not mixed with feature work"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to fix a critical production bug but I have half-finished work on my branch. What do I do?",
+      "expected_output": "Commit or stash the current work, create a fix branch from the last known-good commit on main, apply the hotfix, merge, then return to the feature branch.",
+      "expectations": [
+        "Recommends stashing or committing in-progress work first",
+        "Creates a fix branch from main or the last stable commit",
+        "Does not suggest mixing the hotfix into the feature branch"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our main branch has a bug that was introduced sometime in the last 30 commits. How do I find which commit caused it?",
+      "expected_output": "Use git bisect: mark current HEAD as bad, a known-good commit as good, and let git narrow down the offending commit by testing each midpoint.",
+      "expectations": [
+        "Recommends git bisect with the correct workflow",
+        "Explains how to mark bad/good commits",
+        "Suggests a script or manual test at each bisect step"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Release v2.0.0: we added a breaking API change (removed deprecated endpoints) and fixed 3 bugs since v1.9.0. What version and what changelog entry?",
+      "expected_output": "Version 2.0.0 (breaking change = major bump). Changelog with Added/Changed/Fixed sections, a migration note for the removed endpoints, and a deprecation window reference.",
+      "expectations": [
+        "Bumps to 2.0.0, not 1.10.0 or 1.9.4",
+        "Changelog has a migration note for the breaking change",
+        "Separates breaking changes from bug fixes in the changelog structure"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I need two agents to work on different features in the same repo at the same time without stepping on each other.",
+      "expected_output": "Use git worktrees: create separate worktree directories for each feature branch. Each agent works in isolation. Merge sequentially.",
+      "expectations": [
+        "Recommends git worktrees, not just separate branches in the same working tree",
+        "Explains the worktree create/remove workflow",
+        "Notes that changes remain isolated until explicitly merged"
+      ]
+    }
+  ]
+}
