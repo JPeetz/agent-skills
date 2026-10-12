@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "Component composition — agent chooses composition over configuration when building a new component",
+    "scenario": "Build a task management widget that shows a list of tasks. Each task has a checkbox, title, and delete button. User wants flexibility but not over-engineering.",
+    "expected_outcome": "Agent creates composable TaskItem and TaskList components with clear separation of concerns and avoids a monolithic configuration-heavy component"
+  },
+  {
+    "id": "ev002",
+    "description": "Accessible form — agent builds a signup form meeting WCAG 2.1 AA standards",
+    "scenario": "Build a signup form with name, email, and password fields. Must be keyboard-navigable, have proper labels, error states, and focus management.",
+    "expected_outcome": "Agent creates a form with proper label-element associations, ARIA descriptions, keyboard navigation (Tab order preserved), inline validation errors with aria-live, and focus management on error"
+  },
+  {
+    "id": "ev003",
+    "description": "Responsive design — agent adapts a desktop layout to mobile-first",
+    "scenario": "Convert a fixed-width 3-column dashboard layout to be responsive. Must work on 320px, 768px, 1024px, and 1440px widths. Use semantic color tokens from the design system.",
+    "expected_outcome": "Agent implements a mobile-first grid that stacks on small screens, expands on larger ones. Uses consistent spacing scale. Never uses raw hex colors — always semantic tokens."
+  },
+  {
+    "id": "ev004",
+    "description": "Empty state handling — agent adds proper empty/error/loading states",
+    "scenario": "A notification panel component currently shows nothing when the user has no notifications. Agent must add meaningful empty, loading, and error states.",
+    "expected_outcome": "Agent adds: skeleton loading animation, empty state with helpful message and CTA, error state with retry button. All states are keyboard accessible."
+  },
+  {
+    "id": "ev005",
+    "description": "Anti-AI-aesthetic — agent avoids generic AI design patterns and uses project design tokens",
+    "scenario": "The project uses a warm earthy color palette with subtle shadows and rounded-sm corners. Agent builds a settings panel page. Must use project tokens, no purple gradients, no stock card grids.",
+    "expected_outcome": "Agent uses the project's semantic color tokens, applies consistent border-radius from the design system, uses purpose-driven layout (not stock grid), no purple/indigo, no excessive gradients"
+  }
+]

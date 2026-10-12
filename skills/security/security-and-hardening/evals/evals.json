@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "SQL injection prevention — agent identifies and fixes string concatenation in queries",
+    "scenario": "A codebase has `SELECT * FROM users WHERE email = '` + userInput + `'`. Agent must identify the vulnerability and fix it with parameterized queries.",
+    "expected_outcome": "Agent flags the SQL injection vector, replaces with parameterized query (e.g., `WHERE email = ?`), and validates the fix"
+  },
+  {
+    "id": "ev002",
+    "description": "Secrets management — agent identifies hardcoded secrets in source code",
+    "scenario": "A commit adds a config file with `API_KEY = 'sk-abc123...'`. Agent must flag this as a security issue, recommend environment variable usage, and advise rotating the leaked key.",
+    "expected_outcome": "Agent identifies the hardcoded API key, recommends env var injection, advises immediate rotation since the key is in git history"
+  },
+  {
+    "id": "ev003",
+    "description": "SSRF protection — agent identifies and mitigates user-supplied URL fetching",
+    "scenario": "A webhook handler takes a URL from the request body and fetches it with `requests.get(url)`. Agent must identify the SSRF vector and implement an allowlist-based fix.",
+    "expected_outcome": "Agent flags the SSRF vulnerability, implements URL allowlist with scheme and host validation, rejects private/reserved IPs, and forbids redirects"
+  },
+  {
+    "id": "ev004",
+    "description": "LLM output safety — agent recognizes model output as untrusted input",
+    "scenario": "An app passes LLM output directly into `innerHTML` to render a chat response. Agent must identify the XSS vector and fix it with proper encoding.",
+    "expected_outcome": "Agent flags that LLM output is untrusted, replaces innerHTML with framework-safe escaping or sanitization, and notes prompt injection risk"
+  },
+  {
+    "id": "ev005",
+    "description": "Data classification and retention — agent identifies missing privacy controls",
+    "scenario": "A signup form collects name, email, and date of birth. There's no privacy notice, no TTL on the data, and no delete endpoint. Agent must identify the gaps.",
+    "expected_outcome": "Agent flags missing data classification, missing retention limit, missing deletion endpoint, and recommends purpose specification and consent collection"
+  }
+]

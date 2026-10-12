@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "API threat model — agent produces a STRIDE threat model for a new REST API endpoint",
+    "scenario": "A new POST /api/orders endpoint accepts a user's shopping cart and creates an order. The API is behind a gateway with JWT auth. Agent must produce a threat model with data flow, STRIDE analysis, and security stories.",
+    "expected_outcome": "Agent identifies data flow (User → Browser || Gateway → OrderService → Database), walks STRIDE, produces at least 3 threats with mitigations and security stories"
+  },
+  {
+    "id": "ev002",
+    "description": "SSRF threat identification — agent spots SSRF risk in a webhook handler",
+    "scenario": "A feature lets users configure a webhook URL that the server will call on certain events. Agent must threat-model this feature and identify the SSRF risk specifically.",
+    "expected_outcome": "Agent identifies 'attacker-controlled URL can target internal services' as an Information Disclosure and/or Tampering threat, recommends URL allowlisting and private IP rejection"
+  },
+  {
+    "id": "ev003",
+    "description": "File upload threat model — agent covers upload safety comprehensively",
+    "scenario": "A new profile picture upload feature allows JPEG/PNG files up to 5MB. Agent must produce a threat model for the upload flow.",
+    "expected_outcome": "Agent identifies threats in at least 3 STRIDE categories: Tampering (malicious file content), DoS (large files, zip bombs), Elevation of Privilege (path traversal), and recommends mitigations for each"
+  },
+  {
+    "id": "ev004",
+    "description": "Risk rating consistency — agent rates threats correctly per the rubric",
+    "scenario": "Given threats with various likelihood/impact combinations (H/H, H/M, L/L, M/M, etc.), agent must rate risk correctly in each case.",
+    "expected_outcome": "Agent correctly rates H+H or H+M as High risk, L+L as Low risk, all others as Medium risk, using the stated rules"
+  },
+  {
+    "id": "ev005",
+    "description": "Residual risk documentation — agent properly categorizes Low risks as accepted",
+    "scenario": "After completing the STRIDE analysis, there are 2 Low-risk findings. Agent must properly document them as residual risks with acceptance rationale.",
+    "expected_outcome": "Agent does NOT create security stories for Low-risk findings. Instead adds them to a 'Residual Risks (accepted)' section with one-line justification per risk"
+  }
+]
