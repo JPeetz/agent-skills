@@ -75,6 +75,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [observability-engineering](/skills/devops-infrastructure/observability-engineering) | DevOps/SRE | OpenTelemetry instrumentation, monitoring, distributed tracing, SLI/SLO management, incident response | Universal |
 | [production-engineering-workflows](/skills/devops-infrastructure/production-engineering-workflows) | DevOps/SRE | Full SDLC automation: /spec → /plan → /build → /test → /review → /ship | Universal |
 | [sre-runbooks](/skills/devops-infrastructure/sre-runbooks) | DevOps/SRE | Safe-by-default SRE runbooks — incident response, postmortems, on-call handovers, RCA | Universal |
+| [maintenance](/skills/devops-infrastructure/maintenance) | DevOps/Ops | Self-hosted customer-stack maintenance runbook — JEV-first decisions, health probes, weekly backup, JEV-gated updates, rollback, sparse LLM cost discipline | Universal |
 
 </details>
 
@@ -95,6 +96,7 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [social-har-api-connectivity](/skills/api-backend/social-har-api-connectivity) | API/Social | Connect a social platform's API from a captured HAR — filter, derive, verify, reuse (authorized only) | Universal |
 | [image-to-image-character-generation](/skills/api-backend/image-to-image-character-generation) | API/Image | Generate consistent character images from Supabase/GDrive refs via kie.ai image-to-image — face anchors, dynamic prompt, anti-repeat | Universal |
 | [kie-ai-platform](/skills/api-backend/kie-ai-platform) | API/Platform | Full kie.ai platform API: image/video/audio/chat gen, async tasks, callbacks, file upload, credits, webhook HMAC verifcation | Universal |
+| [n8n-api-shape](/skills/api-backend/n8n-api-shape) | API/Automation | Instance-agnostic n8n REST API — read/update/verify workflows, strip-extras PUT recipe, banned fields, health check | Universal |
 
 ### 🧪 QA & Testing
 

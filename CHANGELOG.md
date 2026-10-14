@@ -4,6 +4,24 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.8.0 — 2026-10-15
+
+### 🚀 Skills Added (Custodian maintenance-agent — Joerg Peetz)
+
+- **maintenance** (v1.0.0, devops-infrastructure) — Self-hosted customer-stack maintenance runbook for a dedicated maintenance agent: JEV-first decisions (`typesafe/jev-1.13`) with a sparse-LLM cost discipline (a JEV-only cycle is a win), 15-min health probe, weekly verified backup with off-box copy, JEV-gated update check that stalls on breaking/major changes, always-a-rollback mutation discipline, disk-headroom and TLS checks. Built for the Custodian customer-maintenance agent (Quality Tours et al.). 99-line SKILL.md.
+
+- **n8n-api-shape** (v1.0.0, api-backend) — Instance-agnostic n8n REST API reference: read/update/verify workflows on ANY n8n instance. Includes the verified strip-extras PUT recipe (fixes `400 additional properties`), banned top-level fields, banned node fields, health endpoint, and secrets-by-label guardrails. Extracted from the instance-specific openclaw-n8n-operations so it's reusable for client instances without copying Joerg's host/workflow IDs. 60-line SKILL.md.
+
+### 🔒 Security Verdict
+
+Both skills scanned — zero executable code, no eval/exec patterns, no hardcoded secrets. **Verdict: ✅ SAFE** each.
+
+### 📚 Documentation
+
+- README catalog updated: DevOps & Infrastructure (+1 maintenance), API & Backend (+1 n8n-api-shape).
+
+---
+
 ## v1.7.0 — 2026-09-21
 
 ### 🚀 Skills Added (SKILLS pipeline run)
