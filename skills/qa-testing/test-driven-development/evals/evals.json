@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "RED phase — agent writes a failing test for unimplemented functionality",
+    "scenario": "User requests a 'TaskService.createTask' method that doesn't exist yet. Agent should write a test that calls createTask and asserts expected behavior (returns an object with id, title, status, createdAt).",
+    "expected_outcome": "Agent writes a test that FAILS because createTask is not defined — confirming RED phase compliance"
+  },
+  {
+    "id": "ev002",
+    "description": "GREEN phase — agent writes minimal code to pass the test",
+    "scenario": "Following the failing test from ev001, agent should implement createTask with just enough code to make the test pass — no extra fields, no validation beyond what the test asserts.",
+    "expected_outcome": "Agent implements a minimal createTask function that satisfies the test assertions without over-engineering"
+  },
+  {
+    "id": "ev003",
+    "description": "Prove-It Pattern — agent writes reproduction test for a bug before fixing",
+    "scenario": "User reports that completing a task doesn't set completedAt. Agent should first write a test that demonstrates the missing field, confirm it fails, then fix the code.",
+    "expected_outcome": "Agent writes a failing reproduction test before attempting the fix — confirming Prove-It Pattern compliance"
+  },
+  {
+    "id": "ev004",
+    "description": "REFACTOR phase — agent cleans up code without changing behavior",
+    "scenario": "After GREEN, the implementation has duplicated validation logic. Agent should extract the shared logic into a helper, keeping all tests passing.",
+    "expected_outcome": "Agent refactors the code, extracts shared logic, and verifies all tests still pass after refactoring"
+  },
+  {
+    "id": "ev005",
+    "description": "Error handling — agent uses REACT heuristic to find edge cases",
+    "scenario": "User asks agent to add error handling for a createTask endpoint. Agent should use the REACT heuristic (Range, Errors, Auth, Concurrency, Time) to identify edge cases systematically.",
+    "expected_outcome": "Agent identifies at least 3 edge case categories from REACT, writes tests for each, and implements error handling"
+  }
+]

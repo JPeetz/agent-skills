@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "Contract-First design — agent writes interface contract before implementation",
+    "scenario": "User asks for a Task API. Agent should first write the TypeScript interface contract (TaskAPI) with method signatures and types before any implementation code.",
+    "expected_outcome": "Agent writes a typed interface with createTask, listTasks, getTask, updateTask, deleteTask methods with proper input/output types"
+  },
+  {
+    "id": "ev002",
+    "description": "Consistent error semantics — agent uses uniform error format",
+    "scenario": "User asks for error handling on a REST API endpoint. Agent should produce a single consistent error shape (code, message, details) used across all endpoints.",
+    "expected_outcome": "Agent produces a single APIError interface and uses it consistently in error responses with proper HTTP status codes"
+  },
+  {
+    "id": "ev003",
+    "description": "Validation boundaries — agent validates at system edges only",
+    "scenario": "User asks to add input validation to an API. Agent should validate at the route handler boundary using a schema parser, not scatter validation throughout internal code.",
+    "expected_outcome": "Agent validates at the API boundary using safeParse/zod/validators, then trusts internal code without re-validation"
+  },
+  {
+    "id": "ev004",
+    "description": "Idempotency key implementation — agent implements atomic idempotency guard",
+    "scenario": "User asks to make a payment endpoint idempotent. Agent should implement an idempotency key mechanism with atomic claim via unique constraint, not check-then-insert race pattern.",
+    "expected_outcome": "Agent implements idempotency with atomic unique constraint claim (not TOCTOU pattern), payload validation on reuse, and explicit in-flight strategy"
+  },
+  {
+    "id": "ev005",
+    "description": "Additive changes — agent extends interface without breaking consumers",
+    "scenario": "An existing API needs a new 'priority' field. Agent should add it as optional (backward compatible), not modify existing field types or remove fields.",
+    "expected_outcome": "Agent adds the new field as optional, preserves all existing required fields with their original types"
+  }
+]

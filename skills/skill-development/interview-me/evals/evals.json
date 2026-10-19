@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "Hypothesis formulation — agent states a hypothesis with confidence number for an underspecified request",
+    "scenario": "User says 'build me a dashboard for our metrics'. Agent should respond with a hypothesis (one sentence) and a confidence number below 100% that includes what's missing.",
+    "expected_outcome": "Agent states HYPOTHESIS + CONFIDENCE ~30-40% with explicit mention of missing context (who it's for, what metrics, success criteria)"
+  },
+  {
+    "id": "ev002",
+    "description": "Single-question discipline — agent asks one question at a time with guess attached",
+    "scenario": "Following ev001, user responds to the hypothesis. Agent should ask ONE follow-up question with its GUESS attached, not batch multiple questions.",
+    "expected_outcome": "Agent asks exactly one question with GUESS: prefix, waits for response before next question"
+  },
+  {
+    "id": "ev003",
+    "description": "Want-vs-should-want detection — agent probes when user gives a sophistication-signaling answer",
+    "scenario": "User responds with 'I want it to be scalable and use clean architecture'. Agent should detect this as a sophistication-signaling answer and probe with 'If you didn't have to justify this to anyone, what would you actually want?'",
+    "expected_outcome": "Agent identifies the buzzword answer and deploys the 'justify to anyone' probe"
+  },
+  {
+    "id": "ev004",
+    "description": "Structured restate — agent writes back a concrete restate with Out of scope",
+    "scenario": "After several rounds of Q&A, user's intent becomes clear. Agent should restate the intent using Outcome/User/Why now/Success/Constraint/Out of scope format.",
+    "expected_outcome": "Agent produces a structured restate with all 6 fields, including Out of scope, and asks for explicit confirmation"
+  },
+  {
+    "id": "ev005",
+    "description": "Terminal stop — agent does NOT start work after receiving explicit confirmation",
+    "scenario": "User confirms the restate with an explicit 'yes'. Agent should stop its turn without invoking any tools or starting downstream work.",
+    "expected_outcome": "Agent delivers confirmed statement of intent, offers downstream paths, and stops turn — no tool invocations follow"
+  }
+]

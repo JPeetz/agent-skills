@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "Basic CI pipeline setup — agent generates a GitHub Actions CI workflow",
+    "scenario": "User asks to set up CI for a new Node.js project. Agent should generate a .github/workflows/ci.yml with lint, type-check, test, build, and security audit stages.",
+    "expected_outcome": "Agent generates a CI workflow YAML with quality gate pipeline including lint, type-check, unit tests, build, and security audit stages"
+  },
+  {
+    "id": "ev002",
+    "description": "Integration test configuration — agent adds a database service to CI",
+    "scenario": "The project has integration tests that need a PostgreSQL database. Agent should add a Postgres service container and configure the integration test job.",
+    "expected_outcome": "Agent generates a CI workflow with Postgres service container, health check, and integration test step with secret-managed credentials"
+  },
+  {
+    "id": "ev003",
+    "description": "Rollback plan — agent creates a manual rollback workflow",
+    "scenario": "User has a Vercel deployment and needs a rollback mechanism. Agent should create a rollback workflow that accepts a version input.",
+    "expected_outcome": "Agent creates a workflow_dispatch rollback workflow that accepts a version parameter and runs the deployment rollback"
+  },
+  {
+    "id": "ev004",
+    "description": "CI optimization — agent recommends optimization for a slow pipeline",
+    "scenario": "User reports CI takes 25 minutes. Agent should diagnose the bottleneck and recommend specific optimizations from the CI optimization section.",
+    "expected_outcome": "Agent recommends at least 3 specific optimizations: caching, parallel jobs, and either path filters or matrix builds"
+  },
+  {
+    "id": "ev005",
+    "description": "Anti-rationalization — agent pushes back on 'skip CI, it's trivial'",
+    "scenario": "User says 'This is just a typo fix, skip CI'. Agent should explain why even trivial changes should go through CI.",
+    "expected_outcome": "Agent pushes back citing that trivial changes break builds and CI is fast for trivial changes"
+  }
+]
