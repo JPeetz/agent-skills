@@ -164,6 +164,9 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 |-------|--------|-------------|-----------|
 | [astra-campaign](/skills/marketing/astra-campaign) | Marketing | Full-service ad campaign generator (X, TikTok, Instagram) | Universal |
 | [betterlife-image-generation](/skills/marketing/betterlife-image-generation) | Marketing/Image | BetterLife daily social images via kie.ai grok-imagine — Mira character anchors, anti-repetition | Universal |
+| [local-video-production-m5](/skills/marketing/local-video-production-m5) | Marketing/Video | Local video production on the 16GB Apple-Silicon M5: LTX/Wan GGUF-MLX, memory discipline, character consistency, OpenMontage | Hermes + M5 |
+| [openmontage](/skills/marketing/openmontage) | Video | Produce/edit video via OpenMontage pipelines (avatar-spokesperson, talking-head, cinematic) with director layers + approval gates | Hermes |
+| [agent-n-video-pipeline](/skills/marketing/agent-n-video-pipeline) | Video | Fully-local "Agent N presents a message": Kokoro TTS → LTX-2.3 MLX A2V talking render + lip sync → karaoke → QA → X caption (Herald port, zero cloud) | Hermes + M5 |
 
 ### ⚖️ Compliance & Legal
 
