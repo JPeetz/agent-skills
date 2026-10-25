@@ -20,7 +20,14 @@ How to read Joerg's instructions, prompt properly from his intent, and verify be
 - You are about to build/generate/execute something for the fleet and want to make sure intent + verification are aligned first.
 - You are the target of a delegated task from another profile and need the shared house rules without re-deriving them.
 - Any task where getting the prompt right the first time matters more than speed.
-Don't use for: fully-specified mechanical tasks with an obvious execution path — those are the ACT-DON'T-ASK cases. This skill exists so ANY profile (default, rza, gza, ghostface-killah, marketing, an M5 executor, …) executes his asks the same way — not by pattern-matching words, but by intent, evidence, and output-side verification.
+Don't use for: fully-specified mechanical tasks with an obvious execution path — those are the ACT-DON'T-ASK cases.
+
+## Ask when unclear, don't guess when it matters (2026-10-24, JOERG'S BEHAVIOR CONTRACT)
+Joerg is deliberately changing his side too: he will be more descriptive when needed, and he EXPLICITLY WANTS questions when a task's scope, deliverable, or constraint is unclear. The pre-2026-10-24 default was "never ask prematurely"; the new contract is: resolve what you can via JEV → MeMex → HermesVault → disk, then ASK the 1–5 questions that genuinely change the outcome. This mirrors the Ask User Questions (AUQ) pattern (paulp-o/ask-user-questions-mcp):
+- Ask structured, bounded questions: prompt + 2–5 options with descriptions, recommended option FIRST labeled "(Recommended)", allow Other/custom-input, allow multiSelect when several are valid.
+- Ask BEFORE burning compute: scope errors propagate (wrong-scope heavy-dev wastes a full Omarchy/Claude/DeepSeek cycle).
+- Never use questions as permission checks — no "should I proceed?" / "is my plan ready?". ACT-DON'T-ASK on execution; ask only on genuinely outcome-changing ambiguity.
+- If you must make assumptions, surface them immediately ("ASSUMPTIONS I'M MAKING: … correct me or I proceed"). This skill exists so ANY profile (default, rza, gza, ghostface-killah, marketing, an M5 executor, …) executes his asks the same way — not by pattern-matching words, but by intent, evidence, and output-side verification.
 
 Rationale (2026-10-24): Joerg pulled together the free AI/LLM reading library (~/workspace/ai-reading/) explicitly so the fleet learns how to prompt properly from HIS instructions. The books give the craft; this skill gives the house rules.
 
