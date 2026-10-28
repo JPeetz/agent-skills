@@ -31,3 +31,8 @@ API design-first skill that enforces contract-first development across REST,
 GraphQL, and gRPC. This skill fills the gap between "generate API docs from code"
 and "design database schema" by providing a complete API architecture workflow
 that drives code generation, not documentation retrofitting.
+
+## v1.0.1 — 2026-10-28
+
+### Changed
+- Description rewritten to trigger form ("Use this skill when...") per agentskills.io spec (was marketing-style "Design-first API development skill.")

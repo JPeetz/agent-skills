@@ -1,20 +1,12 @@
 ---
 name: design-to-code
-description: >
-  Use this skill when translating UI/UX designs into production-ready
-  frontend code. Handles design source ingestion (Figma, Sketch, Adobe XD,
-  screenshots, design specs), design token extraction, component hierarchy
-  mapping, responsive breakpoint strategy, accessibility-first
-  implementation (WCAG 2.1 AA minimum), framework-agnostic patterns
-  (React, Vue, Svelte, plain HTML/CSS), design system integration, visual
-  regression testing, and CSS architecture selection (CSS Modules,
-  Tailwind, styled-components). Primary keyword clusters: design to code
-  conversion, figma to react, design token extraction, UI component
-  architecture, accessibility implementation WCAG, responsive design
-  breakpoints, pixel perfect implementation, design system integration,
-  CSS architecture patterns, visual regression testing strategy. Designed
-  for agentic platforms — Claude Code, Codex, Cursor, Gemini CLI,
-  OpenClaw, GitHub Copilot, Windsurf, and OpenCode.
+description: >-
+  Use this skill when translating UI/UX designs into production-ready frontend
+  code — Figma, Sketch, Adobe XD, screenshots, or design specs. Extracts design
+  tokens, maps component hierarchy, applies responsive breakpoints and WCAG 2.1
+  AA accessibility, and produces framework-agnostic implementations (React,
+  Vue, Svelte, plain HTML/CSS) with design system integration and visual
+  regression testing.
 version: 1.0.0
 author: Skill Foundry
 platforms:

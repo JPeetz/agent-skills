@@ -1,0 +1,65 @@
+{
+  "skill": "reference-hunt",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: user points at code as the spec",
+      "input": "Make our billing work exactly like the payments module in stripe-python.",
+      "shouldTrigger": true,
+      "expect": "Reads reference as a spec, writes semantics summary, confirms, reimplements semantics not syntax",
+      "assertions": [
+        "Produces semantics summary before writing code",
+        "Gets user confirmation of the summary first",
+        "Reimplements with native idioms, not transliteration",
+        "Closes loop: each behavior mapped to where it's honored",
+        "Respects license (no verbatim copying of incompatible code)"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: reimplementing behavior from a vendored folder",
+      "input": "Port the queue logic from vendor/queue-lib into our Go service.",
+      "shouldTrigger": true,
+      "expect": "Extracts semantics first, then reimplements in Go",
+      "assertions": [
+        "Asks what specifically to extract (behavior/structure/API shape)",
+        "Flags anything that won't translate with a proposed equivalent"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: no reference given, ordinary change",
+      "input": "Add pagination to our listings endpoint.",
+      "shouldTrigger": false,
+      "expect": "Implements directly",
+      "assertions": [
+        "No reference-hunt workflow"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: reference is merely illustrative, not a spec",
+      "input": "Our competitor's app has a nice settings page, can we do something in that spirit?",
+      "shouldTrigger": false,
+      "expect": "Treats as loose inspiration, not reference-targeted reimplementation",
+      "assertions": [
+        "No semantics summary produced"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: license-respecting reimplementation from a vendored library",
+      "input": "The vendored queue library is MIT-licensed. Port its ordering semantics into our Go service, native idioms.",
+      "shouldTrigger": true,
+      "expect": "Produces semantics summary first, then reimplements semantics with native Go idioms respecting the license",
+      "assertions": [
+        "Reads the reference and writes a semantics summary before any code",
+        "Gets user confirmation of the summary",
+        "Does not transliterate line-by-line",
+        "Notes the license and avoids incompatible copying",
+        "Closes the loop listing where each behavior is honored"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "skill": "joerg-instruction-execution",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: terse shorthand instruction",
+      "input": "try it",
+      "shouldTrigger": true,
+      "expect": "Interprets intent and executes without a confirmation question",
+      "assertions": [
+        "Does not ask for permission on the obvious default",
+        "Delivers output and verifies on the output side",
+        "Reports honestly with evidence if blocked"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: correction loop as authoritative feedback",
+      "input": "What the heck is this, the lip sync is still awful!",
+      "shouldTrigger": true,
+      "expect": "Treats the correction as the real spec and re-derives the approach",
+      "assertions": [
+        "Does not argue with the feedback",
+        "Changes the output until it matches",
+        "Logs the lesson to the relevant skill"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: ambiguous scope where ask-first is warranted",
+      "input": "Add a search feature to the dashboard. You decide the rest.",
+      "shouldTrigger": true,
+      "expect": "Resolves via context layers then asks only outcome-changing questions",
+      "assertions": [
+        "Checks JEV -> MeMex -> HermesVault -> disk before asking",
+        "Asks 1-5 structured questions with options, recommended first",
+        "Surfaces assumptions explicitly if proceeding"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: fully-specified mechanical task (ACT-DON'T-ASK)",
+      "input": "Rename the variable 'usreName' to 'userName' in src/auth.js.",
+      "shouldTrigger": false,
+      "expect": "Executes mechanically without the intent/verification loop",
+      "assertions": [
+        "No scope questions needed",
+        "Direct read-file/patch/verify execution"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: general factual question",
+      "input": "What is the capital of France?",
+      "shouldTrigger": false,
+      "expect": "Answers directly, no instruction-execution protocol",
+      "assertions": [
+        "No verification checklist needed"
+      ]
+    }
+  ]
+}

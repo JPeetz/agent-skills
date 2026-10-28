@@ -1,0 +1,65 @@
+{
+  "skill": "blindspot-pass",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: unfamiliar codebase territory",
+      "input": "I'm about to add authentication to our Express API but I've never worked on it before.",
+      "shouldTrigger": true,
+      "expect": "Runs a blindspot pass: landmines, hidden context, what good looks like, questions to ask, then rewrites the request",
+      "assertions": [
+        "Reports landmines first (common mistakes, repo potholes)",
+        "Surfaces hidden context and invariants",
+        "Shows 2-3 examples of good patterns",
+        "Lists 3-5 questions an expert would ask",
+        "Ends with rewritten request",
+        "Does NOT start implementing"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: unfamiliar domain territory",
+      "input": "We're taking over maintenance of this payments microservice. What am I missing?",
+      "shouldTrigger": true,
+      "expect": "Explores the module/history/conventions and reports blindspots",
+      "assertions": [
+        "Prioritizes unknowns that change architecture over trivia",
+        "Plainly says 'no significant blindspots' if that's the case"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: familiar territory, direct fix request",
+      "input": "Fix the timeout bug in the module I wrote last week.",
+      "shouldTrigger": false,
+      "expect": "Goes straight to debugging",
+      "assertions": [
+        "No blindspot report produced"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: general request unrelated to entering new territory",
+      "input": "Order pizza for the team.",
+      "shouldTrigger": false,
+      "expect": "Does not engage blindspot workflow",
+      "assertions": [
+        "No exploration performed"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: external-domain blindspots",
+      "input": "We're building a compliance feature and I've never worked with GDPR. What are the table stakes?",
+      "shouldTrigger": true,
+      "expect": "Researches what practitioners consider table stakes and reports landmines/hidden context",
+      "assertions": [
+        "Covers what practitioners call table stakes in the domain",
+        "Reports landmines and hidden context",
+        "Does not start implementing",
+        "Ends with a rewritten request"
+      ]
+    }
+  ]
+}

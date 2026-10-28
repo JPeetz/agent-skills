@@ -1,0 +1,64 @@
+{
+  "skill": "implementation-notes",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: implementing against an agreed plan or spec",
+      "input": "Implement the user profile module per the plan and keep notes.",
+      "shouldTrigger": true,
+      "expect": "Creates implementation-notes.md with Deviations, Discovered edge cases, Questions for review",
+      "assertions": [
+        "Creates implementation-notes.md with the three headings at build start",
+        "Logs deviations with: plan said, what was done, why, revisit cost",
+        "Takes the conservative (reversible) option on uncovered choices and continues",
+        "Stops at safe checkpoint for irreversible/scope-changing items",
+        "Appends five-line summary at the end"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: mid-build clarification of deviation handling",
+      "input": "The plan assumed API v1 but we found v2 is live. What should I do?",
+      "shouldTrigger": true,
+      "expect": "Logs the deviation, picks the conservative option, continues work",
+      "assertions": [
+        "Logs under Deviations with what it would take to revisit",
+        "Does not block the user for a reversible decision"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: planning phase, nothing being implemented",
+      "input": "Write the plan for the module first.",
+      "shouldTrigger": false,
+      "expect": "Does planning instead",
+      "assertions": [
+        "No implementation-notes.md created at plan time"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: research-only session",
+      "input": "Research whether Postgres or MySQL fits this project.",
+      "shouldTrigger": false,
+      "expect": "Does research without implementation notes",
+      "assertions": [
+        "No build notes file created"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: irreversible deviation stops at checkpoint",
+      "input": "The plan's migration approach is wrong and re-doing it would take days. What do I do?",
+      "shouldTrigger": true,
+      "expect": "Logs under Questions for review and stops at a safe checkpoint (irreversible deviation)",
+      "assertions": [
+        "Recognizes the deviation as irreversible/scope-changing",
+        "Logs it under Questions for review",
+        "Stops work at a safe checkpoint instead of improvising",
+        "Notes what it would take to revisit"
+      ]
+    }
+  ]
+}

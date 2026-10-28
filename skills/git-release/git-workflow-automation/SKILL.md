@@ -1,11 +1,11 @@
 ---
 name: git-workflow-automation
-description: >
-  Expert Git workflow automation for commit message generation, branch naming,
-  PR description writing, changelog generation, merge conflict resolution,
-  and release management. Activates when users say "write a commit message",
-  "create a PR", "generate changelog", "branch name for", "resolve merge
-  conflict", "cut a release", "bump version", "semantic version", or
+description: >-
+  Use this skill when automating Git workflows — commit message generation,
+  branch naming, PR description writing, changelog generation, merge conflict
+  resolution, and release management. Activates when users say "write a commit
+  message", "create a PR", "generate changelog", "branch name for", "resolve
+  merge conflict", "cut a release", "bump version", "semantic version", or
   "conventional commits". Enforces Conventional Commits, semantic versioning,
   and reproducible Git workflows across teams.
 version: 1.0.0

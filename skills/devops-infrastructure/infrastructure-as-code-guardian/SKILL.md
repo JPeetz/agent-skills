@@ -1,23 +1,6 @@
 ---
 name: infrastructure-as-code-guardian
-description: >
-  Universal Infrastructure as Code (IaC) agent skill for authoring, securing,
-  and managing cloud infrastructure across Terraform, Pulumi, CloudFormation,
-  Ansible, and Bicep. Provides cross-tool security hardening, state management
-  best practices, cost optimization, drift detection, and CI/CD integration.
-  Covers AWS, Azure, GCP, and hybrid-cloud environments with a unified workflow
-  that spans the full IaC lifecycle—from greenfield module authoring through
-  production hardening audits to multi-tool migration planning. Designed for
-  DevOps engineers who switch between IaC tools daily: includes a decision
-  tree for tool selection, per-tool authoring guidelines (HCL patterns, Pulumi
-  TypeScript/Python idioms, CloudFormation YAML conventions, Ansible playbook
-  structure, Bicep DSL tips), security checklist aligned to CIS benchmarks and
-  SOC 2, drift detection workflows that catch configuration skew before it
-  causes outages, and cost-optimization guardrails built into the authoring
-  phase. The skill bridges the gap left by single-tool IaC skills—HashiCorp's
-  focus is Terraform-only, Pulumi's official guidance stays within its own
-  ecosystem—by providing a tool-agnostic framework that treats IaC as a
-  discipline, not a product silo.
+description: Use this skill when authoring, securing, or managing infrastructure as code in Terraform, Pulumi, CloudFormation, Ansible, or Bicep — or when selecting an IaC tool, reviewing modules for security, detecting drift, optimizing cost, or planning a multi-tool migration. Covers AWS, Azure, GCP, and hybrid cloud, with per-tool authoring patterns, CIS/SOC 2 security checklists, drift detection, and cost guardrails across the full IaC lifecycle.
 version: 1.0.0
 author: Skill Foundry
 platforms:

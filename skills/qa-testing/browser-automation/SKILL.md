@@ -1,15 +1,11 @@
 ---
 name: browser-automation
-description: >
-  Browser automation with Playwright — testing, scraping, monitoring,
-  form submission, screenshot capture, and multi-page interaction flows.
-  Covers setup, navigation, element interaction, assertions, and cleanup.
-  Primary keyword clusters: Playwright browser automation, end-to-end testing
-  with Playwright, web scraping Python Playwright, headless browser testing,
-  automated form submission Playwright, synthetic monitoring browser, screenshot
-  capture automation, CI/CD browser testing, page object model Playwright.
-  Designed for agentic platforms — Claude Code, Codex, Cursor, Gemini CLI,
-  OpenClaw, GitHub Copilot, Windsurf, and OpenCode.
+description: >-
+  Use this skill when automating browser interactions with Playwright —
+  testing, scraping, monitoring, form submission, screenshot capture, and
+  multi-page interaction flows. Covers setup, navigation, element interaction,
+  assertions, and cleanup. Designed for agentic platforms — Claude Code, Codex,
+  Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, and OpenCode.
 version: 1.1.0
 author: Skill Foundry
 platforms:

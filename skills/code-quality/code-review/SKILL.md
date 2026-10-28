@@ -1,17 +1,6 @@
 ---
 name: code-review
-description: >
-  AI-powered code review and PR analysis. Performs systematic reviews
-  covering security vulnerabilities, code quality, style compliance,
-  architectural integrity, test coverage, and performance considerations.
-  Works with PR diffs, commit ranges, file changes, or raw code snippets.
-  Primary keyword clusters: AI code review automation, automated PR review
-  security, code quality analysis static, pull request review checklist,
-  OWASP code review patterns, architectural review automation, test coverage
-  analysis review, performance code review, style guide compliance checker,
-  code smell detection automated. Designed for agentic platforms — Claude
-  Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, and
-  OpenCode.
+description: Use this skill when reviewing a PR diff, commit range, file change, or code snippet before merge. Reviews security vulnerabilities, code quality, style compliance, architectural integrity, test coverage, and performance; works with GitHub/GitLab diffs or raw code and produces a systematic, severity-labeled review.
 version: 1.1.0
 author: Skill Foundry
 platforms:

@@ -1,6 +1,6 @@
 ---
 name: interview-me
-description: Use this skill when an ask is underspecified — missing who it's for, why now, or what success looks like. One-question-at-a-time interview to extract what the user actually wants (not what they think they should want) before any plan, spec, or code exists. NOT for interactive sessions — requires a live responsive user.
+description: Use this skill when an ask is underspecified — missing who it's for, why now, or what success looks like. One-question-at-a-time interview to extract what the user actually wants (not what they think they should want) before any plan, spec, or code exists. Requires a live, responsive user — do not invoke in non-interactive contexts (CI runs, scheduled tasks, autonomous loops).
 ---
 
 # Interview Me

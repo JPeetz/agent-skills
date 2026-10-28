@@ -1,0 +1,64 @@
+{
+  "skill": "pitch-packager",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: buy-in / review-ready summary of completed work",
+      "input": "I need the team's approval before this ships. Package the change for review.",
+      "shouldTrigger": true,
+      "expect": "Produces a one-page pitch doc: demo first, problem/bet, expert questions, deviations, scope fences",
+      "assertions": [
+        "Leads with the demo (GIF/screenshot beats prose)",
+        "Includes 'what an expert would ask' with honest answers",
+        "Lists deviations from plan",
+        "States what's NOT in the change",
+        "Stays one page, links out to spec/notes/diff"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: turning session output into a reviewable artifact",
+      "input": "Write up what we did in this session as a summary I can paste into Slack for the client.",
+      "shouldTrigger": true,
+      "expect": "Matches medium to venue with a Slack-pasteable pitch doc",
+      "assertions": [
+        "Collects spec/plan/prototype/notes/diff",
+        "Structures in skeptic's reading order",
+        "Keeps it to one page"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: implementation request, nothing to package",
+      "input": "Go ahead and implement the feature now.",
+      "shouldTrigger": false,
+      "expect": "Does not produce a pitch document",
+      "assertions": [
+        "No packaging workflow triggered"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: plain status update with no review stake",
+      "input": "What time is the standup?",
+      "shouldTrigger": false,
+      "expect": "Answers directly",
+      "assertions": [
+        "No single-paragraph pitch produced"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: medium matched to venue",
+      "input": "The client review is next week and they read best from a single HTML page. Package the change as a standalone HTML pitch.",
+      "shouldTrigger": true,
+      "expect": "Produces a standalone HTML pitch page with demo first and all skeleton sections",
+      "assertions": [
+        "Matches medium to venue (standalone HTML page)",
+        "Keeps it one page with links out to spec/notes/diff",
+        "Leads with the demo"
+      ]
+    }
+  ]
+}

@@ -1,15 +1,6 @@
 ---
 name: ci-cd-pipeline-generator
-description: >
-  Generate production-ready CI/CD pipeline configurations for GitHub Actions,
-  GitLab CI, CircleCI, and Jenkins. Activates when users ask to set up CI/CD,
-  create deployment pipelines, automate build/test/deploy workflows, configure
-  Docker builds, set up staging/production environments, or add quality gates.
-  Covers multi-stage pipelines, matrix builds, secrets management, caching
-  strategies, environment promotion, canary deployments, and rollback patterns.
-  Use when the user says "set up CI/CD", "create a pipeline", "automate
-  deployment", "build pipeline", "GitHub Actions workflow", "GitLab CI config",
-  or "deploy to production".
+description: Use this skill when setting up CI/CD from scratch or adding a pipeline config for GitHub Actions, GitLab CI, CircleCI, or Jenkins. Generates multi-stage pipelines, matrix builds, secrets management, caching, environment promotion, canary deploys, and rollback patterns — the YAML for build/test/deploy workflows, Docker builds, and staging/production quality gates. Triggers on "set up CI/CD", "create a pipeline", "GitHub Actions workflow", "GitLab CI config", "build pipeline", or "deploy to production".
 version: 1.0.0
 author: Skill Foundry
 license: MIT

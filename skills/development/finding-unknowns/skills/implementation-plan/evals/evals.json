@@ -1,0 +1,64 @@
+{
+  "skill": "implementation-plan",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: planning requested before a build",
+      "input": "Write an implementation plan before we start building the checkout redesign.",
+      "shouldTrigger": true,
+      "expect": "Produces a decision-first plan with tweakable decisions, known unknowns, compressed mechanical work",
+      "assertions": [
+        "Opens with 3-line summary including riskiest assumption",
+        "Section 1 lists decisions user will likely tweak with alternatives and change costs",
+        "Section 2 names known unknowns with defaults and pivot signals",
+        "Section 3 compresses mechanical work",
+        "Ends with 2-4 specific yes/no review items"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: explicit plan request, modest scope",
+      "input": "Can you plan the refactor of our auth module?",
+      "shouldTrigger": true,
+      "expect": "Produces an implementation plan ordering by likelihood-of-tweaking, not build order",
+      "assertions": [
+        "Plan reviewable in minutes",
+        "Leaves room for improvisation during implementation"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: no plan requested, direct build",
+      "input": "Start building the feature now.",
+      "shouldTrigger": false,
+      "expect": "Proceeds to implementation",
+      "assertions": [
+        "No plan document produced"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: brainstorming phase, not planning",
+      "input": "What features could we add next quarter?",
+      "shouldTrigger": false,
+      "expect": "Brainstorms without a build plan",
+      "assertions": [
+        "No decision-first plan produced"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: decisions-tweakable section for API shape choice",
+      "input": "Plan the new API shape. There are two options \u2014 put the choice and what changing it later would cost in the plan.",
+      "shouldTrigger": true,
+      "expect": "Section 1 lists the API-shape decision with one alternative and the cost of changing later",
+      "assertions": [
+        "Opens with a three-line summary incl. riskiest assumption",
+        "Lists the decision, one alternative, and change-later cost",
+        "Names known unknowns with pivot signals",
+        "Ends with 2-4 specific review items"
+      ]
+    }
+  ]
+}

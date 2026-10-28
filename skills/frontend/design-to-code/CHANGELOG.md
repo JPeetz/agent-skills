@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Platform compatibility notes for all 8 platforms
 - QUICK REFERENCE table with phases, activities, and quality tiers
 - Near-miss negative examples (9 non-trigger inputs)
-- 8 eval cases (5 positive, 3 near-miss negatives)
+- 10 eval cases (6 positive, 4 near-miss negatives)
 - `design-tokens-guide.md` reference with W3C DTCG spec
 - PEP 723 validation script with token format and WCAG detection checks
 ## v1.0.1 — 2026-06-25

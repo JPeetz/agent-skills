@@ -49,3 +49,8 @@
 - Added MIT LICENSE with attribution to original author
 - Organized by consulting category (Framing, Analysis, Writing, Meetings, Decks, Quality)
 - Standardized SKILL.md format per Hermes skill packaging conventions
+
+## v1.0.1 — 2026-10-28
+
+### Changed
+- Description reworded to "Use this skill when..." to clear the validator's description_style warning

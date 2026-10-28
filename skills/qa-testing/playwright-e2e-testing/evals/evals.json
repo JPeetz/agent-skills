@@ -1,0 +1,141 @@
+{
+  "skill": "playwright-e2e-testing",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e2e-001",
+      "description": "Write a Playwright test for a login form with email and password fields",
+      "input": "Write a Playwright test for a login form with email and password fields",
+      "shouldTrigger": true,
+      "expect": "Agent uses getByLabel() for form fields and getByRole() for submit button",
+      "assertions": [
+        "Uses getByLabel for email field",
+        "Uses getByLabel or getByRole for password",
+        "Uses getByRole('button') for submit",
+        "Includes assertions on success state (URL change or element visibility)"
+      ]
+    },
+    {
+      "id": "e2e-002",
+      "description": "Debug this flaky test that fails intermittently on CI",
+      "input": "Debug this flaky test that fails intermittently on CI",
+      "shouldTrigger": true,
+      "expect": "Agent identifies race conditions, missing awaits, bad locators",
+      "assertions": [
+        "Identifies missing auto-wait usage",
+        "Checks for waitForTimeout anti-pattern",
+        "Suggests proper waitFor conditions",
+        "Recommends disabling retries to detect flakes"
+      ]
+    },
+    {
+      "id": "e2e-003",
+      "description": "Set up Playwright in CI with GitHub Actions",
+      "input": "Set up Playwright in CI with GitHub Actions",
+      "shouldTrigger": true,
+      "expect": "Agent creates complete workflow with sharding, browser install, artifact upload",
+      "assertions": [
+        "Includes npx playwright install --with-deps",
+        "Uses matrix strategy for sharding",
+        "Uploads test artifacts on failure",
+        "Sets timeout-minutes",
+        "Uses fail-fast: false"
+      ]
+    },
+    {
+      "id": "e2e-004",
+      "description": "Write a test for a mobile responsive hamburger menu",
+      "input": "Write a test for a mobile responsive hamburger menu",
+      "shouldTrigger": true,
+      "expect": "Agent sets viewport to mobile size and uses getByRole",
+      "assertions": [
+        "Sets mobile viewport dimensions",
+        "Uses getByRole for menu button",
+        "Checks navigation visibility toggle",
+        "Considers device emulation"
+      ]
+    },
+    {
+      "id": "e2e-005",
+      "description": "Write a visual regression test for the pricing page",
+      "input": "Write a visual regression test for the pricing page",
+      "shouldTrigger": true,
+      "expect": "Agent uses element-level toHaveScreenshot with appropriate masking",
+      "assertions": [
+        "Uses expect(page/element).toHaveScreenshot()",
+        "Considers masking dynamic content",
+        "Uses element-level screenshots over full-page",
+        "Sets appropriate maxDiffPixelRatio"
+      ]
+    },
+    {
+      "id": "e2e-006",
+      "description": "Implement Page Object Model for a dashboard page",
+      "input": "Implement Page Object Model for a dashboard page",
+      "shouldTrigger": true,
+      "expect": "Agent creates structured page objects with semantic locators",
+      "assertions": [
+        "Creates BasePage class",
+        "Uses getByRole/getByTestId in page objects",
+        "Methods return Locator objects or Promises",
+        "Follows single responsibility per page object"
+      ]
+    },
+    {
+      "id": "e2e-007",
+      "description": "Write a test that handles OAuth/2FA authentication",
+      "input": "Write a test that handles OAuth/2FA authentication",
+      "shouldTrigger": true,
+      "expect": "Agent guides toward storageState/global-setup pattern",
+      "assertions": [
+        "Mentions global-setup.ts approach",
+        "Recommends storageState reuse",
+        "Advises against committing auth files",
+        "Suggests profile rotation schedule"
+      ]
+    },
+    {
+      "id": "e2e-008",
+      "description": "Test that an XSS payload is properly sanitized",
+      "input": "Test that an XSS payload is properly sanitized",
+      "shouldTrigger": true,
+      "expect": "Agent writes security test with XSS payload and content verification",
+      "assertions": [
+        "Uses known XSS payload",
+        "Verifies payload is rendered as text, not HTML",
+        "Does not use page.evaluate to test XSS",
+        "Checks outputs, not inputs"
+      ]
+    },
+    {
+      "id": "nmiss-001",
+      "description": "Write a Selenium test for a login form",
+      "input": "Write a Selenium test for a login form",
+      "shouldTrigger": false,
+      "expect": "Skill should NOT activate \u2014 this is a Selenium request, not Playwright",
+      "assertions": [
+        "Skill description mentions Playwright only; Selenium request should not trigger this skill"
+      ]
+    },
+    {
+      "id": "nmiss-002",
+      "description": "Write a Cypress component test",
+      "input": "Write a Cypress component test",
+      "shouldTrigger": false,
+      "expect": "Skill should NOT activate \u2014 Cypress is a competing framework",
+      "assertions": [
+        "Request specifies Cypress; skill should not trigger on Cypress-specific requests"
+      ]
+    },
+    {
+      "id": "nmiss-003",
+      "description": "Write a unit test for a pure JavaScript function",
+      "input": "Write a unit test for a pure JavaScript function",
+      "shouldTrigger": false,
+      "expect": "Skill should NOT activate \u2014 unit testing is not in scope",
+      "assertions": [
+        "Pure logic testing without browser interaction should not trigger the skill"
+      ]
+    }
+  ]
+}

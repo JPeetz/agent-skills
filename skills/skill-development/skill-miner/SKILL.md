@@ -1,6 +1,6 @@
 ---
 name: skill-miner
-description: Use when mining agent history for repeated skill-worthy workflows.
+description: Use this skill when mining agent history for repeated, skill-worthy workflows that deserve to become reusable skills.
 version: 1.0.0
 license: MIT
 author: hqhq1025 (original source), Skill Foundry (packaged edition)

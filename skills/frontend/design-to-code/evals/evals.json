@@ -1,0 +1,139 @@
+{
+  "skill": "design-to-code",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "pos-01",
+      "description": "Figma design to React component",
+      "input": "Turn this Figma design into React components: https://www.figma.com/file/abc123/Dashboard-Design. It's a SaaS dashboard with a sidebar, header, and data cards. Use Tailwind CSS.",
+      "shouldTrigger": true,
+      "expect": "Full design-to-code pipeline. Agent should extract colors, typography, spacing from Figma, map the component tree (Sidebar, Header, DataCard), implement responsive breakpoints (sidebar collapses at tablet), ensure WCAG AA, and produce Tailwind-styled React components.",
+      "assertions": [
+        "Design Analysis",
+        "Design Tokens",
+        "Component Hierarchy",
+        "Responsive",
+        "Accessibility"
+      ]
+    },
+    {
+      "id": "pos-02",
+      "description": "Screenshot-based landing page implementation",
+      "input": "I have a screenshot of a landing page design. Can you implement this in plain HTML and CSS? It needs to be responsive and accessible.",
+      "shouldTrigger": true,
+      "expect": "Screenshot-only input. Agent should acknowledge fidelity limitations ('I'm working from a screenshot, colors may be approximate'), extract visual design, implement with semantic HTML (header, main, section, footer), CSS custom properties for tokens, media queries for responsiveness, and WCAG AA compliance (skip link, focus indicators, alt text).",
+      "assertions": [
+        "design token",
+        "responsive",
+        "semantic HTML",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "pos-03",
+      "description": "Design tokens extraction from design spec",
+      "input": "Extract design tokens from this design specification and create a CSS custom properties file and a Tailwind config. Spec: Primary colors are blue-500 (#3B82F6), blue-600 (#2563EB), blue-700 (#1D4ED8). Font is Inter at 16px base, headings at 24px/30px/36px. Spacing uses an 8px grid.",
+      "shouldTrigger": true,
+      "expect": "Token extraction from a text design spec. Agent should produce a CSS :root block with color, typography, and spacing tokens in a consistent naming scheme, then derive a Tailwind config that references the same token values. Should use rem for font sizes and spacing.",
+      "assertions": [
+        "--color-primary-",
+        "--font-family",
+        "--font-size-",
+        "--space-",
+        "var(--",
+        "tailwind.config"
+      ]
+    },
+    {
+      "id": "pos-04",
+      "description": "Accessibility-first component with complex widget",
+      "input": "Build an accessible tabbed interface component in React with TypeScript. The design has 4 tabs (Overview, Analytics, Reports, Settings) with content panels. Must be fully keyboard-navigable and screen-reader friendly. Use CSS Modules.",
+      "shouldTrigger": true,
+      "expect": "Complex accessible widget implementation. Agent must implement the WAI-ARIA tabs pattern correctly: tablist/tab/tabpanel roles, aria-selected/aria-controls, roving tabindex for keyboard navigation, arrow key handling (Right/Left to switch tabs, Home/End for first/last), and visible focus indicators.",
+      "assertions": [
+        "role=\"tablist\"",
+        "role=\"tab\"",
+        "role=\"tabpanel\"",
+        "aria-selected",
+        "aria-controls",
+        "tabindex",
+        "keyboard",
+        "ArrowRight",
+        "ArrowLeft",
+        "Home",
+        "End",
+        "focus-visible"
+      ]
+    },
+    {
+      "id": "pos-05",
+      "description": "Design system integration with token mapping",
+      "input": "I have a new feature design that uses a teal accent color (#14B8A6). Our design system uses primary-blue, secondary-purple, and neutral-gray scales. There's no teal in the system. Should I add teal tokens to the system or map to an existing color? The rest of the design aligns with our existing Card and Button components.",
+      "shouldTrigger": true,
+      "expect": "Design system integration scenario. Agent should audit the existing system, flag the teal color discrepancy, propose options (add teal scale to system vs. map to closest existing token), and implement by extending existing Card/Button components with new variants rather than creating duplicates.",
+      "assertions": [
+        "design system",
+        "token",
+        "teal",
+        "map",
+        "extend"
+      ]
+    },
+    {
+      "id": "pos-06",
+      "description": "Responsive layout with explicit breakpoint requirements",
+      "input": "Implement this product grid design. Requirements: 1 column on mobile (<640px), 2 columns on tablet (640-1024px), 3 columns on desktop (>1024px). Each product card has an image, title, price, and 'Add to cart' button. Use Vue 3.",
+      "shouldTrigger": true,
+      "expect": "Explicit responsive implementation. Agent should implement mobile-first CSS Grid with the three breakpoints, create a reusable ProductCard Vue component with image/title/price/button props, ensure images have alt text, buttons are actual <button> elements, and the grid has appropriate gaps using spacing tokens.",
+      "assertions": [
+        "min-width: 640px",
+        "min-width: 1024px",
+        "grid-template-columns",
+        "repeat(",
+        "ProductCard",
+        "props",
+        "v-for"
+      ]
+    },
+    {
+      "id": "neg-01",
+      "description": "Pure code generation request without a design",
+      "input": "Write a React form component with email and password fields, validation, and a submit button.",
+      "shouldTrigger": false,
+      "expect": "No design input \u2014 no Figma link, screenshot, or design spec. This is a pure coding task, not a design-to-code translation.",
+      "assertions": [
+        "Code generation with standard form patterns"
+      ]
+    },
+    {
+      "id": "neg-02",
+      "description": "Design critique request (not implementation)",
+      "input": "What do you think of this design? Is the spacing too tight? Should I use a different color for the CTA? Here's a screenshot of my app.",
+      "shouldTrigger": false,
+      "expect": "User is asking for design feedback/critique, not code implementation. The screenshot is for visual reference, not translation into code.",
+      "assertions": [
+        "Design critique with specific feedback on spacing and color"
+      ]
+    },
+    {
+      "id": "neg-03",
+      "description": "CSS framework comparison question",
+      "input": "Should I use Tailwind CSS or styled-components for my new React project? What are the pros and cons of each for a design-heavy SaaS app?",
+      "shouldTrigger": false,
+      "expect": "No design to translate \u2014 this is a technology evaluation question. The user wants advice on CSS tooling, not code from a design.",
+      "assertions": [
+        "Technology comparison with pros/cons tailored to SaaS context"
+      ]
+    },
+    {
+      "id": "neg-04",
+      "description": "Backend API development (no visual design)",
+      "input": "Build a REST API endpoint that returns a paginated list of products with filtering and sorting.",
+      "shouldTrigger": false,
+      "expect": "No visual design or UI component involved. This is purely backend API development with no frontend design-to-code translation.",
+      "assertions": [
+        "Backend API implementation with pagination, filtering, and sorting logic"
+      ]
+    }
+  ]
+}

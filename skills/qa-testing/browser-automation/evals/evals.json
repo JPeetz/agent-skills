@@ -1,0 +1,101 @@
+{
+  "skill": "browser-automation",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "pos-01-form-submission",
+      "description": "Explicit request for automated browser interaction \u2014 form filling, clicking, and assertion.",
+      "input": "Write a test that fills out the registration form at https://example.com/signup with name, email, and password, clicks submit, and verifies it redirects to the welcome page.",
+      "shouldTrigger": true,
+      "expect": "navigate to /signup / fill name, email, password fields / click submit button / assert redirect to /welcome",
+      "assertions": [
+        "navigate to /signup",
+        "fill name, email, password fields",
+        "click submit button",
+        "assert redirect to /welcome"
+      ]
+    },
+    {
+      "id": "pos-02-screenshot-capture",
+      "description": "Direct request for automated screenshot capture via browser automation.",
+      "input": "Take a full-page screenshot of the pricing page at https://example.com/pricing and save it as pricing.png.",
+      "shouldTrigger": true,
+      "expect": "navigate to /pricing / capture full_page screenshot / save to pricing.png",
+      "assertions": [
+        "navigate to /pricing",
+        "capture full_page screenshot",
+        "save to pricing.png"
+      ]
+    },
+    {
+      "id": "pos-03-element-visibility",
+      "description": "E2E testing request with specific element visibility checks and content assertions.",
+      "input": "Write an e2e test that checks the search bar is visible on the homepage, types 'laptop' into it, and asserts that at least 5 results appear.",
+      "shouldTrigger": true,
+      "expect": "navigate to homepage / assert search bar visible / type 'laptop' into search / trigger search / assert at least 5 results displayed",
+      "assertions": [
+        "navigate to homepage",
+        "assert search bar visible",
+        "type 'laptop' into search",
+        "trigger search",
+        "assert at least 5 results displayed"
+      ]
+    },
+    {
+      "id": "pos-04-data-extraction",
+      "description": "Classic web scraping request with structured data extraction.",
+      "input": "Scrape all product names and prices from https://books.toscrape.com and output them as JSON.",
+      "shouldTrigger": true,
+      "expect": "navigate to the page / locate product elements / extract name and price for each / output as JSON",
+      "assertions": [
+        "navigate to the page",
+        "locate product elements",
+        "extract name and price for each",
+        "output as JSON"
+      ]
+    },
+    {
+      "id": "pos-05-multi-page-flow",
+      "description": "Synthetic monitoring of a multi-page user flow with error handling.",
+      "input": "Create a monitoring script that goes through our checkout flow: add item to cart \u2192 view cart \u2192 enter shipping \u2192 enter payment \u2192 confirm order. Alert if any step fails.",
+      "shouldTrigger": true,
+      "expect": "multi-step navigation through checkout pages / form filling at each step / error detection per step / alert on failure",
+      "assertions": [
+        "multi-step navigation through checkout pages",
+        "form filling at each step",
+        "error detection per step",
+        "alert on failure"
+      ]
+    },
+    {
+      "id": "neg-01-browser-feature-question",
+      "description": "Asking about browser features/capabilities \u2014 no automation intent. This is a factual question, not a request to automate browser interaction.",
+      "input": "What browsers support the WebGPU API, and what's the current adoption rate?",
+      "shouldTrigger": false,
+      "expect": "",
+      "assertions": [
+        "Asking about browser features/capabilities \u2014 no automation intent. This is a factual question, not a request to automate browser interaction."
+      ]
+    },
+    {
+      "id": "neg-02-playwright-api-question",
+      "description": "Asking for Playwright API documentation/explanation \u2014 no concrete automation task. This is an educational question about the tool, not a request to use it.",
+      "input": "How does page.waitForSelector work in Playwright? Can you explain the different wait states?",
+      "shouldTrigger": false,
+      "expect": "",
+      "assertions": [
+        "Asking for Playwright API documentation/explanation \u2014 no concrete automation task. This is an educational question about the tool, not a request to use it."
+      ]
+    },
+    {
+      "id": "neg-03-manual-testing-request",
+      "description": "Requesting manual visual review/design feedback \u2014 not automated testing. The user wants a human opinion on aesthetics, not programmatic verification.",
+      "input": "Can you open Chrome and check if the new landing page looks good? I want feedback on the hero section design.",
+      "shouldTrigger": false,
+      "expect": "",
+      "assertions": [
+        "Requesting manual visual review/design feedback \u2014 not automated testing. The user wants a human opinion on aesthetics, not programmatic verification."
+      ]
+    }
+  ]
+}

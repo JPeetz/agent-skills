@@ -1,10 +1,6 @@
 ---
 name: sre-runbooks
-description: >-
-  Safe-by-default DevOps/SRE runbook automation for incident response,
-  postmortems, on-call handovers, and operational troubleshooting.
-  Implements Google SRE principles with agent-safe execution patterns
-  including dry-run modes, human approval gates, and blast-radius limits.
+description: Use this skill when responding to a production incident, drafting a postmortem, preparing an on-call handover, creating a runbook, or troubleshooting a degraded service. Applies Google SRE principles with agent-safe execution (dry-run modes, human approval gates, blast-radius limits, and a Never-Automate refusal list for destructive commands).
 version: 1.0.0
 platforms: [openclaw, claude, codex, cursor, gemini, copilot, opencode, windsurf]
 author:

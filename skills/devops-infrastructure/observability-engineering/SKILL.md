@@ -1,6 +1,6 @@
 ---
 name: observability-engineering
-description: "Production-grade observability engineering for AI agents: OpenTelemetry instrumentation, monitoring setup, log aggregation, distributed tracing, SLI/SLO management, alert design, and incident response workflows. Implements vendor-neutral telemetry standards with structured incident management."
+description: Use this skill when setting up monitoring, adding observability, or instrumenting with OpenTelemetry — also when creating SLOs and error budgets, designing alerts, aggregating logs, tracing distributed requests, or building Grafana/Prometheus dashboards. Implements vendor-neutral telemetry with structured incident response and alert-fatigue control.
 platforms:
   - claude-code
   - codex

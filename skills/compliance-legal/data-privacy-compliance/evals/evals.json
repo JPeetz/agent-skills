@@ -1,0 +1,82 @@
+{
+  "skill": "data-privacy-compliance",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "dp-001",
+      "description": "Should trigger: DSAR handling across systems with identity verification and redaction",
+      "input": "A customer emailed requesting all personal data we hold on them (Art. 15) and deletion (Art. 17). We have data in our main DB, Zendesk, and Mailchimp.",
+      "shouldTrigger": true,
+      "expect": "Walks the DSAR workflow: verify identity, acknowledge within the regulatory timeline, scope the request, retrieve data across all systems, redact third-party data, deliver securely, and document",
+      "assertions": [
+        "Verifies identity without excessive data collection",
+        "Acknowledges within the regulatory timeline (GDPR: max 1 month)",
+        "Searches production, backups, logs, and analytics for the data",
+        "Redacts or anonymizes other individuals' data before responding"
+      ]
+    },
+    {
+      "id": "dp-002",
+      "description": "Should trigger: breach response with jurisdiction-specific notification timelines",
+      "input": "Our customer database was accessed by an unauthorized party. Customers are in the EU, California, and Brazil. The breach happened 30 hours ago.",
+      "shouldTrigger": true,
+      "expect": "Runs the breach response workflow: contain, assess scope, then notify regulators and individuals per jurisdiction timeline (GDPR 72h, CCPA promptly, LGPD 72h)",
+      "assertions": [
+        "Starts with containment, then assesses data scope",
+        "Cites GDPR 72-hour supervisory authority notification",
+        "Handles multiple jurisdictions (EU, CCPA, LGPD) with their timelines",
+        "Documents actions, timelines, and decisions for accountability"
+      ]
+    },
+    {
+      "id": "dp-003",
+      "description": "Should trigger: GDPR applicability determination and baseline requirements",
+      "input": "We're a US startup selling to EU customers — we collect emails, names, and payment info, and use behavioral analytics. Does GDPR apply?",
+      "shouldTrigger": true,
+      "expect": "Applies the GDPR applicability questions (EU/EEA establishment, offering goods/services, monitoring behavior) and walks the Article 30 ROPA fields",
+      "assertions": [
+        "Determines GDPR applies via the four applicability questions",
+        "Walks data mapping / ROPA fields (purpose, categories, legal basis, transfers)",
+        "Checks for lawful basis before collection",
+        "Flags cross-border transfer concerns"
+      ]
+    },
+    {
+      "id": "dp-004",
+      "description": "Should trigger: CCPA/CPRA obligations including opt-out and sale/sharing",
+      "input": "E-commerce site with California customers; we share purchase history with ad partners and don't have a Do Not Sell link.",
+      "shouldTrigger": true,
+      "expect": "Produces a CCPA assessment: determine applicability thresholds, add Do Not Sell/Share mechanism, update privacy notice, and cover the consumer rights table",
+      "assertions": [
+        "Checks CCPA applicability criteria (revenue, records, revenue share)",
+        "Requires an opt-out mechanism (Do Not Sell/Share link)",
+        "Covers Right to Know / Delete / Opt-Out timelines",
+        "Audits data sharing with third parties"
+      ]
+    },
+    {
+      "id": "dp-005",
+      "description": "Should trigger: HIPAA applicability and safeguards for health data processing",
+      "input": "Health app syncing heart rate and sleep data from wearables to a cloud backend, with optional sharing to the user's doctor. Does HIPAA apply?",
+      "shouldTrigger": true,
+      "expect": "Determines covered-entity/business-associate status and walks HIPAA Privacy/Security/Breach rules, including BAA requirements and safeguard categories",
+      "assertions": [
+        "Walks the covered entity / business associate determination",
+        "Covers PHI identifiers and minimum necessary standard",
+        "Lists administrative, physical, and technical safeguards",
+        "Addresses breach notification rule timelines"
+      ]
+    },
+    {
+      "id": "dp-006",
+      "description": "Not trigger: non-privacy software engineering task",
+      "input": "Refactor the authentication module to use an in-memory cache and add unit tests.",
+      "shouldTrigger": false,
+      "expect": "Does not enter the privacy compliance workflow; treats as a plain engineering task",
+      "assertions": [
+        "No DSAR/breach/consent workflow invoked",
+        "Handled as ordinary code work"
+      ]
+    }
+  ]
+}

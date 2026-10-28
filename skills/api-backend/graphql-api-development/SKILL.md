@@ -1,20 +1,14 @@
 ---
 name: graphql-api-development
 description: >
-  AI-powered GraphQL API design, implementation, and optimization.
-  Covers schema-first design, resolver architecture, query optimization
-  with DataLoader for N+1 prevention, mutation patterns with idempotency,
-  real-time subscriptions, Apollo Federation for distributed graphs,
-  security hardening (depth limiting, rate limiting, authz), and
-  production performance (persisted queries, caching, CDN integration).
-  Primary keyword clusters: GraphQL schema design best practices, Apollo
-  Federation subgraph patterns, DataLoader N+1 query optimization,
-  GraphQL security depth limiting rate limiting, GraphQL persisted
-  queries performance, GraphQL subscription real-time patterns, GraphQL
-  error handling union types, GraphQL pagination relay cursor connection,
-  GraphQL caching strategies production, GraphQL resolver architecture
-  patterns. Designed for agentic platforms — Claude Code, Codex, Cursor,
-  Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, and OpenCode.
+  Use this skill when designing, implementing, or optimizing a GraphQL API:
+  schema-first design, resolver architecture with DataLoader to prevent N+1
+  queries, mutation patterns with idempotency, real-time subscriptions, Apollo
+  Federation for distributed graphs, security hardening (depth limiting, rate
+  limiting, authorization), and production performance (persisted queries,
+  caching, CDN integration). Activates on requests to design a GraphQL schema,
+  review resolvers for N+1 queries, set up federation, add subscriptions, fix
+  pagination, or harden a GraphQL API.
 version: 1.0.0
 author: Skill Foundry
 platforms:

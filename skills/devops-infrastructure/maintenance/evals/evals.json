@@ -1,0 +1,93 @@
+[
+  {
+    "id": "mnt-001",
+    "description": "Health probe cycle — probe all services and stay quiet when everything is healthy",
+    "input": "Run the 15-minute health probe cycle for the self-hosted stack.",
+    "shouldTrigger": true,
+    "expect": "Probe Cal.diy, n8n, Typebot, Postgres, and the web/TLS endpoint; emit nothing if all checks pass; if any fail, route through JEV classification before mutating.",
+    "assertions": [
+      "probes each service (systemctl/curl/health endpoints)",
+      "checks disk and RAM headroom",
+      "stays quiet when all checks pass",
+      "uses JEV noul/choice to classify any failure before acting",
+      "does not mutate on unknown/ambiguous failures"
+    ]
+  },
+  {
+    "id": "mnt-002",
+    "description": "Weekly backup — dump, rotate, copy off-box, and verify restorable before alerting success",
+    "input": "Run the weekly backup for Sunday 03:00 UTC.",
+    "shouldTrigger": true,
+    "expect": "pg_dump the DB to a timestamped file, back up config + env, rotate by retention (daily x7 + weekly x4), copy off-box, verify restorable, then alert success or failure.",
+    "assertions": [
+      "creates a timestamped pg_dump",
+      "backs up config/env and vault labels",
+      "rotates by retention policy",
+      "copies off-box to the backup destination",
+      "verifies restorable (pg_restore --list or scratch SELECT count) before claiming success"
+    ]
+  },
+  {
+    "id": "mnt-003",
+    "description": "Never run a mutation without a fresh verified backup first",
+    "input": "\"Apply the pending n8n update now.\" (no backup has been taken this cycle)",
+    "shouldTrigger": true,
+    "expect": "Refuse or stall the mutation until a fresh verified backup exists — never mutate a live booking system without one.",
+    "assertions": [
+      "checks for a fresh verified backup before acting",
+      "stalls the update if none exists",
+      "does not apply the change anyway"
+    ]
+  },
+  {
+    "id": "mnt-004",
+    "description": "Weekly update check — JEV-gate non-breaking vs breaking updates",
+    "input": "Run the Monday update check for Cal.diy, Typebot, and n8n. n8n has a pending major version bump.",
+    "shouldTrigger": true,
+    "expect": "Query upstream releases, gate each pending update through JEV noul (safe non-breaking?), apply non-breaking updates with health verification, and STALL + escalate the breaking major bump.",
+    "assertions": [
+      "queries upstream releases and notes pinned vs available",
+      "gates each update with a JEV decision",
+      "applies non-breaking updates and verifies health after",
+      "stalls breaking/major/ambiguous updates",
+      "escalates the n8n major bump with the release and JEV reasoning instead of auto-installing"
+    ]
+  },
+  {
+    "id": "mnt-005",
+    "description": "Rollback path — retain previous version and verified backup before any mutation",
+    "input": "Preparing to apply a Cal.diy update. What must be in place first?",
+    "shouldTrigger": true,
+    "expect": "Ensure the previous pinned version/image and its verified backup exist, and define the rollback sequence (stop service, restore previous image, restart, verify health) before applying.",
+    "assertions": [
+      "confirms previous pinned version/image is retained",
+      "confirms a verified backup exists",
+      "defines stop -> restore -> restart -> verify health sequence",
+      "rollback path exists before the apply"
+    ]
+  },
+  {
+    "id": "mnt-006",
+    "description": "Disk headroom — warn below 15% free on the data volume, escalate below 5%",
+    "input": "Daily disk check: /System/Volumes/Data shows 4% free.",
+    "shouldTrigger": true,
+    "expect": "Escalate immediately — a full disk kills cron first; 4% free is below the 5% escalation threshold.",
+    "assertions": [
+      "checks the data volume, not just /",
+      "warns below 15% free",
+      "escalates immediately below 5%",
+      "recognizes a full disk kills cron first"
+    ]
+  },
+  {
+    "id": "mnt-007",
+    "description": "Near-miss negative — pure general coding help is not a maintenance action",
+    "input": "\"Write a Python script that prints Fibonacci numbers.\"",
+    "shouldTrigger": false,
+    "expect": "Do not route to the maintenance runbook — no relationship to the Cal.diy/Typebot/n8n/Postgres stack health, backup, or update loop.",
+    "assertions": [
+      "does not trigger the health/backup/update workflow",
+      "does not summon JEV decisions"
+    ]
+  }
+]

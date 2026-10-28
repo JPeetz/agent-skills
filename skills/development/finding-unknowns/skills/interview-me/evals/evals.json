@@ -1,0 +1,64 @@
+{
+  "skill": "interview-me",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: planning done but ambiguity remains",
+      "input": "The plan is mostly done but I have open questions about permissions. Ask me.",
+      "shouldTrigger": true,
+      "expect": "Asks one question per turn, ordered by blast radius, with context and options",
+      "assertions": [
+        "Reads everything already established first",
+        "Orders questions: architecture-changers first, behavior definers, then polish",
+        "Asks exactly one question per turn",
+        "Offers 2-3 concrete options with recommendation, accepts 'you decide'",
+        "Checkpoints every few questions; ends with final decision list"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: post-brainstorm gap closing",
+      "input": "We brainstormed, but I'm still fuzzy on the failure-mode handling. Interview me.",
+      "shouldTrigger": true,
+      "expect": "Asks behavior-definer questions one at a time",
+      "assertions": [
+        "Does not re-ask already-answered items",
+        "Flags contradictions with earlier decisions immediately"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: ambiguity resolvable from the codebase",
+      "input": "Does our API use JWT or sessions?",
+      "shouldTrigger": false,
+      "expect": "Looks it up instead of asking",
+      "assertions": [
+        "No interview question produced; answer discovered from code"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: fully specified task",
+      "input": "Build the login page exactly as the spec describes.",
+      "shouldTrigger": false,
+      "expect": "Proceeds to implementation",
+      "assertions": [
+        "No questions asked"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: architecture-changing question first",
+      "input": "One of my open questions would change the whole data model. Ask me that one first.",
+      "shouldTrigger": true,
+      "expect": "Orders architecture-changers first and asks exactly one question per turn",
+      "assertions": [
+        "Puts the architecture-changing question first",
+        "Asks exactly one question per turn",
+        "Gives context, 2-3 options, and a recommendation",
+        "Checkpoints decisions after a few rounds"
+      ]
+    }
+  ]
+}

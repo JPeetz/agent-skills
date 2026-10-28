@@ -1,22 +1,6 @@
 ---
 name: production-engineering-workflows
-description: >
-  End-to-end production engineering workflows that encode the complete
-  software development lifecycle into repeatable, quality-gated agent
-  commands. Covers everything from spec-driven ideation through planning,
-  test-driven implementation, automated testing, rigorous code review,
-  web performance auditing, code simplification, and production deployment.
-  Slash-command entry points: /spec, /plan, /build, /test, /review,
-  /webperf, /code-simplify, /ship. Primary keyword clusters: production
-  engineering automation, SDLC automation agent, spec-driven development
-  workflow, TDD agent workflow, automated deployment pipeline agent,
-  web performance audit automated, code simplification automation, AI
-  code review pipeline, feature flag deployment workflow, continuous
-  delivery agent, production readiness review, software delivery
-  lifecycle AI, DevSecOps agent skills, trunk-based development
-  automation, incremental rollout automation. Designed for agentic
-  platforms — Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub
-  Copilot, Windsurf, and OpenCode.
+description: Use this skill when running a full software development lifecycle as quality-gated agent workflows — spec, plan, test-driven build, automated testing, code review, web performance audit, code simplification, and production deployment. Exposes slash-command entry points (/spec, /plan, /build, /test, /review, /webperf, /code-simplify, /ship) covering SDLC automation, feature-flag deployment, production readiness review, and incremental rollout.
 version: 1.0.0
 author: Skill Foundry
 platforms:

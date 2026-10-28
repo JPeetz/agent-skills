@@ -1,26 +1,20 @@
 ---
 name: playwright-e2e-testing
-description: >
-  Production-grade Playwright end-to-end testing skill for AI coding agents.
-  Provides specialized guidance for writing, debugging, and maintaining
-  Playwright tests in TypeScript, JavaScript, and Python. Covers the full testing
-  lifecycle: test structure and architecture (Page Object Model, fixtures, custom
-  matchers), locator strategy best practices (role-based, test-ID, accessible
-  selectors), auto-waiting and retry-ability patterns, API and network mocking,
-  visual regression and screenshot comparison, component testing (React, Vue,
-  Svelte), accessibility audits (axe-core integration), mobile and device
-  emulation, authentication and session management (multi-profile, OAuth, 2FA),
-  performance testing with Web Vitals and Lighthouse integration, CI/CD pipeline
-  configuration (GitHub Actions, GitLab CI, sharding, parallelization), flaky test
-  detection and auto-healing, test data management and fixtures, internationalization
-  (i18n) and localization testing, Electron and browser extension testing,
-  security testing (XSS, CSRF, CSP), and WebSocket/real-time application testing.
-  Primary keyword clusters: Playwright E2E testing, Playwright best practices,
-  browser automation testing, end-to-end test automation, Playwright TypeScript
-  testing, visual regression testing Playwright, Playwright CI/CD configuration,
-  flaky test prevention, Page Object Model Playwright, Playwright component testing.
-  Designed for agentic platforms — Claude Code, Codex, Cursor, Gemini CLI, OpenClaw,
-  GitHub Copilot, Windsurf, OpenCode, and all SKILL.md-compatible agents.
+description: >-
+  Use this skill when writing, debugging, or maintaining Playwright end-to-end
+  tests in TypeScript, JavaScript, or Python. Covers test structure and
+  architecture (Page Object Model, fixtures, custom matchers), locator
+  strategy (role-based, test-ID, accessible selectors), auto-waiting and
+  retry, API/network mocking, visual regression, component testing (React,
+  Vue, Svelte), accessibility audits (axe-core), device emulation,
+  authentication and session management (multi-profile, OAuth, 2FA),
+  performance testing (Web Vitals, Lighthouse), CI/CD configuration
+  (GitHub Actions, GitLab CI, sharding), flaky test detection and
+  auto-healing, test data/fixtures, i18n testing, Electron and browser
+  extension testing, security testing (XSS, CSRF, CSP), and WebSocket
+  testing. Designed for agentic platforms — Claude Code, Codex, Cursor,
+  Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, OpenCode, and all
+  SKILL.md-compatible agents.
 version: 1.0.0
 author: Skill Foundry
 source: Adapted and materially improved from currents-dev/playwright-best-practices-skill

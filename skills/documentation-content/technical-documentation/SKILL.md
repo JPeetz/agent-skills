@@ -1,15 +1,11 @@
 ---
 name: technical-documentation
-description: >
-  AI-powered technical documentation creation, maintenance, and auditing
-  across README, ADR, API docs, runbooks, onboarding guides, changelogs,
-  knowledge bases, and AI agent context files (AGENTS.md/CLAUDE.md).
-  Primary keywords: technical documentation writing automation, ADR
-  architecture decision record, API docs OpenAPI generation, README quality
-  template, documentation-driven development, runbook automation, knowledge
-  base maintenance, markdown best practices, onboarding guide, changelog
-  format, documentation audit completeness accuracy, AI agent documentation
-  AGENTS.md. For all major agentic platforms.
+description: >-
+  Use this skill when creating, maintaining, or auditing technical documentation
+  — READMEs, ADRs, API docs, runbooks, onboarding guides, changelogs, knowledge
+  bases, and AI agent context files (AGENTS.md/CLAUDE.md). Covers documentation-
+  driven development, OpenAPI generation, markdown best practices, and
+  completeness/accuracy audits. For all major agentic platforms.
 version: 1.0.0
 author: Skill Foundry
 platforms:

@@ -1,13 +1,14 @@
 ---
 name: api-design-first
 description: >
-  Design-first API development skill. Generates OpenAPI 3.1 specifications,
-  enforces REST design best practices, validates endpoints, handles versioning,
-  pagination, error formatting, authentication patterns, rate limiting, and
-  idempotency. Activates when users say "design an API", "create OpenAPI spec",
-  "API endpoint", "REST API design", "API contract", "Swagger/OpenAPI doc",
-  "API versioning", "rate limiting", or "API security". Covers REST, GraphQL
-  schema design, and gRPC proto generation with cross-protocol consistency.
+  Use this skill when designing an API or defining an API contract before
+  writing code. Generates OpenAPI 3.1 specifications, enforces REST design best
+  practices, validates endpoints, and handles versioning, pagination, error
+  formatting, authentication patterns, rate limiting, and idempotency. Activates
+  when users say "design an API", "create OpenAPI spec", "REST API design",
+  "API contract", "Swagger/OpenAPI doc", "API versioning", "rate limiting", or
+  "API security". Covers REST, GraphQL schema design, and gRPC proto generation
+  with cross-protocol consistency.
 version: 1.0.0
 author: Skill Foundry
 license: MIT

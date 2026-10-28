@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## Unreleased
+
+### Changed
+- Description rewritten to be trigger-first ("Use this skill when ...") and under 1024 chars per the agentskills.io spec.
+
 ## [1.0.0] — 2026-06-09
 
 ### Added

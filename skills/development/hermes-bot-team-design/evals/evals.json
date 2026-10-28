@@ -1,0 +1,66 @@
+{
+  "skill": "hermes-bot-team-design",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: team design from a project spec",
+      "input": "We're building an AI news pipeline that researches, writes, and publishes articles. Design a team of Hermes bots for it.",
+      "shouldTrigger": true,
+      "expect": "Designs a specialist bot team with role assignment, SOUL.md, model tiering, MCP wiring, and group chat setup",
+      "assertions": [
+        "Maps each pipeline phase to a bot role",
+        "Assigns cheap models (DeepSeek V4 Flash) to mechanical phases and expensive models to deep-reasoning phases",
+        "Specifies SOUL.md sections and config.yaml per bot",
+        "Wires MeMex Zero RAG and HermesVault via inherit_mcp_toolsets: true",
+        "Creates a group chat directory with README roster"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: expanding an existing fleet",
+      "input": "Add a UX/Design bot to our existing team and wire it into the group chat.",
+      "shouldTrigger": true,
+      "expect": "Adds one specialist UX/Design bot following the team design workflow",
+      "assertions": [
+        "Assigns a creative/expensive model to the UX role",
+        "Creates ~/.hermes/profiles/<name>/ with SOUL.md and config.yaml",
+        "Disables Telegram for the team bot",
+        "Adds the bot to the group chat roster"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: migrating an OpenClaw workflow to Hermes Bot Mode",
+      "input": "Migrate our OpenClaw news workflow to Hermes Bot Mode as a team of specialist bots.",
+      "shouldTrigger": true,
+      "expect": "Produces a Hermes bot team design mirroring the OpenClaw pipeline phases",
+      "assertions": [
+        "Identifies pipeline phases and handoffs from the existing workflow",
+        "Maps each phase to a bot with a role and model tier",
+        "Sets up group chat and MCP inheritance"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: single-bot task with no team or fleet context",
+      "input": "Fix the bug in our checkout page's payment handling.",
+      "shouldTrigger": false,
+      "expect": "Does not invoke team design workflow",
+      "assertions": [
+        "Returns to normal single-bot debugging",
+        "No SOUL.md or profile creation"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: asking about model capabilities, not designing a team",
+      "input": "Which model is best for creative writing tasks?",
+      "shouldTrigger": false,
+      "expect": "Answers the model question without designing a bot team",
+      "assertions": [
+        "No role assignment or profile scaffolding"
+      ]
+    }
+  ]
+}

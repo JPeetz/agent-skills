@@ -1,0 +1,72 @@
+[
+  {
+    "id": "dsd-001",
+    "description": "Design a new schema starting from domain modeling",
+    "input": "Design a schema for a multi-vendor e-commerce platform.",
+    "shouldTrigger": true,
+    "expect": "Agent starts with the domain canvas (entities, relationships, attributes, constraints, access patterns, growth projections) before writing DDL, then produces normalized SQL with indexes.",
+    "assertions": [
+      "domain modeling precedes any DDL",
+      "normalization checklist (1NF/2NF/3NF) is applied",
+      "indexes cover WHERE/JOIN/ORDER BY access patterns"
+    ]
+  },
+  {
+    "id": "dsd-002",
+    "description": "Optimize a slow query with EXPLAIN workflow",
+    "input": "Optimize this query — it's slow on the production database.",
+    "shouldTrigger": true,
+    "expect": "Agent runs EXPLAIN (ANALYZE, BUFFERS), identifies the bottleneck (seq scan, nested loop, sort), checks statistics freshness, and proposes a measured fix.",
+    "assertions": [
+      "EXPLAIN (ANALYZE, BUFFERS) is run first",
+      "bottleneck is identified from the plan",
+      "improvement is validated by actual timing, not just plan cost"
+    ]
+  },
+  {
+    "id": "dsd-003",
+    "description": "Migration with UP/DOWN rollback safety",
+    "input": "Create a migration to add a user_preferences table.",
+    "shouldTrigger": true,
+    "expect": "Agent produces a migration with UP (apply) and DOWN (rollback) sections, including backfill, and enforces the safe migration rules.",
+    "assertions": [
+      "migration includes both UP and DOWN",
+      "backfill for existing rows is included",
+      "rollback is verified as the reversal of the UP migration"
+    ]
+  },
+  {
+    "id": "dsd-004",
+    "description": "Multi-tenant architecture selection",
+    "input": "We need multi-tenant isolation for enterprise customers sharing one app.",
+    "shouldTrigger": true,
+    "expect": "Agent evaluates database per tenant vs schema per tenant vs row-level vs hybrid and recommends per isolation/compliance needs.",
+    "assertions": [
+      "tenant patterns are compared with trade-offs",
+      "recommendation matches isolation/security requirements",
+      "row-level tenant_id column is used only where isolation needs are low"
+    ]
+  },
+  {
+    "id": "dsd-005",
+    "description": "Dangerous drop prevented — backup and three-step removal",
+    "input": "Just DROP the old product_variants column from the orders table so we can move on.",
+    "shouldTrigger": true,
+    "expect": "Agent refuses a direct drop: generates backup commands first and applies the three-step stop writing → backfill → drop sequence.",
+    "assertions": [
+      "no DROP runs without a backup command generated first",
+      "three-step removal sequence is used for column drops",
+      "data integrity is validated before and after"
+    ]
+  },
+  {
+    "id": "dsd-006",
+    "description": "Near-miss negative: plain query writing",
+    "input": "Write a SELECT to join orders and users.",
+    "shouldTrigger": false,
+    "expect": "Query writing without schema design/review intent is not a trigger — skill covers design, review, migration, optimization, and multi-tenant modeling.",
+    "assertions": [
+      "skill does not trigger on plain query authoring"
+    ]
+  }
+]

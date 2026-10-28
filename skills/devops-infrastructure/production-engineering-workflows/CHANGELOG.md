@@ -35,6 +35,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Validation script: `scripts/validate_skill.py` (PEP 723 compliant).
 - Evaluation test cases: 5 near-miss negative scenarios and 5
   positive activation cases (`evals/test_cases.json`).
+## [1.0.2] — Unreleased
+
+### Changed
+- Description rewritten to be trigger-first ("Use this skill when ...") and under 1024 chars per the agentskills.io spec; keyword-cluster filler removed.
+
 ## [1.0.1] — 2026-06-25
 
 ### Changed

@@ -1,6 +1,6 @@
 ---
 name: "clean-pro-review-gates"
-description: "Combined 5-gate review framework that catches AI-generated code failures before shipping — code quality (15 LLM failure modes), tests, docs, security (OWASP Top 10:2025/CWE Top 25/LLM Top 10), and CI/CD/container/IaC hardening. Use when reviewing any AI-generated or modified code, tests, docs, or infrastructure before merging. Each gate maps violations to published research on how LLMs systematically fail."
+description: Use this skill when reviewing any AI-generated or modified code, tests, docs, or infrastructure before merging. Applies a 5-gate review framework — code quality (15 LLM failure modes), tests, docs, security (OWASP Top 10:2025/CWE Top 25/LLM Top 10), and CI/CD/container/IaC hardening — with each gate mapping violations to published research on how LLMs systematically fail.
 version: "1.0.0"
 author: "JPeetz (adapted from Khaled Ghallab)"
 license: "MIT"

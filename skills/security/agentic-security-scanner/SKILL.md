@@ -1,10 +1,10 @@
 ---
 name: agentic-security-scanner
 description: >-
-  Scan and validate AI agent skills against the OWASP Agentic Skills Top 10
-  (AST10) security framework. Detects malicious skills, prompt injection,
-  data exfiltration, supply chain risks, and cross-platform metadata loss.
-  Provides CI/CD-ready security gating with SARIF output.
+  Use this skill when scanning AI agent skills for security risks against the
+  OWASP Agentic Skills Top 10 (AST10) framework. Detects malicious skills,
+  prompt injection, data exfiltration, supply chain risks, and cross-platform
+  metadata loss. Provides CI/CD-ready security gating with SARIF output.
 version: 1.0.0
 platforms: [openclaw, claude, codex, cursor, gemini, copilot, opencode, windsurf]
 author:

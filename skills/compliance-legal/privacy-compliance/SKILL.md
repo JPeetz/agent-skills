@@ -2,16 +2,15 @@
 name: privacy-compliance
 version: 1.0.0
 author: Skill Foundry
-description: >
-  Comprehensive global privacy compliance agent skill covering GDPR,
-  CCPA/CPRA, HIPAA Privacy Rule, EU AI Act, LGPD, cross-border data
-  transfer mechanisms (SCCs, BCRs, EU-US DPF), PII identification and
-  classification, data minimization, consent management, privacy-by-design
-  patterns, DPIA workflows, data subject access request (DSAR) handling,
-  and breach notification procedures. Provides procedural knowledge for
-  compliance workflows — NOT legal advice. Designed for agentic platforms
-  including Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub
-  Copilot, Windsurf, and OpenCode.
+description: >-
+  Use this skill when handling global privacy compliance work — GDPR, CCPA/CPRA,
+  HIPAA Privacy Rule, EU AI Act, LGPD, cross-border data transfer mechanisms
+  (SCCs, BCRs, EU-US DPF), PII identification and classification, data
+  minimization, consent management, privacy-by-design patterns, DPIA workflows,
+  data subject access request (DSAR) handling, and breach notification
+  procedures. Provides procedural knowledge for compliance workflows — NOT legal
+  advice. Designed for agentic platforms including Claude Code, Codex, Cursor,
+  Gemini CLI, OpenClaw, GitHub Copilot, Windsurf, and OpenCode.
 platforms:
   - claude-code
   - codex

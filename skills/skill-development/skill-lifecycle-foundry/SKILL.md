@@ -1,6 +1,6 @@
 ---
 name: skill-lifecycle-foundry
-description: Use when mining, authoring, and generalizing agent skills.
+description: Use this skill when mining, authoring, personalizing, or generalizing agent skills.
 version: 1.0.0
 license: MIT
 author: Skill Foundry
@@ -146,8 +146,9 @@ Each step ends with a checkable completion criterion.
 
 ## Pitfalls
 
-- **Hardcoded absolute paths.** `SKILL.md` files that contain `/Users/<you>/...`
-  break on other machines. Keep paths repo-relative or `~`-based.
+- **Hardcoded absolute paths.** `SKILL.md` files that embed machine-specific
+  absolute home-directory paths break on other machines. Keep paths repo-relative
+  or `~`-based.
 - **Secret leaks.** A private key, hostname, or account name is ink that can't be
   unprinted. Sweep before release and never tell it later.
 - **Runaway body length.** A >500-line body is a warning sign. Keep the frontmatter

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Description rewritten to be trigger-first ("Use this skill when ...") and under 1024 chars per the agentskills.io spec.
+
 ## v1.0.0 (2026-09-07)
 
 ### Initial Release — Combined 5-Gate Review Framework

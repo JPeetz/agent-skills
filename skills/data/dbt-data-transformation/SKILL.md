@@ -1,6 +1,6 @@
 ---
 name: dbt-data-transformation
-description: "Production-grade dbt (data build tool) analytics engineering for AI agents: model development, testing, documentation, semantic layer, dbt Mesh governance, and migration workflows. Follows dbt Labs best practices for data transformation, incremental strategies, and multi-project collaboration."
+description: "Use this skill when working with dbt (data build tool): model development, testing, documentation, semantic layer (MetricFlow), dbt Mesh governance, incremental strategies, and migration workflows. Follows dbt Labs best practices for data transformation and multi-project collaboration."
 platforms:
   - claude-code
   - codex
@@ -1306,8 +1306,8 @@ For AI-assisted dbt development, configure the dbt MCP server:
       "command": "uvx",
       "args": ["dbt-mcp-server"],
       "env": {
-        "DBT_PROFILES_DIR": "/Users/username/.dbt",
-        "DBT_PROJECT_DIR": "/Users/username/projects/my_dbt_project",
+        "DBT_PROFILES_DIR": "~/.dbt",
+        "DBT_PROJECT_DIR": "~/projects/my_dbt_project",
         "DBT_TARGET": "dev"
       }
     }

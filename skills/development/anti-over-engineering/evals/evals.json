@@ -28,7 +28,7 @@
     },
     {
       "id": "e3",
-      "description": "Should trigger: detecting L4 emergency",
+      "description": "Should trigger: detecting L4 emergency (total loss of control)",
       "input": "I said just fix the import path. Why did you rewrite the whole module?",
       "shouldTrigger": true,
       "expect": "Recognizes total loss of control, stops, and proposes minimal fix",
@@ -36,6 +36,18 @@
         "Apologizes and stops all modifications",
         "Re-reads the original request",
         "Proposes a fix with <=10 lines of diff"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: rule 2 \u2014 simplest solution first",
+      "input": "Refactor this 3-line function into a reusable utility class with dependency injection so it 'scales'.",
+      "shouldTrigger": true,
+      "expect": "Pushes back and applies the simplest solution (Rule 2)",
+      "assertions": [
+        "Keeps the 3-line function unless a real need exists",
+        "Does not introduce a new file or dependency",
+        "Asks what concrete problem the abstraction solves"
       ]
     },
     {

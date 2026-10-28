@@ -1,0 +1,89 @@
+[
+  {
+    "id": "crq-001",
+    "description": "Pre-merge PR review triggers the five-axis review with severity labeling",
+    "input": "Review this PR before merge: it adds a new REST endpoint that writes to the orders table.",
+    "shouldTrigger": true,
+    "expect": "Review across correctness, readability, architecture, security, and performance; label every finding with a severity (Critical / Nit / Consider / FYI) and end with a verdict.",
+    "assertions": [
+      "covers all five axes (correctness, readability, architecture, security, performance)",
+      "labels findings with severity prefixes",
+      "checks input validation and SQL parameterization",
+      "ends with an explicit Approve / Request changes verdict",
+      "reviews tests before implementation"
+    ]
+  },
+  {
+    "id": "crq-002",
+    "description": "Oversized change — 1000+ line PR must be flagged and split requested",
+    "input": "Please review my 1,200-line PR that refactors auth, adds a new feature, and changes the DB schema.",
+    "shouldTrigger": true,
+    "expect": "Flag the change as too large to review properly, note it mixes refactor with feature work, and request a split.",
+    "assertions": [
+      "flags ~1000+ lines as too large",
+      "requests the change be split",
+      "points out refactoring and feature work are two changes",
+      "does not rubber-stamp a review"
+    ]
+  },
+  {
+    "id": "crq-003",
+    "description": "Secrets or injection in the diff block the merge as Critical",
+    "input": "Review this diff: an API key is hardcoded and a SQL query is built by string concatenation with user input.",
+    "shouldTrigger": true,
+    "expect": "Classify both as Critical severity (security vulnerability), block the merge, and demand fixes.",
+    "assertions": [
+      "flags the hardcoded secret as Critical",
+      "flags string-concatenated SQL as an injection vulnerability",
+      "blocks merge until resolved",
+      "proposes the remedy (parameterized query, secrets out of code)"
+    ]
+  },
+  {
+    "id": "crq-004",
+    "description": "Bug-fix PR without a regression test is a red flag the reviewer must push back on",
+    "input": "Review this bug fix for the checkout payment bug. The PR only changes the payment service code, no tests.",
+    "shouldTrigger": true,
+    "expect": "Review both the fix and the absence of a regression test; flag missing regression coverage as a required change.",
+    "assertions": [
+      "reviews the fix itself",
+      "flags the missing regression test",
+      "lists missing regression tests as a red flag",
+      "requires tests before approving"
+    ]
+  },
+  {
+    "id": "crq-005",
+    "description": "Dead-code hygiene after a refactor — identify and ask before deleting",
+    "input": "After my refactor, is there any dead code I should clean up? I replaced formatLegacyDate with formatDate.",
+    "shouldTrigger": true,
+    "expect": "Identify the now-unreachable formatLegacyDate and any orphaned references, list them explicitly, and ask before deleting rather than silently removing.",
+    "assertions": [
+      "identifies unreachable/unused code",
+      "lists the dead code explicitly",
+      "asks before deleting anything uncertain"
+    ]
+  },
+  {
+    "id": "crq-006",
+    "description": "Near-miss negative — writing new code from scratch is not a review request",
+    "input": "Write a function that validates an email address and returns a normalized version.",
+    "shouldTrigger": false,
+    "expect": "Do not trigger the review framework — this is feature authoring with no existing change to review.",
+    "assertions": [
+      "does not run the five-axis review",
+      "does not apply severity labeling"
+    ]
+  },
+  {
+    "id": "crq-007",
+    "description": "Near-miss negative — explaining code is not a pre-merge review",
+    "input": "Can you explain what this existing function does step by step? I'm trying to understand the codebase.",
+    "shouldTrigger": false,
+    "expect": "Do not trigger pre-merge review — an explanation request is not a review of a change.",
+    "assertions": [
+      "does not produce a review verdict",
+      "does not label findings"
+    ]
+  }
+]

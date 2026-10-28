@@ -1,0 +1,80 @@
+[
+  {
+    "id": "da-001",
+    "description": "Load and inspect a CSV dataset",
+    "input": "Analyze this CSV — what patterns do you see in sales.csv?",
+    "shouldTrigger": true,
+    "expect": "Agent loads the CSV into a DataFrame, checks encoding/delimiter, and reports shape, dtypes, and summary statistics before deeper analysis.",
+    "assertions": [
+      "dataset is loaded with pd.read_csv and inspected with info()/describe()",
+      "shape, columns, dtypes, and numeric summary are reported",
+      "loading happens before any analysis"
+    ]
+  },
+  {
+    "id": "da-002",
+    "description": "Time series trend visualization",
+    "input": "Plot revenue over time and show me the trend.",
+    "shouldTrigger": true,
+    "expect": "Agent sets a datetime index, resamples as needed, and produces a line/area chart with labeled axes, title, and data source footnote.",
+    "assertions": [
+      "date column is parsed with pd.to_datetime and set as index",
+      "a line or area chart is produced for time x numeric",
+      "axes are labeled and chart has a title"
+    ]
+  },
+  {
+    "id": "da-003",
+    "description": "Clean a messy dataset without mutating source",
+    "input": "Clean this messy dataset — fix missing values and deduplicate.",
+    "shouldTrigger": true,
+    "expect": "Agent works on df_clean = df.copy(), reports each change (duplicates dropped, imputation used), and never modifies the source file without permission.",
+    "assertions": [
+      "work happens on a copy, not the original",
+      "each cleaning action is reported with counts",
+      "irreversible decisions are surfaced before acting"
+    ]
+  },
+  {
+    "id": "da-004",
+    "description": "Statistical hypothesis test with honest reporting",
+    "input": "Run a t-test on group A vs B to see if the means differ.",
+    "shouldTrigger": true,
+    "expect": "Agent runs an independent t-test (checking assumptions), and reports test statistic, p-value, and effect size rather than just significant/not.",
+    "assertions": [
+      "ttest_ind or Mann-Whitney U is used per assumptions",
+      "p-value and effect size are reported",
+      "sample size caveats are mentioned when relevant"
+    ]
+  },
+  {
+    "id": "da-005",
+    "description": "Near-miss negative: database schema design without data",
+    "input": "What columns should my users table have?",
+    "shouldTrigger": false,
+    "expect": "Schema design without actual data is an explicit near-miss negative for this skill.",
+    "assertions": [
+      "skill does not trigger on schema design questions"
+    ]
+  },
+  {
+    "id": "da-006",
+    "description": "Near-miss negative: statistics theory without a dataset",
+    "input": "Explain the central limit theorem.",
+    "shouldTrigger": false,
+    "expect": "General statistics theory without a dataset context is a documented near-miss negative.",
+    "assertions": [
+      "skill does not trigger on pure theory questions"
+    ]
+  },
+  {
+    "id": "da-007",
+    "description": "Near-miss negative: ETL pipeline architecture",
+    "input": "Design a data ingestion pipeline for our warehouse.",
+    "shouldTrigger": false,
+    "expect": "ETL pipeline architecture is a documented near-miss negative — routes to data engineering skills instead.",
+    "assertions": [
+      "skill does not trigger on pipeline architecture requests"
+    ]
+  }
+]

@@ -1,0 +1,78 @@
+{
+  "skill": "release-management",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "rm-001",
+      "description": "Should trigger: determine the next semantic version bump",
+      "input": "Since v1.1.0 we merged a breaking API change (removed a deprecated endpoint) and two bug fixes. What version should we release?",
+      "shouldTrigger": true,
+      "expect": "Applies SemVer bump rules — breaking change forces MAJOR — then walks the release workflow",
+      "assertions": [
+        "Bumps to 2.0.0, not 1.2.0 or 1.1.2",
+        "Explains MAJOR/MINOR/PATCH mapping and the highest-category tiebreaker",
+        "Cites the rule: once published, never modify a version's tag"
+      ]
+    },
+    {
+      "id": "rm-002",
+      "description": "Should trigger: changelog maintenance per Keep a Changelog",
+      "input": "Update the changelog for our next release: promote the Unreleased section, add the date, and link the version header.",
+      "shouldTrigger": true,
+      "expect": "Uses the Keep a Changelog structure (Added/Changed/Deprecated/Removed/Fixed/Security), promotes [Unreleased], adds date and tag comparison link",
+      "assertions": [
+        "Promotes [Unreleased] to the new version header",
+        "Adds the release date and tag comparison link",
+        "Verifies every change in the release has a changelog entry"
+      ]
+    },
+    {
+      "id": "rm-003",
+      "description": "Should trigger: tag a release and create a GitHub/GitLab release",
+      "input": "Cut v1.2.0: update manifests, commit, create a signed tag, push, and publish release notes.",
+      "shouldTrigger": true,
+      "expect": "Executes the release workflow: version bump in manifest files, chore(release) commit, signed tag, push, gh release create with notes file",
+      "assertions": [
+        "Updates version in package.json / pyproject.toml / VERSION",
+        "Creates a signed tag (git tag -s v1.2.0)",
+        "Uses gh release create with --notes-file CHANGELOG.md",
+        "Merges the release branch with --no-ff and deletes it"
+      ]
+    },
+    {
+      "id": "rm-004",
+      "description": "Should trigger: hotfix release workflow off the release tag",
+      "input": "Critical production bug — we need a patch release now, and the fix must also land on main.",
+      "shouldTrigger": true,
+      "expect": "Runs the hotfix workflow: branch from the release tag (not main), cherry-pick the fix, patch bump, changelog entry under [Fixed], then cherry-pick back to main",
+      "assertions": [
+        "Branches from the release tag, not main",
+        "Increments the patch version and adds a [Fixed] changelog entry",
+        "Cherry-picks the hotfix back to main after release"
+      ]
+    },
+    {
+      "id": "rm-005",
+      "description": "Should trigger: rollback planning before deployment",
+      "input": "We're deploying v2.0.0 with a schema migration. Prepare the rollback plan.",
+      "shouldTrigger": true,
+      "expect": "Documents the rollback plan: trigger signal, rollback command, reversible migration check, verification, communication; selects the right strategy (DB migration revert here)",
+      "assertions": [
+        "Records rollback trigger, command, and verification steps",
+        "Checks whether the data migration is reversible",
+        "Selects database migration revert as the strategy for schema changes"
+      ]
+    },
+    {
+      "id": "rm-006",
+      "description": "Not trigger: ordinary feature development with no release intent",
+      "input": "Add a dark mode toggle to the settings page and write tests for it.",
+      "shouldTrigger": false,
+      "expect": "Does not enter the release workflow; handled as regular feature work",
+      "assertions": [
+        "No version bump, tagging, or changelog workflow invoked",
+        "No release branch or CI release pipeline steps run"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: "enterprise-consulting-methods"
-description: "Use when you need McKinsey/BCG-grade strategy work — problem decomposition, hypothesis testing, storyline building, decision memos, stakeholder mapping, synthesis, meeting prep, workshop design, and native PowerPoint chart production. Covers 15 consulting methodology patterns from Situation-Complication-Problem-Recommendation (SCPR) through MECE issue trees, hypothesis trees, Minto Pyramid writing, and the 4-agent deck pipeline. All chart outputs are native python-pptx objects, editable inside PowerPoint."
+description: "Use this skill when you need McKinsey/BCG-grade strategy work — problem decomposition, hypothesis testing, storyline building, decision memos, stakeholder mapping, synthesis, meeting prep, workshop design, and native PowerPoint chart production. Covers 15 consulting methodology patterns from Situation-Complication-Problem-Recommendation (SCPR) through MECE issue trees, hypothesis trees, Minto Pyramid writing, and the 4-agent deck pipeline. All chart outputs are native python-pptx objects, editable inside PowerPoint."
 version: "1.0.0"
 author: "JPeetz (adapted from Sruthi Chintakunta — github.com/sruthir28/enterprise-ai-skills)"
 license: "MIT"

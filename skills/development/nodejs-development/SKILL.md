@@ -1,6 +1,6 @@
 ---
 name: "nodejs-development"
-description: "Use when building, debugging, or optimizing Node.js applications — Fastify servers, TypeScript with type stripping, Node.js core internals, OAuth 2.0/2.1 auth flows, advanced TypeScript types, or diagnosing performance/crash issues. Covers the full Node.js stack from framework patterns (Fastify plugins, routes, schemas, hooks) through internals (V8, libuv, N-API, C++ addons) to production concerns (graceful shutdown, caching, streams, testing, error handling)."
+description: Use when building, debugging, or optimizing Node.js applications — Fastify servers, TypeScript with type stripping, Node.js core internals, OAuth 2.0/2.1 auth flows, TypeScript types, or diagnosing performance/crash issues. Covers the full Node.js stack from framework patterns (Fastify plugins, routes, schemas, hooks) through internals (V8, libuv, N-API, C++ addons) to production concerns (graceful shutdown, caching, streams, testing, error handling).
 version: "1.0.0"
 author: "JPeetz (adapted from Matteo Collina's skills: mcollina/skills)"
 license: "MIT"

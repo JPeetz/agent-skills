@@ -1,12 +1,12 @@
 ---
 name: read-x-articles
-description: >
-  Read X (Twitter) long-form Articles end-to-end from a shared x.com link, in
-  any AI coding agent. Activates when a user drops an x.com or twitter.com URL
-  (especially an X Article like /i/article/ID) and expects it read, or says
-  "read this X post/article/thread". Resolves the canonical /i/article/ID URL
-  (which serves plain text) instead of giving up on the login/JS wall that hits
-  profile and /status/ pages. Includes browser-tool and API fallbacks.
+description: >-
+  Use this skill when a user drops an x.com or twitter.com URL (especially an
+  X Article like /i/article/ID) and expects it read, or says "read this X
+  post/article/thread" in any AI coding agent. Resolves the canonical
+  /i/article/ID URL (which serves plain text) instead of giving up on the
+  login/JS wall that hits profile and /status/ pages. Includes browser-tool
+  and API fallbacks.
 version: 1.0.0
 author: Hermes Agent
 license: MIT

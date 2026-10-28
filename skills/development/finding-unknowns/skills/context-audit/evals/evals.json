@@ -1,0 +1,64 @@
+{
+  "skill": "context-audit",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: bloated or contradictory agent context",
+      "input": "My CLAUDE.md has grown to 200 lines and sometimes the agent contradicts itself. Audit it.",
+      "shouldTrigger": true,
+      "expect": "Inventories every context layer, classifies instructions, proposes a cut diff",
+      "assertions": [
+        "Inventories all layers (CLAUDE.md/AGENTS.md, skills, hooks, MCP descriptions) with sizes",
+        "Classifies each instruction as conflict/duplicate/obvious/judgement-now/gotcha",
+        "Quotes both sides of conflicts verbatim",
+        "Proposes cut as a diff, conflicts first",
+        "Ends with before/after line counts and the least-confident deletion named explicitly"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: duplicate guidance across layers",
+      "input": "We have the same rule in three files. Find the duplication.",
+      "shouldTrigger": true,
+      "expect": "Finds duplicates and proposes keeping the copy nearest point of use",
+      "assertions": [
+        "Reads layers together the way the model receives them",
+        "Proposes relocation into on-demand files where appropriate"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: adding context, not auditing it",
+      "input": "Add a rule to CLAUDE.md saying we always use tabs.",
+      "shouldTrigger": false,
+      "expect": "Makes the edit directly",
+      "assertions": [
+        "No audit workflow, since this is an addition not a review"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: unrelated question",
+      "input": "What's 12 * 8?",
+      "shouldTrigger": false,
+      "expect": "Answers directly",
+      "assertions": [
+        "No context inventory performed"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: cross-layer contradiction scan",
+      "input": "Check whether our MCP server descriptions and the global preamble contradict each other.",
+      "shouldTrigger": true,
+      "expect": "Reads layers together, classifies conflicts, quotes both sides verbatim",
+      "assertions": [
+        "Reads layers together the way the model receives them",
+        "Classifies instructions as conflict/duplicate/obvious/judgement-now/gotcha",
+        "Quotes both sides of conflicts verbatim and prioritizes them",
+        "Proposes a cut diff, doesn't apply it"
+      ]
+    }
+  ]
+}

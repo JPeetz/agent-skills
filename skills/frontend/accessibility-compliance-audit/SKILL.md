@@ -1,14 +1,14 @@
 ---
 name: accessibility-compliance-audit
-description: >
-  Comprehensive web accessibility (a11y) audit and compliance skill. Audits
-  HTML, React, Vue, and Angular codebases against WCAG 2.2 AA standards.
-  Activates when users ask for "accessibility audit", "a11y check", "WCAG
-  compliance", "ADA compliance", "screen reader testing", "keyboard navigation
-  audit", "color contrast check", "accessibility fix", or "make this
-  accessible". Detects violations, explains impact, and generates fix-ready
-  code. Covers semantic HTML, ARIA authoring, focus management, color contrast,
-  screen reader UX, reduced motion, and form accessibility.
+description: >-
+  Use this skill when auditing web UIs for accessibility (a11y) compliance.
+  Audits HTML, React, Vue, and Angular codebases against WCAG 2.2 AA standards.
+  Activates on "accessibility audit", "a11y check", "WCAG compliance", "ADA
+  compliance", "screen reader testing", "keyboard navigation audit", "color
+  contrast check", "accessibility fix", or "make this accessible". Detects
+  violations, explains impact, and generates fix-ready code. Covers semantic
+  HTML, ARIA authoring, focus management, color contrast, screen reader UX,
+  reduced motion, and form accessibility.
 version: 1.0.0
 author: Skill Foundry
 license: MIT

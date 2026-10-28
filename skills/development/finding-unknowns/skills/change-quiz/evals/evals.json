@@ -1,0 +1,63 @@
+{
+  "skill": "change-quiz",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: post-session review before merge",
+      "input": "What did we actually change this session? Quiz me before I merge.",
+      "shouldTrigger": true,
+      "expect": "Builds a 4-section change report then quizzes 5-8 questions, graded honestly",
+      "assertions": [
+        "Groups 'what changed' by intent (feature/fix/refactor), not by file",
+        "Covers how the change interacts with existing code paths",
+        "Asks 5-8 questions targeting deviations, edge cases, interactions",
+        "Grades honestly: critical misses = fail even at 5/8",
+        "Explains each miss and flags gap vs too-clever"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: verification of understanding before shipping",
+      "input": "I'm about to merge the deploy changes but I want to make sure I understand the retry behavior now.",
+      "shouldTrigger": true,
+      "expect": "Produces report + quiz weighted toward interaction effects",
+      "assertions": [
+        "Includes 'Intuition' mental-model updates",
+        "Mix of recall and prediction questions"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: code review of someone else's diff",
+      "input": "Review this PR from our intern for style issues.",
+      "shouldTrigger": false,
+      "expect": "Does plain code review",
+      "assertions": [
+        "No change-quiz session-grading workflow"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: session produced no changes",
+      "input": "Summarize what we learned in today's research-only session.",
+      "shouldTrigger": false,
+      "expect": "States no meaningful changes, does not fabricate a quiz",
+      "assertions": [
+        "No quiz generated since nothing changed"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: failed quiz re-quiz without softening the bar",
+      "input": "I got 5/8 last time and the miss was on how in-flight jobs behave during deploy. Quiz me again on that.",
+      "shouldTrigger": true,
+      "expect": "Treats prior near-pass with critical miss as a fail; offers a fresh variant quiz",
+      "assertions": [
+        "Does not soften the bar for a critical miss",
+        "Offers a fresh variant quiz",
+        "Points back to report sections on miss"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: joerg-instruction-execution
-description: "Executing Joerg's instructions: intent, prompt, verify."
+description: "Use this skill when executing Joerg's (or another profile's) shorthand instructions — \"try it\", \"Ok\", \"wire it, of course\", or a correction. Capture intent from his style, prompt properly from it, and verify on the output side before claiming done."
 version: 1.0.0
 author: Fluffy (default profile), Joerg Peetz
 license: MIT

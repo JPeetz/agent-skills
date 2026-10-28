@@ -1,0 +1,82 @@
+[
+  {
+    "id": "dbt-001",
+    "description": "Create a dbt model with staging/marts structure",
+    "input": "Create a dbt model that transforms raw orders into a customer_orders mart.",
+    "shouldTrigger": true,
+    "expect": "Agent routes to Level 1 (Analytics Engineering): establishes source/staging models (stg_ prefix, views) feeding a marts model (mart or fct/dim prefix, table materialization) with ref() for dependencies.",
+    "assertions": [
+      "staging models use stg_<source>__ prefix and view materialization",
+      "marts models use fct_/dim_ naming with table materialization",
+      "model dependencies use ref(), never hardcoded table names"
+    ]
+  },
+  {
+    "id": "dbt-002",
+    "description": "Write data tests for staging models",
+    "input": "Write data tests for my staging models to ensure referential integrity.",
+    "shouldTrigger": true,
+    "expect": "Agent routes to Level 2 (Testing): generic tests in .yml (unique, not_null, relationships) plus custom generic/singular tests with severity thresholds where needed.",
+    "assertions": [
+      "generic tests (unique, not_null, relationships) are declared in .yml",
+      "referential integrity is covered via relationships tests",
+      "severity thresholds are set where tests may not be blocking"
+    ]
+  },
+  {
+    "id": "dbt-003",
+    "description": "Semantic layer with MetricFlow",
+    "input": "Define MetricFlow semantic models and metrics for revenue reporting.",
+    "shouldTrigger": true,
+    "expect": "Agent routes to Level 3 (Semantic Layer): defines semantic models, measures, dimensions, and metrics, then exposes a saved query for reporting.",
+    "assertions": [
+      "semantic models declare measures and dimensions",
+      "metrics are defined on top of semantic models",
+      "a saved query is created for the reporting use case"
+    ]
+  },
+  {
+    "id": "dbt-004",
+    "description": "dbt Mesh cross-project refs",
+    "input": "Set up cross-project refs between our finance and marketing dbt projects.",
+    "shouldTrigger": true,
+    "expect": "Agent routes to Level 4 (dbt Mesh): exposes models via public grouping/access controls and wires cross-project ref() with model contracts.",
+    "assertions": [
+      "models are marked public with an access group",
+      "model contracts enforce the interface between projects",
+      "cross-project ref() is used instead of duplicating logic"
+    ]
+  },
+  {
+    "id": "dbt-005",
+    "description": "Debug a failed incremental build",
+    "input": "Troubleshoot this failed incremental model build on our daily dbt job.",
+    "shouldTrigger": true,
+    "expect": "Agent routes to Level 5 (Platform & Ops) and follows the debugging workflow: dbt parse → compile → run --select the model → inspect compiled SQL → test upstream → dbt --debug run.",
+    "assertions": [
+      "debugging workflow starts with dbt parse and compile",
+      "the failing model is isolated with dbt run --select",
+      "compiled SQL is inspected before code changes"
+    ]
+  },
+  {
+    "id": "dbt-006",
+    "description": "Near-miss negative: general SQL writing",
+    "input": "How do I write a SELECT statement?",
+    "shouldTrigger": false,
+    "expect": "General SQL questions are an explicit do-not-trigger case routing to query-expert skills.",
+    "assertions": [
+      "skill does not trigger on general SQL questions"
+    ]
+  },
+  {
+    "id": "dbt-007",
+    "description": "Near-miss negative: orchestration and platform admin",
+    "input": "How do I schedule an Airflow DAG?",
+    "shouldTrigger": false,
+    "expect": "Data pipeline orchestration is an explicit do-not-trigger case for pipeline/orchestration skills.",
+    "assertions": [
+      "skill does not trigger on orchestration questions"
+    ]
+  }
+]

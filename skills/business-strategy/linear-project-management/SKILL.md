@@ -1,6 +1,6 @@
 ---
 name: linear-project-management
-description: Use when driving Linear projects and issues from an agent.
+description: Use this skill when driving Linear projects and issues from an agent.
 version: 1.0.0
 license: MIT
 author: Skill Foundry

@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 (2026-10-19)
+## [1.0.0] — 2026-10-19
 
 - Initial release
 - Adapted from addyosmani/agent-skills (MIT)

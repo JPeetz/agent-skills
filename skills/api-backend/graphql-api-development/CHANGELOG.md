@@ -46,3 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Published to GitHub repository (JPeetz/agent-skills)
 - Part of Skill Foundry Run 004
+
+## v1.1.0 — 2026-10-28
+
+### Changed
+- Description rewritten to trigger form ("Use this skill when..."); removed keyword-cluster dump from frontmatter
+- Added evals/evals.json with 7 cases (5 positive, 2 near-miss negatives) grounded in SKILL.md triggers and quality checklist

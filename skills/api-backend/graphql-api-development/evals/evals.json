@@ -1,0 +1,83 @@
+[
+  {
+    "id": "gql-001",
+    "description": "Schema-first design with verb-first mutations",
+    "input": "Design a GraphQL API for a social app where users can post and like content.",
+    "shouldTrigger": true,
+    "expect": "Agent designs the schema first and names mutations verb-first (createPost, not postCreate), per the naming convention table.",
+    "assertions": [
+      "schema is designed before any resolver code is written",
+      "mutations use verb-first camelCase naming",
+      "list fields are paginated (Relay connection or offset page)"
+    ]
+  },
+  {
+    "id": "gql-002",
+    "description": "N+1 query prevention with DataLoader",
+    "input": "My resolvers fire one query per author for every post — check my resolvers for N+1 queries.",
+    "shouldTrigger": true,
+    "expect": "Agent audits resolver data loading and introduces DataLoader batching per request instead of per-field queries.",
+    "assertions": [
+      "N+1 is diagnosed as the query-per-field pattern",
+      "DataLoader is recommended/scoped per request",
+      "quality checklist item 'every resolver with a DB call uses DataLoader' is applied"
+    ]
+  },
+  {
+    "id": "gql-003",
+    "description": "Do not trigger on REST vs GraphQL technology evaluation",
+    "input": "Should I use GraphQL or REST for my new backend?",
+    "shouldTrigger": false,
+    "expect": "REST vs GraphQL comparison is an explicit near-miss negative — no schema/resolver design intent.",
+    "assertions": [
+      "skill does not activate on technology evaluation questions",
+      "no schema or resolver work is started"
+    ]
+  },
+  {
+    "id": "gql-004",
+    "description": "Typed union errors instead of string-based error handling",
+    "input": "Design error handling for my GraphQL mutations — errors currently come back as plain strings.",
+    "shouldTrigger": true,
+    "expect": "Agent uses typed union errors (ValidationError, NotFoundError suffixed with Error) so clients can pattern-match.",
+    "assertions": [
+      "errors are structured as typed unions or errors extensions payload",
+      "null is not overloaded to mean error",
+      "error types follow PascalCase + Error suffix convention"
+    ]
+  },
+  {
+    "id": "gql-005",
+    "description": "Security hardening: depth limiting, rate limiting, auth in context",
+    "input": "Harden my GraphQL API — add depth limiting and rate limiting, and stop checking auth inside every resolver.",
+    "shouldTrigger": true,
+    "expect": "Agent configures graphql-depth-limit (or query cost analysis) and rate limiting, and moves auth to the GraphQL context/middleware.",
+    "assertions": [
+      "depth limit or query cost analysis is configured",
+      "rate limiting is applied",
+      "auth is extracted to context/middleware, not inline in resolvers"
+    ]
+  },
+  {
+    "id": "gql-006",
+    "description": "Subscriptions with proper teardown",
+    "input": "Implement real-time updates with GraphQL subscriptions for new messages.",
+    "shouldTrigger": true,
+    "expect": "Agent designs subscription fields with AsyncIterator event sources, withFilter support, and unsubscribe teardown in subscribe().",
+    "assertions": [
+      "subscription source is an AsyncIterator",
+      "withFilter is used for filtering where needed",
+      "teardown/unsubscribe logic is present (no subscription leaks)"
+    ]
+  },
+  {
+    "id": "gql-007",
+    "description": "Do not trigger on client-side consumption",
+    "input": "How do I use useQuery in Apollo Client to fetch data?",
+    "shouldTrigger": false,
+    "expect": "Apollo Client consumption is an explicit near-miss negative — this is client-side usage, not API development.",
+    "assertions": [
+      "skill does not activate for GraphQL client questions"
+    ]
+  }
+]

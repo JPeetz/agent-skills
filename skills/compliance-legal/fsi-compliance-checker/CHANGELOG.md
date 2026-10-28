@@ -9,5 +9,5 @@
 - Report format with per-control findings, severities, remediation, and evidence gaps
 - Common FSI engineering triggers for proactive compliance checking
 - Anti-rationalization table covering 7 common compliance avoidance patterns
-- 3 eval cases (PCI logging violation, MAS TRM cloud migration, PAN exposure)
+- 6 eval cases (PCI logging violation, MAS TRM cloud migration, PAN exposure, framework-selection question, out-of-scope framework, generic-review negative)
 - Reference files: pci-dss.md (PCI-DSS v4.0 control summaries), mas-trm.md (MAS TRM 2021 summaries)

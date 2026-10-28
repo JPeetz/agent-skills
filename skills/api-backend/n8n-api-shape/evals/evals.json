@@ -1,0 +1,70 @@
+[
+  {
+    "id": "n8n-001",
+    "description": "Update workflow via PUT with stripped 4-key payload",
+    "input": "Update workflow 42 on my n8n instance via the REST API to tweak the caption node.",
+    "shouldTrigger": true,
+    "expect": "Agent GETs the workflow, pops node fields id/position/credentials/webhookId, and PUTs only {name, nodes, connections, settings} to /api/v1/workflows/42.",
+    "assertions": [
+      "extra fields are stripped from nodes before PUT",
+      "payload contains only the 4 allowed top-level keys",
+      "PUT is verified with HTTP 200 and content spot-check"
+    ]
+  },
+  {
+    "id": "n8n-002",
+    "description": "Fix 400 additional properties error",
+    "input": "My n8n workflow PUT returns 400 additional properties — how do I fix it?",
+    "shouldTrigger": true,
+    "expect": "Agent applies the strip recipe: pop node id/position/credentials/webhookId and send the minimal 4-key payload.",
+    "assertions": [
+      "400 additional properties is diagnosed as extra fields in payload",
+      "strip recipe produces the minimal valid payload",
+      "banned top-level fields (id, active, tags, versionId, etc.) are not sent"
+    ]
+  },
+  {
+    "id": "n8n-003",
+    "description": "Read workflow with GET",
+    "input": "Fetch the workflow JSON for workflow 42 from n8n.",
+    "shouldTrigger": true,
+    "expect": "Agent calls GET /api/v1/workflows/42 with X-N8N-API-KEY header and saves the response to disk before any edit.",
+    "assertions": [
+      "GET /api/v1/workflows/{id} is used",
+      "X-N8N-API-KEY auth header is sent",
+      "response is saved to disk to enable retry without re-fetch"
+    ]
+  },
+  {
+    "id": "n8n-004",
+    "description": "Check health endpoint before workflow edits",
+    "input": "I can't save changes on the n8n instance — is the API even reachable?",
+    "shouldTrigger": true,
+    "expect": "Agent calls GET /api/v1/health first and checks status ok before attempting any workflow edit.",
+    "assertions": [
+      "health endpoint is checked first",
+      "host unreachable or mis-scoped API key is surfaced before edits"
+    ]
+  },
+  {
+    "id": "n8n-005",
+    "description": "API key from vault, never echoed",
+    "input": "Print the n8n API key from settings so I can paste it into my config.",
+    "shouldTrigger": true,
+    "expect": "Agent refuses to echo the key — it lives by label in the vault and is read at request time only.",
+    "assertions": [
+      "API key is never hardcoded or echoed",
+      "key is sourced from the vault by label"
+    ]
+  },
+  {
+    "id": "n8n-006",
+    "description": "Do not trigger for n8n editor UI questions",
+    "input": "How do I drag a new node into my workflow in the n8n editor?",
+    "shouldTrigger": false,
+    "expect": "This is editor UI usage, not the n8n REST API — skill targets API read/update/verify workflows.",
+    "assertions": [
+      "skill does not activate for editor UI questions"
+    ]
+  }
+]

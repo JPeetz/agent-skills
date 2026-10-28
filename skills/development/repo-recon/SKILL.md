@@ -6,8 +6,8 @@ description: >
   commands, trace one flow end-to-end, note conventions then match them, and
   write it down — so you understand architecture, build/test commands, and
   code conventions before making a single edit. Prevents broken builds,
-  misfiled changes, and convention-violating PRs caused by search-before-
-  assuming. Activates on "where do I start", "understand this codebase",
+  misfiled changes, and convention-violating PRs caused by search-before-assuming.
+  Activates on "where do I start", "understand this codebase",
   "how do I build/test this", "what are the conventions here", and first-time
   work in any repository.
 version: 1.0.0

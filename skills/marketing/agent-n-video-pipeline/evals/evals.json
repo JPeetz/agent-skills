@@ -1,0 +1,62 @@
+{
+  "skill": "agent-n-video-pipeline",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: fully-local Agent N message video",
+      "input": "Produce the 'Agent N presents a message' video for the Herald release.",
+      "shouldTrigger": true,
+      "expect": "Runs herald_pipeline_m5.sh with spec and anchor through all six local stages",
+      "assertions": [
+        "Uses one-command script ./herald_pipeline_m5.sh --spec <spec.json> --anchor agentn_anchor_v1.png",
+        "Kokoro mature TTS (sid 10), LTX-2.3 MLX A2V render leg",
+        "Karaoke captions word-synced to TRUE script",
+        "Trims to voice +2.5s, passes QA gate, generates X caption"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: announcement / newsletter video message",
+      "input": "Make an Agent N announcement video about the new release.",
+      "shouldTrigger": true,
+      "expect": "Activates the pipeline with segmented mode for >10s messages",
+      "assertions": [
+        "Splits by sentence boundaries via queue_segments.py",
+        "Re-anchors each segment on the identity image",
+        "Runs stage-by-stage with env gate checks"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: troubleshooting local pipeline pitfalls",
+      "input": "The A2V render failed at the end with 'ffmpeg not found on PATH'.",
+      "shouldTrigger": true,
+      "expect": "Applies known pitfall fix: symlink ffmpeg/ffprobe into Comfy venv bin or export PATH",
+      "assertions": [
+        "Does not re-climb already-documented pitfalls",
+        "Verifies ComfyUI headless at http://M5:8188/system_stats"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: only writing the X caption, no video",
+      "input": "Write the X caption that announces the Agent N video.",
+      "shouldTrigger": false,
+      "expect": "Writes caption standalone",
+      "assertions": [
+        "No render pipeline started"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: cloud pipeline preference",
+      "input": "Use the old cloud Herald pipeline with grok-imagine and volcengine.",
+      "shouldTrigger": false,
+      "expect": "Notes the local replacement but does not force local if user explicitly wants cloud",
+      "assertions": [
+        "No M5 pipeline forced without user agreement"
+      ]
+    }
+  ]
+}

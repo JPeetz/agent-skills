@@ -3,6 +3,7 @@
   "evals": [
     {
       "id": 1,
+      "description": "PCI-DSS logging violation — debug log of full card auth request body",
       "prompt": "Review this change for PCI-DSS: we added a debug log line in the payment service that logs the full request body of card authorization calls.",
       "expected_output": "Critical finding against PCI-DSS 3.3.1 / never-log rules (request body contains PAN/CVV), with remediation (remove or redact, structured logging with field allowlist) and a check of related logging controls.",
       "expectations": [
@@ -13,6 +14,7 @@
     },
     {
       "id": 2,
+      "description": "MAS TRM cloud migration — customer notification service to another country",
       "prompt": "We're a Singapore bank moving our customer notification service to a new cloud region in another country. MAS TRM implications?",
       "expected_output": "Review against MAS TRM section 11.5 (cloud, data residency) and Outsourcing Guidelines flag, identifying customer data residency assessment, due diligence, and exit strategy expectations.",
       "expectations": [
@@ -23,12 +25,46 @@
     },
     {
       "id": 3,
+      "description": "Unmasked PAN exposure in support tool — multi-control findings",
       "prompt": "Compliance check on this diff: new endpoint lets support staff look up customer card numbers for troubleshooting, shows full PAN, no extra auth.",
       "expected_output": "Multiple findings: PAN display masking (3.4.1), access control/least privilege (7.2.1), MFA for CDE access (8.4.2), audit logging of access to cardholder data (10.2.1) — with severities and remediations.",
       "expectations": [
         "Catches masking, least-privilege, MFA, and audit logging issues — not just one",
         "Each finding carries a specific control ID and severity",
         "Recommends converting findings into backlog stories"
+      ]
+    },
+    {
+      "id": 4,
+      "description": "Framework selection — user hasn't stated which framework applies",
+      "prompt": "We're a payment processor with EU customers and we just changed how auth sessions are stored. Is this compliant?",
+      "expected_output": "Asks the one scoping question the skill mandates (what data does the change touch, and is the institution Singapore-regulated?), then selects PCI-DSS if card data is in scope and states non-FSI frameworks (GDPR) as out of scope of the bundled references.",
+      "expectations": [
+        "Asks the single scoping question instead of guessing a framework",
+        "Loads only the reference file(s) the engagement needs",
+        "States that out-of-scope frameworks (GDPR, SOX, HKMA, APRA) are not covered by the bundled references"
+      ]
+    },
+    {
+      "id": 5,
+      "description": "Out-of-scope framework request — HKMA-regulated bank, no card data",
+      "prompt": "We're an HKMA-regulated bank in Hong Kong, no card data handled. Please review our new reconciliation pipeline against HKMA requirements.",
+      "expected_output": "States HKMA is out of scope of this skill's bundled references (PCI-DSS/MAS TRM), offers a general secure-engineering review instead, and does not fabricate HKMA control IDs.",
+      "expectations": [
+        "Declares HKMA out of scope rather than inventing control mappings",
+        "Offers the general secure-engineering review as fallback",
+        "Does not claim compliance against a framework it has no reference for"
+      ]
+    },
+    {
+      "id": 6,
+      "description": "Near-miss negative — generic code review with no FSI compliance framing",
+      "prompt": "Review this diff for code quality: naming, error handling, and whether the new helper function is too long.",
+      "expected_output": "Handled as a general code review; the FSI compliance workflow does not activate because no compliance framework, regulator, audit, or cardholder-data scope is mentioned.",
+      "expectations": [
+        "Does not invoke PCI-DSS/MAS TRM control mapping",
+        "No fabricated control IDs appear in the response",
+        "Stays a general code-quality review"
       ]
     }
   ]

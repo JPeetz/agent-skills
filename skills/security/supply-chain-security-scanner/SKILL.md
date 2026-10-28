@@ -1,24 +1,16 @@
 ---
 name: supply-chain-security-scanner
-description: >
-  AI-powered software supply chain security auditing skill for agentic platforms. Performs
-  comprehensive dependency vulnerability scanning across npm, PyPI, Maven, Go modules, Cargo,
-  and container images. Generates SBOMs (Software Bill of Materials) in SPDX and CycloneDX
-  formats using Syft and Grype. Validates license compliance against organizational policies
-  and detects copyleft risks. Verifies cryptographic provenance and SLSA framework attestations
-  using cosign and slsa-verifier. Executes a structured audit methodology—Scan → Analyze →
-  Report → Remediate—producing machine-readable vulnerability reports with CVSS scores,
-  exploitability assessments, and actionable fix recommendations aligned with OWASP Agentic
-  Skills Top 10 guidance. Integrates with ecosystem vulnerability databases including NVD
-  (National Vulnerability Database), GitHub Advisory Database (GHSA), and Open Source
-  Vulnerabilities (OSV). Covers software composition analysis (SCA) workflows, dependency
-  confusion detection, typosquatting checks, and end-to-end software supply chain integrity
-  verification. Designed for CI/CD pipeline integration, pre-commit hooks, and ad-hoc
-  security audits. Suitable for DevSecOps teams, open-source maintainers, and enterprise
-  compliance programs adopting SLSA Level 1–3 supply chain security requirements. Works
-  with existing toolchains: npm audit, pip-audit, OWASP Dependency-Check, Syft, Grype,
-  cosign, slsa-verifier, and trivy. All findings include remediation paths and SBOM
-  lifecycle management guidance.
+description: >-
+  Use this skill when auditing an application's software supply chain:
+  dependency vulnerability scanning across npm, PyPI, Maven, Go modules, Cargo,
+  and container images; SBOM generation (SPDX, CycloneDX) with Syft and Grype;
+  license compliance checks against organizational policy; and cryptographic
+  provenance/SLSA verification with cosign and slsa-verifier. Runs a structured
+  Scan → Analyze → Report → Remediate audit producing machine-readable
+  vulnerability reports with CVSS scores, exploitability assessments, and
+  actionable fixes aligned with OWASP Agentic Skills Top 10 guidance. Integrates
+  NVD, GHSA, and OSV; works with npm audit, pip-audit, OWASP Dependency-Check,
+  and trivy.
 version: 1.0.0
 author: Skill Foundry
 platforms:

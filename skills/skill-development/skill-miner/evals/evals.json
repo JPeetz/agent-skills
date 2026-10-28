@@ -26,6 +26,30 @@
       ]
     },
     {
+      "id": "e3",
+      "description": "Should trigger: team backlog of candidates from actual work",
+      "input": "We want a backlog of candidate skills based on our team's real agent usage this quarter, not brainstorming.",
+      "shouldTrigger": true,
+      "expect": "Runs the scan-sessions.py first pass and scores candidates by recurrence, friction, risk, portability, value",
+      "assertions": [
+        "Uses scripts/scan_sessions.py for a first-pass cluster report",
+        "Scores candidates on the 1-5 recurrence/friction/risk scale",
+        "Recommends personal vs public direction per candidate"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: recurring procedure in project notes and scripts",
+      "input": "Our repo scripts and runbooks keep repeating the same release workflow. Is that skill-worthy?",
+      "shouldTrigger": true,
+      "expect": "Treats repeated scripts/notes as evidence, checks 3+ occurrences before drafting",
+      "assertions": [
+        "Checks for 3+ repeat instances before drafting",
+        "Filters one-off tasks and project-specific AGENTS.md content",
+        "Cross-checks against skill-lifecycle-foundry for gaps"
+      ]
+    },
+    {
       "id": "n1",
       "description": "Not trigger: single one-off task",
       "input": "Help me write a shell script to rename CSV headers.",
@@ -34,6 +58,17 @@
       "assertions": [
         "Does not invoke the full mining procedure",
         "Treats as a one-off coding task"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: tuning an existing skill (routes to skill-personalizer)",
+      "input": "My invoice-parsing skill keeps missing UK VAT fields. Tune it to my company's tooling.",
+      "shouldTrigger": false,
+      "expect": "Does not mine; defers to skill-personalizer for existing-skill tuning",
+      "assertions": [
+        "Recognizes this is tuning an existing skill, not mining",
+        "Points to skill-personalizer instead of drafting a new skill"
       ]
     }
   ]

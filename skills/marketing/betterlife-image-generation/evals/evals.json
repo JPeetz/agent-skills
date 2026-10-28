@@ -1,0 +1,65 @@
+{
+  "skill": "betterlife-image-generation",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: daily BetterLife social image generation",
+      "input": "Generate today's BetterLife social media image.",
+      "shouldTrigger": true,
+      "expect": "Composes prompt and calls kie.ai grok-imagine/image-to-image conditioned on Mira references",
+      "assertions": [
+        "Selects 8 refs (5 for grok) with mandatory face anchors in first 2 slots",
+        "Composes prompt as anchor + scene + attire + detail + mood + accent",
+        "Posts to api.kie.ai/api/v1/jobs/createTask with strength 0.85",
+        "Polls recordInfo until success; uses flux-2 fallback on failure",
+        "Saves to ~/workspace/tool-image-generation/"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: morning social post pipeline",
+      "input": "Run the morning social post generation for Instagram.",
+      "shouldTrigger": true,
+      "expect": "Activates the image generation pipeline for the morning post",
+      "assertions": [
+        "Uses the character anchor (Mira, wellness coach)",
+        "Reads credentials by label, never hardcodes",
+        "Produces image + review JSON at /tmp/bl-social-review.json"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: writing the social post copy, not the image",
+      "input": "Write today's caption for the BetterLife post.",
+      "shouldTrigger": false,
+      "expect": "Does copywriting, not image generation",
+      "assertions": [
+        "No kie.ai API call"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: unrelated image request",
+      "input": "Generate a logo for a new crypto project.",
+      "shouldTrigger": false,
+      "expect": "Out of scope \u2014 not BetterLife/Mira conditioned",
+      "assertions": [
+        "No reference-photo workflow engaged"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: fallback model on kie.ai failure",
+      "input": "The grok-imagine call failed again. Use the fallback for today's BetterLife image.",
+      "shouldTrigger": true,
+      "expect": "Switches to flux-2/flex-image-to-image with 8 reference images and input_urls",
+      "assertions": [
+        "Uses flux-2/flex-image-to-image on failure",
+        "Allows 8 reference images in the fallback",
+        "Still selects mandatory face anchors first",
+        "Saves output to ~/workspace/tool-image-generation/"
+      ]
+    }
+  ]
+}

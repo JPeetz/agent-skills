@@ -1,0 +1,64 @@
+{
+  "skill": "openmontage",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: video production via OpenMontage",
+      "input": "Produce a video about our new feature using OpenMontage.",
+      "shouldTrigger": true,
+      "expect": "Classifies request, identifies pipeline manifest, runs preflight, presents proposal, executes stages in-repo",
+      "assertions": [
+        "Reads AGENT_GUIDE.md before production",
+        "Finds pipeline manifest in pipeline_defs, checks description for motion type",
+        "Runs preflight capability report",
+        "Presents production proposal and waits for approval before generation",
+        "Works only inside projects/<project-name>/",
+        "Verifies final render with ffprobe"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: repurpose/edit request",
+      "input": "Repurpose this podcast episode into Shorts clips with OpenMontage.",
+      "shouldTrigger": true,
+      "expect": "Routes to podcast-repurpose pipeline",
+      "assertions": [
+        "Classifies as source-footage edit / repurpose",
+        "Uses pipeline manifest stages, validates canonical artifacts",
+        "Reports final render path and outcome class"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: localization/dubbing job",
+      "input": "Dub our demo video into Spanish and German.",
+      "shouldTrigger": true,
+      "expect": "Routes to localization-dub pipeline and follows its stages",
+      "assertions": [
+        "Uses the repo's manifest as source of truth",
+        "Does not silently switch providers or runtimes"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: ad-hoc ffmpeg edit outside OpenMontage",
+      "input": "Trim this clip to 10 seconds with ffmpeg.",
+      "shouldTrigger": false,
+      "expect": "Does not invoke OpenMontage pipeline machinery",
+      "assertions": [
+        "No pipeline manifest lookup, no preflight"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: request to modify OpenMontage source code",
+      "input": "Change the OpenMontage compose tool to add a watermark feature.",
+      "shouldTrigger": false,
+      "expect": "Flags as source-code change needing explicit user intent",
+      "assertions": [
+        "Does not modify source without explicit code-change request"
+      ]
+    }
+  ]
+}

@@ -11,5 +11,10 @@
 - Safe-by-default execution model: dry-run, blast-radius, human approval
 - Source: Google SRE Book, bregman-arie/devops-sre-skills, Pulumi DevOps Skills
 
+## Unreleased
+
+### Changed
+- Description rewritten to be trigger-first ("Use this skill when ...") and under 1024 chars per the agentskills.io spec.
+
 ## Published 2026-07-02
 - Published to JPeetz/agent-skills repository (Run 005)

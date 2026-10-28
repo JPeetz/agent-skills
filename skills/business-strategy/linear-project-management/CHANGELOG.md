@@ -7,3 +7,8 @@
   `description` vs `content` rule, and a type/domain/scope label taxonomy.
 - `references/linear-graphql.md` with copy-paste GraphQL operations.
 - `evals/evals.json` with should-trigger, not-trigger, and secret-safety cases.
+
+## v1.0.1 — 2026-10-28
+
+### Changed
+- Description reworded to "Use this skill when..." to clear the validator's description_style warning

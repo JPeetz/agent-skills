@@ -1,0 +1,836 @@
+[
+  {
+    "rel": "skills/skill-development/skill-miner",
+    "name": "skill-miner",
+    "desc_len": 117,
+    "issues": [
+      "DESC>60(117)"
+    ]
+  },
+  {
+    "rel": "skills/skill-development/skill-lifecycle-foundry",
+    "name": "skill-lifecycle-foundry",
+    "desc_len": 83,
+    "issues": [
+      "DESC>60(83)"
+    ]
+  },
+  {
+    "rel": "skills/skill-development/interview-me",
+    "name": "interview-me",
+    "desc_len": 379,
+    "issues": [
+      "DESC>60(379)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/frontend/design-to-code",
+    "name": "design-to-code",
+    "desc_len": 397,
+    "issues": [
+      "DESC>60(397)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/frontend/frontend-ui-engineering",
+    "name": "frontend-ui-engineering",
+    "desc_len": 226,
+    "issues": [
+      "DESC>60(226)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/frontend/accessibility-compliance-audit",
+    "name": "accessibility-compliance-audit",
+    "desc_len": 561,
+    "issues": [
+      "DESC>60(561)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/compliance-legal/data-privacy-compliance",
+    "name": "data-privacy-compliance",
+    "desc_len": 255,
+    "issues": [
+      "DESC>60(255)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/compliance-legal/fsi-compliance-checker",
+    "name": "fsi-compliance-checker",
+    "desc_len": 736,
+    "issues": [
+      "DESC>60(736)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/compliance-legal/privacy-compliance",
+    "name": "privacy-compliance",
+    "desc_len": 587,
+    "issues": [
+      "DESC>60(587)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/security/agentic-security-scanner",
+    "name": "agentic-security-scanner",
+    "desc_len": 295,
+    "issues": [
+      "DESC>60(295)",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/security/threat-modeling",
+    "name": "threat-modeling",
+    "desc_len": 250,
+    "issues": [
+      "DESC>60(250)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/security/security-and-hardening",
+    "name": "security-and-hardening",
+    "desc_len": 251,
+    "issues": [
+      "DESC>60(251)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/security/supply-chain-security-scanner",
+    "name": "supply-chain-security-scanner",
+    "desc_len": 684,
+    "issues": [
+      "DESC>60(684)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/development/app-scaffolding",
+    "name": "app-scaffolding",
+    "desc_len": 509,
+    "issues": [
+      "DESC>60(509)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_PLATFORMS",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/model-routing-cost-optimizer",
+    "name": "model-routing-cost-optimizer",
+    "desc_len": 58,
+    "issues": [
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/development/hermes-bot-team-design",
+    "name": "hermes-bot-team-design",
+    "desc_len": 185,
+    "issues": [
+      "DESC>60(185)"
+    ]
+  },
+  {
+    "rel": "skills/development/repo-recon",
+    "name": "repo-recon",
+    "desc_len": 610,
+    "issues": [
+      "DESC>60(610)",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/telegram-topics-pipeline",
+    "name": "telegram-topics-pipeline",
+    "desc_len": 232,
+    "issues": [
+      "DESC>60(232)",
+      "NO_SECTION:when-to-use"
+    ]
+  },
+  {
+    "rel": "skills/development/nodejs-development",
+    "name": "nodejs-development",
+    "desc_len": 455,
+    "issues": [
+      "DESC>60(455)",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/development/safe-refactor",
+    "name": "safe-refactor",
+    "desc_len": 151,
+    "issues": [
+      "DESC>60(151)",
+      "NO_LICENSE",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/development/anti-over-engineering",
+    "name": "anti-over-engineering",
+    "desc_len": 59,
+    "issues": [
+      "NO_SECTION:when-to-use"
+    ]
+  },
+  {
+    "rel": "skills/development/joerg-instruction-execution",
+    "name": "joerg-instruction-execution",
+    "desc_len": 248,
+    "issues": [
+      "DESC>60(248)",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns",
+    "name": "finding-unknowns",
+    "desc_len": 54,
+    "issues": []
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/pitch-packager",
+    "name": "pitch-packager",
+    "desc_len": 57,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/brainstorm-prototypes",
+    "name": "brainstorm-prototypes",
+    "desc_len": 61,
+    "issues": [
+      "DESC>60(61)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/blindspot-pass",
+    "name": "blindspot-pass",
+    "desc_len": 58,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/change-quiz",
+    "name": "change-quiz",
+    "desc_len": 159,
+    "issues": [
+      "DESC>60(159)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/reference-hunt",
+    "name": "reference-hunt",
+    "desc_len": 50,
+    "issues": [
+      "DESC_NO_PERIOD",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/context-audit",
+    "name": "context-audit",
+    "desc_len": 51,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/progressive-disclosure",
+    "name": "progressive-disclosure",
+    "desc_len": 57,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/implementation-plan",
+    "name": "implementation-plan",
+    "desc_len": 46,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/implementation-notes",
+    "name": "implementation-notes",
+    "desc_len": 53,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/agent-interface-design",
+    "name": "agent-interface-design",
+    "desc_len": 52,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/finding-unknowns/skills/interview-me",
+    "name": "interview-me",
+    "desc_len": 54,
+    "issues": [
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/development/mattpocock-dev-workflows",
+    "name": "mattpocock-dev-workflows",
+    "desc_len": 261,
+    "issues": [
+      "DESC>60(261)",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/documentation-content/technical-documentation",
+    "name": "technical-documentation",
+    "desc_len": 367,
+    "issues": [
+      "DESC>60(367)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/documentation-content/document-processing",
+    "name": "document-processing",
+    "desc_len": 543,
+    "issues": [
+      "DESC>60(543)",
+      "NO_LICENSE",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/documentation-content/spec-writer",
+    "name": "spec-writer",
+    "desc_len": 735,
+    "issues": [
+      "DESC>60(735)"
+    ]
+  },
+  {
+    "rel": "skills/documentation-content/read-x-articles",
+    "name": "read-x-articles",
+    "desc_len": 380,
+    "issues": [
+      "DESC>60(380)"
+    ]
+  },
+  {
+    "rel": "skills/documentation-content/documentation-and-adrs",
+    "name": "documentation-and-adrs",
+    "desc_len": 674,
+    "issues": [
+      "DESC>60(674)",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/qa-testing/test-driven-development",
+    "name": "test-driven-development",
+    "desc_len": 327,
+    "issues": [
+      "DESC>60(327)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/qa-testing/browser-automation",
+    "name": "browser-automation",
+    "desc_len": 366,
+    "issues": [
+      "DESC>60(366)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/qa-testing/browser-testing-with-devtools",
+    "name": "browser-testing-with-devtools",
+    "desc_len": 320,
+    "issues": [
+      "DESC>60(320)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/qa-testing/playwright-e2e-testing",
+    "name": "playwright-e2e-testing",
+    "desc_len": 922,
+    "issues": [
+      "DESC>60(922)",
+      "NO_LICENSE",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/business-strategy/linear-project-management",
+    "name": "linear-project-management",
+    "desc_len": 69,
+    "issues": [
+      "DESC>60(69)"
+    ]
+  },
+  {
+    "rel": "skills/business-strategy/enterprise-consulting-methods",
+    "name": "enterprise-consulting-methods",
+    "desc_len": 521,
+    "issues": [
+      "DESC>60(521)",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/business-strategy/app-discovery-scrutiny",
+    "name": "app-discovery-scrutiny",
+    "desc_len": 529,
+    "issues": [
+      "DESC>60(529)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_PLATFORMS",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/marketing/betterlife-image-generation",
+    "name": "betterlife-image-generation",
+    "desc_len": 437,
+    "issues": [
+      "DESC>60(437)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/marketing/openmontage",
+    "name": "openmontage",
+    "desc_len": 63,
+    "issues": [
+      "DESC>60(63)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/marketing/local-video-production-m5",
+    "name": "local-video-production-m5",
+    "desc_len": 67,
+    "issues": [
+      "DESC>60(67)",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/marketing/astra-campaign",
+    "name": "astra-campaign",
+    "desc_len": 525,
+    "issues": [
+      "DESC>60(525)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_PLATFORMS",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/marketing/agent-n-video-pipeline",
+    "name": "agent-n-video-pipeline",
+    "desc_len": 414,
+    "issues": [
+      "DESC>60(414)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/api-design-first",
+    "name": "api-design-first",
+    "desc_len": 565,
+    "issues": [
+      "DESC>60(565)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/kie-ai-platform",
+    "name": "kie-ai-platform",
+    "desc_len": 354,
+    "issues": [
+      "DESC>60(354)"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/n8n-api-shape",
+    "name": "n8n-api-shape",
+    "desc_len": 227,
+    "issues": [
+      "DESC>60(227)",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/api-and-interface-design",
+    "name": "api-and-interface-design",
+    "desc_len": 321,
+    "issues": [
+      "DESC>60(321)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/social-har-api-connectivity",
+    "name": "social-har-api-connectivity",
+    "desc_len": 365,
+    "issues": [
+      "DESC>60(365)",
+      "NO_SECTION:when-to-use"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/har-api-reverse-engineering",
+    "name": "har-api-reverse-engineering",
+    "desc_len": 495,
+    "issues": [
+      "DESC>60(495)"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/graphql-api-development",
+    "name": "graphql-api-development",
+    "desc_len": 564,
+    "issues": [
+      "DESC>60(564)",
+      "NO_LICENSE",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/api-backend/image-to-image-character-generation",
+    "name": "image-to-image-character-generation",
+    "desc_len": 654,
+    "issues": [
+      "DESC>60(654)"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/ci-cd-pipeline-generator",
+    "name": "ci-cd-pipeline-generator",
+    "desc_len": 506,
+    "issues": [
+      "DESC>60(506)",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/kubernetes-operations",
+    "name": "kubernetes-operations",
+    "desc_len": 377,
+    "issues": [
+      "DESC>60(377)",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/ci-cd-and-automation",
+    "name": "ci-cd-and-automation",
+    "desc_len": 305,
+    "issues": [
+      "DESC>60(305)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/production-engineering-workflows",
+    "name": "production-engineering-workflows",
+    "desc_len": 446,
+    "issues": [
+      "DESC>60(446)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/maintenance",
+    "name": "maintenance",
+    "desc_len": 296,
+    "issues": [
+      "DESC>60(296)"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/sre-runbooks",
+    "name": "sre-runbooks",
+    "desc_len": 345,
+    "issues": [
+      "DESC>60(345)",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/infrastructure-as-code-guardian",
+    "name": "infrastructure-as-code-guardian",
+    "desc_len": 441,
+    "issues": [
+      "DESC>60(441)",
+      "NO_LICENSE",
+      "NO_SECTION:when-to-use",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/performance-optimization",
+    "name": "performance-optimization",
+    "desc_len": 328,
+    "issues": [
+      "DESC>60(328)",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/devops-infrastructure/observability-engineering",
+    "name": "observability-engineering",
+    "desc_len": 351,
+    "issues": [
+      "DESC>60(351)",
+      "NO_AUTHOR",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/code-quality/debugging-and-error-recovery",
+    "name": "debugging-and-error-recovery",
+    "desc_len": 311,
+    "issues": [
+      "DESC>60(311)",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/code-quality/code-review",
+    "name": "code-review",
+    "desc_len": 315,
+    "issues": [
+      "DESC>60(315)",
+      "NO_LICENSE"
+    ]
+  },
+  {
+    "rel": "skills/code-quality/code-review-and-quality",
+    "name": "code-review-and-quality",
+    "desc_len": 292,
+    "issues": [
+      "DESC>60(292)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/code-quality/clean-pro-review-gates",
+    "name": "clean-pro-review-gates",
+    "desc_len": 374,
+    "issues": [
+      "DESC>60(374)",
+      "NO_PLATFORMS"
+    ]
+  },
+  {
+    "rel": "skills/code-quality/code-simplification",
+    "name": "code-simplification",
+    "desc_len": 306,
+    "issues": [
+      "DESC>60(306)",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/data/exploratory-data-analysis",
+    "name": "exploratory-data-analysis",
+    "desc_len": 254,
+    "issues": [
+      "DESC>60(254)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/data/database-schema-designer",
+    "name": "database-schema-designer",
+    "desc_len": 276,
+    "issues": [
+      "DESC>60(276)",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/data/dbt-data-transformation",
+    "name": "dbt-data-transformation",
+    "desc_len": 286,
+    "issues": [
+      "DESC>60(286)",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/data/data-analysis",
+    "name": "data-analysis",
+    "desc_len": 295,
+    "issues": [
+      "DESC>60(295)",
+      "NO_LICENSE",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/git-release/release-management",
+    "name": "release-management",
+    "desc_len": 277,
+    "issues": [
+      "DESC>60(277)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  },
+  {
+    "rel": "skills/git-release/git-workflow-automation",
+    "name": "git-workflow-automation",
+    "desc_len": 495,
+    "issues": [
+      "DESC>60(495)",
+      "NO_SECTION:pitfalls",
+      "NO_SECTION:verification"
+    ]
+  },
+  {
+    "rel": "skills/git-release/git-workflow-and-versioning",
+    "name": "git-workflow-and-versioning",
+    "desc_len": 377,
+    "issues": [
+      "DESC>60(377)",
+      "NO_VERSION",
+      "NO_AUTHOR",
+      "NO_LICENSE",
+      "NO_PLATFORMS",
+      "NO_SECTION:pitfalls"
+    ]
+  }
+]

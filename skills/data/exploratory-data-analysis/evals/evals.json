@@ -1,0 +1,72 @@
+[
+  {
+    "id": "eda-001",
+    "description": "First exploration of an unfamiliar dataset",
+    "input": "I just got this orders.parquet from the new vendor — explore it before we build anything on it.",
+    "shouldTrigger": true,
+    "expect": "Agent loads and profiles the data: shape, columns, dtypes, describe() for numeric and object columns, then null analysis, duplicates, and distributions.",
+    "assertions": [
+      "data profile reports shape, columns, and dtypes",
+      "null profile is computed with counts and percentages",
+      "exact and key-based duplicates are checked"
+    ]
+  },
+  {
+    "id": "eda-002",
+    "description": "Data quality audit with freshness check",
+    "input": "Validate the pipeline output before we consume it in the dashboard.",
+    "shouldTrigger": true,
+    "expect": "Agent runs a data quality audit: freshness check against the SLA, value range validation against domain rules, referential integrity, and a quality scorecard.",
+    "assertions": [
+      "freshness/staleness is compared to expected lag",
+      "validation rules are applied per column",
+      "a quality scorecard with dimension scores and evidence is produced"
+    ]
+  },
+  {
+    "id": "eda-003",
+    "description": "Root cause analysis of a metric drop",
+    "input": "Active users dropped 40% this week — what happened?",
+    "shouldTrigger": true,
+    "expect": "Agent follows the root cause workflow: verify the data/pipeline, check the denominator, segment by dimension, look for correlated changes, check data quality, compare to prior periods, and document findings.",
+    "assertions": [
+      "data/pipeline health is verified first",
+      "the metric denominator is checked",
+      "findings are documented with what was checked, found, and still uncertain"
+    ]
+  },
+  {
+    "id": "eda-004",
+    "description": "SQL correctness and performance review",
+    "input": "Review this SQL query for correctness and performance before we ship it.",
+    "shouldTrigger": true,
+    "expect": "Agent validates correctness (joins, aggregations, NULL handling, window scoping), performance (scans, index usage, SELECT *), and security (parameterization) against the checklist.",
+    "assertions": [
+      "JOIN conditions are checked for accidental Cartesian products",
+      "sargable filters and index usage are reviewed",
+      "query parameterization is verified"
+    ]
+  },
+  {
+    "id": "eda-005",
+    "description": "Produce a formal data quality scorecard",
+    "input": "Produce a data quality scorecard for the customer_dimension asset.",
+    "shouldTrigger": true,
+    "expect": "Agent scores completeness, consistency, uniqueness, timeliness, accuracy, and integrity dimensions (1-5) with evidence for each.",
+    "assertions": [
+      "all six scorecard dimensions are rated",
+      "each score carries evidence",
+      "findings include severity ratings"
+    ]
+  },
+  {
+    "id": "eda-006",
+    "description": "Near-miss negative: automatic fixing instead of diagnosis",
+    "input": "Fix the nulls and duplicate rows in this dataset for me.",
+    "shouldTrigger": false,
+    "expect": "EDA is diagnostic — it does not fix data quality issues automatically; cleaning belongs to data-analysis skills.",
+    "assertions": [
+      "skill does not trigger on requests to directly rewrite/fix data"
+    ]
+  }
+]

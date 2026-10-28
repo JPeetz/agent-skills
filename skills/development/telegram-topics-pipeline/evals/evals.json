@@ -1,0 +1,62 @@
+{
+  "skill": "telegram-topics-pipeline",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: setting up forum topics for isolated sessions",
+      "input": "Set up Telegram forum topics so each of our workflows gets its own isolated agent session in one group.",
+      "shouldTrigger": true,
+      "expect": "Configures dm_topics or group_topics with per-topic skills and isolated session keys",
+      "assertions": [
+        "Uses (chat_id, thread_id) as session key",
+        "Configures topics under platforms.telegram.extra",
+        "Documents Topic A never appears in Topic B history"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: cron delivery targeting a topic",
+      "input": "Route the morning social pipeline output to topic 31 in group -1001234567890.",
+      "shouldTrigger": true,
+      "expect": "Sets cron target to telegram:-1001234567890:31",
+      "assertions": [
+        "Uses target format telegram:<chat_id>:<thread_id>",
+        "Attaches the social-pipeline cron entry"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: troubleshooting 409 Conflict polling errors",
+      "input": "Our bot keeps throwing Telegram 409 Conflict errors since the restart.",
+      "shouldTrigger": true,
+      "expect": "Diagnoses stale polling session from another process",
+      "assertions": [
+        "Searches for duplicate processes via grep -rl <bot_token> ~/.hermes ~/.openclaw ~/.config",
+        "Kills the duplicate polling session"
+      ]
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: user-driven multi-session mode",
+      "input": "Enable /topic so I can create topics on the fly without touching config.",
+      "shouldTrigger": true,
+      "expect": "Enables user-driven multi-session mode with /topic command",
+      "assertions": [
+        "Verifies can_create_topics and threads_enabled BotFather flags",
+        "Lists /topic, /topic off, /topic help, /new commands"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: plain Telegram messaging, no topics",
+      "input": "Send 'hello' to my Telegram group.",
+      "shouldTrigger": false,
+      "expect": "Does not touch topic configuration",
+      "assertions": [
+        "No dm_topics/group_topics config changes",
+        "No session-boundary work"
+      ]
+    }
+  ]
+}

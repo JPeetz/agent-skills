@@ -1,11 +1,10 @@
 ---
 name: data-analysis
 description: >
-  Comprehensive data analysis agent skill for loading, cleaning, exploring,
-  visualizing, and reporting on structured datasets. Supports CSV, JSON, Excel,
-  and SQL data sources. Produces statistical summaries, correlation matrices,
-  time series analysis, regression models, hypothesis tests, and
-  publication-quality visualizations.
+  Use this skill when analyzing structured datasets: load, clean, explore,
+  visualize, and report on data from CSV, JSON, Excel, or SQL sources. Produces
+  statistical summaries, correlation matrices, time series analysis, regression
+  models, hypothesis tests, and publication-quality visualizations.
 version: 1.0.0
 author: Skill Foundry
 platforms:

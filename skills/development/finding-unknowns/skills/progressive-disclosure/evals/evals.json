@@ -1,0 +1,65 @@
+{
+  "skill": "progressive-disclosure",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: oversized skill paying for unused content every turn",
+      "input": "This skill is 400 lines but most runs only need the first 30. Restructure it.",
+      "shouldTrigger": true,
+      "expect": "Splits branches into sibling files with condition-bearing pointers",
+      "assertions": [
+        "Identifies branches (genuinely different run paths)",
+        "Sorts sections into universal core vs branch-specific",
+        "Keeps universal core in entry file, still coherent alone",
+        "Names sibling files for what they hold (verification.md, glossary.md)",
+        "Writes pointers naming condition AND file together",
+        "Walks each branch end-to-end, reports new entry size"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: moving on-demand material behind a pointer",
+      "input": "Move the verification section out of the main skill file so it only loads when the user asks to verify.",
+      "shouldTrigger": true,
+      "expect": "Relocates the verification branch to verification.md with a conditional pointer",
+      "assertions": [
+        "Pointer states the triggering condition",
+        "Entry file still reads coherently"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: deleting dead material instead of splitting",
+      "input": "Remove the outdated glossary section entirely, nobody uses it.",
+      "shouldTrigger": false,
+      "expect": "Deletes the section outright (splitting is not deleting)",
+      "assertions": [
+        "No sibling file created; section removed"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: audit of contradictions, not restructuring",
+      "input": "Do a context audit on my skill files.",
+      "shouldTrigger": false,
+      "expect": "Routes to context-audit workflow",
+      "assertions": [
+        "No file splitting performed here"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: splitting a glossary into an on-demand file",
+      "input": "The glossary section is large and only needed when terminology is unfamiliar. Move it to its own file with a clear pointer.",
+      "shouldTrigger": true,
+      "expect": "Moves glossary to glossary.md with a pointer naming the condition and file together",
+      "assertions": [
+        "Names the sibling file for what it holds (glossary.md)",
+        "Writes a pointer that names the condition AND the file together",
+        "Entry file still reads coherently on its own",
+        "Walks the branch to confirm it has everything it needs"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: change-quiz
-description: Use after a session to review what changed before merging.
+description: Use when reviewing what changed after a long session before merging — build a change report grouped by intent, then quiz the user so unread changes don't ship.
 version: 1.0.0
 license: MIT
 author: Neeeophytee (original), Skill Foundry (packaged)

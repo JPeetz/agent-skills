@@ -1,0 +1,64 @@
+{
+  "skill": "brainstorm-prototypes",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: user can only recognize what they want by seeing it",
+      "input": "I'm not sure what layout I want for the landing page. Show me some options.",
+      "shouldTrigger": true,
+      "expect": "Produces 3-5 wildly different disposable variations for one decision",
+      "assertions": [
+        "Establishes scope first (one decision per round)",
+        "Produces 3-5 wildly different, not similar, variations",
+        "Makes them cheap and disposable (single self-contained HTML with fake data)",
+        "Labels each variation with the belief it bets on",
+        "Collects reactions and verbalizes the learned criterion"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: unknown knowns during design exploration",
+      "input": "Give me a few different takes on the data model so I can react.",
+      "shouldTrigger": true,
+      "expect": "Produces approach sketches with tradeoffs",
+      "assertions": [
+        "One-screen sketch per approach: idea, what it optimizes for, sharpest tradeoff",
+        "Does not converge early to one variation",
+        "Nothing produced is production code"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: explicit spec exists, decision already made",
+      "input": "Implement the layout we already agreed on in the spec.",
+      "shouldTrigger": false,
+      "expect": "Proceeds to implementation",
+      "assertions": [
+        "No prototype variations generated"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: non-design question",
+      "input": "What's the difference between SQL and NoSQL?",
+      "shouldTrigger": false,
+      "expect": "Answers the question directly",
+      "assertions": [
+        "No prototypes produced"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: ranked lists as prototypes for decision",
+      "input": "Give me the three engagement ideas ranked from cheapest to most ambitious so I can draw my line.",
+      "shouldTrigger": true,
+      "expect": "Orders ranked-list variations cheapest-to-most-ambitious so the user can draw their line",
+      "assertions": [
+        "Orders from cheapest to most ambitious",
+        "Labels each with the belief it bets on",
+        "Verbalizes what the reaction reveals"
+      ]
+    }
+  ]
+}

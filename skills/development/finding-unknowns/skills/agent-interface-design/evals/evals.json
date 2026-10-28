@@ -1,0 +1,64 @@
+{
+  "skill": "agent-interface-design",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: building MCP servers or agent-facing tools",
+      "input": "Design the MCP server interface for our internal search tool.",
+      "shouldTrigger": true,
+      "expect": "Designs agent-facing interface: enumerated params, intent-named fields, description carries behavior",
+      "assertions": [
+        "Pushes meaning into parameters (enumerate instead of free text)",
+        "Names for intent not implementation",
+        "Makes invalid states unrepresentable where type system allows",
+        "Puts behavioral instruction in the tool's own description",
+        "Names the mistake the design still permits and whether to guard"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: misuse-diagnosed tool redesign",
+      "input": "Agents keep calling our tool wrong even with docs. Redesign the interface.",
+      "shouldTrigger": true,
+      "expect": "Treats misuse as interface symptom first, fixes with rename/type before prose",
+      "assertions": [
+        "Reads transcripts/logs of misuse first",
+        "Fixes interface before adding documentation",
+        "Keeps an example only for unguessable formats"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: implementing an existing interface, not designing one",
+      "input": "Implement the REST endpoints for the search tool as specced.",
+      "shouldTrigger": false,
+      "expect": "Implements per spec",
+      "assertions": [
+        "No interface redesign"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: human-facing UI design",
+      "input": "Design a dashboard page for our ops team with charts.",
+      "shouldTrigger": false,
+      "expect": "Treats as human UI work",
+      "assertions": [
+        "No agent interface machinery (MCP/tool descriptions) involved"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: locating behavioral guidance at point of use",
+      "input": "We need to tell agents not to retry this tool more than twice. Where should that live?",
+      "shouldTrigger": true,
+      "expect": "Puts behavioral instruction in the tool's own description at the point of use, not a global preamble",
+      "assertions": [
+        "Places the constraint in the tool's own description",
+        "Does not add it to a global preamble",
+        "Checks misuse transcripts first if redesign is involved"
+      ]
+    }
+  ]
+}

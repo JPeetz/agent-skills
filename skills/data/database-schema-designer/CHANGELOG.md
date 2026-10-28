@@ -13,3 +13,9 @@
 
 ## Published 2026-07-02
 - Published to JPeetz/agent-skills repository (Run 005)
+
+## v1.0.1 — 2026-10-28
+
+### Changed
+- Description rewritten to trigger form ("Use this skill when...")
+- Added evals/evals.json with 6 cases (5 positive, 1 near-miss negative)

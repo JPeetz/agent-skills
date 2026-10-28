@@ -1,0 +1,64 @@
+{
+  "skill": "local-video-production-m5",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: local talking-video production on M5",
+      "input": "Produce a 'character presents a message' video locally on the M5.",
+      "shouldTrigger": true,
+      "expect": "Runs the local pipeline: Kokoro TTS, LTX-2.3 MLX A2V render, karaoke, trim, QA",
+      "assertions": [
+        "Studies existing on-disk reference pipeline first (herald_pipeline.sh + build_final_video.py)",
+        "Uses Q4 quant 512x512 low_ram config (not Q8 which swap-thrashes on 16GB)",
+        "Sets PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0",
+        "Shuts down LM Studio before renders",
+        "Quotes honest speed numbers (16 s/frame) when asked for ETA"
+      ]
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: memory-constrained A2V rendering",
+      "input": "Render a 5-second A2V clip with LTX on this 16GB machine.",
+      "shouldTrigger": true,
+      "expect": "Applies memory discipline and model priority guidance",
+      "assertions": [
+        "Prefers quantized/MLX models over FP8",
+        "Uses 3-5s clips, low-res + upscale, tiling",
+        "Stays under ~12-13 GB peak"
+      ]
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: character consistency across a take",
+      "input": "Make a 30-second talking video but keep the face consistent.",
+      "shouldTrigger": true,
+      "expect": "Uses segmented renders re-anchored on the identity sheet",
+      "assertions": [
+        "Splits at sentence boundaries into per-sentence A2V chunks",
+        "Each segment re-anchors on identity image, then lossless concat",
+        "Karaoke burn + QA after concat"
+      ]
+    },
+    {
+      "id": "n1",
+      "description": "Not trigger: cloud rendering request",
+      "input": "Render this video on the cloud render farm instead.",
+      "shouldTrigger": false,
+      "expect": "Notes cloud requires explicit approval; does not run local M5 pipeline as default",
+      "assertions": [
+        "No M5 local pipeline started without approval"
+      ]
+    },
+    {
+      "id": "n2",
+      "description": "Not trigger: primary Mac task, not M5 executor video",
+      "input": "Edit the audio of our podcast on the main Mac.",
+      "shouldTrigger": false,
+      "expect": "Out of scope for the M5 executor doctrine",
+      "assertions": [
+        "No MPS/LTX workflow engaged"
+      ]
+    }
+  ]
+}

@@ -1,19 +1,14 @@
 ---
 name: document-processing
-description: >
-  End-to-end document processing agent skill covering PDF manipulation
-  (extract, merge, split, rotate, watermark, form-fill, OCR), DOCX
-  creation and editing (templates, mail-merge, style management), XLSX
-  spreadsheet handling (formulas, charts, pivot tables, data analysis),
-  PPTX presentation generation (layouts, charts, media, speaker notes),
-  and cross-format document conversion via pandoc and native libraries.
-  Primary keyword clusters: PDF manipulation automation, DOCX generation
-  Python, Excel spreadsheet automation openpyxl, PowerPoint generation
-  python-pptx, document format conversion pandoc, mail merge automation,
-  PDF OCR extraction, batch document processing, office automation Python,
-  template-driven document generation. Designed for agentic platforms —
-  Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub Copilot,
-  Windsurf, and OpenCode.
+description: >-
+  Use this skill when processing documents programmatically — PDF manipulation
+  (extract, merge, split, rotate, watermark, form-fill, OCR), DOCX creation
+  and editing (templates, mail-merge, style management), XLSX spreadsheet
+  handling (formulas, charts, pivot tables, data analysis), PPTX presentation
+  generation (layouts, charts, media, speaker notes), and cross-format
+  document conversion via pandoc and native libraries. Designed for agentic
+  platforms — Claude Code, Codex, Cursor, Gemini CLI, OpenClaw, GitHub
+  Copilot, Windsurf, and OpenCode.
 version: 1.1.0
 author: Skill Foundry
 platforms:
@@ -854,7 +849,7 @@ A typical document-processing session follows this sequence:
 | `references/office-formats-guide.md` | DOCX templates, XLSX formatting, PPTX layouts, style consistency |
 | `references/conversion-matrix.md` | Full conversion pair matrix with tool recommendations and quality ratings |
 | `scripts/doc_tools_check.py` | PEP 723 pre-flight validation of all required tooling |
-| `evals/eval_cases.json` | 5 positive + 3 near-miss negative test cases |
+| `evals/evals.json` | 5 positive + 3 near-miss negative test cases |
 
 ---
 

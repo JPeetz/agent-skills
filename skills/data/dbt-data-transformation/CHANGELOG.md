@@ -41,3 +41,10 @@ Consolidated from the dbt-labs/dbt-agent-skills collection (10+ separate skills)
 - `references/dbt-model-patterns.md` — Staging/intermediate/marts patterns, materialization matrix, incremental strategies
 - `references/dbt-mesh-governance.md` — Cross-project refs, contracts, access controls, group/version management
 - `references/dbt-semantic-layer.md` — MetricFlow patterns, semantic models, metrics, dimensions, saved queries
+
+## v1.0.1 — 2026-10-28
+
+### Changed
+- Description rewritten to trigger form ("Use this skill when..."); removed "Production-grade" marketing word
+- Replaced machine-local `/Users/username` paths in the dbt MCP config with portable `~` paths
+- Added evals/evals.json with 7 cases (5 positive, 2 near-miss negatives)

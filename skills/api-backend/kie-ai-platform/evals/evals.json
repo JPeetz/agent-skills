@@ -1,0 +1,83 @@
+[
+  {
+    "id": "kie-001",
+    "description": "Create async generation task with Bearer auth",
+    "input": "Generate an image with gpt-image/1.5-image-to-image via Kie.",
+    "shouldTrigger": true,
+    "expect": "Agent POSTs to /api/v1/jobs/createTask with Authorization: Bearer header and input as a stringified JSON (json.dumps), gets back a taskId.",
+    "assertions": [
+      "uses Authorization: Bearer header, never x-api-key",
+      "input for gpt-image models is json.dumps() string, not a nested dict",
+      "HTTP 200 is treated as task creation only, not completion"
+    ]
+  },
+  {
+    "id": "kie-002",
+    "description": "Poll task result and parse double-encoded resultJson",
+    "input": "Check whether my image generation task task_abc123 is done and get the result URL.",
+    "shouldTrigger": true,
+    "expect": "Agent polls GET /api/v1/jobs/recordInfo?taskId=... and parses resultJson twice: json.loads(data[\"resultJson\"])[\"resultUrls\"].",
+    "assertions": [
+      "polls recordInfo endpoint with taskId query param",
+      "resultJson is parsed twice because it is a nested JSON string",
+      "result URLs are downloaded immediately since they expire"
+    ]
+  },
+  {
+    "id": "kie-003",
+    "description": "Verify webhook HMAC signature before trusting callback",
+    "input": "A Kie callback POST arrived at my server — verify it is authentic.",
+    "shouldTrigger": true,
+    "expect": "Agent computes base64(HMAC-SHA256(taskId + \".\" + timestamp, webhookHmacKey)) and compares with X-Webhook-Signature using hmac.compare_digest.",
+    "assertions": [
+      "message is taskId + \".\" + x-webhook-timestamp",
+      "signature verified with hmac.compare_digest against X-Webhook-Signature",
+      "webhookHmacKey comes from Kie settings, not hardcoded"
+    ]
+  },
+  {
+    "id": "kie-004",
+    "description": "Wrong auth header pitfall — x-api-key must not be used",
+    "input": "Set up API access to Kie using the x-api-key header like other providers.",
+    "shouldTrigger": true,
+    "expect": "Agent flags that x-api-key is wrong — it returns 401 silently — and uses Authorization: Bearer <key> instead.",
+    "assertions": [
+      "x-api-key is rejected as an anti-pattern",
+      "Authorization: Bearer header is used",
+      "key is managed at kie.ai/api-key, never hardcoded"
+    ]
+  },
+  {
+    "id": "kie-005",
+    "description": "File upload via free upload API",
+    "input": "Upload this reference image to Kie so I can use it as input for image generation.",
+    "shouldTrigger": true,
+    "expect": "Agent uploads to https://kieai.redpandaai.co (file-url-upload for remote URLs, file-stream-upload for binary, file-base64-upload for base64 under 10MB) and notes files expire after 24h.",
+    "assertions": [
+      "upload target is the kieai.redpandaai.co file upload base URL",
+      "upload method matches source type (URL/stream/base64)",
+      "uploaded file expiry (24h) is noted"
+    ]
+  },
+  {
+    "id": "kie-006",
+    "description": "Check account credits",
+    "input": "How many credits do I have left on Kie?",
+    "shouldTrigger": true,
+    "expect": "Agent calls GET /api/v1/chat/credit and reports the integer balance from data.",
+    "assertions": [
+      "calls /api/v1/chat/credit with Bearer auth",
+      "reports the credit balance to the user"
+    ]
+  },
+  {
+    "id": "kie-007",
+    "description": "Do not trigger for non-Kie model generation",
+    "input": "Use foo-bar model from some other vendor's API to make a video.",
+    "shouldTrigger": false,
+    "expect": "No Kie platform involvement — skill covers Kie.ai models and its async task API only.",
+    "assertions": [
+      "skill stays dormant for non-Kie providers"
+    ]
+  }
+]
