@@ -1,0 +1,45 @@
+[
+  {
+    "name": "pricing-model-selection-hybrid",
+    "description": "Test that a hybrid-consumption product with a measurable value metric is steered to usage/hybrid rather than seat, and that the output is a model plus rationale -- not a price.",
+    "test_input": "We sell an AI support triage tool to mid-market buyers. Average deal size is $18,000, we have 140 customers, consumption is hybrid (per-seat for agents plus per-ticket for automated deflection), value is measurable as 'tickets deflected per month', adoption is bottom-up-then-top-down, competitors price on seat and usage. Which pricing model should we use? Run scripts/pricing_model_picker.py.",
+    "expected_output": "A ranked table of five models with fit scores 0-100 where hybrid or usage ranks first, an explicit runner-up, and per-model rationale citing the declared hybrid consumption pattern and the measurable value metric. No specific price or currency figure is proposed.",
+    "assertions": [
+      "All five models (seat, usage, value, freemium, hybrid) are scored",
+      "hybrid or usage ranks first",
+      "Rationale references both the hybrid consumption pattern and the 'tickets deflected per month' metric",
+      "A runner-up model is named with its score",
+      "No single recommended price is stated",
+      "Output names the next step as willingness-to-pay analysis, not tier design"
+    ]
+  },
+  {
+    "name": "van-westendorp-range",
+    "description": "Test that the PSM analyzer returns the four intersection points and a range rather than a point estimate, and warns on a small sample.",
+    "test_input": "Here are 42 Van Westendorp survey responses in USD as survey.json (too_cheap, bargain, expensive, too_expensive per respondent). Run scripts/wtp_analyzer.py and tell me what to charge.",
+    "expected_output": "OPP, IDP, PMC and PME reported as prices, a Range of Acceptable Prices bounded by PMC and PME, guidance to list at or just under IDP, and an explicit statement that OPP is not the price.",
+    "assertions": [
+      "All four points (OPP, IDP, PMC, PME) are reported",
+      "A PMC-to-PME range is given, not a single number",
+      "The response states that the OPP is not the price",
+      "Guidance places list price at or just under IDP",
+      "N is reported and the minimum of 30 is referenced",
+      "Respondents with out-of-order thresholds are reported rather than silently dropped"
+    ]
+  },
+  {
+    "name": "tier-packaging-anti-patterns",
+    "description": "Test that the packaging designer produces cumulative Good/Better/Best tiers and catches a feature dump before the package is presented.",
+    "test_input": "Design Good/Better/Best packaging from features.json: 13 features, of which 3 are table stakes, 2 are mid-market workflow features, and 8 are enterprise governance features that each score ~10 for enterprise and ~1-3 for SMB. Run scripts/packaging_designer.py.",
+    "expected_output": "Cumulative tiers (Good is a subset of Better, Better of Best), relative price indexes anchored at Good = 1.00, a high-severity feature_dump flag because Best's incremental features carry over 60% of total value, and a segment_skew flag because most features are enterprise-dominated.",
+    "assertions": [
+      "Exactly three tiers are produced",
+      "Tiers are cumulative: every Good feature also appears in Better and Best",
+      "Price indexes are relative and anchored at Good = 1.00, with no absolute currency price",
+      "A feature_dump or segment_skew anti-pattern is flagged with high severity",
+      "Best's total feature count exceeds Good's, and the tier table reports incremental value separately from cumulative value",
+      "Each tier is given an upgrade trigger or an explicit note that a limit should gate it",
+      "The next step refers back to the PSM range for the absolute price"
+    ]
+  }
+]

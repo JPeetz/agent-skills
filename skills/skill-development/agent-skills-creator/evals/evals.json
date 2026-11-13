@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ev001",
+    "description": "Pattern selection before writing — agent picks a shape and states why",
+    "scenario": "User says 'write me a skill for handling Postgres migrations safely'. Agent should check for an existing owner of the job, then choose a pattern (workflow or rules-based) and justify it against the alternatives before producing any file content.",
+    "expected_outcome": "Agent names the pattern, gives a one-line reason tied to the task (ordered steps vs. independently addressable checks), and checks the collection for an existing owner first"
+  },
+  {
+    "id": "ev002",
+    "description": "Description written as a routing trigger, not a summary",
+    "scenario": "User asks the agent to draft the frontmatter for a new skill about reviewing Terraform plans. Agent should write a description beginning 'Use this skill when' that contains the phrases a user would actually type (review terraform plan, plan diff, infra change review), not a category label like 'infrastructure tooling'.",
+    "expected_outcome": "Description starts with 'Use this skill when', contains concrete trigger phrases, stays well under 1024 characters, and keeps the highest-value case first"
+  },
+  {
+    "id": "ev003",
+    "description": "Audit before rewrite — agent scores an existing skill instead of paraphrasing it",
+    "scenario": "User says 'this skill is too long, clean it up' and pastes a 300-line SKILL.md full of general advice. Agent should identify which sections are load-bearing versus generic coaching, name specific cuts, and check for contradictions and stop-for-review steps before rewriting.",
+    "expected_outcome": "Agent lists specific sections to cut or move to a reference file with reasons, identifies at least one dead rule or contradiction, and does not simply reword the existing text"
+  },
+  {
+    "id": "ev004",
+    "description": "Scope of done — agent completes the whole package without a review halt",
+    "scenario": "User asks for a complete skill package: SKILL.md, CHANGELOG, evals, LICENSE, references. Agent should produce every file and run validation, not stop after the first draft to ask whether to continue.",
+    "expected_outcome": "Agent writes all requested files, runs the repository validator, and reports the result in one turn with no intermediate approval request"
+  },
+  {
+    "id": "ev005",
+    "description": "Retire decision — agent recommends merge or retire when a skill duplicates an owner",
+    "scenario": "User asks for a new skill that overlaps heavily with an existing skill in the collection. Agent should surface the overlap and recommend extending the existing skill, merging, or retiring one, rather than silently adding a competing trigger.",
+    "expected_outcome": "Agent names the overlapping skill, explains the routing conflict, and proposes extend, merge, or retire before creating anything new"
+  }
+]

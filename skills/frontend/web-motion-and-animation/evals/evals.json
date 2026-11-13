@@ -1,0 +1,135 @@
+{
+  "skill": "web-motion-and-animation",
+  "version": "1.0.0",
+  "scoring": {
+    "scale": "0-3 per dimension",
+    "dimensions": {
+      "correctness": "API usage is valid for GSAP 3.12+/@gsap/react 2.x; semantics of to/from/fromTo and position params are right; no invented properties or plugins.",
+      "completeness": "Every part of the request is addressed: engine choice, timing, cleanup, responsive/reduced-motion handling where relevant.",
+      "safety": "No dangerous operations, no network calls, no dependency on a private registry or Club token; animations cannot trap input, hide focus, or leave the page in a broken state.",
+      "performance": "Only transform/opacity animated, will-change used sparingly, no layout thrash, no per-element tween explosion, ScrollTrigger used instead of scroll listeners."
+    },
+    "pass_threshold": ">= 9 of 12 total, with no dimension below 2"
+  },
+  "cases": [
+    {
+      "id": "e1-basic-tween",
+      "title": "Basic tween with engine justification",
+      "shouldTrigger": true,
+      "input": "Make the pricing cards fade and slide up when the page loads. There are three of them.",
+      "expect": "Chooses GSAP with a stagger (or CSS with transition-delay if the agent argues the case), animates only transform/opacity, uses autoAlpha not bare opacity, sets a duration in the 0.3-0.6s band with an out-ease, and adds a prefers-reduced-motion branch whose reduce path leaves the cards visible.",
+      "rubric": {
+        "correctness": {
+          "3": "Valid gsap.from/to with stagger and an out-ease; autoAlpha; correct from-semantics (CSS is the destination).",
+          "2": "Valid tween but uses opacity only, or a linear ease on a UI entrance.",
+          "1": "Animates a layout property, or writes the tween with an invalid/renamed property.",
+          "0": "No working animation, or invented API."
+        },
+        "completeness": {
+          "3": "Stagger, timing, reduced-motion branch, and final visible state all present.",
+          "2": "Animation works but no reduced-motion handling.",
+          "1": "Only a bare one-line tween with no accessibility consideration.",
+          "0": "Does not animate the cards."
+        },
+        "safety": {
+          "3": "Reduced-motion path renders content visible; no input blocked; no leftover inline opacity:0.",
+          "2": "Reduced motion handled but end state can leave an element hidden if the tween is interrupted.",
+          "1": "Cards can remain invisible on reduced motion or on a failed load.",
+          "0": "Content is permanently hidden or the page becomes unusable."
+        },
+        "performance": {
+          "3": "transform + opacity only, one tween with stagger, no will-change spam.",
+          "2": "Correct properties but per-element tweens instead of stagger.",
+          "1": "Animates width/height/top, or forces layout each frame.",
+          "0": "Layout-thrashing animation or a rAF loop writing layout properties."
+        }
+      }
+    },
+    {
+      "id": "e2-timeline",
+      "title": "Sequenced timeline with interruption",
+      "shouldTrigger": true,
+      "input": "Build the open/close animation for a modal: backdrop fades in, panel rises 24px and fades in overlapping the backdrop by 0.3s, then the buttons stagger in. The user can close it mid-animation.",
+      "expect": "Uses a single paused gsap.timeline, position parameters (\"-=0.3\", \"<0.1\"), toggle via tl.reversed(!tl.reversed()) or overwrite: \"auto\" rather than restart() on every click, and reverts/kills the timeline on unmount or close. Reduced motion resolves to the open state instantly.",
+      "rubric": {
+        "correctness": {
+          "3": "One timeline, correct position params, paused + reversed() toggle, valid control API.",
+          "2": "Timeline built correctly but interruption uses restart() on click.",
+          "1": "No timeline (independent tweens racing) or wrong position-param direction.",
+          "0": "Invalid API or the modal never opens."
+        },
+        "completeness": {
+          "3": "Backdrop, panel overlap, button stagger, close-mid-animation, and cleanup all handled.",
+          "2": "All visual steps present but no cleanup on unmount.",
+          "1": "Only the panel animates; backdrop/buttons ignored.",
+          "0": "Sequence not implemented."
+        },
+        "safety": {
+          "3": "Closing mid-flight leaves the modal fully hidden and interactive state correct; focus is not moved to a hidden node; no body scroll-lock left on.",
+          "2": "Closes cleanly but can leave a lock or a stale timeline.",
+          "1": "Rapid toggling strands the modal half-open.",
+          "0": "Modal becomes unclosable or traps the page."
+        },
+        "performance": {
+          "3": "transform/opacity only, one timeline, no repeated tween allocation per click.",
+          "2": "Correct properties but recreates the timeline on every open.",
+          "1": "Animates height/margin on the panel.",
+          "0": "Layout animation plus tween leak per toggle."
+        }
+      }
+    },
+    {
+      "id": "e3-scrolltrigger",
+      "title": "ScrollTrigger pin and scrub",
+      "shouldTrigger": true,
+      "input": "Pin the features section while the user scrolls through three steps, each fading in as they come into view. It's a Next.js app with React.",
+      "expect": "Registers ScrollTrigger once, uses useGSAP with a scope ref and reverts on unmount, builds a timeline with pin/scrub/ease:\"none\"/explicit end, sets invalidateOnRefresh, calls ScrollTrigger.refresh() after images/fonts settle, and provides a reduced-motion branch that skips pinning and shows all three steps.",
+      "rubric": {
+        "correctness": {
+          "3": "useGSAP({ scope }) + registerPlugin, timeline with pin + scrub + explicit end + ease:\"none\"; StrictMode safe.",
+          "2": "Working ScrollTrigger but missing scope, or missing ease:\"none\" on the scrub.",
+          "1": "ScrollTrigger created outside a context/cleanup path, or pin on a transformed ancestor unaddressed when relevant.",
+          "0": "Invalid config; nothing pins or scrubs."
+        },
+        "completeness": {
+          "3": "Pin, scrub, three steps, cleanup on unmount, refresh after load, reduced-motion branch.",
+          "2": "Pin and scrub work; refresh-on-load or reduced motion missing.",
+          "1": "Only a simple reveal, no pin.",
+          "0": "Not implemented."
+        },
+        "safety": {
+          "3": "Unmount kills the trigger; no scroll trap; keyboard scrolling still advances; reduced motion shows all content with no pin.",
+          "2": "Cleanup present but reduced motion still pins.",
+          "1": "Stale trigger after route change causes errors or a scroll trap.",
+          "0": "Page cannot be scrolled past the section."
+        },
+        "performance": {
+          "3": "transform/opacity only, one scrubbed timeline, no scroll listeners, will-change limited.",
+          "2": "Correct but adds a separate ScrollTrigger per step needlessly.",
+          "1": "Pins with a native scroll handler writing layout.",
+          "0": "Layout thrash per frame or per-step triggers with layout reads."
+        }
+      }
+    },
+    {
+      "id": "n1-css-sufficient",
+      "title": "Should NOT over-engineer a hover state",
+      "shouldTrigger": true,
+      "input": "Add a subtle lift on hover for the nav links.",
+      "expect": "Recommends a CSS transition on transform (translateY) rather than pulling in GSAP, unless GSAP is already a project dependency and used for this class of effect. Does not add a library for one hover state.",
+      "rubric": {
+        "correctness": { "3": "CSS transition on transform with a sensible duration and ease.", "2": "CSS chosen but transitions `top` or `box-shadow` alone.", "1": "Adds GSAP for a single hover state.", "0": "Broken hover or no change." },
+        "completeness": { "3": "Hover, focus-visible, and reduced-motion covered.", "2": "Hover only.", "1": "Hover only, and no focus parity.", "0": "Nothing added." },
+        "safety": { "3": "No layout shift; focus-visible gets the same treatment.", "2": "Works but no focus parity.", "1": "Hover-only effect that shifts neighbouring layout.", "0": "Breaks navigation." },
+        "performance": { "3": "transform/opacity transition, compositor-friendly.", "2": "box-shadow transition.", "1": "Transitions top/left/margin.", "0": "Adds a JS animation loop for a hover." }
+      }
+    },
+    {
+      "id": "n2-not-motion-work",
+      "title": "Should NOT trigger: static layout task",
+      "shouldTrigger": false,
+      "input": "The footer columns should be a 4-column grid on desktop and stacked on mobile.",
+      "expect": "Layout/CSS grid work; no animation library, no tweens."
+    }
+  ]
+}

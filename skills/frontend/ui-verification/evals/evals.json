@@ -1,0 +1,69 @@
+{
+  "skill": "ui-verification",
+  "version": "0.1.0",
+  "cases": [
+    {
+      "id": "e1",
+      "description": "Should trigger: verify a fix in the browser",
+      "input": "The empty state fix just landed. Verify it in the browser.",
+      "shouldTrigger": true,
+      "expect": "Runs the identical failure-injection probe as the original run, keeps the before artifact, records clearedBy, and reports applied / applied-unverified / regression"
+    },
+    {
+      "id": "e2",
+      "description": "Should trigger: reproduce a handed-over finding",
+      "input": "Static audit says our icon buttons are under 44px. Can you reproduce that?",
+      "shouldTrigger": true,
+      "expect": "Runs target-size on the resolved routes, reports bounding box in px with viewport width, checks pseudo-element hit-area expansion before failing"
+    },
+    {
+      "id": "e3",
+      "description": "Should trigger: exploratory pass on a finished feature",
+      "input": "The checkout flow passes its acceptance checks. Try to break it.",
+      "shouldTrigger": true,
+      "expect": "Loads references/exploratory-test.md, drives the feature like a fresh user in a test environment, files findings under explore: with reproduction steps"
+    },
+    {
+      "id": "e4",
+      "description": "Should trigger: theme and locale captures",
+      "input": "Capture the settings page in light and dark, LTR and RTL.",
+      "shouldTrigger": true,
+      "expect": "Drives the app's own theme toggle, asserts the theme attribute landed, runs the theme-locale-matrix probe, re-runs axe per theme, then visual review of matched captures"
+    },
+    {
+      "id": "e5",
+      "description": "Should trigger: before/after screenshot review",
+      "input": "Here are before and after screenshots of the pricing page - did anything regress?",
+      "shouldTrigger": true,
+      "expect": "Follows references/visual-review.md: matched viewport and theme, aligned crops, flags suspicious duplicates and unintended spacing shifts, separates visual observations from measurements"
+    },
+    {
+      "id": "e6",
+      "description": "Should trigger: performance attribution",
+      "input": "Our LCP is bad on the dashboard. What element is causing it?",
+      "shouldTrigger": true,
+      "expect": "Runs web-vitals against a production build with cold cache, attributes LCP to a specific element, records throttling conditions, issues no budget verdict"
+    },
+    {
+      "id": "n1",
+      "description": "Should NOT trigger: UI implementation work",
+      "input": "Restyle the pricing cards to use a bigger type scale.",
+      "shouldTrigger": false,
+      "expect": "Building UI, not verifying it"
+    },
+    {
+      "id": "n2",
+      "description": "Should NOT trigger: static source review",
+      "input": "Read components/Button.tsx and tell me if the ARIA usage is wrong.",
+      "shouldTrigger": false,
+      "expect": "Source-only review; no browser session is needed"
+    },
+    {
+      "id": "n3",
+      "description": "Should NOT trigger: durable test suite authoring",
+      "input": "Add Playwright tests for the signup form to CI.",
+      "shouldTrigger": false,
+      "expect": "Durable regression suite, not a one-off verification probe"
+    }
+  ]
+}

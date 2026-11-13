@@ -1,0 +1,41 @@
+{
+  "skill_name": "deprecation-and-migration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're deprecating the `GET /v1/tasks` endpoint in favour of `GET /v2/tasks`. The v2 endpoint returns tasks with `assignee` as an object instead of a user-id string, and returns 400 instead of 500 for a malformed date filter. Write the deprecation notice we should ship.",
+      "expected_output": "A notice that states status with a version and date, names the replacement, gives an earliest-removal version and date under the support window (one full minor release or 90 days, whichever is longer), and a reason. Critically it must warn about the behavior differences — `assignee` changing shape and the 400-vs-500 error change — as migration items, not just the URL change, and map old to new in a table with runnable verification steps and a named owner.",
+      "expectations": [
+        "Includes a status with explicit version and date, and an earliest-removal version plus date",
+        "Flags both behavior differences (assignee shape, 400 vs 500) as things consumers must handle, not only the path change",
+        "Provides an old -> new mapping table and concrete migration steps",
+        "Recommends shipping the same notice in CHANGELOG, docs, and a runtime signal (header or warning) rather than a single location",
+        "Names an owner and a support channel"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We need to rename the `users.name` column to `full_name` in Postgres. It's a 40M-row table on a live API with rolling deploys. Can the migration just do ALTER TABLE users RENAME COLUMN name TO full_name, and update the code in the same PR?",
+      "expected_output": "No. Renaming in place means that during a rolling deploy old pods query `name` while new pods query `full_name`, so one set of requests fails for the whole rollout window. Use expand/contract: add a nullable `full_name`, deploy; dual-write both, deploy; backfill `name -> full_name` in throttled batches; switch reads to `full_name`, deploy and bake; then stop writing `name`; and drop `name` in a separate later deploy once no code references it. Each step independently deployable and reversible, with a tested down path for the migration.",
+      "expectations": [
+        "Rejects the in-place RENAME and explains the rolling-deploy window where old and new code coexist",
+        "Gives the additive phases in order: expand, dual-write, backfill, switch reads, contract, with a separate deploy for the drop",
+        "Requires the backfill to be batched and throttled rather than one UPDATE over 40M rows",
+        "Requires a tested down path before merging",
+        "Notes that the destructive drop ships alone, after no code references the old column"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We're shutting down the legacy `reports.internal.example.com` service next month. Traffic is down to about 2k requests/day and the team already announced it. What do we need to do to actually turn it off?",
+      "expected_output": "Treat it as deprecation plus infrastructure, not a deletion task. First question is who the remaining 2k/day are — named clients, not a number — because announced-and-still-calling means the announcement did not migrate anyone. Replace the shutdown with a 410 Gone tombstone pointing at the replacement, kept alive for the support window. Then: decide and document data retention and export with a verified restore, revoke credentials and API keys (invalidate, don't just rotate), delete IAM roles and OAuth clients, deregister third-party webhooks, remove DNS and let certs lapse only after the tombstone window, remove alerts/dashboards/synthetics and the on-call rotation, and confirm billing is at zero including orphaned buckets, snapshots, and log groups.",
+      "expectations": [
+        "Identifies the remaining 2k/day as unmigrated named consumers and requires identifying them rather than announcing again",
+        "Serves a 410 Gone tombstone with a pointer to the replacement instead of a bare shutdown (and warns about client retry storms)",
+        "Covers data retention/export with a restore-tested backup and scheduled PII deletion",
+        "Covers credential, IAM, OAuth, and third-party webhook deregistration",
+        "Covers DNS/cert removal timing, alert and on-call cleanup, and orphaned resource/billing verification"
+      ]
+    }
+  ]
+}

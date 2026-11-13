@@ -1,0 +1,56 @@
+{
+  "skill_name": "changelog-generator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're on v1.4.0. Since that tag we have: feat(api): add pagination, fix: timezone drift, docs: pagination params, and a commit 'feat(api)!: drop the v1 tasks endpoint' whose body has 'BREAKING CHANGE: clients must migrate to GET /v2/tasks.' What version is next and what does the changelog entry look like?",
+      "expected_output": "Version 2.0.0 (a breaking change forces a major bump, not 1.5.0). A Keep a Changelog entry dated for the release with Added (pagination), Fixed (timezone drift), Documentation (params), Changed containing the dropped endpoint, and a migration note quoting the BREAKING CHANGE footer. The docs commit may be included; there are no chore commits to suppress in this input.",
+      "expectations": [
+        "Bumps to 2.0.0, not 1.5.0 or 1.4.1",
+        "Breaking change appears under Changed, not Added",
+        "Migration note from the BREAKING CHANGE footer is preserved verbatim",
+        "Groups commits into Added / Changed / Fixed sections rather than listing raw commit lines"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Generate the changelog entry for the range since v1.4.0 and save it into our existing CHANGELOG.md, which already has a 1.4.0 section.",
+      "expected_output": "Run scripts/generate_changelog.py --from v1.4.0 --version <next> --update CHANGELOG.md. The new section is prepended above the existing 1.4.0 section, the existing history is untouched, and the script refuses (non-zero exit) if that version is already present.",
+      "expectations": [
+        "Uses the --update flag with --from and --version",
+        "New entry goes above existing sections, not replacing them",
+        "Mentions the duplicate-version guard as the failure mode"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our git history is full of messages like 'fixed stuff', 'WIP', 'update code', and 'Merge branch main into feature'. Can I generate a changelog from this?",
+      "expected_output": "Not usefully. The generator skips merge commits and non-Conventional messages, so those commits produce no entries. Run scripts/commit_linter.py over the history first to see which commits are unparseable, adopt the Conventional Commit format going forward, and only then rely on generation. Do not hand-write entries that pretend the commits were structured.",
+      "expectations": [
+        "States that non-conventional and merge commits are skipped, not coerced",
+        "Recommends the linter as the enforcement step before generation can be trusted",
+        "Does not invent changelog lines for unparseable commits"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I want to block badly formatted commit messages in CI before they merge. How do I wire up the linter?",
+      "expected_output": "Run scripts/commit_linter.py --range origin/main..HEAD (or the PR base..head range) in a CI step; it exits 1 on violations and 0 when clean, and --format json gives a machine-readable report. Use --strict to also fail on style warnings such as trailing periods or uppercase descriptions.",
+      "expectations": [
+        "Uses --range with a PR-scoped range rather than the whole history",
+        "Notes the exit-code contract (1 = violations, 0 = clean)",
+        "Mentions --strict and/or --format json for CI reporting"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Since the last tag we only have 'chore: bump dev deps' and 'test: add coverage for parser'. Should I cut a patch release?",
+      "expected_output": "No. Both types are omitted from the changelog, so the commit stream implies no bump. Skip the release; cutting a patch version for internal-only changes teaches consumers that version numbers are noise.",
+      "expectations": [
+        "Declines the release rather than suggesting a patch bump",
+        "Explains that chore/test commits are non-releasable by type",
+        "Notes the cost of releasing with no consumer-visible change"
+      ]
+    }
+  ]
+}

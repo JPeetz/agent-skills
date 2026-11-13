@@ -145,7 +145,8 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 |-------|--------|-------------|-----------|
 | [skill-lifecycle-foundry](/skills/skill-development/skill-lifecycle-foundry) | Skill Development | Mine, author, personalize, and generalize agent skills across their full lifecycle — session mining to release checklist | Universal |
 | [skill-miner](/skills/skill-development/skill-miner) | Skill Development | Mine agent session/archive history for repeated skill-worthy workflows | Universal |
-| [interview-me](/skills/skill-development/interview-me) | Skill Development | One-question-at-a-time interview to resolve underspecified asks | Universal |
+|| [interview-me](/skills/skill-development/interview-me) | Skill Development | One-question-at-a-time interview to resolve underspecified asks | Universal |
+|| [skill-portability-and-packaging](/skills/skill-development/skill-portability-and-packaging) | Skill Development | Package and port skills across agent hosts: spec hard rules, install roots, description budgeting, plugin/marketplace manifests, hazard sweep, install verification | Universal |
 
 |### 💼 Business & Strategy (3 skills)
 

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "quiet-launch-feature-in-existing-product",
+    "description": "Test that a low blast-radius feature inside a live product is tiered down to a quiet ship, routed through owned channels only, and given an adoption metric rather than a signup metric.",
+    "test_input": "We shipped a bulk-export button for existing customers. It works, 3 people tested it, it is behind a flag we can turn off. Our marketer wants to do a Product Hunt launch next Tuesday because 'we never launch anything.' What is the launch plan?",
+    "expected_output": "A SHIP verdict with Tier 0 (quiet ship), justified by reversibility and low blast radius. Channels limited to changelog plus one owned post, no Product Hunt or HN. Priority is Product Hunt explicitly deferred or rejected with a reason, and the success metric is adoption among exposed users, not signups. Any Tier 2 suggestion must be gated on the quiet-ship adoption data.",
+    "assertions": [
+      "Verdict is SHIP (or SHIP SMALL), not HOLD",
+      "Tier 0 / quiet ship is selected and justified by reversibility and blast radius",
+      "Product Hunt is deferred or rejected explicitly, not silently dropped",
+      "Channels are owned-only (changelog, in-app note, one owned post)",
+      "Success metric is adoption among exposed users, not signups or upvotes",
+      "No full launch-day runbook, press kit, or ORB full set is prescribed",
+      "The answer names a path to escalate to Tier 1 if adoption data supports it"
+    ]
+  },
+  {
+    "name": "full-launch-with-channel-capture",
+    "description": "Test that a genuine new-product launch is tiered up correctly, that every rented and borrowed channel carries an owned destination, and that activation is defined before the runbook is written.",
+    "test_input": "Launching a standalone AI code-review tool for small teams in four weeks. We have 1,200 newsletter subscribers, an X account with 4,000 followers, and a podcast host who offered to mention us. No pricing page yet, no analytics events beyond pageviews. Give me the full launch plan.",
+    "expected_output": "Readiness gate flags two blockers (no pricing page, no activation events) and requires them fixed before Tier 2. Tier 2 with a dated runbook, PH and HN playbooks, an ORB channel map where the podcast mention and every X post route to a landing page with email capture, a positioning statement plus three checkable proof points and at least five objections, and an activation definition (one observable action plus window) installed before launch-day metrics are trusted.",
+    "assertions": [
+      "Ready-gate blockers include the missing pricing page and the absence of activation-level analytics",
+      "Tier 2 is selected and the runbook has dated steps with named owners",
+      "Every rented and borrowed channel has an owned destination in the channel map",
+      "The podcast mention is scheduled with a specific ask and a date, not left as 'sometime'",
+      "Positioning statement follows the For/who/is a/that/Unlike/because shape",
+      "Exactly three proof points are given and none is an unsourced projection",
+      "At least five objections appear with responses",
+      "Activation is defined as one observable action within a window before launch",
+      "Rollback criteria are numeric and stated before T-0"
+    ]
+  },
+  {
+    "name": "launch-under-pressure-with-issues",
+    "description": "Test that a launch blocked by live defects and an undefined rollback path gets a HOLD or scoped-down verdict rather than a loud push, and that the abort conditions are surfaced instead of a feel-good checklist.",
+    "test_input": "We are 48 hours from a Show HN and a Product Hunt listing. Checkout fails intermittently for about 8% of attempts, we have not tested signup on a clean browser, and no one has decided what would make us pull the launch. The founder says we cannot move the date because it was announced to investors. What do we do?",
+    "expected_output": "A HOLD or readiness-gated verdict: the 8% payment failure exceeds the stated rollback threshold and the clean-profile signup gap is an unresolved blocker, so the public push is unsafe. The answer separates the internal investor commitment from the public channel commitment, proposes shipping a smaller scope or a landing page with email capture while checkout is fixed, states written rollback criteria (error rate, payment provider failure, data exposure, support queue), and refuses to treat the announced date as a reason to launch broken.",
+    "assertions": [
+      "Verdict is HOLD or explicitly conditional, not a go",
+      "The 8% checkout failure is compared against the numeric rollback threshold",
+      "Untested clean-profile signup is treated as an unresolved blocker",
+      "The answer distinguishes the investor commitment from the public channel commitment",
+      "A reduced-scope alternative (waitlist/landing page, or Tier 1 beta) is offered",
+      "Rollback criteria are written out numerically before T-0",
+      "The plan states that a wrong public claim or payment failure is worse than a delayed launch",
+      "No fabricated proof points or metrics are introduced to justify going ahead"
+    ]
+  }
+]

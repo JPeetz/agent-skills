@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ev001",
+    "description": "New skill packaging — full package, not just SKILL.md",
+    "scenario": "User says: 'This skill is done on my machine. Package it so I can publish it to the repo and it installs cleanly for other people.' The source dir is ~/scratch/my-skill with SKILL.md, one script, and no LICENSE. The agent should validate the shape first (name matches folder, charset, description length), then produce LICENSE, CHANGELOG, evals/evals.json and references/, sweep for absolute paths and secrets, and run the repo validator.",
+    "expected_outcome": "Agent checks name==directory and description budget before writing, creates all five package artifacts, reports the validator's valid/issues output, and names the install command (npx skills add owner/repo --skill name) rather than hand-waving 'copy it somewhere'"
+  },
+  {
+    "id": "ev002",
+    "description": "Port to a new host — places files and names what changes",
+    "scenario": "User says: 'Take this Claude Code skill and make it work on Codex, Cursor and OpenClaw too. Don't fork the content.' The skill body says 'use the Read tool' and 'run python setup.py'. The agent should map each host's project/global root from the matrix, keep one canonical copy, replace host-specific tool names with action phrasing, and fix the interpreter (python3, no install step) instead of duplicating files per host.",
+    "expected_outcome": "Agent lists the concrete target paths per host (including OpenClaw precedence and its symlink containment caveat), edits the single source for tool-name and interpreter portability, and states the symlink-vs-copy tradeoff instead of creating four divergent copies"
+  },
+  {
+    "id": "ev003",
+    "description": "Troubleshooting a broken install — verifies the loaded copy first",
+    "scenario": "User says: 'I copied the updated skill into ~/.claude/skills but Claude keeps using the old instructions.' The agent should not start rewriting the skill content. It should locate every copy of the skill across the host roots, hash the source and the resolved loaded file, look for a shadowing copy in a higher-precedence location or a plugin-installed duplicate, and check whether the session needs a restart.",
+    "expected_outcome": "Agent enumerates candidate roots, compares hashes of source vs. loaded path, identifies the stale/shadowing copy (or the missing restart) as the cause, and only then proposes the fix — without editing content that may already be correct"
+  }
+]

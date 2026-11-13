@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ev001",
+    "description": "Dependency audit — transitive Apache-2.0/GPL-2.0 conflict surfaced before release",
+    "scenario": "User says: 'We're about to publish the v3 API container image on Docker Hub. Legal wants to know if we're clean — the license file says MIT.' The repo is a Node service with a lockfile, and there is a ./vendor directory with two hand-copied modules.",
+    "expected_outcome": "Agent inventories from the resolved lockfile and the vendor directory (not from the root LICENSE or package.json), identifies one transitive GPL-2.0-only dependency and one Apache-2.0 dependency that the GPL-2.0-only code links against, states that Apache-2.0 code cannot be combined into a GPL-2.0-only work because GPLv2 §6 forbids additional restrictions, gives concrete remediation options (swap to the GPL-3.0 build, replace the library, or isolate behind a separate process with counsel sign-off), and labels the whole output engineering guidance rather than a legal clearance.",
+    "checks": [
+      "Scans the lockfile and vendored paths, not the declared ranges",
+      "Names the specific incompatible pair and the license clause that causes it",
+      "Does not declare the project 'compliant' or 'legally safe'",
+      "Proposes at least two remediation paths and defers the boundary call to counsel"
+    ]
+  },
+  {
+    "id": "ev002",
+    "description": "NOTICE generation — aggregates Apache-2.0 notices and full permissive texts, transitively",
+    "scenario": "User asks: 'Generate the third-party notices file for our desktop app release. We ship about 300 npm packages, 40 of which we list as direct dependencies — 12 of those are Apache-2.0 and the rest are MIT/BSD/ISC.'",
+    "expected_outcome": "Agent generates the notices from the full resolved tree rather than the 40 direct dependencies, aggregates any upstream NOTICE files verbatim into a NOTICE section (Apache-2.0 §4(d) requires the notices be included and unmodified), emits full license texts for every package rather than URLs, deduplicates by package/version/license while keeping every distinct copyright line, and recommends regenerating in CI with a build failure when the committed file drifts from a fresh generation.",
+    "checks": [
+      "Covers transitive dependencies, not just the declared 40",
+      "Preserves upstream NOTICE content verbatim instead of rewriting it",
+      "Includes full license texts, not links",
+      "Recommends a CI drift check, and mentions SBOM (SPDX/CycloneDX) output"
+    ]
+  },
+  {
+    "id": "ev003",
+    "description": "CI policy violation — new AGPL dependency blocked with an expiring waiver path",
+    "scenario": "A pull request adds a document-conversion package that pulls in an AGPL-3.0-only transitive dependency into the server-side bundle. The repo already carries 40 pre-existing copyleft dependencies that predate the policy. The user says: 'The CI gate is failing and it's blocking everyone — can we just switch it to warn?'",
+    "expected_outcome": "Agent keeps the gate failing and treats the AGPL case as a genuine finding rather than a nuisance: explains that AGPL-3.0 §13 obligates offering corresponding source to users interacting with the software over a network, so a server-side AGPL dependency is exactly the case the gate exists to catch. It baselines the 40 pre-existing dependencies so the gate only fails on new additions, and offers the waiver mechanism with a named owner, a written justification, and an expiry date — not a global downgrade to warn.",
+    "checks": [
+      "Refuses to convert the gate to warn-only",
+      "Distinguishes the new AGPL dependency from the baselined historical debt",
+      "Explains the §13 network-use obligation in the agent's own words",
+      "Waiver, if offered, carries an owner and an expiry"
+    ]
+  }
+]

@@ -32,10 +32,11 @@ def validate_skill(skill_dir: str) -> dict:
         return {"valid": False, "issues": [{"type": "yaml_error", "message": f"Frontmatter parse error: {e}"}]}
 
     # Required fields
+    skill_name = os.path.basename(os.path.normpath(skill_dir))
     if "name" not in fm:
         issues.append({"type": "missing_name", "message": "Missing required 'name' field"})
-    elif fm["name"] != os.path.basename(skill_dir):
-        issues.append({"type": "name_mismatch", "message": f"name '{fm['name']}' doesn't match folder '{os.path.basename(skill_dir)}'"})
+    elif fm["name"] != skill_name:
+        issues.append({"type": "name_mismatch", "message": f"name '{fm['name']}' doesn't match folder '{skill_name}'"})
 
     if "description" not in fm:
         issues.append({"type": "missing_description", "message": "Missing required 'description' field"})

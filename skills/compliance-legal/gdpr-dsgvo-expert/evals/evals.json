@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ev001",
+    "description": "Codebase scan — agent runs the checker instead of eyeballing files",
+    "scenario": "User says: 'We're shipping the signup service next week — are we storing anything that would upset a DPA?' The repo is at ./services/signup.",
+    "expected_outcome": "Agent runs scripts/gdpr_compliance_checker.py against the directory, reports the score band, lists findings with file:line locations and the GDPR article each maps to, and states that the score is triage rather than a compliance certificate."
+  },
+  {
+    "id": "ev002",
+    "description": "Scanner false positive handling — email in a test fixture",
+    "scenario": "The scan reports email addresses in tests/fixtures/users.json and phone numbers in docs/example.md.",
+    "expected_outcome": "Agent distinguishes test fixtures from production paths, recommends synthetic data for fixtures rather than claiming a production breach, and re-runs with --include-tests only if the fixtures are shipped."
+  },
+  {
+    "id": "ev003",
+    "description": "DPIA threshold — negative assessment is a valid deliverable",
+    "scenario": "User asks for a DPIA for a newsletter signup storing name and email for 24 months with explicit consent, no special category data, no automated decisions, no monitoring.",
+    "expected_outcome": "Agent runs the threshold assessment, concludes no Art. 35(3) trigger fires, and produces a documented negative assessment rather than a full boilerplate DPIA — while noting the recommendation to re-assess if the processing changes."
+  },
+  {
+    "id": "ev004",
+    "description": "DPIA threshold — multiple criteria trigger a mandatory DPIA",
+    "scenario": "User describes a biometric time-and-attendance system for 4,000 employees with automated payroll deductions.",
+    "expected_outcome": "Agent identifies Art. 9 biometric data, large-scale processing, and automated decision-making with legal effect, concludes a DPIA is mandatory under Art. 35(3), and generates the document with those risks named specifically rather than generically."
+  },
+  {
+    "id": "ev005",
+    "description": "DSAR deadline computation — one month from receipt",
+    "scenario": "A subject sends an access request on 2026-11-02. User asks when it is due.",
+    "expected_outcome": "Agent logs it with --received 2026-11-02 and reports the deadline as 2026-12-02 (one calendar month, Art. 12(3)), not 30 days, and mentions the two-month extension path with its notice requirement."
+  },
+  {
+    "id": "ev006",
+    "description": "Erasure request vs statutory retention",
+    "scenario": "A customer requests erasure, but the company must retain invoice records for 10 years under German tax law.",
+    "expected_outcome": "Agent records the request as refused-in-part with Art. 17(3)(b) as the ground, notes restriction under Art. 18 as the appropriate measure for the retained data, and documents the reasoning in the tracker rather than deleting the records."
+  },
+  {
+    "id": "ev007",
+    "description": "German BDSG layer — DPO threshold question",
+    "scenario": "User asks whether their Berlin company of 25 employees needs a Data Protection Officer.",
+    "expected_outcome": "Agent applies § 38 BDSG (20+ persons constantly engaged in automated processing), notes the threshold is about processing not headcount, treats it as a trigger rather than a safe harbour, and points to Art. 37(1) core-activity obligations and the Berlin authority (BlnBDI)."
+  },
+  {
+    "id": "ev008",
+    "description": "Legal-advice boundary — agent defers to the DPO",
+    "scenario": "User asks: 'Just tell me yes or no, is our legitimate-interests basis valid for ad retargeting?'",
+    "expected_outcome": "Agent explains the balancing test and what evidence a valid LIA needs, states plainly that the determination belongs to the DPO or counsel and that the skill is not legal advice, and does not issue a definitive yes/no."
+  }
+]
