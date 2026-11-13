@@ -1,0 +1,49 @@
+[
+  {
+    "id": "dpe-001",
+    "description": "Design an hourly incremental ELT pipeline with idempotency and backfill",
+    "input": "We have a Postgres orders table (about 200M rows) and need it in BigQuery for dashboards that must never be more than 30 minutes stale. It currently does a full reload every night and takes 2 hours. Design the replacement and give me the DAG.",
+    "shouldTrigger": true,
+    "expect": "Agent identifies full refresh as the root cost problem, chooses partition-scoped incremental load with a half-open watermark window read from the target, specifies MERGE on order_id with an updated_at guard plus dedupe before merge, sets daily/hourly partitioning on event_date with clustering, requires a partition filter and maximum_bytes_billed, specifies freshness/volume/uniqueness checks that block publish, and gives a partition-scoped backfill plan with throttling and a live-table swap. Notes catchup=False, max_active_runs=1, and deriving the partition from the logical date rather than now().",
+    "assertions": [
+      "recommends incremental over full refresh, with the reason stated in cost/scan terms",
+      "watermark is read from the target and the window is half-open and bounded by the run's logical timestamp",
+      "MERGE or partition-overwrite is specified with a concrete business key, not 'INSERT INTO ... SELECT'",
+      "partitioning and clustering columns are named, and a partition filter is enforced on the large table",
+      "quality checks are named and at least freshness and volume are marked blocking",
+      "backfill is partition-scoped, throttled, and isolated from the live table",
+      "does not use now()/CURRENT_TIMESTAMP for the partition bound"
+    ]
+  },
+  {
+    "id": "dpe-002",
+    "description": "Debug duplicate and missing rows in a Kafka streaming sink",
+    "input": "Our Kafka -> Spark Structured Streaming job writes clickstream events into Snowflake. After a weekend restart the dashboard shows event counts about 1.8x normal, and we're also seeing a few hundred messages sitting in the DLQ with 'column count mismatch'. Where do we start?",
+    "shouldTrigger": true,
+    "expect": "Agent separates the two incidents: (1) duplicates caused by non-idempotent sink plus offset/checkpoint mismatch on restart — recommends dedupe on a deterministic key (topic/partition/offset, or event_id) with MERGE into the target, exactly-once with checkpointing aligned to the sink, and idempotent producer settings; (2) schema drift — the mismatch is a drift event, so inspect the registry compatibility mode and the raw payload, add a tolerant reader with a quarantined _extra JSON column, replay the DLQ after fixing rather than dropping it. Also asks whether the 1.8x is duplicates or double-subscribed consumers, and recommends adding a uniqueness check plus volume check so the next occurrence pages before a human notices the dashboard.",
+    "assertions": [
+      "does not treat duplicates and the DLQ mismatch as one bug",
+      "names a deterministic dedupe key and an idempotent sink write (MERGE/upsert), not just 'restart with exactly-once'",
+      "explains the checkpoint/offset vs sink-commit gap as the duplicate source",
+      "classifies column-count mismatch as schema drift and proposes a tolerant reader plus quarantine rather than dropping messages",
+      "proposes replaying the DLQ after the fix and adding uniqueness/volume checks to detect recurrence",
+      "considers the mundane explanation (double consumer / duplicated source) before assuming deep pathology"
+    ]
+  },
+  {
+    "id": "dpe-003",
+    "description": "Backfill 18 months of history without breaking the live pipeline",
+    "input": "We changed our revenue attribution logic and need to recompute 18 months of the orders_fact table, plus everything downstream. The table is live and the BI team uses it all day. How do we do this safely?",
+    "shouldTrigger": true,
+    "expect": "Agent scopes the work by partition and writes the partition list to a resumable manifest, proves idempotency by rerunning one known-good partition and comparing checksums, then backfills into an isolated table (or a separate warehouse/compute pool) with throttled concurrency, verifies, and swaps atomically. Cascades downstream dependents explicitly (asset graph or dbt state:modified+ selection) rather than assuming, tags runs as run_type=backfill so freshness alerts don't misfire, and schedules off-peak with lower priority. Warns against in-place UPDATE of production history and against 'rerun everything' as the first move.",
+    "assertions": [
+      "enumerates partitions explicitly and makes the run resumable",
+      "verifies idempotency on a single good partition before starting the bulk run",
+      "writes to an isolated target and swaps atomically instead of mutating the live table in place",
+      "throttles concurrency and uses a separate queue/warehouse so production isn't starved",
+      "names the downstream dependents and how the cascade is triggered",
+      "tags backfill runs so monitoring distinguishes them from scheduled runs",
+      "does not propose in-place UPDATE/DELETE of production history as the mechanism"
+    ]
+  }
+]

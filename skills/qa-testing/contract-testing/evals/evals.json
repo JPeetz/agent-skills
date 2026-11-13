@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ev001",
+    "description": "Diagnose a failing can-i-deploy gate",
+    "scenario": "A deploy pipeline blocks with 'Computer says no' from `pact-broker can-i-deploy --pacticipant orders-api --version 4f2c1ab --to-environment production`. The provider's own tests are green. The user asks why the deploy is blocked and how to unblock it safely.",
+    "expected_outcome": "Agent reads the matrix/verbose output, identifies the failing consumer-provider pair and which consumer version is live in production, explains that a verification result is missing or failed for that pair rather than a code bug, and proposes either fixing the provider or publishing a fresh verification — explicitly rejecting a `--force`/skip-the-gate workaround."
+  },
+  {
+    "id": "ev002",
+    "description": "Repair fragile matchers in a consumer pact",
+    "scenario": "A consumer test asserts an exact `total: 1999`, an exact `createdAt` timestamp, and an exact `status: 'paid'`. The provider's weekly refactor keeps breaking the contract even though nothing the consumer uses has changed. The user asks how to make the contract stable.",
+    "expected_outcome": "Agent replaces exact values with type/format matchers (`like`/`integer`, `iso8601DateTime`, `regex` for the status enum), keeps value assertions only where the consumer branches on them, and explains that over-specified contracts create false failures that erode trust in the suite."
+  },
+  {
+    "id": "ev003",
+    "description": "Adopt BDCT for a provider that will not run Pact",
+    "scenario": "A team owns the consumer of a legacy provider maintained by another department, which refuses to add a Pact dependency or run provider verification. There are 14 consumer teams. The user asks how to get contract safety without provider-side Pact.",
+    "expected_outcome": "Agent recommends bi-directional contract testing: publish consumers' pacts as usual, publish the provider's OpenAPI spec plus Drift self-verification results with `pactflow publish-provider-contract`, then gate with cross-contract `can-i-deploy`. Also flags the prerequisite that the OpenAPI spec must be accurate (Drift enforces this) and the limitation that BDCT does not cover message/event contracts."
+  }
+]

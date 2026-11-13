@@ -1,0 +1,51 @@
+{
+  "skill": "performance-testing",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "perf-001",
+      "description": "Write a k6 load test for a checkout API with SLO thresholds",
+      "input": "Write a k6 script to load test our checkout API. It should handle 500 requests per second and fail the build if p95 latency goes over 400ms or errors exceed 0.5%.",
+      "shouldTrigger": true,
+      "expect": "Agent produces a k6 script using an arrival-rate executor, explicit thresholds, tagged requests, and realistic think time",
+      "assertions": [
+        "Uses constant-arrival-rate or ramping-arrival-rate executor rather than only vus/duration",
+        "Defines thresholds with http_req_duration p(95)<400 and http_req_failed rate<0.005",
+        "Sets preAllocatedVUs and maxVUs appropriate to the rate",
+        "Tags requests by endpoint and adds check() assertions",
+        "Includes think time or explains why it is omitted",
+        "Exits non-zero on threshold breach for CI gating"
+      ]
+    },
+    {
+      "id": "perf-002",
+      "description": "Set up Lighthouse CI performance budgets as a PR gate",
+      "input": "Add Lighthouse CI to our GitHub Actions pipeline and enforce Core Web Vitals budgets on pull requests.",
+      "shouldTrigger": true,
+      "expect": "Agent creates lighthouserc configuration with numeric assertions, budgets file, multiple runs, and a workflow step",
+      "assertions": [
+        "Creates lighthouserc.js (or .json) with ci.collect, ci.assert, ci.upload sections",
+        "Sets numberOfRuns >= 3 and median aggregation",
+        "Asserts largest-contentful-paint <= 2500 and cumulative-layout-shift <= 0.1",
+        "Uses total-blocking-time as the lab proxy for INP, not FID",
+        "Adds a performance budgets file limiting script/image/total KiB",
+        "Adds a GitHub Actions job running @lhci/cli autorun and uploading .lighthouseci artifacts"
+      ]
+    },
+    {
+      "id": "perf-003",
+      "description": "Diagnose a latency problem found during a soak test",
+      "input": "Our soak test ran for 6 hours at 500 rps. Latency was flat for 3 hours then p95 climbed from 200ms to 2s while CPU stayed at 40%. What should we investigate?",
+      "shouldTrigger": true,
+      "expect": "Agent reasons about resource leaks, connection pools, and memory rather than recommending more load",
+      "assertions": [
+        "Identifies memory growth / GC pressure or a resource leak as the leading hypothesis",
+        "Mentions connection pool exhaustion or leaked connections/file descriptors",
+        "Recommends checking heap/RSS trends, GC pause metrics, and pool saturation over the run window",
+        "Correlates the inflection timestamp with deploys, cron jobs, or cache expiry",
+        "Notes that idle CPU with rising latency points away from raw compute saturation",
+        "Suggests a shorter reproducible test with the same ramp to confirm"
+      ]
+    }
+  ]
+}

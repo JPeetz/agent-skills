@@ -1,0 +1,45 @@
+[
+  {
+    "id": "gov-001",
+    "description": "User asks to stand up a governance program from scratch",
+    "input": "We have a Snowflake warehouse plus dbt and about 400 tables, no governance at all. Where do we start?",
+    "expected_trigger": true,
+    "expected_output": "A phased plan that starts with people and decisions, not a tool: identify systems and 10 tier-1 datasets, name a sponsor/governance lead, add owner/domain/tier/classification/retention meta to those 10 in dbt, then stand up a catalog and ingest dbt + warehouse metadata, publish a 6-page policy (scope, roles, 4-tier classification, SLOs, retention, exception process), add a metadata CI gate on changed files, and run the first quarterly rituals. Explicitly rejects 'buy a catalog first' and 'govern all 400 tables'.",
+    "assertions": [
+      "plan is phased (baseline -> decisions -> instrumentation -> operate) with timeboxes",
+      "starts from tier-1 datasets, not full inventory",
+      "includes owners, classification tiers (max 4), SLOs, retention, and an expiring exception process",
+      "metadata is defined in dbt meta / version control and pushed to the catalog",
+      "includes at least one CI gate and a recurring cadence",
+      "does not recommend catalog purchase as step 1"
+    ]
+  },
+  {
+    "id": "gov-002",
+    "description": "Column-level lineage impact analysis before a breaking change",
+    "input": "I need to rename dim_customers.email to email_hash and change its type. What's downstream and how do I not break the exec dashboard?",
+    "expected_trigger": true,
+    "expected_output": "A column-level impact analysis: locate the asset, expand downstream 2-3 hops filtered to material consumers (tier-1 dashboards, ML features, reverse-ETL, exports), notify downstream owners with a deadline, prefer an additive shim (keep email, add email_hash, set meta.deprecation_date) over a hard rename, verify type change compatibility (string widening, hash format), and record consumers/notification/deprecation date in the PR. Notes that table-level lineage alone is insufficient and that a classification tag must follow the column to the new name (PII + masking).",
+    "assertions": [
+      "uses column-level lineage, not just table-level",
+      "filters to material/tier-1 downstream consumers and identifies their owners",
+      "recommends additive migration with a deprecation date instead of a hard rename",
+      "carries pii + masking metadata to the renamed column",
+      "documents the impact set and notification in the change record"
+    ]
+  },
+  {
+    "id": "gov-003",
+    "description": "Compliance mapping for GDPR and SOC 2 data controls",
+    "input": "We're doing SOC 2 Type II and we also get GDPR data subject requests. What governance controls and evidence do we need?",
+    "expected_trigger": true,
+    "expected_output": "A control matrix mapping each requirement to a concrete artifact and the evidence it produces: GDPR Art. 30 processing register generated from the catalog, Art. 6 lawful_basis tag coverage, Art. 15-17 DSR runbook with a subject index and ticket samples, Art. 32 masking/access enforcement coverage, Art. 33 72-hour breach process scoped by lineage; SOC 2 CC6.1/CC6.3 access matrix plus quarterly recertification, CC6.7 retention and purge with a deletion log, CC7.2/CC7.4 monitoring alerts and closed incidents, P4.1-P4.3 retention schedule and purge evidence. Recommends one crosswalk table (control_id -> clause -> artifact path -> owner -> last verified) and dated automated exports over screenshots, retained for the audit window.",
+    "assertions": [
+      "maps requirements to artifacts AND to the evidence produced",
+      "covers GDPR Arts. 6, 15-17, 30, 32, 33 and SOC 2 CC6/CC7/P4",
+      "includes retention/purge evidence (deletion log) as a shared control",
+      "recommends a reusable crosswalk rather than per-framework documentation",
+      "specifies evidence hygiene (dated exports, 12-month retention for Type II)"
+    ]
+  }
+]
