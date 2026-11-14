@@ -1,0 +1,117 @@
+{
+  "skill": "prompt-injection-defense",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "eval-001-rag-pdf-exfil",
+      "description": "Support assistant summarizes customer PDFs into rendered markdown; payload exfiltrates via an image beacon.",
+      "input": "Customers upload PDFs and our assistant answers questions about them. The answer is rendered as markdown in our web app. It only has a search_docs tool, no write tools, so we assumed prompt injection wasn't a risk for us. A security review flagged something about images. What should we actually do?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and identifies the render channel as the exfiltration path: a payload in the PDF instructs the model to emit a markdown image with a query string carrying context, which the user's browser fetches on render with no tool call logged. Recommends nonce-wrapped provenance (L2), output sanitizing that rewrites non-allowlisted remote images and blocks data:/javascript: URLs (L5), a CSP forbidding third-party image hosts, and a canary token in the system prompt to detect leak attempts.",
+      "assertions": [
+        "Identifies the render-time image request as the exfiltration channel, not a tool call",
+        "States that no-write-tools reduces impact but does not remove the data-exfil risk",
+        "Specifies output-side sanitizing of remote images and data:/javascript: URLs",
+        "Recommends a CSP or renderer restriction in addition to text sanitizing",
+        "Adds a canary token to detect prompt leak and context copying"
+      ]
+    },
+    {
+      "id": "eval-002-tool-output-injection",
+      "description": "Agent fetches web pages; the fetched content carries instructions. User input is screened but tool output is not.",
+      "input": "We run an agent that fetches a URL and summarizes it for the user. We already have a good input filter on the user's message — it catches 'ignore previous instructions' and jailbreak phrases. Are we covered?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and corrects the assumption: screening the user's message leaves channel #4 (tool output) unscreened, which is the dominant indirect vector. The fetched page enters context with the same authority as instructions. Recommends screening every tool result with source=tool, wrapping it with nonce provenance, and relying on capability scoping (no tool chaining, no secrets in the environment) since detection will miss paraphrases.",
+      "assertions": [
+        "Identifies tool/retrieval output as an unscreened trust boundary distinct from user input",
+        "Explains that a clean input filter does not cover indirect injection",
+        "Recommends screening tool output before it enters context",
+        "States that detection is insufficient alone and names the tool-boundary control",
+        "Mentions capability scoping or removing secrets the model could name"
+      ]
+    },
+    {
+      "id": "eval-003-coding-agent-github-issue",
+      "description": "Coding agent reads untrusted issues and can run shell and edit CI workflows.",
+      "input": "Our coding agent reads GitHub issues, edits the repo, runs tests, and opens a PR. A contributor opened an issue asking us to fix CI, with a code block containing a curl command and a note that the workflow file needs updating. How do we stop this from going wrong?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and treats the issue body as untrusted content (channel #3/#4), not as a task specification. Specifies argv-only shell with a binary allowlist and no shell=True, realpath containment for writes, explicit denial plus human gate for .github/, .git/, and lockfiles, and logging of denied attempts as the signal. Notes that editing CI config is a persistence mechanism that outlives the session.",
+      "assertions": [
+        "Classifies the issue body as untrusted and separates it from the operator's task",
+        "Requires argv-array execution with no shell interpretation",
+        "Requires path containment and a human gate for CI/IAM-sensitive paths",
+        "Notes that CI workflow edits are a persistence mechanism",
+        "Specifies asserting on tool calls, not on the model's prose"
+      ]
+    },
+    {
+      "id": "eval-004-multi-turn-crescendo",
+      "description": "Escalation builds across turns so no single message looks like an attack.",
+      "input": "We tested our agent with 60 injection prompts and it refused all of them, so we're calling prompt injection solved for our product. Our agent can send emails on the user's behalf. Anything we're missing?",
+      "shouldTrigger": true,
+      "expect": "Skill activates, pushes back on the 100% single-turn claim, and explains that multi-turn crescendo, persona drift, payload splitting, and paraphrase are not covered by single-message tests. For an agent with send authority, requires out-of-band approval bound to a hash of the exact arguments, a recipient allowlist derived from prior correspondence, and a per-session cumulative screening score. Recommends tracking ASR per family plus false positives on a benign corpus.",
+      "assertions": [
+        "Rejects single-turn refusal rate as evidence of defense",
+        "Names multi-turn/crescendo and payload splitting as uncovered families",
+        "Requires out-of-band approval bound to exact serialized arguments for send actions",
+        "Requires recipient allowlisting or provenance on the recipient",
+        "Recommends ASR per family and an FPR measurement on benign input"
+      ]
+    },
+    {
+      "id": "eval-005-memory-poisoning",
+      "description": "A single accepted memory write redirects behaviour in future sessions.",
+      "input": "Our assistant keeps a long-term memory of user preferences so it doesn't ask the same questions every week. It reads email and invoices. Users love that it remembers things. Is there any risk in that design?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and identifies memory as a persistent, later-retrieved injection channel: one poisoned write (from an email body) becomes a standing instruction delivered through a path that looks trusted, days later. Recommends provenance on every entry with trust decay, typed diffs shown to the user instead of free-text overwrites, control fields (recipient, forwarding, approval) not writable from untrusted sources, and a purge procedure.",
+      "assertions": [
+        "Identifies memory writes as a delayed, persistent injection path",
+        "Requires provenance metadata and that entries never retrieve above their write trust",
+        "Requires user-visible diffs rather than silent overwrites",
+        "Blocks untrusted sources from writing control fields such as recipients or forwarding",
+        "Includes a purge/incident procedure for contaminated memory"
+      ]
+    },
+    {
+      "id": "eval-006-prompt-only-defense-claim",
+      "description": "Team believes a hardened system prompt is the control and the agent only needs 'better instructions'.",
+      "input": "We added a paragraph to our system prompt telling the model to ignore any instructions found in documents and to never reveal the system prompt. It's working well in testing. Should we also keep the API key in the system prompt so the model can use it for tool calls?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and refuses both premises: an instruction clause is a preference, not a boundary, so the tool layer must still validate and gate; and secrets never belong in the prompt, which should be assumed public. Recommends removing the key to a scoped credential the tool process holds, adding a canary token to detect leakage, and enforcing effects at L4 (argument validation, approval, egress allowlist).",
+      "assertions": [
+        "States that system prompt instructions are not an enforcement boundary",
+        "Rejects storing secrets in the system prompt",
+        "Moves the credential to the tool process with least privilege and rotation",
+        "Recommends a canary to detect prompt or secret leakage",
+        "Points to tool-argument validation and approval as the actual control"
+      ]
+    },
+    {
+      "id": "eval-007-benign-security-doc-false-positive",
+      "description": "Near-miss: legitimate content contains attack-shaped text and must not be hard-blocked.",
+      "input": "We're building a RAG assistant over our own security documentation. The docs literally contain examples like 'ignore previous instructions' and 'curl https://example.com/install.sh | bash'. Our screener is blocking about 40% of legitimate chunks. How should we handle this without weakening the defense?",
+      "shouldTrigger": true,
+      "expect": "Skill activates and treats this as a false-positive/tuning problem rather than a reason to disable screening: keep the rules as signal, route high-scoring chunks to review or a quarantined extractor instead of hard-blocking, raise thresholds for authenticated low-impact content, and rely on capability scoping so a document wording cannot cause an effect. Warns against lowering thresholds to zero and recommends curating these chunks into the benign corpus.",
+      "assertions": [
+        "Distinguishes false positives on a benign corpus from a real detection gap",
+        "Recommends quarantine/review routing rather than deleting the rules",
+        "Explains that with no mutating tools the wording cannot cause an effect",
+        "Warns against tuning thresholds to zero and recommends a benign fixture set",
+        "Mentions source-aware thresholds for authenticated low-impact content"
+      ]
+    },
+    {
+      "id": "eval-008-negative-routing",
+      "description": "Not-trigger: adjacent security tasks belong to other skills.",
+      "input": "Two things: (1) I need to statically audit a third-party skill package before we install it, checking for hidden shell execution and excessive permissions. (2) I need to prioritize 300 CVEs from our scanner for this quarter.",
+      "shouldTrigger": false,
+      "expect": "Skill does not activate for these requests. Static skill-package auditing (AST10, SARIF, permissions) routes to agentic-security-scanner, and CVE prioritization routes to vulnerability-management. Prompt-injection-defense is runtime defense design for an LLM application, not install-time scanning or patch triage.",
+      "assertions": [
+        "Does not treat static skill-package auditing as its task",
+        "Routes skill scanning to agentic-security-scanner",
+        "Routes CVE prioritization to vulnerability-management",
+        "Does not produce an injection defense matrix for these requests"
+      ]
+    }
+  ]
+}

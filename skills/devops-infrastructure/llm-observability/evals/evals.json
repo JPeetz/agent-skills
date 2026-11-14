@@ -1,0 +1,78 @@
+{
+  "skill": "llm-observability",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "trigger-001",
+      "label": "instrument-openai-app-langfuse",
+      "input": "I have a Python RAG app using the OpenAI SDK. I want to see every prompt, response, retrieved chunk, token count and cost. Set up tracing for me.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "selects or offers a backend (Langfuse/Phoenix/LangSmith) with a stated reason",
+        "shows auto-instrumentation plus manual spans for the retrieval step",
+        "emits gen_ai semantics: operation name, provider, request model, input/output tokens",
+        "addresses cost tracking by ingesting provider usage rather than estimating from characters",
+        "includes a flush/shutdown step so spans are not lost"
+      ]
+    },
+    {
+      "id": "trigger-002",
+      "label": "otel-genai-export-existing-collector",
+      "input": "We already run an OTel Collector and Grafana Tempo. How do I get LLM traces into it without adding a vendor SDK?",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "recommends the OpenTelemetry GenAI semantic conventions (gen_ai.* attributes)",
+        "notes the conventions are Development status and that library versions should be pinned",
+        "provides Collector receiver/processor/exporter configuration",
+        "warns that token metrics must not be sampled even when traces are",
+        "mentions redacting or dropping prompt content attributes"
+      ]
+    },
+    {
+      "id": "trigger-003",
+      "label": "quality-gate-prompt-change",
+      "input": "We want to change our support prompt. How do we make sure it doesn't get worse before we ship it?",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "builds a versioned golden dataset from real traces with edge cases",
+        "combines deterministic checks with calibrated LLM-as-judge",
+        "gates on aggregate score deltas with tolerance rather than single-item verdicts",
+        "stores a baseline in the repo and updates it deliberately",
+        "attaches a prompt version to traces and defines a rollback path"
+      ]
+    },
+    {
+      "id": "trigger-004",
+      "label": "cost-spike-investigation",
+      "input": "Our OpenAI bill tripled this week but traffic is flat. Help me find out why and set up an alert.",
+      "expected_behavior": "trigger",
+      "assertions": [
+        "breaks cost down by model, feature, and prompt version using span attributes",
+        "checks for retry loops, prompt bloat, and cache-read token regressions",
+        "distinguishes ingested provider usage from inferred cost and rejects character-count estimation",
+        "proposes a rate/delta alert against a 7-day same-hour baseline with an owner and action",
+        "notes that head-sampled traces cannot be extrapolated to spend"
+      ]
+    },
+    {
+      "id": "near-miss-001",
+      "label": "plain-service-monitoring",
+      "input": "Add Prometheus metrics and a Grafana dashboard for my Go HTTP API's request latency and error rate.",
+      "expected_behavior": "no-trigger",
+      "assertions": [
+        "does not load this skill",
+        "routes to observability-engineering instead"
+      ]
+    },
+    {
+      "id": "near-miss-002",
+      "label": "prompt-writing-only",
+      "input": "Rewrite this marketing email so it sounds warmer and shorter.",
+      "expected_behavior": "no-trigger",
+      "assertions": [
+        "does not load this skill",
+        "no tracing, evaluation, or monitoring work is proposed"
+      ]
+    }
+  ]
+}

@@ -67,13 +67,14 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 ## Skills Catalog
 
 <details>
-<summary>🔧 DevOps & Infrastructure (9 skills)</summary>
+<summary>🔧 DevOps & Infrastructure (10 skills)</summary>
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [ci-cd-pipeline-generator](/skills/devops-infrastructure/ci-cd-pipeline-generator) | DevOps/CI-CD | Production-ready CI/CD pipelines — GitHub Actions, GitLab CI, CircleCI, Jenkins | Universal |
 | [infrastructure-as-code-guardian](/skills/devops-infrastructure/infrastructure-as-code-guardian) | DevOps/Infrastructure | Cross-tool IaC security and management — Terraform, Pulumi, CloudFormation, Ansible, Bicep | Universal |
 | [kubernetes-operations](/skills/devops-infrastructure/kubernetes-operations) | DevOps/K8s | Production-grade Kubernetes ops — manifest generation, Helm charts, GitOps, security hardening, failure-mode diagnosis | Universal |
+| [llm-observability](/skills/devops-infrastructure/llm-observability) | DevOps/LLM Observability | LLM/agent tracing, eval, cost tracking — OTel GenAI conventions with Langfuse, Phoenix, LangSmith, quality gates | Universal |
 | [observability-engineering](/skills/devops-infrastructure/observability-engineering) | DevOps/SRE | OpenTelemetry instrumentation, monitoring, distributed tracing, SLI/SLO management, incident response | Universal |
 | [production-engineering-workflows](/skills/devops-infrastructure/production-engineering-workflows) | DevOps/SRE | Full SDLC automation: /spec → /plan → /build → /test → /review → /ship | Universal |
 | [sre-runbooks](/skills/devops-infrastructure/sre-runbooks) | DevOps/SRE | Safe-by-default SRE runbooks — incident response, postmortems, on-call handovers, RCA | Universal |
@@ -83,16 +84,19 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 
 </details>
 
-### 🛡️ Security (4 skills)
+### 🛡️ Security (7 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
+| [agent-red-teaming](/skills/security/agent-red-teaming) | Security/Red-Team | Adversarial testing of agent systems — prompt injection, tool misuse, memory poisoning, privilege escalation, OWASP ASI01-ASI10 mapping | Universal |
 | [agentic-security-scanner](/skills/security/agentic-security-scanner) | Security/Agent | OWASP AST10 security scanning — malicious skill detection, prompt injection, data exfiltration, SARIF | Universal |
+| [prompt-injection-defense](/skills/security/prompt-injection-defense) | Security/LLM | Layered defense against direct/indirect injection, jailbreaks, prompt extraction — trust-labeled context, tool-boundary enforcement, adversarial evals | Universal |
+| [security-and-hardening](/skills/security/security-and-hardening) | Security/Hardening | OWASP Top 10 hardening — three-tier boundary, dependency audit, LLM safety | Universal |
 | [supply-chain-security-scanner](/skills/security/supply-chain-security-scanner) | Security/DevSecOps | Software supply chain security — SBOM generation, dependency scanning, provenance verification, license compliance | Universal |
 | [threat-modeling](/skills/security/threat-modeling) | Security/Threats | STRIDE threat model with risk-rated threats and backlog stories | Universal |
-| [security-and-hardening](/skills/security/security-and-hardening) | Security/Hardening | OWASP Top 10 hardening — three-tier boundary, dependency audit, LLM safety | Universal |
+| [vulnerability-management](/skills/security/vulnerability-management) | Security/Vuln-Mgmt | CVE tracking, CVSS/EPSS prioritization, zero-day response playbook, patch lifecycle, SIEM integration | Universal |
 
-### 🔌 API & Backend (8 skills)
+### 🔌 API & Backend (9 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
@@ -104,11 +108,13 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [image-to-image-character-generation](/skills/api-backend/image-to-image-character-generation) | API/Image | Generate consistent character images from Supabase/GDrive refs via kie.ai image-to-image — face anchors, dynamic prompt, anti-repeat | Universal |
 | [kie-ai-platform](/skills/api-backend/kie-ai-platform) | API/Platform | Full kie.ai platform API: image/video/audio/chat gen, async tasks, callbacks, file upload, credits, webhook HMAC verifcation | Universal |
 | [n8n-api-shape](/skills/api-backend/n8n-api-shape) | API/Automation | Instance-agnostic n8n REST API — read/update/verify workflows, strip-extras PUT recipe, banned fields, health check | Universal |
+| [mcp-server-building](/skills/api-backend/mcp-server-building) | API/MCP | Build MCP servers on the 2026-07-28 stateless spec — tools/resources/prompts, server/discover, MRTR, stdio vs Streamable HTTP, OAuth, Inspector, deploy & publish | Universal |
 
-### 🧪 QA & Testing (4 skills)
+### 🧪 QA & Testing (5 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
+| [agent-evaluation](/skills/qa-testing/agent-evaluation) | QA/LLM Evaluation | Eval suites for LLM/agent output — golden datasets, calibrated LLM-as-judge, confidence intervals, CI quality gates | Universal |
 | [browser-automation](/skills/qa-testing/browser-automation) | QA/Browser | Playwright browser automation — E2E testing, web scraping, monitoring, form submission, screenshots | Universal |
 | [browser-testing-with-devtools](/skills/qa-testing/browser-testing-with-devtools) | QA/Browser | Test in real browsers via Chrome DevTools MCP — DOM, network, a11y | Universal |
 | [playwright-e2e-testing](/skills/qa-testing/playwright-e2e-testing) | QA/Testing | Production-grade Playwright E2E testing — locator strategy, CI/CD, visual regression, component testing, a11y | Universal |

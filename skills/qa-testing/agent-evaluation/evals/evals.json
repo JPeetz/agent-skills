@@ -1,0 +1,58 @@
+[
+  {
+    "id": "trigger-001",
+    "label": "trigger",
+    "description": "Build an eval suite from scratch for a RAG support assistant",
+    "scenario": "User says: 'Our support bot has no tests and we keep breaking things. Set up proper evaluation for it.' The agent has access to the repo, prompts, and recent production logs.",
+    "expected_outcome": "Agent proposes 3-6 dimensions with direction and gate style, builds a JSONL golden dataset from production traces plus edge cases with slice metadata, starts with deterministic checks before any judge, calibrates the judge against hand labels, and wires an aggregate CI gate with a committed baseline and tolerance"
+  },
+  {
+    "id": "trigger-002",
+    "label": "trigger",
+    "description": "Decide whether a prompt change is safe to ship",
+    "scenario": "User has two prompt versions and asks 'is v4 better than v3, can I merge it?' There is an existing eval suite and a baseline file.",
+    "expected_outcome": "Agent runs both versions on the same dataset with repetitions, reports per-slice pass rates with n and confidence intervals, refuses to call an in-noise difference a win, applies non-inferiority plus absolute-floor gates, and states a ship/no-ship decision with the tolerance used"
+  },
+  {
+    "id": "trigger-003",
+    "label": "trigger",
+    "description": "Design and calibrate an LLM-as-judge for groundedness",
+    "scenario": "User asks for a judge that checks whether answers are supported by retrieved documents, and wants it to block PRs.",
+    "expected_outcome": "Agent writes a binary rubric naming explicit fail conditions, places the candidate output in delimiters with an injection guard, uses a different model family at temperature 0 with a pinned version, requires {pass, score, reason}, and prescribes calibration on >= 50 human labels with agreement/kappa thresholds before the judge is allowed to gate"
+  },
+  {
+    "id": "trigger-004",
+    "label": "trigger",
+    "description": "Model upgrade decision using benchmarks plus the product suite",
+    "scenario": "User wants to switch to a cheaper model because a benchmark table shows it scoring higher.",
+    "expected_outcome": "Agent separates capability screening (lm-eval with identical few-shot/task settings) from the product suite, uses order-swapped pairwise judging with disagreement reporting, measures cost and p95 latency at the real max_tokens, and applies a pre-registered ship rule with a post-deploy canary"
+  },
+  {
+    "id": "trigger-005",
+    "label": "trigger",
+    "description": "Regression gate keeps failing intermittently",
+    "scenario": "A team's CI eval job fails on roughly one in three PRs with no code change, and they are about to delete the gate.",
+    "expected_outcome": "Agent diagnoses per-item judge assertions and small n as the cause, moves probabilistic metrics to aggregate tolerance gates derived from standard error, keeps per-item assertions only for deterministic checks, sets repeats and pinned judge versions, and adds a baseline-diff policy instead of removing the gate"
+  },
+  {
+    "id": "near-miss-001",
+    "label": "no-trigger",
+    "description": "Plain unit test for a deterministic helper",
+    "scenario": "User asks for a pytest suite covering a currency-formatting function and its rounding edge cases.",
+    "expected_outcome": "Does not invoke agent-evaluation; this is deterministic unit testing handled by test-driven-development. No datasets, judges, or tolerances are introduced"
+  },
+  {
+    "id": "near-miss-002",
+    "label": "no-trigger",
+    "description": "Tracing and dashboards only",
+    "scenario": "User asks to instrument an LLM service with OpenTelemetry spans and build a Grafana dashboard for latency and token cost.",
+    "expected_outcome": "Does not own the task; routes to llm-observability. May mention that offline datasets and judge calibration are the next step, but does not scaffold an eval suite unasked"
+  },
+  {
+    "id": "near-miss-003",
+    "label": "no-trigger",
+    "description": "Architecting an evaluator-optimizer or self-critique loop",
+    "scenario": "User asks how to structure a generate-critique-revise loop so the model improves its own drafts across iterations.",
+    "expected_outcome": "Does not own the design; routes to agentic-eval. May note that the resulting loop should be measured with a held-out dataset and an aggregate gate, but does not take over the loop architecture"
+  }
+]

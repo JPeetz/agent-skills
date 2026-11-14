@@ -1,0 +1,86 @@
+[
+  {
+    "id": "mcp-001",
+    "description": "Contract-first planning before scaffolding",
+    "input": "I want to build an MCP server for our internal ticketing system so Claude can search, create and close tickets.",
+    "shouldTrigger": true,
+    "expect": "Agent writes a contract table (name, primitive, trigger, input, output, side effects) before code, and classifies each capability as tool/resource/prompt.",
+    "assertions": [
+      "a contract table or equivalent per-capability spec precedes any implementation code",
+      "search/create/close are tools (model-triggered, with side effects) and read-only data is a resource, not a tool",
+      "writes are given an idempotency key and destructive close is given a confirmation flow"
+    ]
+  },
+  {
+    "id": "mcp-002",
+    "description": "Stateless 2026-07-28 protocol usage, not the removed handshake",
+    "input": "Scaffold an MCP server in Python with the current SDK.",
+    "shouldTrigger": true,
+    "expect": "Agent uses mcp 2.x MCPServer with decorators, relies on per-request _meta and server/discover, and does not write an initialize handler or session storage.",
+    "assertions": [
+      "imports MCPServer from mcp.server (not FastMCP from mcp.server.fastmcp)",
+      "no initialize/initialized handler and no Mcp-Session-Id or session store is introduced",
+      "server/discover, resultType and required _meta fields are accounted for (by the SDK or explicitly)"
+    ]
+  },
+  {
+    "id": "mcp-003",
+    "description": "MRTR instead of server-initiated elicitation",
+    "input": "My MCP tool needs to ask the user to confirm before deleting a record. How do I call back into the client?",
+    "shouldTrigger": true,
+    "expect": "Agent explains the back-channel is gone and the tool must return an InputRequiredResult (resultType input_required) with inputRequests and requestState, then read inputResponses on the client's retry.",
+    "assertions": [
+      "response is that servers no longer send elicitation/sampling/roots requests to the client",
+      "the tool returns InputRequiredResult with inputRequests and requestState",
+      "the retry carries inputResponses keyed by the same name the server chose"
+    ]
+  },
+  {
+    "id": "mcp-004",
+    "description": "Transport choice and deployment: HTTP with auth, not stdio",
+    "input": "Deploy our MCP server so multiple customers' agents can use it over the internet with per-customer access control.",
+    "shouldTrigger": true,
+    "expect": "Agent selects Streamable HTTP (not stdio, not SSE), wires OAuth 2.1 resource-server verification with AuthSettings/TokenVerifier, and configures the Host allowlist plus a shared requestState key for multiple workers.",
+    "assertions": [
+      "Streamable HTTP is chosen and stdio is rejected for multi-tenant remote use",
+      "token verifier + AuthSettings (issuer, resource_server_url, required_scopes) are configured",
+      "allowed_hosts / transport_security is set and the 421 failure mode is mentioned",
+      "multi-worker requestState sealing is addressed"
+    ]
+  },
+  {
+    "id": "mcp-005",
+    "description": "Error semantics: ToolError vs MCPError",
+    "input": "My MCP tool returns the string 'Error: record not found' when the lookup fails. Is that OK?",
+    "shouldTrigger": true,
+    "expect": "Agent says no — a returned string is isError:false and the model treats it as the answer — and switches to raising ToolError (model-recoverable) or MCPError (request-level), with ResourceNotFoundError for missing resources.",
+    "assertions": [
+      "explains that isError stays false for a returned string, so the model believes it succeeded",
+      "recommends ToolError / isError:true for recoverable execution failures",
+      "reserves MCPError for request-level rejection and does not use it for lookup misses"
+    ]
+  },
+  {
+    "id": "mcp-006",
+    "description": "Caching hints on list results",
+    "input": "Tools/list is re-fetched constantly by our gateway and the tool catalog never changes. Can we cache it?",
+    "shouldTrigger": true,
+    "expect": "Agent sets ttlMs and cacheScope (required on cacheable results), keeping cacheScope private if the list varies per caller, and notes deterministic tool order.",
+    "assertions": [
+      "ttlMs and cacheScope are set rather than left at the 0/private default",
+      "cacheScope public is only used when the payload is identical for every caller",
+      "deterministic tool ordering is mentioned as what makes client caching work"
+    ]
+  },
+  {
+    "id": "mcp-007",
+    "description": "Near-miss: consuming MCP servers in a client, not building one",
+    "input": "How do I configure Claude Desktop to use an existing MCP server from npm?",
+    "shouldTrigger": false,
+    "expect": "Host/client configuration of a third-party server is consumption, not server building; the skill should not activate and no server code should be produced.",
+    "assertions": [
+      "skill does not activate for client-side or host-configuration questions",
+      "no server scaffolding, primitives or deployment work is started"
+    ]
+  }
+]
