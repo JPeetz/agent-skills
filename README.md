@@ -23,7 +23,9 @@ skills/
 ├── marketing/               Ad campaigns, image generation
 ├── compliance-legal/        Privacy & GDPR
 ├── git-release/             Git workflow & release automation
-└── code-quality/            Code review
+├── ai-agent-engineering/    AI agent architecture & evaluation
+├── finance-ops/             SaaS metrics & unit economics
+├── code-quality/            Code review
 ```
 
 ## Install
@@ -148,13 +150,16 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 || [interview-me](/skills/skill-development/interview-me) | Skill Development | One-question-at-a-time interview to resolve underspecified asks | Universal |
 || [skill-portability-and-packaging](/skills/skill-development/skill-portability-and-packaging) | Skill Development | Package and port skills across agent hosts: spec hard rules, install roots, description budgeting, plugin/marketplace manifests, hazard sweep, install verification | Universal |
 
-|### 💼 Business & Strategy (3 skills)
+||### 💼 Business & Strategy (6 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [app-discovery-scrutiny](/skills/business-strategy/app-discovery-scrutiny) | Business/AI | VC-grade app niche evaluation — Build/Pivot/Kill verdict | Universal |
 | [linear-project-management](/skills/business-strategy/linear-project-management) | Business/PM | Drive Linear issues, projects, and teams from an agent via MCP + GraphQL — discovery-before-create, label taxonomy | Universal |
 | [enterprise-consulting-methods](/skills/business-strategy/enterprise-consulting-methods) | Business/Strategy | 15 McKinsey/BCG-grade methodology patterns — SCPR, issue/hypothesis trees, storyline building, decision memos, stakeholder maps, meeting prep, workshop design, native PowerPoint chart production via python-pptx | Universal |
+| [pricing-strategist](/skills/business-strategy/pricing-strategist) | Business/Strategy | SaaS pricing model selection, Van Westendorp WTP analysis, Good/Better/Best packaging | Universal |
+| [go-to-market-launch](/skills/business-strategy/go-to-market-launch) | Business/GTM | Launch readiness audit, ORB channel framework, launch-day runbook, post-launch measurement | Universal |
+| [product-manager-toolkit](/skills/business-strategy/product-manager-toolkit) | Business/PM | RICE prioritization, customer interview synthesis, PRD authoring, OKR design, decision frameworks — RICE/DACI/DARE | Universal |
 
 |### ⚙️ Development (11 skills)
 
@@ -207,6 +212,19 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [clean-pro-review-gates](/skills/code-quality/clean-pro-review-gates) | Code Quality | 5-gate pre-merge review framework — code quality (15 LLM failure modes), tests, docs, security (OWASP/CWE/LLM Top 10), CI/CD/container/IaC hardening | Universal |
 | [debugging-and-error-recovery](/skills/code-quality/debugging-and-error-recovery) | Code Quality | Systematic debugging — failing tests, broken builds, regressions | Universal |
 | [code-simplification](/skills/code-quality/code-simplification) | Code Quality | Refactor for clarity without changing behavior | Universal |
+
+|## 🤖 AI Agent Engineering (2 skills)
+
+| Skill | Domain | Description | Platforms |
+|-------|--------|-------------|-----------|
+| [ai-agent-architecture](/skills/ai-agent-engineering/ai-agent-architecture) | AI/Architecture | Design, audit, and document AI agent system architectures — topology patterns, design contracts, audit frameworks, ADR templates, evaluation design | Universal |
+| [agentic-eval](/skills/ai-agent-engineering/agentic-eval) | AI/Evaluation | LLM and agent evaluation — rubric judges, evaluator-optimizer loops, self-critique, pairwise ranking, calibration, eval harness setup | Universal |
+
+### 💰 Finance & Operations (1 skill)
+
+| Skill | Domain | Description | Platforms |
+|-------|--------|-------------|-----------|
+| [saas-metrics-coach](/skills/finance-ops/saas-metrics-coach) | Finance/SaaS | ARR/MRR/NRR, LTV/CAC, churn analysis, unit economics, cash flow modeling, cohort analysis, benchmark comparisons — with metrics_calculator.py | Universal |
 
 ## FAQ
 

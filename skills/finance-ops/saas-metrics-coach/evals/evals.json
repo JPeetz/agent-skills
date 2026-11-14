@@ -1,0 +1,99 @@
+[
+  {
+    "id": "pos-01",
+    "type": "positive",
+    "name": "Full metrics pack from raw subscription data",
+    "description": "Test that a raw data dump produces the complete computed set with definitions and a bridge check, not just a list of numbers.",
+    "test_input": "Here is our H1 snapshot: MRR went from 100,000 to 128,000 over six months (Jan-Jun 2026). New business 30,000, expansion 9,000, reactivation 2,000, contraction 4,000, churn 9,000. Customers 200 to 214, 30 new, 16 churned. Revenue 660,000, COGS 132,000, sales & marketing 180,000, variable costs 33,000. Cash 4.2M, burning 100,000/month. Mid-market segment. Run scripts/metrics_calculator.py and give me the whole pack.",
+    "expected_output": "ARR 1.2M to 1.536M, NRR 96%, GRR 87%, quick ratio 3.00, gross revenue churn 13% for the period and ~2.3%/month, blended CAC 6,000, LTV/CAC 2.91, CAC payback 15.0 months, burn multiple 1.79, runway 42 months — each with the definition used, a benchmark band and the flags the calculator raised.",
+    "assertions": [
+      "ARR is reported as MRR x 12 (1,200,000 to 1,536,000), not as revenue x 2 or an annualised single month",
+      "The MRR bridge is stated and shown to close (begin + new + expansion + reactivation - contraction - churn = end)",
+      "NRR is 96% and the response says it excludes new business and reactivation",
+      "Monthly churn is derived by de-annualising the period rate, not by dividing 13% by 6",
+      "LTV is computed on gross-margin dollars (80%), with the lifetime assumption stated",
+      "CAC payback is 15.0 months and compared against the mid-market norm rather than a single universal number",
+      "Both the blended and paid CAC variants are reported or the paid variant is explicitly marked unavailable",
+      "Flags are surfaced with severity (NRR below 100%, LTV/CAC below 3.0)",
+      "No metric is reported without its definition or time basis"
+    ]
+  },
+  {
+    "id": "pos-02",
+    "type": "positive",
+    "name": "NRR dispute — definition and diagnosis",
+    "description": "Test that an ambiguous NRR claim is resolved by definition first, then diagnosed with cohorts, and that the response refuses to pick a definition silently.",
+    "test_input": "My board deck says NRR is 112% but my CFO says it's 94%. We're a $4M ARR SMB product with lots of reactivated accounts and a 22% annual logo churn. Who is right and what do I tell the board?",
+    "expected_output": "An explicit statement that both can be arithmetically correct under different definitions: the 112% figure almost certainly includes new logos or reactivation, the 94% excludes both. The canonical NRR formula is restated, both variants are shown, and the recommendation is the stricter variant plus a note on which one is being used. Cohort and logo-churn evidence is requested before the trend is called improving.",
+    "assertions": [
+      "States that NRR excludes new business and says which variant the two figures likely represent",
+      "Gives the exact formula used: (begin + expansion - contraction - churn) / begin",
+      "Reports both NRR and NRR including reactivation rather than choosing silently",
+      "Notes that 22% annual logo churn is inconsistent with a genuinely healthy 112% NRR in an SMB base",
+      "Recommends labelling the definition on the board slide and restating history if the definition changes",
+      "Asks for cohort-level retention before declaring the trend improving"
+    ]
+  },
+  {
+    "id": "pos-03",
+    "type": "positive",
+    "name": "CAC audit — headcount excluded",
+    "description": "Test that the coach catches a flattered CAC built without S&M headcount and recomputes payback, rather than accepting the reported ratio.",
+    "test_input": "We report CAC of $2,400 and LTV/CAC of 9x. Last year: $480k on ads, $1.2M on S&M payroll, 200 new customers. ARPA is $450/month, gross margin 78%, monthly churn 1.5%. Is 9x good?",
+    "expected_output": "A recomputation showing paid-only CAC of $2,400 but fully-loaded CAC of $8,400 once $1.2M of S&M payroll is added, so on gross-margin LTV (~$23.4k) LTV/CAC is about 2.8x and payback is about 24 months — a retention or pricing problem, not under-investment. The response declines to celebrate the 9x.",
+    "assertions": [
+      "Identifies that the reported CAC excludes S&M headcount",
+      "Recomputes fully-loaded CAC as ($480k + $1.2M) / 200 = $8,400",
+      "Recomputes LTV on gross-margin dollars (about $23.4k, lifetime 1/1.5% = 66.7 months)",
+      "Recomputes LTV/CAC (~2.8x) and CAC payback (~24 months) and shows they fall below the 3.0 and 12-month references",
+      "Does not call a 9x ratio under-investment before the inputs are validated",
+      "Recommends an explicit CAC definition (blended, paid, fully-loaded) for the board pack",
+      "Provides a sensitivity statement on what the ratio becomes if churn rises"
+    ]
+  },
+  {
+    "id": "pos-04",
+    "type": "positive",
+    "name": "Runway and burn multiple for an investor update",
+    "description": "Test that runway is computed from net burn with committed outflows and planned hiring, and that burn multiple is computed over a period rather than a month.",
+    "test_input": "Investor update due Friday. We have $3.1M in the bank, burned $310k net last month, $280k and $340k the two months before. Net new ARR last quarter was $420k, S&M spend $390k. Growth was 55% YoY and we're planning to hire 3 engineers in Q1. What do I write for runway and efficiency?",
+    "expected_output": "Net burn of ~$310k/month on a trailing 3-month average, runway of about 10 months on current burn and less once the hiring plan is modelled, a burn multiple of ~2.2 for the quarter, and the recommendation to state the hiring-adjusted runway plus a fundraising trigger now.",
+    "assertions": [
+      "Uses a trailing three-month average net burn (~$310k) rather than one month",
+      "Computes runway as cash / net burn and states the result in months",
+      "Adjusts or explicitly annotates runway for the planned engineering hires",
+      "Computes burn multiple as quarterly net burn / quarterly net new ARR, not monthly",
+      "Flags that sub-12-month runway is a fundraising trigger",
+      "Reports magic number or notes that S&M spend alone does not equal CAC",
+      "Warns that a flat-burn runway is a lower bound for a hiring company"
+    ]
+  },
+  {
+    "id": "neg-01",
+    "type": "negative",
+    "name": "Revenue recognition and month-end close",
+    "description": "Near-miss: it mentions recurring revenue and ARR, but the request is an accounting-policy question, not metrics analysis.",
+    "test_input": "We signed a 3-year contract with annual prepayment. Should I recognise the full amount as ARR at signing, and how do I book the deferred revenue in our month-end close so the auditor is happy?",
+    "expected_output": "Should NOT load this skill's metrics workflow. The correct response routes to revenue-recognition/accounting guidance (ASC 606 / IFRS 15), explains that ARR is a management metric distinct from recognised revenue and bookings, and does not produce a metrics pack.",
+    "assertions": [
+      "Does not produce a SaaS metrics pack or run metrics_calculator.py",
+      "Routes to accounting / revenue-recognition guidance",
+      "May clarify that bookings, billings, recognised revenue and ARR are four different lines",
+      "Does not attempt to set revenue-recognition policy"
+    ]
+  },
+  {
+    "id": "neg-02",
+    "type": "negative",
+    "name": "Pricing and packaging decision",
+    "description": "Near-miss: the prompt contains 'ARR' and 'revenue', but the decision is which pricing model to adopt — pricing-strategist territory.",
+    "test_input": "We're at $2M ARR on flat-rate plans and want to move to usage-based pricing with good/better/best tiers. What should we charge and how should we package it?",
+    "expected_output": "Should NOT run the metrics workflow. The correct response routes to the pricing skill: model selection, willingness-to-pay range and tier packaging. Metrics may be referenced as inputs (ARPA, expansion potential) but the deliverable is a pricing model and packaging, not a financial metrics pack.",
+    "assertions": [
+      "Does not emit a metrics pack, benchmark tables or run metrics_calculator.py",
+      "Routes to pricing/packaging guidance",
+      "Does not propose a single price without willingness-to-pay evidence",
+      "Any metric cited is used as an input to pricing, not reported as the deliverable"
+    ]
+  }
+]

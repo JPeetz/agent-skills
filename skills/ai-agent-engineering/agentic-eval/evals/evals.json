@@ -1,0 +1,82 @@
+{
+  "skill_name": "agentic-eval",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're about to compare two prompts for our support-reply agent. The plan is to have GPT judge each reply from 1 to 10 and ship whichever prompt scores higher. Is that good enough?",
+      "expected_output": "No. A single 1–10 score collapses independent qualities into one vibe number, and an uncalibrated judge with no anchors produces confident noise. Should recommend: 3–7 independent dimensions (e.g. policy correctness, completeness, tone), anchored score levels (0–3) written before looking at outputs, and quoted evidence before the label. Should reject the ~1–10 scale in favour of a small anchored scale, warn that an average hides per-case regressions and that the diff against a saved baseline is what you read, and require a held-out human-labeled sample to check judge agreement. Should flag self-preference if the judge model is the model under test.",
+      "expectations": [
+        "Rejects the single 1–10 score and explains why it is not actionable",
+        "Requires multiple independent rubric dimensions with concrete anchors",
+        "Requires evidence-quoting / reasoning before the score is assigned",
+        "Requires a saved baseline and per-case diffs rather than only an average",
+        "Requires calibration against a human-labeled sample before trusting the winner, and warns about judge = model under test",
+        "Mentions that the suite needs a holdout so the comparison is not tuned away"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "Our judge prefers whichever answer we put first. Two runs of the same 60 cases gave different winners and the order-swapped run only agrees 58% of the time. What's the fix, and how do we report the result?",
+      "expected_output": "Diagnose position bias: the judge is measuring ordering, not quality, so no aggregate ranking is currently trustworthy. Fixes: run both orders per case and count a win only when the same artifact wins both (disagreements are ties), blind labels to Response 1/2, offer a legitimate tie option, randomize with a recorded seed as a weaker fallback. Reporting: win rate with ties excluded and tie rate reported, or Bradley–Terry with confidence intervals when there are many variants; explicitly state that 58% order agreement is too low and that the run cannot support a winner. Note the sample-size limit — 60 cases only detects large effects — and recalibrate the judge before reusing it.",
+      "expectations": [
+        "Names position bias and states that order agreement of 58% invalidates the ranking",
+        "Requires both-order judging with agreement required for a win, disagreement counted as a tie",
+        "Requires blinded labels and/or a legitimate tie option",
+        "Specifies a reporting method (win rate with tie rate, or Bradley–Terry with intervals)",
+        "States the sample-size limitation and does not declare a winner from this run",
+        "Recommends recalibrating the judge before further comparisons"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "I want a generate → critique → revise loop for our report writer so it fixes its own mistakes. It's the same model, same conversation, and I'll let it iterate until it's happy. Where does this break?",
+      "expected_output": "Breaks in four places: same-context self-review defends its own errors and shares blind spots (confident factual errors will not be caught); 'until it's happy' is unbounded, so it oscillates, burns tokens, and may return a worse final iteration; generic critique produces generic revision; and revision can break format/schema without anyone noticing. Fix: fresh context or a different model for the critic, rubric-based critique requiring quoted evidence and a severity, act only on blocking findings, max 2–3 iterations, keep the highest-scoring artifact rather than the last, re-run the deterministic checks after each revision, and define a stop condition (score target or no-improvement). Should also note that executable evaluators (tests, linters, schema checks) beat model critique where available, and that a loop saturating at iteration one means the extra calls are waste.",
+      "expectations": [
+        "Identifies same-context self-review as the core failure and explains why confident errors survive it",
+        "Rejects the unbounded 'until happy' loop and requires a max iteration count plus a stop condition",
+        "Requires fresh-context / different-model critique with rubric criteria and quoted evidence",
+        "Requires keeping the best-scoring artifact, not the last one",
+        "Requires re-validating format/schema after each revision",
+        "Suggests executable evaluators (tests, lint, schema) where the artifact allows it"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "We need an eval harness for a tool-using research agent before we change its planner. What should the case format be, what runs on every PR, and how do we stop it from becoming a number we tune against?",
+      "expected_output": "Harness = dataset + runner + scorer. Dataset: JSONL, one case per line with stable id, level, split (tune/holdout), input, criteria, optional reference, tags, source, date added; versioned in git. Runner: pins model/version/temperature/seed/prompt hash/tool versions, caches by input+config hash, isolates failures per case, writes raw outputs verbatim, deterministic settings. Scorer: deterministic gate first (schema, required sections, executable checks) then judge only on survivors. CI tiering: level 1 on every commit (blocking), level 2–3 on PRs touching prompts/tools/routing, level 4 nightly, weekly human sample for recalibration. Gate on regressions (no case down more than one anchor, pass rate may not fall), not absolute scores. Overfitting defenses: mechanical holdout split run only at release, refresh cases from production traces, rotate saturated cases, report trajectory metrics, never tune on the reported set. Also: score the trajectory (tool calls, retries, tokens) not just the final answer, and report per-case diffs, pass rate, cost, and latency.",
+      "expectations": [
+        "Defines the dataset schema with stable IDs, split, criteria, and source provenance",
+        "Requires pinned config, caching, failure isolation, and verbatim raw output storage",
+        "Requires a deterministic gate before the LLM judge",
+        "Tiers CI: cheap checks on every commit, judged levels on prompt/tool PRs, nightly full runs",
+        "Gates on regressions and pass rate rather than a single absolute score",
+        "Includes concrete overfitting defenses including a mechanical holdout and production refresh",
+        "Scores the trajectory and reports per-case diffs plus cost/latency"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 5,
+      "prompt": "Add a pytest unit test for this function that computes the invoice total with tax, and wire it into our CI so the build fails on regressions.",
+      "expected_output": "Skill must NOT activate. This is ordinary deterministic unit testing — an assert on an exact value — not LLM or agent evaluation. The agent should write the pytest case and CI wiring normally. If the agent builds a rubric, an LLM judge, or an eval harness for this, the test fails.",
+      "expectations": [
+        "Does not activate the agentic-eval skill",
+        "Treats the request as a standard pytest/CI task with deterministic assertions"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": 6,
+      "prompt": "Our RAG agent keeps returning the wrong policy document for refund questions. Can you look at the retriever and fix the chunking and embedding model?",
+      "expected_output": "Skill must NOT activate. This is a retrieval debugging task — chunking strategy, embedding choice, index configuration — not an evaluation-design task. The agent should inspect and fix retrieval. If it responds with a rubric, judge calibration, or eval pyramid instead of diagnosing the retriever, the test fails. (Adding an eval afterward is reasonable, but the request as asked is debugging.)",
+      "expectations": [
+        "Does not activate the agentic-eval skill",
+        "Diagnoses chunking, embeddings, and index configuration rather than proposing a rubric or judge"
+      ],
+      "should_trigger": false
+    }
+  ]
+}

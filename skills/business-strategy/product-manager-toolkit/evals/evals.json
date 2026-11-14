@@ -1,0 +1,87 @@
+[
+  {
+    "name": "rice-ranking-with-override",
+    "description": "Test that RICE ranking uses absolute reach, one effort unit and defensible confidence, that the script is actually run, and that a strategic override is recorded with a reason rather than silently reordering the list.",
+    "test_input": "features.json has 7 candidate features for 2026-Q1 with reach as account counts per quarter, impact on the canonical 3/2/1/0.5/0.25 scale, confidence as a decimal, and effort in engineer-weeks. Two of them are 'SSO/SAML' (reach 90, impact 3, confidence 0.9, effort 12) and 'Bulk CSV import' (reach 1400, impact 2, confidence 0.8, effort 6). Run scripts/rice_scorer.py and tell me what to build first.",
+    "expected_output": "A ranked markdown table from the script with reach, impact, confidence, effort and score visible per row, Bulk CSV import ranked above SSO/SAML on score, and an explicit statement that SSO is worth keeping despite a lower score because enterprise deals require it — recorded as an override with its reason, not as a re-scored item.",
+    "assertions": [
+      "scripts/rice_scorer.py is executed rather than the scores being estimated by hand",
+      "Every row shows all four inputs, not just the final score",
+      "Reach is reported as an absolute count (accounts per quarter), never a 1-5 rating",
+      "Bulk CSV import outranks SSO/SAML on RICE score",
+      "The SSO recommendation is preserved via a labeled override that names strategy or dependency as the reason",
+      "The output states that RICE ranks but does not decide"
+    ]
+  },
+  {
+    "name": "interview-synthesis-evidence-discipline",
+    "description": "Test that raw interview notes become behavior-named themes with participant counts, verbatim evidence and a counter-evidence section — not a narrative summary of the most quotable users.",
+    "test_input": "Here are 14 customer interview transcripts from a B2B analytics tool (mixed enterprise and mid-market, 2 churned users). Synthesize what we learned and tell me what to build.",
+    "expected_output": "A TL;DR of three sentences, then themes ranked by participants x severity where each theme is named by the behavior (e.g. 'rebuilds the weekly export in Excel every Monday'), carries a distinct-participant count of at least 3, names the segments present, quotes verbatim evidence with participant IDs, and states the current workaround. Followed by signals below the 3-participant threshold, a counter-evidence section, and open questions. No feature recommendations until the themes are established.",
+    "assertions": [
+      "Output opens with a three-sentence TL;DR before any theme detail",
+      "Each theme names a behavior rather than a topic noun",
+      "Each theme reports a count of distinct participants and the segments represented",
+      "Themes below the 3-participant threshold are listed separately as signals, not promoted to themes",
+      "Verbatim quotes are attributed to participant IDs",
+      "A counter-evidence section exists and contains at least one item",
+      "Current workaround is stated per theme",
+      "The two churned users are distinguishable in the segment breakdown"
+    ]
+  },
+  {
+    "name": "prd-scope-and-kill-criteria",
+    "description": "Test that a PRD request produces a bounded scope contract with must/should/won't split, one primary metric with baseline and window, and kill criteria — and that a vagueness in the brief is surfaced as an open question rather than invented away.",
+    "test_input": "Write a PRD for 'make onboarding faster' for our project-management SaaS. We have 3,400 teams, activation (first shared project within 7 days) is 34%, and the exec wants it shipped this quarter.",
+    "expected_output": "A 2-4 page PRD with a problem statement citing the 34% baseline, a one-sentence vision, at most two personas, a must/should/won't-have split where the won't-have list is named explicitly, requirements written as testable acceptance criteria, one primary metric (activation 34% -> a stated target by a stated date) plus guardrails, kill criteria written before launch, and an open-questions list that flags 'faster' and the exec's quarter deadline as decisions needing an owner.",
+    "assertions": [
+      "A 'Won't have this time' list is present and names at least one adjacent thing stakeholders would assume is included",
+      "Requirements are testable and follow an as-a/I-can/so-that plus acceptance form",
+      "Exactly one primary metric is named, with the 34% baseline, a target and a measurement window",
+      "Kill criteria are stated before any launch or rollout plan",
+      "At most two personas are defined",
+      "Open questions carry an owner and a decide-by date",
+      "The ambiguous term 'faster' is flagged rather than silently interpreted"
+    ]
+  },
+  {
+    "name": "okr-output-versus-outcome",
+    "description": "Test that a draft OKR set containing output-style key results is diagnosed and rewritten into leading/lagging outcome KRs with baselines, and that confidence is rated at the start of the quarter.",
+    "test_input": "Here are our draft Q1 OKRs for the platform team: Objective 'Be the most reliable platform in the category.' KRs: (1) Ship the new deployment pipeline by March 15, (2) Launch the status page redesign, (3) Complete the observability migration. Fix these.",
+    "expected_output": "A diagnosis that all three KRs are outputs/tasks with no baseline, then a rewritten set of 2-4 outcome KRs each with baseline, target and date, at least one lagging KR (e.g. p95 incident recovery time, error budget burn) and one or more leading KRs, a high/medium/low confidence rating per KR with the assumption that would break it, and a note on how the shipped work becomes an input rather than a key result.",
+    "assertions": [
+      "All three original KRs are identified as output/task statements",
+      "Every rewritten KR has a numeric baseline and a target with a date",
+      "At least one lagging KR is present and labeled as lagging",
+      "At least one leading KR is present and labeled as leading",
+      "Each KR carries a high/medium/low confidence rating made at the start of the quarter",
+      "The output states that shipping the pipeline is an input to a KR, not a KR itself",
+      "Scoring guidance (0-1 scale, ~0.7 is a good stretch quarter) is stated"
+    ]
+  },
+  {
+    "name": "negative-launch-plan-out-of-scope",
+    "description": "Test that a launch/channel request is routed to go-to-market-launch rather than answered with PM toolkit content.",
+    "test_input": "Plan our Product Hunt launch for next Tuesday — tagline, gallery frames, first comment, and the day-of schedule.",
+    "expected_output": "A short routing response identifying this as a go-to-market / launch-execution task and pointing to the go-to-market-launch skill, without producing a PH runbook from this skill.",
+    "assertions": [
+      "The response identifies the request as out of scope for product-manager-toolkit",
+      "go-to-market-launch is named as the correct skill",
+      "No Product Hunt runbook, tagline or gallery plan is produced",
+      "The boundary is stated in terms of what this skill does cover (prioritization, PRDs, OKRs, synthesis)"
+    ]
+  },
+  {
+    "name": "negative-pricing-decision-out-of-scope",
+    "description": "Test that a price/packaging question is not answered with product management frameworks, and that the skill does not invent a price.",
+    "test_input": "We're launching a Pro tier. What should it cost, and which features go in it versus the free plan?",
+    "expected_output": "A routing response identifying pricing and packaging as out of scope and naming pricing-strategist as the right skill. No price, no tier feature assignment, no willingness-to-pay figures invented.",
+    "assertions": [
+      "The response states that pricing and packaging are out of scope for this skill",
+      "pricing-strategist is named as the correct skill",
+      "No currency figure or price point is proposed",
+      "No free-vs-Pro feature split is invented",
+      "The response may note that the feature inventory itself can be produced here, but the packaging decision cannot"
+    ]
+  }
+]

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Eval cases for the ai-agent-architecture skill. Positive cases should trigger and produce architecture design, audit, or evaluation-design output. Near-miss negatives should NOT trigger the skill.",
+  "skill_name": "ai-agent-architecture",
+  "cases": [
+    {
+      "id": "pos-01",
+      "type": "positive",
+      "name": "New multi-agent design request",
+      "input": "I'm building a support automation system: one agent triages tickets, one drafts replies, one checks policy compliance. Should the triage agent call the others directly, or should there be a lead agent? How do I stop them looping?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "must_cover": ["topology selection", "subagent contract", "loop bounds"],
+        "output_must_include": ["Supervisor|orchestrator", "typed envelope|status field", "max turns|hop count|handoff budget"],
+        "min_findings_expected": 3
+      },
+      "context": "Classic topology question. The skill should compare supervisor vs. swarm with the actual pressure (bounded hop count, cost attribution, policy coherence), recommend supervisor given the small fixed intent set, and insist worker results come back as typed envelopes with an error class rather than prose. Loop prevention must be a structural budget, not a prompt instruction."
+    },
+    {
+      "id": "pos-02",
+      "type": "positive",
+      "name": "Audit request for an existing agent",
+      "input": "Audit our agent before we give it production traffic. It has read/write access to our Postgres, can send emails, and runs a loop until the model says it's done. We log the final answer but not the steps. What's wrong with it?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "must_cover": ["completeness", "security", "observability"],
+        "output_must_include": ["S1|S2", "severity", "stop condition", "human gate|irreversible"],
+        "min_findings_expected": 4
+      },
+      "context": "This is an audit task and should produce severity-ranked findings, not advice prose. Expected S1s: no stop condition other than model judgement (unbounded spend), irreversible send-email action with no human gate, and no step-level tracing so failures are undiagnosable. The report should also state what the design gets right, and give a migration path."
+    },
+    {
+      "id": "pos-03",
+      "type": "positive",
+      "name": "Evaluation design for an agent",
+      "input": "How do I evaluate an agent that researches a company and writes a one-page brief? It mostly works when I try it by hand but I don't trust that.",
+      "expected_behavior": {
+        "should_trigger": true,
+        "must_cover": ["golden set construction", "trajectory evaluation", "thresholds"],
+        "output_must_include": ["golden set|golden tasks", "trajectory|path", "failure class|failure taxonomy", "threshold"],
+        "min_findings_expected": 3
+      },
+      "context": "The user's instinct ('I don't trust hand-testing') is correct and the skill should confirm it. Expect: a stratified golden set sampled from real requests including adversarial inputs, evaluation of the trajectory (hops, tool errors) not just the final brief, per-failure-class rates, and a threshold agreed before the run. Should also mention cost per successful task and escalation rate as headline metrics."
+    },
+    {
+      "id": "pos-04",
+      "type": "positive",
+      "name": "Diagnosing flaky agent behaviour",
+      "input": "Our agent sometimes reports 'no relevant documents found' and the user gets an empty answer. It's intermittent and we can't reproduce it. Where do we start?",
+      "expected_behavior": {
+        "should_trigger": true,
+        "must_cover": ["failure state modelling", "observability", "contract"],
+        "output_must_include": ["empty vs error|distinct state", "trace|span", "typed envelope|status"],
+        "min_findings_expected": 3
+      },
+      "context": "The symptom is the classic collapsed-state bug: 'retrieval failed', 'retrieval returned nothing', and 'retrieval was never called' all present as an empty result. Expect the skill to name the missing state distinction at the boundary, require the subagent to return a typed status, and require per-step tracing so the three cases separate. Also worth noting: a silent fallback hides the degradation."
+    },
+    {
+      "id": "neg-01",
+      "type": "negative",
+      "name": "Prompt tuning request (not architecture)",
+      "input": "My agent keeps ignoring the instruction to always cite sources. Can you rewrite the system prompt so it cites them every time?",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "Single prompt wording problem inside one agent. No topology, contract, or evaluation-design decision is being made — this is prompt authoring.",
+        "correct_response_type": "Prompt rewrite with citation enforcement wording and a note that a code-level check is more reliable than an instruction"
+      },
+      "context": "The word 'agent' appears, but the ask is prompt engineering. A full architecture review would be overreach. The skill's anti-pattern table does say prompt-only guardrails fail, so a brief pointer is fine — but the deliverable is a better prompt."
+    },
+    {
+      "id": "neg-02",
+      "type": "negative",
+      "name": "Microservice architecture question (not an AI agent)",
+      "input": "Should I split my order service into separate microservices, or keep it as a modular monolith? We're at about 5k requests/minute.",
+      "expected_behavior": {
+        "should_trigger": false,
+        "why_not": "This is classical service architecture with no model, no tools, no agent loop. 'Architecture' alone is not a trigger — the object must be an AI agent.",
+        "correct_response_type": "Service decomposition guidance (modular monolith vs microservices trade-offs)"
+      },
+      "context": "Near-miss on the word 'architecture'. The distinguishing feature: no probabilistic component, no tool surface, no agent loop or subagent contract. General software-architecture guidance applies instead."
+    }
+  ],
+  "statistics": {
+    "total_cases": 6,
+    "positive_cases": 4,
+    "negative_cases": 2,
+    "coverage": {
+      "tasks": ["topology design", "architecture audit", "evaluation design", "failure diagnosis"],
+      "topologies": ["supervisor", "swarm", "single-agent"],
+      "audit_dimensions": ["completeness", "security", "observability", "cost"],
+      "negative_patterns": ["prompt tuning", "non-agent software architecture"]
+    }
+  }
+}
