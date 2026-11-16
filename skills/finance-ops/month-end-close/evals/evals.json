@@ -1,0 +1,97 @@
+[
+  {
+    "id": "pos-01",
+    "type": "positive",
+    "name": "Full close kickoff with scoped checklist",
+    "description": "Test that a vague 'close the books' request produces a scoped, day-anchored checklist rather than a generic accounting lecture.",
+    "test_input": "It's October 2026 and I need to close the books for Northwind Robotics. We have a bank account and a corporate card, monthly accruals, annual prepaid insurance and software, a handful of fixed assets, in-house payroll, and a deferred revenue account for annual SaaS contracts. No inventory, no intercompany. Materiality is $25k. Today is business day +2. Build me the checklist and tell me what's already late.",
+    "expected_output": "A scoped checklist for October 2026 generated with scripts/close_checklist.py (modules excluding inventory and intercompany), phases pre-close / core close / review with day offsets, per-task owners, and an explicit overdue list as of D+2 — the D-5 through D-1 tasks plus D+1 items. Estimated hours by owner, and the note that D+3 accruals and prepaids are due today.",
+    "assertions": [
+      "Runs or describes scripts/close_checklist.py with a config containing entity, period 2026-10, materiality 25000 and the stated modules",
+      "Inventory and intercompany tasks are absent from the output, not included defensively",
+      "Tasks are labelled by day offset (D-5, D+1, D+3) rather than calendar dates alone",
+      "Overdue tasks as of D+2 are called out explicitly, not left for the user to derive",
+      "Every task carries an owner role and the response flags roles with no named person",
+      "The checklist distinguishes pre-close, core close and review phases"
+    ]
+  },
+  {
+    "id": "pos-02",
+    "type": "positive",
+    "name": "Bank reconciliation with an unexplained residual",
+    "description": "Test the reconciliation procedure: statement-to-GL bridge, tolerance handling, and refusal to plug the difference.",
+    "test_input": "Our operating account statement shows $412,880.15 at 31 October. The GL cash balance is $428,105.40. Deposits in transit are $18,400 and outstanding checks total $2,150. Someone booked a $25 difference to bank fees last month that I don't recognise. Can you just get this to balance so I can sign it off?",
+    "expected_output": "The bridge is built and shown to leave an unexplained residual of roughly $425 after deposits in transit and outstanding checks, so the rec does not balance. The response refuses to plug it, lists the specific investigation steps (uncleared items older than two periods, the unrecognised $25 fee, duplicate or missing imports), states that the residual must be either identified or escalated against the $25k materiality, and does not sign off.",
+    "assertions": [
+      "Shows the arithmetic bridge: statement balance + deposits in transit - outstanding checks = adjusted balance, and compares to GL",
+      "States that the residual is non-zero and therefore the account is not reconciled",
+      "Refuses to post a plug or an unidentified adjustment to force agreement",
+      "Requires amount tolerance of zero for an operating bank account rather than accepting the difference as immaterial by default",
+      "Lists concrete investigation steps including prior-period uncleared items and import completeness",
+      "Notes that an unexplained $425 must be resolved or disclosed even though it is below materiality, because the cause is unknown"
+    ]
+  },
+  {
+    "id": "pos-03",
+    "type": "positive",
+    "name": "Accrual and reversal discipline for a recurring cost",
+    "description": "Test that an accrual is built with a basis, a reversing entry and a true-up expectation, and that the 'reverse when invoiced' shortcut is rejected.",
+    "test_input": "We get a managed-services invoice from our infra vendor around the 12th of the following month, usually $40-45k. Last month I accrued $40k and never reversed it, so now the November invoice will post on top. I'm just going to accrue $45k this month and fix it next quarter. Sound right?",
+    "expected_output": "The response rejects the plan: the un-reversed $40k is a double-count that must be corrected now with a documented correcting entry referencing the original, not deferred to next quarter. It then builds the accrual properly — basis from the contract or a run-rate with the prior three invoices, reversal posted in the same batch, employer burden and any pass-through costs included, true-up reported monthly — and notes that a stable $4-5k true-up means the basis is wrong, not that the month was odd.",
+    "assertions": [
+      "Identifies that the un-reversed prior accrual is a double-count requiring correction in the current period",
+      "Requires the correcting entry to reference the original JE rather than being an unlabelled adjustment",
+      "Posts or specifies the reversing entry in the same batch as the new accrual",
+      "Derives the accrual basis from contract terms or a documented three-invoice run-rate, not from a round guess",
+      "Includes employer burden or pass-through components where applicable",
+      "Establishes a monthly true-up comparison against the actual invoice, with a stated threshold for investigating a persistent variance",
+      "Explicitly rejects deferring the correction to next quarter"
+    ]
+  },
+  {
+    "id": "pos-04",
+    "type": "positive",
+    "name": "Close efficiency diagnosis from duration and queue data",
+    "description": "Test that close-slowdown analysis is driven by measured data and identifies the actual constraint, not generic advice.",
+    "test_input": "Our close used to take 6 business days, now it takes 11. Same team of four, same ERP. Bank recs are done by D+3, revenue by D+4, trial balance balances by D+5. But the package doesn't get signed until D+9 and we always find 3-4 errors in review. What should we do?",
+    "expected_output": "The response observes that preparation is not the constraint — everything is ready by D+5 — so the 11-day duration is caused by review queue and defect rework between D+5 and D+9. It recommends reviewing in-flow at D+2/D+3 rather than batching at D+6, measuring queue time between prepared and reviewed, fixing the recurring error classes at source, and explicitly warns that adding preparers would worsen a reviewer-bound close.",
+    "assertions": [
+      "Identifies review/rework between D+5 and D+9 as the constraint rather than posting effort",
+      "Does not recommend adding headcount to preparation as the primary fix",
+      "Recommends moving review earlier into the flow instead of batching at the end",
+      "Proposes measuring queue time between prepared and reviewed as the diagnostic metric",
+      "Treats the recurring 3-4 review errors as a rework-rate problem with a root cause to fix at source, not as an unavoidable cost",
+      "References close duration, rework rate and stale-item count as the metrics to track monthly"
+    ]
+  },
+  {
+    "id": "neg-01",
+    "type": "negative",
+    "name": "Revenue recognition policy design for a new contract type",
+    "description": "Near-miss: the prompt mentions deferred revenue and close, but the request is a revenue-recognition policy decision under ASC 606, which is outside this skill's procedure.",
+    "test_input": "We're signing our first multi-element contract: implementation services plus a 3-year SaaS licence plus optional training. How should we allocate the transaction price and what's our revenue recognition policy going forward? We'll need this settled before month-end close.",
+    "expected_output": "Should NOT run the close-checklist workflow or produce a close calendar. The correct response routes to revenue-recognition / technical accounting guidance (ASC 606 / IFRS 15 five-step model, SSP allocation, performance obligations, contract cost capitalisation) and notes that policy must be set with the auditor before it can be operationalised in the close.",
+    "assertions": [
+      "Does not generate a close checklist or run close_checklist.py",
+      "Routes to technical revenue-recognition guidance rather than close procedures",
+      "Does not set revenue recognition policy on the user's behalf",
+      "May describe how the resulting policy would be operationalised in the deferred revenue roll-forward, but does not substitute that for the policy decision",
+      "Notes that the policy needs auditor agreement before it drives the close"
+    ]
+  },
+  {
+    "id": "neg-02",
+    "type": "negative",
+    "name": "Vendor payment dispute and cashflow triage",
+    "description": "Near-miss: the prompt says 'reconcile' and mentions an invoice, but the task is an AP dispute and payment-timing decision, not a reconciliation procedure.",
+    "test_input": "Our biggest vendor says we owe them $180k and we think it's $150k because of a credit note they never applied. They're threatening to pause service. Can you reconcile this and tell me whether to pay the full amount now?",
+    "expected_output": "Should NOT produce a month-end reconciliation procedure or a close task. The correct response is a vendor-dispute workflow: pull the statement and remittance history, match invoice by invoice, locate the credit note and its application status, determine the disputed amount, and separate the commercial decision (pay, part-pay, withhold) from the accounting treatment. Payment authorisation is a human decision.",
+    "assertions": [
+      "Does not generate a close checklist or run close_checklist.py",
+      "Produces an invoice-level statement reconciliation in the vendor-dispute framing, not a GL bank-style rec",
+      "Does not authorise or recommend a specific payment amount as a decision",
+      "Separates the commercial dispute from the accounting treatment of the credit note",
+      "Routes the payment decision to a human with the evidence package"
+    ]
+  }
+]

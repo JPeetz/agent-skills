@@ -23,7 +23,7 @@ skills/
 ├── marketing/               Ad campaigns, image generation
 ├── compliance-legal/        Privacy & GDPR
 ├── git-release/             Git workflow & release automation
-├── ai-agent-engineering/    AI agent architecture & evaluation
+├── ai-agent-engineering/    AI agent architecture, evaluation & memory
 ├── finance-ops/             SaaS metrics & unit economics
 ├── code-quality/            Code review
 ```
@@ -219,18 +219,20 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [debugging-and-error-recovery](/skills/code-quality/debugging-and-error-recovery) | Code Quality | Systematic debugging — failing tests, broken builds, regressions | Universal |
 | [code-simplification](/skills/code-quality/code-simplification) | Code Quality | Refactor for clarity without changing behavior | Universal |
 
-|## 🤖 AI Agent Engineering (2 skills)
+### 🤖 AI Agent Engineering (3 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [ai-agent-architecture](/skills/ai-agent-engineering/ai-agent-architecture) | AI/Architecture | Design, audit, and document AI agent system architectures — topology patterns, design contracts, audit frameworks, ADR templates, evaluation design | Universal |
 | [agentic-eval](/skills/ai-agent-engineering/agentic-eval) | AI/Evaluation | LLM and agent evaluation — rubric judges, evaluator-optimizer loops, self-critique, pairwise ranking, calibration, eval harness setup | Universal |
+| [agent-memory-management](/skills/ai-agent-engineering/agent-memory-management) | AI/Memory | Design, implement, and debug AI agent memory systems — long-term/working/episodic/semantic memory, vector stores, context window optimization, state persistence, retrieval strategies, memory consolidation — with memory_architect.py | Universal |
 
-### 💰 Finance & Operations (1 skill)
+### 💰 Finance & Operations (2 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
 | [saas-metrics-coach](/skills/finance-ops/saas-metrics-coach) | Finance/SaaS | ARR/MRR/NRR, LTV/CAC, churn analysis, unit economics, cash flow modeling, cohort analysis, benchmark comparisons — with metrics_calculator.py | Universal |
+| [month-end-close](/skills/finance-ops/month-end-close) | Finance/Accounting | Month-end close management — close calendar and checklist, bank and balance-sheet reconciliations, accruals, prepaids, deferred revenue roll-forward, journal entries, trial balance and flux review, close-cycle acceleration — with close_checklist.py | Universal |
 
 ## FAQ
 

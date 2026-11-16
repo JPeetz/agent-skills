@@ -1,0 +1,88 @@
+{
+  "skill_name": "agent-memory-management",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're building a personal assistant that one user will talk to daily for years. Right now every session starts blank: no idea who they are, what they asked last week, or which projects are live. History is currently a Python list that grows until the context window blows up. What memory architecture should we build?",
+      "expected_output": "Recommends a two-tier design, not one store. Working memory: a structured scratchpad (goal, plan, facts, open questions, last 2-4 turns) rather than an ever-growing message list, because a structured block can be rewritten in place while a message list can only grow. Long-term: a vector index over stored turns plus an append-only facts ledger in a relational DB. History is unbounded so the tier should be hierarchical (session cache -> vector store -> archive) or dual-store with strict compaction. Compaction must run at a token threshold (e.g. 70% of the conversation budget), not on the critical path, and must pin the original task, user-stated constraints, and identifiers outside the summarization path. The facts ledger is never summarized; the narrative summary is. Retrieval should be recency-weighted semantic blended with always-on recent turns. Consolidation nightly: dedupe, promote recurring preferences to semantic facts, supersede stale facts (keep both, mark superseded_by), prune by documented rule. Must warn that 'summarize everything' loses exactly the numbers and constraints that matter, and that a similarity score alone cannot let a fresh user correction beat an old stored fact.",
+      "expectations": [
+        "Rejects a single growing message list and specifies a structured working-memory schema",
+        "Specifies two tiers: in-context working memory plus an external long-term store",
+        "Requires a separate append-only facts ledger that is never summarized alongside the prose summary",
+        "Requires pinned constraints and the original task to survive every compaction pass",
+        "Recommends recency-weighted semantic retrieval rather than pure similarity",
+        "Includes a consolidation/pruning policy with conflict superseding, not silent overwrite",
+        "Notes the unbounded-history tiering (hierarchical or strict compaction) rather than 'just use a bigger window'"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "The agent keeps contradicting itself. On turn 4 the user said they moved to Berlin, and on turn 40 it still books hotels in Munich because it retrieves the old address from the vector store. It also drops the 'never use my full name' instruction after long conversations. Where is this going wrong and how do I fix it?",
+      "expected_output": "Two distinct bugs. (1) Stale-vs-live conflict: pure similarity ranking lets an old turn outrank a recent correction, and the store holds both address values. Fix: store corrections as new entries with timestamps, mark the old one superseded_by (never silently delete), and blend recency into the ranking score (e.g. relevance 0.55 / recency 0.25 / importance 0.15) instead of ranking on cosine alone. Also always inject the last 2-4 turns unconditionally so the live conversation is present. (2) Constraint loss: 'never use my full name' is a hard constraint and must be pinned, kept outside the summarization path, and exempt from eviction and pruning regardless of score. Constraints belong in a dedicated pinned block or facts ledger, not in the summarizable transcript. Should also recommend a consolidation pass that detects conflicting values for the same entity key and resolves them by recency, plus an eval case that forces compaction and asserts the constraint survives.",
+      "expectations": [
+        "Separates the staleness bug from the constraint-loss bug rather than treating them as one problem",
+        "Explains that a similarity score alone cannot express recency or priority",
+        "Requires supersede-don't-delete semantics with timestamps and superseded_by",
+        "Requires recency/importance blended into ranking, plus last-N turns injected outside the ranking",
+        "Requires pinned constraints exempt from summarization, eviction, and pruning",
+        "Recommends a consolidation step that resolves conflicting values per entity key",
+        "Suggests a forced-compaction test asserting the constraint survives"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "Our invoice-reconciliation agent is a 40-step workflow with a few external calls (email the customer, post to the ledger). Twice last month it crashed at step 27 and when we restarted it, some customers got charged twice. State is currently saved to a JSON file after each step. How should we handle this?",
+      "expected_output": "Diagnoses the double-charge as a checkpoint/side-effect ordering bug plus non-idempotent effects, not a storage-format problem. Fixes: (a) derive an idempotency key from run_id + step + target (not a random UUID per attempt, which defeats dedupe) and pass it through to the provider where supported; (b) record the completed effect in an effect log and check it before acting, so resume skips completed work; (c) write the checkpoint after the effect is confirmed, not before, to avoid the phantom checkpoint — and make the effect itself idempotent so the crash window between 'called' and 'recorded' is harmless; (d) resume from the stored cursor rather than replaying from step 1; (e) fence concurrent runs with a per-run_id lease with TTL so a dead worker does not block forever or duplicate work. Moves state from a single JSON file to a transactional relational table with workflow row, step, attempts, completed_effects, and cursor, since concurrent writes to one JSON file are not safe. Should note attempts counters and pausing for human-in-the-loop resumption.",
+      "expectations": [
+        "Identifies non-idempotent side effects plus checkpoint ordering as the root cause",
+        "Requires idempotency keys derived from run+step+target, explicitly rejecting random per-attempt UUIDs",
+        "Requires an effect log checked before acting so resume skips completed effects",
+        "Explains the phantom-checkpoint ordering rule (record after confirmation) and closing the window with idempotent effects",
+        "Requires resume-from-cursor rather than replay from step 1",
+        "Requires a lease/lock per run with TTL for concurrent workers",
+        "Recommends transactional storage over a single shared JSON file for concurrency safety"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "Our RAG agent over ~400k policy documents gives plausible but wrong answers. We were going to switch embedding models to fix it. Is that the right move, and what should we actually do about retrieval quality?",
+      "expected_output": "Pushes back on model-swapping as the first move: it is the most expensive change, requires re-embedding the whole corpus, and is usually not the largest lever. Ordered plan: (1) add a labeled query set (50-200 real queries with known correct documents) and measure recall@k / nDCG against exact search, so changes are measurable rather than vibes; (2) fix chunking first — 300-800 tokens, structure-aware, 10-20% overlap, title/section path prepended, never split tables — as it is the largest single lever; (3) verify metadata filtering happens before/during search, not as a post-filter on top-k, and that tenant_id plus effective_date <= now are enforced in code (answering from a superseded policy is a classic 'plausible but wrong' source); (4) add hybrid dense + BM25 via RRF, since policy texts are full of exact identifiers and clause numbers that dense vectors miss; (5) add a cross-encoder rerank of the top 50 to 5, usually the best quality-per-effort after chunking. Only then consider changing the embedding model, and if so treat it as a migration: store embedding_model and dim as metadata so mixed vectors fail loudly, and re-embed everything. Also measure ANN recall vs exact search before trusting the index. Warn that a missing filter or stale policy version looks exactly like a model problem.",
+      "expectations": [
+        "Rejects embedding-model swap as the first fix and explains the migration cost",
+        "Requires a labeled query set with recall@k / nDCG measured against exact search",
+        "Prioritizes chunking as the highest-leverage change with concrete parameters",
+        "Requires metadata filtering during search plus tenant and effective_date enforcement in code",
+        "Recommends hybrid dense + BM25 with RRF fusion",
+        "Recommends cross-encoder reranking of a larger candidate set",
+        "Notes that mixing embedding models corrupts similarity and that re-embedding is mandatory on any model change"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 5,
+      "prompt": "Write a pytest unit test for our VectorStoreClient.search() method that mocks the HTTP layer and asserts the returned documents are sorted by descending score, then wire it into CI.",
+      "expected_output": "Skill must NOT activate. This is ordinary deterministic unit testing with mocks and a CI hook — not memory-system design. The agent should write the pytest case, mock the transport, and add the CI step. If it responds with an architecture recommendation, a context budget, a retrieval-strategy comparison, or a consolidation policy instead of writing the test, the eval fails. (Testing a memory component is fine and expected; being asked to design the memory system is what triggers this skill.)",
+      "expectations": [
+        "Does not activate the agent-memory-management skill",
+        "Writes a normal pytest case with a mocked transport and a sort-order assertion",
+        "Adds the test to CI without proposing architecture changes"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": 6,
+      "prompt": "Summarize this 40-page vendor contract for me and pull out the termination clauses, renewal dates, and liability caps.",
+      "expected_output": "Skill must NOT activate. This is a one-shot document summarization and extraction task, not agent memory design — 'summarization' matches a trigger word but the request has no persistence, no retrieval system, and no memory lifecycle. The agent should read the document and produce the summary plus the extracted clause list. If it proposes a memory architecture, a context budget, a facts ledger, or a consolidation policy, the eval fails. (Note: if the user then asked to keep these clauses available across future sessions for this vendor, that would be a memory-design question.)",
+      "expectations": [
+        "Does not activate the agent-memory-management skill",
+        "Performs the document summary and extracts termination, renewal, and liability clauses",
+        "Does not propose stores, tiers, or summarization architecture for a single-pass task"
+      ],
+      "should_trigger": false
+    }
+  ]
+}

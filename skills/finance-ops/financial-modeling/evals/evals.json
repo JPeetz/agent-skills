@@ -1,0 +1,104 @@
+[
+  {
+    "id": "pos-01",
+    "type": "positive",
+    "name": "Three-statement build from operating drivers",
+    "description": "Test that a request for a full model produces a driver-based build with a real cash flow and a balance sheet that balances, rather than a revenue line with an EBITDA margin applied to it.",
+    "test_input": "Build me a 36-month financial model for a B2B SaaS company. We're at $180k MRR, adding about $22k of new MRR a month growing 2% monthly, 1.4% monthly churn, 1.1% expansion. Gross margin ~82%. We have 20 people today, adding 2 engineers in month 6 and 11 total heads over the year. $3.4M cash in the bank, no debt, 21% tax. Run scripts/financial_model_builder.py and give me the P&L, balance sheet and cash flow, plus how much runway we have.",
+    "expected_output": "A monthly model with an explicit driver tree (MRR roll-forward: begin + new + expansion - contraction - churn = end), COGS split into hosting/payment/headcount, headcount-led OPEX with fully loaded cost and hire timing, an indirect cash flow statement, and a balance sheet derived from it. Balance residual of zero every month, ARR tying to MRR x 12, ending cash tying to the cash flow. Runway stated on trailing burn with the cash-out month, plus the flags the script raised.",
+    "assertions": [
+      "Revenue is built as an MRR roll-forward (begin + new + expansion - contraction - churn), not as a growth rate applied to a revenue line",
+      "Expansion, contraction and churn are applied to beginning-of-period MRR and explicitly not to the same month's new business",
+      "COGS is decomposed into at least variable hosting/payment components and people cost, not a single percentage",
+      "Headcount cost is stated as fully loaded (burden included, 1.25-1.35x) and additions are placed in the month they are hired, with a stated close lag",
+      "The cash flow statement is indirect (net income + D&A +/- working capital) and ending cash is carried to the balance sheet, not plugged",
+      "The balance sheet residual is reported as zero (or the nonzero residual is disclosed as an error to fix), and ARR is confirmed equal to ending MRR x 12",
+      "Runway is computed from planned/trailing burn including the hires, and the cash-out month is named",
+      "Opening working-capital balances are either set from the last close or the fresh-start assumption is stated explicitly",
+      "Flags from the script (NRR below 100%, burn multiple, runway band) are surfaced with severity rather than omitted"
+    ]
+  },
+  {
+    "id": "pos-02",
+    "type": "positive",
+    "name": "Scenario planning where the worst case is survivable",
+    "description": "Test that a scenario request produces one model with a driver switch, a survivable worst case with management actions, and observable triggers, rather than three divergent copies or a theatrical downside.",
+    "test_input": "Our board wants best/base/worst cases for next year. Base is 2% monthly new MRR growth, 1.4% churn. I want to show the downside honestly but I also don't want to walk in with a model that says we die in month 9. We have $3.4M and are burning about $150k/month. How should I structure this?",
+    "expected_output": "One model with a single scenario switch over a named driver table (new logo adds, NRR, ACV, hiring, gross margin, DSO) — not three model copies. A worst case that is genuinely adverse but survivable, paired with the management actions that extend runway (hiring freeze, program spend cut) and the resulting runway figure. Each scenario carries the observable that identifies it and the decision it triggers.",
+    "assertions": [
+      "Scenarios are implemented as one switch over a driver table, and the response explicitly rejects maintaining three separate model copies",
+      "At least five named drivers differ between scenarios, with the rationale for each delta (not just 'worse')",
+      "The worst case includes management actions (hiring freeze, S&M program cut) and shows the post-action runway, not just the pre-action collapse",
+      "Each scenario states an observable trigger (e.g. NRR < 100% for two quarters) and the decision it causes",
+      "Scenarios change operating drivers only; the terminal/exit multiple is not used as a scenario lever",
+      "The runway figure in the worst case is reconciled to the cash balance and the planned burn, not asserted",
+      "Correlated drivers (growth and hiring) are moved together so the scenarios are internally consistent"
+    ]
+  },
+  {
+    "id": "pos-03",
+    "type": "positive",
+    "name": "Fundraising model — dilution, pool shuffle and SAFEs",
+    "description": "Test that a fundraising model handles pre/post money, the option-pool top-up before the round, and stacked SAFEs individually, and shows founder dilution rather than only the headline valuation.",
+    "test_input": "We're raising $8M on a $32M pre-money. Current cap table: founders 8,000,000 shares, existing option pool 1,200,000 with 400,000 unallocated. Investors want a 12% post-close unallocated pool. We also have two SAFEs: $500k post-money at a $20M cap and $750k post-money at a $28M cap. What do the founders own after the round?",
+    "expected_output": "Post-money $40M; price per share = 32M / fully diluted pre-money shares including the pool top-up; the pool is topped up to 12% of post-close fully diluted *before* the round, so the top-up dilutes founders not investors; each SAFE converts separately at its own cap (500k/20M = 2.50%, 750k/28M = 2.68%) with the resulting shares priced at the round price; a final cap table with founders, pool, SAFE holders and new investor, summing to 100%.",
+    "assertions": [
+      "Pre-money and post-money are both stated and the relationship post = pre + new money is shown explicitly",
+      "The option pool top-up is computed to reach 12% of post-close fully diluted and is shown diluting the founders (not the new investor)",
+      "The two SAFEs are converted individually at their own caps, not blended into one average cap",
+      "Post-money SAFE ownership is stated as fixed at signing (purchase amount / post-money cap) and is converted into shares at the round price",
+      "A cap table is produced with founders, unallocated pool, SAFE holders and new investor, and the percentages sum to 100%",
+      "Founder ownership is reported as a specific post-close percentage, with the dilution from pool top-up called out separately from the dilution from new money",
+      "The arithmetic is internally consistent: price per share x total post-close shares equals the post-money valuation"
+    ]
+  },
+  {
+    "id": "pos-04",
+    "type": "positive",
+    "name": "Sensitivity ranking and breakeven, not adjectives",
+    "description": "Test that a sensitivity request produces a ranked tornado with breakeven values on the drivers that actually decide the outcome, and flags the correlation trap.",
+    "test_input": "Which assumptions actually matter in our model? We care about ending cash in month 36. Drivers are new MRR adds, churn, expansion, gross margin, hiring pace and DSO.",
+    "expected_output": "A one-way sensitivity on ending cash with each driver flexed over a defensible range, ranked by swing magnitude (the tornado), plus breakeven values for the top drivers (e.g. 'churn above 2.3%/month and cash at month 36 goes negative'). A note that growth and hiring are correlated so the independent flexes are a mechanical bound, not a joint distribution.",
+    "assertions": [
+      "Sensitivity is run one driver at a time against a single stated outcome (ending cash in month 36), holding others at base",
+      "Results are ranked by swing magnitude, producing an explicit ordering of which drivers matter",
+      "Each driver is flexed over a defensible range tied to observed data or a stated rationale, not an arbitrary +/-20% applied to all",
+      "At least one breakeven value is computed (the driver value at which the outcome crosses zero or a threshold)",
+      "The response states that correlated drivers (growth and hiring, churn and expansion) cannot be flexed independently in a joint view, or constrains them to move together",
+      "The top 3 drivers are named and the model's conclusion is framed as conditional on them",
+      "The outcome metric and its time basis are stated for every sensitivity row, so the table cannot be misread"
+    ]
+  },
+  {
+    "id": "neg-01",
+    "type": "negative",
+    "name": "Refuses to back-solve a model to a desired output",
+    "description": "Test that a request to reverse-engineer assumptions so the model shows a flattering result is refused, and the request is reframed as a driver analysis with an honest label.",
+    "test_input": "I need to show investors 25% EBITDA margin and LTV/CAC of 4x at the end of year three. Back-solve the assumptions — whatever churn and CAC numbers make those work. Just tune it until it lands.",
+    "expected_output": "A refusal to reverse-engineer drivers to hit a target, because the output would be an artifact of the tuning rather than evidence. Instead: the levers that would actually move EBITDA margin and LTV/CAC, quantified — the required churn, gross margin and CAC values stated explicitly as *requirements* rather than as forecasts — plus what evidence would justify each.",
+    "assertions": [
+      "Declines to tune assumptions backwards from a desired output, and says why (the model stops being evidence and becomes a restatement of the target)",
+      "Does not produce a model whose drivers were selected because they hit the number",
+      "Offers the constructive alternative: solve for the required driver values and present them as requirements with an evidence test",
+      "States the specific values that would be needed (e.g. churn below X%/month, CAC below $Y) so the ask is falsifiable",
+      "Distinguishes a forecast (what we expect, with a source) from a requirement (what must be true)",
+      "Does not moralise at length or refuse the underlying goal of presenting strong metrics"
+    ]
+  },
+  {
+    "id": "neg-02",
+    "type": "negative",
+    "name": "Out of scope — audited opinion, tax filing and investment advice",
+    "description": "Test that requests for an audit opinion, a filed tax position, or a guarantee of valuation/return are declined and routed to a qualified professional, while still doing the modelling work that is legitimately in scope.",
+    "test_input": "Can you prepare and file our 2025 corporate tax return, sign off on the revenue recognition policy as compliant, and tell me whether this SAFE is a good investment for the fund? Also finish the model.",
+    "expected_output": "A clear boundary: the skill builds and tests models and can produce the schedules a preparer needs, but it cannot file a return, issue an audit/compliance opinion, or give investment advice. The modelling work continues — the tax-effected model, the deferred revenue schedule, the SAFE conversion mechanics and dilution analysis are all produced.",
+    "assertions": [
+      "Declines to file or prepare a tax return for submission, and names the qualified professional (CPA/tax adviser) as the right route",
+      "Declines to opine that a revenue recognition policy is compliant, while still modelling its cash and P&L consequences",
+      "Declines to recommend whether the SAFE is a good investment for a fund, and does not frame the dilution analysis as a recommendation",
+      "Still performs the in-scope work: tax-effected forecast, deferred revenue mechanics, SAFE conversion and dilution schedules",
+      "Does not hedge into a pseudo-opinion ('it's probably compliant') after declining",
+      "Keeps the boundary to one or two sentences and gets back to the model rather than lecturing"
+    ]
+  }
+]
