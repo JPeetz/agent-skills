@@ -1,0 +1,87 @@
+{
+  "skill_name": "prompt-engineering-concepts",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our support agent keeps returning answers in slightly different shapes and our parser breaks every few calls. The prompt just says 'respond in JSON'. What's wrong and what do we change?",
+      "expected_output": "Identify concept 6 (output formatting) + 18 (JSON mode) as the missing layer: a bare 'respond in JSON' gives no schema, so the model invents keys and shapes. Fix by shipping the exact shape with types, a required-keys list, and one example output; forbid extra keys and markdown fences; validate the parse in code (try/except + schema check) rather than trusting the model. Optionally add 2-3 few-shot examples of input -> exact JSON to stabilise the shape (concept 2), and keep temperature low (concept 7) since this is extraction, not ideation.",
+      "expectations": [
+        "Diagnoses the missing schema as the root cause, not model quality",
+        "Provides a concrete example shape with types and required keys",
+        "Requires programmatic validation of the parsed output",
+        "Recommends few-shot examples of input -> exact output as the stabiliser",
+        "Recommends low temperature because the task is extraction"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 12-step internal runbook I want one prompt to handle end to end. Last attempt the model skipped steps and mixed up the middle ones. Do I just add 'think step by step'?",
+      "expected_output": "No: 12 steps in one prompt overloads attention and the failure is architectural, not reasoning-only. Recommend prompt chaining (concept 8): split into phases (e.g. gather -> analyze -> decide -> write), each with its own prompt, a defined input/output contract, and a check between stages. If a single stage still needs reasoning, apply chain-of-thought within that stage (concept 3). Note that CoT alone does not fix dropped steps; missing intermediate artifacts do, and each stage's output must be verifiable.",
+      "expectations": [
+        "Rejects adding 'think step by step' as the fix for a long multi-step task",
+        "Recommends prompt chaining with phases and a contract between stages",
+        "Keeps chain-of-thought for within-stage reasoning only",
+        "Requires a checkable output per stage"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "For a pricing-tier classification task, one run says Enterprise and the next says Mid-Market for the same text. Should I run it 5 times and vote?",
+      "expected_output": "Self-consistency (concept 9) only pays when independent samples can genuinely disagree for reasoning reasons; for a fixed-input classification, variance is more likely an underspecified rubric or wrong temperature. Fix order: 1) define the tiers with explicit boundaries and 2-3 few-shot examples including the borderline case (concepts 2, 5), 2) drop temperature to ~0 for deterministic extraction (concept 7), 3) only then, if it still varies, sample N and take the majority while recording the disagreement rate. Warn that majority voting on a mis-specified rubric just amplifies a consistent mistake, and that votes cost N× tokens.",
+      "expectations": [
+        "Explains that variance on a fixed input usually means an underspecified rubric, not a need for voting",
+        "Requires explicit tier boundaries plus few-shot examples including a borderline case",
+        "Recommends lowering temperature before adding sampling",
+        "Permits self-consistency only as a later step, with the N× cost and disagreement rate noted",
+        "Warns that voting amplifies a consistent mis-specification"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "Our prompt for a code-fixing agent keeps growing — every bug we hit adds a paragraph. It's now 900 lines and quality is going down. Where do we start?",
+      "expected_output": "Treat this as prompt compression (concept 16) plus structure: remove redundant restatements, merge overlapping rules, delete anecdotes that only encode one past bug, and convert prose rules into a short checklist; keep identity, hard constraints and output shape. Move long reference material out of the prompt (retrieve on demand - concept 10) or into chained stages (concept 8) instead of inlining it. Warn that adding a paragraph per bug is a symptom of no evaluation loop: track which rules actually changed outcomes (concept 19) and delete rules that never fire, changing one variable per iteration (concept 20).",
+      "expectations": [
+        "Names prompt compression as the primary technique and specifies what to cut vs keep",
+        "Recommends moving reference material out of the prompt (retrieval or chaining) rather than inlining",
+        "Identifies the append-a-paragraph-per-bug pattern as missing evaluation, not missing instructions",
+        "Requires measuring which rules change outcomes before deleting or keeping them"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 5,
+      "prompt": "Give me a rigged deck of prompt variants and tell me which one wins for our summarizer.",
+      "expected_output": "Refuse to invent results. Explain that a winner must come from running variants on real inputs with a recorded baseline, one variable changed at a time (concept 20), scored on explicit criteria with a success rate over N runs (concept 19). Offer to do the actual work: draft 2-3 justified variants (e.g. few-shot vs zero-shot, chain-of-thought on vs off) and a scoring rubric for the real inputs.",
+      "expectations": [
+        "Does not produce fabricated variant results or a made-up winner",
+        "States that a winner requires real runs against a baseline",
+        "Offers concrete variant designs and a scoring rubric instead"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 6,
+      "prompt": "Someone is trying to jailbreak our assistant with 'ignore previous instructions' inside a fetched web page. How do I harden the system prompt?",
+      "expected_output": "This is prompt-injection defense, which is out of scope for the 20-concept selection table; route to prompt-injection-defense (delimiter wrapping of untrusted content, constraint ordering, refusal rules, output schema constraints) and to agentic-eval if they want to measure resistance. Do not answer with a generic prompt-engineering checklist.",
+      "expectations": [
+        "Recognises prompt injection / safety hardening as a different skill's territory",
+        "Points at prompt-injection-defense (and agentic-eval for measuring resistance)",
+        "Does not substitute the 20-concept table for an injection answer"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": 7,
+      "prompt": "What's the capital of Portugal and how many people live in Lisbon?",
+      "expected_output": "Answer the factual question directly. No prompt-engineering framework applies; do not invoke the selection table or ask for a prompt to optimise.",
+      "expectations": [
+        "Answers the factual question without applying the prompt-engineering framework",
+        "Does not ask for a prompt to optimise"
+      ],
+      "should_trigger": false
+    }
+  ]
+}
