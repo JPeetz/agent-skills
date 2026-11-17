@@ -1,0 +1,89 @@
+{
+  "skill_name": "presentation-prompt-pipeline",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a 20-slide deck for our Q3 business review next week. Can you write it?",
+      "expected_output": "Do not jump straight to slide copy. Start at stage 1 (blueprint): ask for or derive the ONE message as a falsifiable claim (not 'Q3 review'), the audience and what they care about, 2-3 emotional angles, and only then challenge the 20-slide count ('20 slides for one meeting usually means three decks'). Proceed through the stages in order — blueprint, structure, story frame, visual direction, content, build — each in its own prompt with the previous artifact as input, and state the gate that must pass before the next stage.",
+      "expectations": [
+        "Refuses to produce slide copy immediately and starts with the blueprint stage",
+        "Requires the single message to be a claim, not a topic",
+        "Questions or justifies the slide count instead of accepting it",
+        "Keeps the stages in order with the previous artifact as input",
+        "Names a gate/check before advancing"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 2,
+      "prompt": "My sales deck has 14 slides and every one is a title plus six bullet points of 20 words. It reads like a document. What do I change?",
+      "expected_output": "Diagnose it as bullet walls, not a formatting issue: the deck skipped the blueprint/structure stages, so each slide has no purpose line and the copy is carrying the argument. Fix in order: (1) write the one-sentence message and each slide's one-line purpose, deleting slides without a distinct job; (2) map the remainder onto Hook/Problem/Insight/Solution/Proof/Takeaway with a single ask at the end; (3) rewrite titles to <=6 words and bullets to 3-5 of <=10 words, moving the prose into speaker notes so the argument is spoken, not displayed; (4) run deck_lint.py to enforce the limits mechanically and render the slides to check overflow.",
+      "expectations": [
+        "Diagnoses missing blueprint/structure rather than treating it as a styling problem",
+        "Requires one-line purpose per slide and deletion of slides without a distinct job",
+        "Applies the story frame with exactly one action on the final slide",
+        "Enforces <=6-word titles and 3-5 bullets of <=10 words, moving prose into notes",
+        "Recommends deck_lint.py plus a rendered visual check"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 3,
+      "prompt": "Which chart should I use for our revenue by region over 8 quarters, and how do I phrase the slide title?",
+      "expected_output": "Stage 4 answer: bar for the regional comparison (or line for trend within each region if the change over time is the point), one chart per idea, one number called out. Stage 5 answer for the title: a <=6-word claim, not a label — e.g. 'EMEA grew, APAC stalled' rather than 'Revenue by region Q1-Q8' — with the takeaway in the speaker note and at most a three-colour palette. Note the deck-level constraint: the plot must support the deck's single message.",
+      "expectations": [
+        "Chooses the chart from the communicative job (comparison vs trend) and justifies it",
+        "Rejects label-style titles in favour of a <=6-word claim",
+        "Keeps to one chart/one idea/one number",
+        "Ties the choice back to the deck's single message"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 4,
+      "prompt": "Can you check this deck.pptx for me — titles too long, too many bullets, missing speaker notes?",
+      "expected_output": "Run the bundled linter rather than eyeballing it: `uv run --with python-pptx scripts/deck_lint.py deck.pptx` (or with tuned --max-title-words/--max-bullets flags), report its JSON findings per slide, and follow up on what the linter cannot see — render the slides and check overflow, contrast and orphaned bullets. Do not claim the deck is fine without running something.",
+      "expectations": [
+        "Uses the deck_lint.py script instead of manual counting",
+        "Reports concrete per-slide findings with the rule that fired",
+        "Adds the visual/render check the linter cannot perform",
+        "Does not assert quality without an actual run"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 5,
+      "prompt": "Give me the visual direction for a 6-slide investor pitch about a grid-scale battery startup.",
+      "expected_output": "Stay in stage 4 and output per-slide: the emotion the visual carries, the chart or single big number for the data, icon/grid treatment for lists, one three-colour palette with hex codes, and one heading/body font pairing available in standard Office/Google fonts. Describe composition, not stock-photo subjects, and keep the palette/fonts constant across all six slides.",
+      "expectations": [
+        "Produces per-slide emotional intent plus chart-choice reasoning",
+        "Supplies one three-colour palette with hex codes and one font pairing",
+        "Describes composition instead of naming stock photos",
+        "Keeps the visual system constant across slides"
+      ],
+      "should_trigger": true
+    },
+    {
+      "id": 6,
+      "prompt": "Convert this deck.pptx to PDF and rename the file for me.",
+      "expected_output": "Out of scope for this skill — it is a format/mechanical operation (soffice/LibreOffice conversion), not deck planning or review. Point at the format-conversion route and do not run the six-stage pipeline.",
+      "expectations": [
+        "Recognises the request as format conversion, outside the pipeline",
+        "Does not invoke the blueprint/structure/content stages",
+        "Points at the mechanical conversion route instead"
+      ],
+      "should_trigger": false
+    },
+    {
+      "id": 7,
+      "prompt": "Write me a 40-slide internal wiki page about our onboarding process.",
+      "expected_output": "Not a presentation task: the artifact requested is a reference document, where length and completeness are assets. Say so and suggest a document format rather than applying slide constraints (six-word titles, five bullets) that would destroy the reference value. If a slide version is genuinely wanted later, the pipeline applies to a summary deck derived from the document.",
+      "expectations": [
+        "Identifies the artifact as a document, not a deck",
+        "Declines to impose slide constraints on reference material",
+        "Offers the pipeline only for a derived summary deck"
+      ],
+      "should_trigger": false
+    }
+  ]
+}

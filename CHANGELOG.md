@@ -4,6 +4,22 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.9.1 — 2026-11-17
+
+### 🚀 Skills Added (Joerg Peetz)
+
+- **presentation-prompt-pipeline** (v1.0.0, documentation-content) — Build or repair a deck with AI in six staged prompts (blueprint → structure → story frame → visual direction → content → build). Each stage names the artifact it produces and a gate that must pass before the next prompt, with copy-ready templates for all six. Ships **`scripts/deck_lint.py`** (python-pptx), which mechanically enforces title ≤6 words, ≤5 bullets, ≤10 words per bullet, speaker notes on every slide, ≤2 font families and ≤3 explicit text colours — exit 0 clean / 1 findings / 2 unreadable, with tunable ceilings. Includes 8 named failure modes (one-mega-prompt, topic-not-claim blueprint, bullet walls, decoration-before-storyline, notes repeating bullets, palette creep, trusting the outline over the render, three-ask takeaway) and the source infographic transcription. 7 eval cases (2 negative). Scoped to planning/review — `.pptx` creation stays plain python-pptx.
+
+### 🔒 Security Verdict
+
+One bundled script, `deck_lint.py`: reads a local `.pptx` with python-pptx, no network, no subprocess, no filesystem writes, no credentials; argparse + json only. Scanned for `eval`/`exec`/`subprocess`/`requests`: none present. **Verdict: ✅ SAFE.**
+
+### 📚 Documentation
+
+- README catalog updated: Documentation & Content (5 → 6 skills).
+
+---
+
 ## v1.9.0 — 2026-11-17
 
 ### 🚀 Skills Added (Joerg Peetz)
