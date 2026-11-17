@@ -4,6 +4,22 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.9.0 — 2026-11-17
+
+### 🚀 Skills Added (Joerg Peetz)
+
+- **prompt-engineering-concepts** (v1.0.0, ai-agent-engineering) — The 20 core prompting techniques (zero-shot, few-shot, chain-of-thought, role, instruction, output formatting, temperature, chaining, self-consistency, RAG, templates, guardrails, dynamic, ReAct, tree-of-thought, compression, multi-modal, JSON mode, evaluation, optimization) as a **selection table**: technique → when it earns its tokens → the exact move. Plus a time-pressured selection path, an ordered procedure, eight named pitfalls, and an output-side verification checklist. Scoped deliberately as the *choosing* layer — judge calibration stays in `agentic-eval`, injection hardening in `prompt-injection-defense`, so no duplicated guidance. Includes the source cheatsheet transcription as a reference. 149-line SKILL.md, 7 eval cases (2 negative).
+
+### 🔒 Security Verdict
+
+No executable code, no scripts, no network calls, no credentials. Pure markdown + JSON evals. **Verdict: ✅ SAFE.**
+
+### 📚 Documentation
+
+- README catalog updated: AI Agent Engineering (3 → 4 skills); category line now mentions prompting techniques.
+
+---
+
 ## v1.8.0 — 2026-10-15
 
 ### 🚀 Skills Added (Custodian maintenance-agent — Joerg Peetz)

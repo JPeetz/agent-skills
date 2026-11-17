@@ -23,7 +23,7 @@ skills/
 ├── marketing/               Ad campaigns, image generation
 ├── compliance-legal/        Privacy & GDPR
 ├── git-release/             Git workflow & release automation
-├── ai-agent-engineering/    AI agent architecture, evaluation & memory
+├── ai-agent-engineering/    AI agent architecture, prompting techniques, evaluation & memory
 ├── finance-ops/             SaaS metrics & unit economics
 ├── code-quality/            Code review
 ```
@@ -219,10 +219,11 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [debugging-and-error-recovery](/skills/code-quality/debugging-and-error-recovery) | Code Quality | Systematic debugging — failing tests, broken builds, regressions | Universal |
 | [code-simplification](/skills/code-quality/code-simplification) | Code Quality | Refactor for clarity without changing behavior | Universal |
 
-### 🤖 AI Agent Engineering (3 skills)
+### 🤖 AI Agent Engineering (4 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
+| [prompt-engineering-concepts](/skills/ai-agent-engineering/prompt-engineering-concepts) | AI/Prompting | The 20 core prompting techniques as a selection table — zero-shot, few-shot, CoT, role, instruction, output formatting, temperature, chaining, self-consistency, RAG, templates, guardrails, dynamic, ReAct, tree-of-thought, compression, multi-modal, JSON mode, evaluation, optimization — with a time-pressured selection path, 8 named pitfalls, and an output-side verification checklist | Universal |
 | [ai-agent-architecture](/skills/ai-agent-engineering/ai-agent-architecture) | AI/Architecture | Design, audit, and document AI agent system architectures — topology patterns, design contracts, audit frameworks, ADR templates, evaluation design | Universal |
 | [agentic-eval](/skills/ai-agent-engineering/agentic-eval) | AI/Evaluation | LLM and agent evaluation — rubric judges, evaluator-optimizer loops, self-critique, pairwise ranking, calibration, eval harness setup | Universal |
 | [agent-memory-management](/skills/ai-agent-engineering/agent-memory-management) | AI/Memory | Design, implement, and debug AI agent memory systems — long-term/working/episodic/semantic memory, vector stores, context window optimization, state persistence, retrieval strategies, memory consolidation — with memory_architect.py | Universal |
