@@ -16,7 +16,7 @@ skills/
 ├── qa-testing/              Playwright E2E, browser automation
 ├── frontend/                a11y audits, design-to-code
 ├── data/                    Analysis, dbt, database schema design
-├── documentation-content/   Docs, document processing, X articles
+├── documentation-content/   Docs, presentations, document processing, X articles
 ├── skill-development/       Skill lifecycle, mining, authoring
 ├── business-strategy/       App discovery, Linear PM
 ├── development/             Scaffolding, cost routing, engineering habits
@@ -137,10 +137,11 @@ Most skill repositories optimize for volume. We optimize for quality. Every skil
 | [dbt-data-transformation](/skills/data/dbt-data-transformation) | Data/DBT | Production-grade dbt analytics engineering — model development, testing, dbt Mesh governance, semantic layer | Universal |
 | [database-schema-designer](/skills/data/database-schema-designer) | Database | Production-ready schema design — normalization, indexing, safe migrations, multi-tenant | Universal |
 
-### 📝 Documentation & Content (5 skills)
+### 📝 Documentation & Content (6 skills)
 
 | Skill | Domain | Description | Platforms |
 |-------|--------|-------------|-----------|
+| [presentation-prompt-pipeline](/skills/documentation-content/presentation-prompt-pipeline) | Content/Presentations | Build or repair a deck with AI in six staged prompts (blueprint → structure → story frame → visual direction → content → build), each with an artifact and a gate, plus deck_lint.py enforcing ≤6-word titles, ≤5 tight bullets, speaker notes, ≤2 fonts and ≤3 colours | Universal |
 | [document-processing](/skills/documentation-content/document-processing) | Content/Docs | PDF/DOCX/XLSX/PPTX automation — generation, manipulation, conversion, OCR, mail merge | Universal |
 | [read-x-articles](/skills/documentation-content/read-x-articles) | Content/Web | Read X (Twitter) long-form Articles end-to-end from a shared link via the canonical /i/article/ID URL + render-capable extraction | Universal |
 | [spec-writer](/skills/documentation-content/spec-writer) | Documentation/Specs | Turn vague feature requests into structured specs, technical plans, and task breakdowns — inline [ASSUMPTION] markers for every unspecified decision | Universal |
