@@ -1,0 +1,3 @@
+interface:
+  display_name: "Find Docs"
+  short_description: "Retrieve up-to-date library documentation"

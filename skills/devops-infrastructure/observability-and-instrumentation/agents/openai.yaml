@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observability And Instrumentation"
+  short_description: "Instruments code so production behavior is visible and diagnosable"
+  default_prompt: "Use $observability-and-instrumentation for this task."

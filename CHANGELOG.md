@@ -4,6 +4,29 @@ All notable changes to the agent-skills repository. Maintained by Skill Foundry 
 
 ---
 
+## v1.10.0 — 2026-11-17
+
+### 🚀 Skills Added
+
+Portable skills from the xan-skills plugin, placed in the existing categories:
+
+- **development:** agent-cli-harness, architectural-analysis, brainstorming, clonedeps, coding-agent-sessions, doubt-driven-development, executing-plans, planning-and-task-breakdown, repo-cleanup, session-recap, source-driven-development, subagent-driven-development, task-delegation, to-tickets, writing-plans
+- **code-quality:** code-simplifier, remove-ai-slops
+- **qa-testing:** manual-qa, terminal-browser
+- **devops-infrastructure:** observability-and-instrumentation
+- **documentation-content:** find-docs, spec-peer-review, writing-for-agents
+- **skill-development:** writing-portable-scripts, writing-skills
+
+`writing-skills` documents a `scripts/` layout and ships no executable. `scripts/README.md` is there so `validate_skill.py` does not treat the layout example as a missing directory.
+
+### 📚 Documentation
+
+- README catalog lists 12 skills that were already on disk but missing from the tables: gdpr-dsgvo-expert, open-source-license-compliance, data-governance, data-pipeline-engineering, financial-modeling, ui-verification, web-motion-and-animation, changelog-generator, deprecation-and-migration, contract-testing, performance-testing, agent-skills-creator.
+- Category counts match the table rows.
+- Broken catalog headings (`|###`) and doubled row pipes (`||`) are normal markdown again.
+
+---
+
 ## v1.9.1 — 2026-11-17
 
 ### 🚀 Skills Added (Joerg Peetz)

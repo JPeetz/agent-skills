@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manual QA"
+  short_description: "Test a running app by hand and review its appearance with evidence"
+  default_prompt: "Use $manual-qa to test this change through its real interface and show the evidence."

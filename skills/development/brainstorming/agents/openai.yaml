@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorming (Xan Curated)"
+  short_description: "Turn an idea into a written design through one-question-at-a-time dialogue"
+  default_prompt: "Use $brainstorming for this task."

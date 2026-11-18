@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing Skills (Xan Curated)"
+  short_description: "Create, edit, and pressure-test skills with subagent-driven TDD"
+  default_prompt: "Use $writing-skills for this task."

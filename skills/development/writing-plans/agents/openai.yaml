@@ -1,0 +1,3 @@
+interface:
+  display_name: "Writing Plans"
+  short_description: "Write an implementation plan before coding"

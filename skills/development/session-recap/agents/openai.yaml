@@ -1,0 +1,6 @@
+interface:
+  display_name: "Session Recap"
+  short_description: "Reorient in a long session: goal, pivots, current step, open decisions"
+  default_prompt: "Use $session-recap to map this session's goal, pivots, outcomes, current step, and open decisions."
+policy:
+  allow_implicit_invocation: false

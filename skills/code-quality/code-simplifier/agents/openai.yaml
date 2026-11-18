@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Simplifier (Xan Curated)"
+  short_description: "Simplify recently modified code for clarity while preserving behavior"
+  default_prompt: "Use $code-simplifier to simplify the recently modified code without changing what it does."

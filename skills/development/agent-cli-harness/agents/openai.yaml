@@ -1,0 +1,6 @@
+interface:
+  display_name: "Agent CLI harness"
+  short_description: "Run isolated multi-CLI lanes and independent reviews"
+  default_prompt: "Use $agent-cli-harness to run these lanes and report their receipts."
+policy:
+  allow_implicit_invocation: false

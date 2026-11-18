@@ -1,0 +1,3 @@
+interface:
+  display_name: "Terminal Browser"
+  short_description: "Drive a browser pane beside the terminal session"

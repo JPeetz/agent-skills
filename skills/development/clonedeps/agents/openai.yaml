@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clonedeps (Xan Curated)"
+  short_description: "Clone dependency source repos for local read-only inspection"
+  default_prompt: "Use $clonedeps to clone this project's important dependency source repos into the local workspace."

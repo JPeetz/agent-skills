@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing Portable Scripts"
+  short_description: "Write automation that runs unchanged from any checkout, worktree, or package"
+  default_prompt: "Use $writing-portable-scripts to write or fix this script so it runs unchanged from any checkout."

@@ -1,0 +1,15 @@
+interface:
+  display_name: Task Delegation
+  short_description: Useful delegation, specialists, isolation, ultratask
+  default_prompt: Use $task-delegation to assess and coordinate work that benefits from
+    parallel agents, specialist skills, isolated context, or independent judgment;
+    apply ultratask mode when requested.
+  icon_small: ./assets/icon.svg
+  icon_large: ./assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

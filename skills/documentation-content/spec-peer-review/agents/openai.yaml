@@ -1,0 +1,6 @@
+interface:
+  display_name: "Spec Peer Review"
+  short_description: "Review a requested saved specification"
+  default_prompt: "Use $spec-peer-review to run one fresh-eyes review of this saved specification and report findings."
+policy:
+  allow_implicit_invocation: false

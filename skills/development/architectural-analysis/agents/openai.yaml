@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architectural Analysis"
+  short_description: "Find evidence-backed structural risks"
+  default_prompt: "Use $architectural-analysis to audit the requested codebase scope and report evidence-backed findings."
+policy:
+  allow_implicit_invocation: false

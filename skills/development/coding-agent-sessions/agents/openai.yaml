@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coding Agent Sessions (Xan Curated)"
+  short_description: "Recall coding sessions and exact past actions"
+  default_prompt: "Use $coding-agent-sessions to find and inspect relevant coding-agent history."

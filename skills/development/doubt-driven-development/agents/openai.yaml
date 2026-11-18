@@ -1,0 +1,4 @@
+interface:
+  display_name: "Doubt Driven Development"
+  short_description: "Subjects every non-trivial decision to a fresh-context adversarial review before it stands"
+  default_prompt: "Use $doubt-driven-development for this task."

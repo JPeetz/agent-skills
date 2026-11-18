@@ -1,0 +1,3 @@
+interface:
+  display_name: "Repository Cleanup"
+  short_description: "Remove dead code, obsolete tests, and stale guidance"
